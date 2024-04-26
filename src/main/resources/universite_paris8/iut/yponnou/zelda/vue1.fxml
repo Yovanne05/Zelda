@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane styleClass="background" stylesheets="@dark.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.Controleur">
+    <top>
+        <Label styleClass="label-header" text="Loups et moutons1" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="10.0" top="10.0" />
+            </padding>
+        </Label>
+    </top>
+    <center>
+        <Pane fx:id="pane" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+        </Pane>
+    </center>
+    <bottom>
+        <HBox styleClass="encadre" BorderPane.alignment="CENTER">
+            <children>
+                <VBox alignment="CENTER" prefHeight="100.0" prefWidth="150.0">
+                    <children>
+                        <Label text="nbre de tours" />
+                        <Label prefHeight="31.0" prefWidth="93.0" style="-fx-border-color: red;" text="0" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" layoutX="17.0" layoutY="12.0" prefHeight="100.0" prefWidth="150.0">
+                    <children>
+                        <Label text="nbre de vivants" />
+                        <Label prefHeight="31.0" prefWidth="93.0" style="-fx-border-color: red;" text="0" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" layoutX="317.0" layoutY="12.0" prefHeight="100.0" prefWidth="150.0">
+                    <children>
+                        <Label text="nbre de loups" />
+                        <Label prefHeight="31.0" prefWidth="93.0" style="-fx-border-color: red;" text="0" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" layoutX="617.0" layoutY="12.0" prefHeight="100.0" prefWidth="150.0">
+                    <children>
+                        <Label text="nbre de moutons" />
+                        <Label prefHeight="31.0" prefWidth="93.0" style="-fx-border-color: red;" text="0" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </bottom>
+    <right>
+        <VBox prefHeight="500.0" prefWidth="143.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox alignment="CENTER" prefHeight="166.0" prefWidth="140.0" spacing="10.0" styleClass="encadre">
+                    <children>
+                        <RadioButton fx:id="idLoup" mnemonicParsing="false" prefHeight="20.0" prefWidth="95.0" selected="true" styleClass="label-bright" text="Loup">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="groupeRadio" />
+                            </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="idMouton" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" styleClass="label-bright" text="Mouton" toggleGroup="$groupeRadio" />
+                        <HBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
+                            <children>
+                                <Label prefHeight="17.0" prefWidth="69.0" text="nombre " />
+                                <TextField fx:id="nbAjouter" prefHeight="32.0" prefWidth="43.0" text="0" />
+                            </children>
+                        </HBox>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Ajouter" />
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </VBox>
+                <VBox alignment="CENTER" layoutX="10.0" layoutY="329.0" prefHeight="84.0" prefWidth="100.0" styleClass="encadre">
+                    <children>
+                        <Label alignment="CENTER" prefHeight="33.0" prefWidth="115.0" styleClass="label-bright" text="Reproduction" wrapText="true" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="121.0" styleClass="label-bright" text="Loups" />
+                        <Slider blockIncrement="1.0" majorTickUnit="1.0" max="10.0" minorTickCount="1" showTickMarks="true" value="3.0" />
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="117.0" styleClass="label-bright" text="Moutons" />
+                        <Slider blockIncrement="1.0" layoutX="17.0" layoutY="61.0" majorTickUnit="1.0" max="10.0" minorTickCount="1" showTickMarks="true" value="3.0" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" layoutX="10.0" layoutY="210.0" prefHeight="83.0" prefWidth="100.0" styleClass="encadre">
+                    <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" text="Un tour" />
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                    </VBox.margin>
+                </VBox>
+                <VBox alignment="CENTER" layoutX="10.0" layoutY="210.0" prefHeight="84.0" prefWidth="100.0" styleClass="encadre">
+                    <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <Label prefHeight="33.0" prefWidth="84.0" text="nbre de tours" />
+                                <TextField fx:id="nbTours" prefHeight="32.0" prefWidth="36.0" />
+                            </children>
+                        </HBox>
+                        <Button alignment="CENTER" mnemonicParsing="false" text="Lancer" />
+                    </children>
+                </VBox>
+            </children>
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+            <padding>
+                <Insets top="20.0" />
+            </padding>
+        </VBox>
+    </right>
+</BorderPane>
