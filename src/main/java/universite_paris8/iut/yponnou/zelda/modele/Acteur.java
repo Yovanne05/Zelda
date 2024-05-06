@@ -2,13 +2,12 @@ package universite_paris8.iut.yponnou.zelda.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import universite_paris8.iut.yponnou.zelda.modele.Monde;
 
 public abstract class Acteur {
     private String nom;
     private int pv;
     private IntegerProperty x,y;
-    private Monde monde;
+    private Map monde;
 
     public Acteur(String nom, int pv, int x, int y) {
         this.nom = nom;
@@ -39,6 +38,7 @@ public abstract class Acteur {
         if(directionValide(dx,dy)){
             setX(this.getX()+dx);
             setY(this.getY()+dy);
+
         }
     }
     public boolean directionValide(int x, int y){
