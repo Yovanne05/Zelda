@@ -2,7 +2,7 @@ package universite_paris8.iut.yponnou.zelda.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import universite_paris8.iut.yponnou.zelda.village.Monde;
+import universite_paris8.iut.yponnou.zelda.modele.Monde;
 
 public abstract class Acteur {
     private String nom;

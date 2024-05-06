@@ -1,21 +1,28 @@
-package universite_paris8.iut.yponnou.zelda.village;
+package universite_paris8.iut.yponnou.zelda.modele;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import universite_paris8.iut.yponnou.zelda.modele.Acteur;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Monde {
-
-
+    private Pane pane;
     private int[][] tab;
+    private ArrayList<Acteur> lstActeurs;
     private int h,l;
-    public Monde(int h, int l) {
+    public Monde(int h, int l,Pane pane) {
         this.h=h;
         this.l=l;
         this.tab = new int[h][l];
+        this.lstActeurs = new ArrayList<>();
+        this.pane=pane;
+    }
+    public void ajouterActeur(Acteur a){
+        this.lstActeurs.add(a);
     }
 
     public int getH() {
@@ -51,8 +58,9 @@ public class Monde {
                 }
             }
         }
+
     }
-    public void afficheMonde(Pane pane){
+    public void afficheMonde(){
         for(int i=0;i<tab.length;i++){
             for (int j=0;j<tab[i].length;j++){
                 Rectangle rectangle = new Rectangle(50,50);
@@ -67,13 +75,32 @@ public class Monde {
                 pane.getChildren().add(rectangle);
             }
         }
-        Rectangle r1 = new Rectangle(50,50);
-        r1.setX(50);
-        r1.setY(50);
-        r1.setFill(Color.YELLOW);
-        pane.getChildren().add(r1);
+        PersoPrincipale joseph = new PersoPrincipale("Joseph", 40, 50, 50);
+        this.ajouterActeur(joseph);
+        placerActeur();
     }
 
+    public void placerActeur(){
+        for(Acteur a: lstActeurs){
+            if(a instanceof PersoPrincipale){
+                Rectangle r1 = new Rectangle(50,50);
+                r1.setX(a.getX());
+                r1.setY(a.getY());
+                r1.setFill(Color.YELLOW);
+                pane.getChildren().add(r1);
+                r1.translateXProperty().bind(a.xProperty());
+                r1.translateYProperty().bind(a.yProperty());
+            }
+        }
+    }
 
+    public Acteur persoP(){
+        for(Acteur a: lstActeurs) {
+            if (a instanceof PersoPrincipale) {
+                return a;
+            }
+        }
+        return null;
+    }
 }
 
