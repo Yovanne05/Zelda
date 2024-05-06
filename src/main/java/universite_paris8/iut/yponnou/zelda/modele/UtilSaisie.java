@@ -1,4 +1,4 @@
-package universite_paris8.iut.yponnou.zelda.village;
+package universite_paris8.iut.yponnou.zelda.modele;
 /*
  * NewClass.java
  *

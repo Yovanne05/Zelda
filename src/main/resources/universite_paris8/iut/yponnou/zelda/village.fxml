@@ -9,4 +9,4 @@
 <?import javafx.scene.control.Button?>
 
 
-<Pane maxHeight="-Infinity" fx:id="pane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="701.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.Controleur"/>
+<Pane maxHeight="-Infinity" fx:id="pane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="701.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.Controleur"/>
