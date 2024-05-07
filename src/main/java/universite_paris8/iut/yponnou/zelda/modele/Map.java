@@ -1,10 +1,5 @@
 package universite_paris8.iut.yponnou.zelda.modele;
 
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
-import java.util.ArrayList;
 
 public class Map{
     private int[][] tab;
