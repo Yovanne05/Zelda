@@ -6,4 +6,6 @@ module universite_paris8.iut.yponnou.zelda {
 
     opens universite_paris8.iut.yponnou.zelda to javafx.fxml;
     exports universite_paris8.iut.yponnou.zelda;
+    exports universite_paris8.iut.yponnou.zelda.controleurs;
+    opens universite_paris8.iut.yponnou.zelda.controleurs to javafx.fxml;
 }
