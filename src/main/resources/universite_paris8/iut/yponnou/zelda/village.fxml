@@ -6,7 +6,7 @@
    <center>
       <Pane fx:id="paneid" prefHeight="1500.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
          <children>
-            <TilePane fx:id="tilepane" prefHeight="1500.0" prefWidth="1500.0" />
+            <TilePane fx:id="tilepane" prefHeight="1500.0" prefWidth="1500.0"/>
          </children>
       </Pane>
    </center>

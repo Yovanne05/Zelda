@@ -27,26 +27,38 @@ public class Controleur implements Initializable {
     @FXML
     private TilePane tilepane;
     private PersoPrincipale perso;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        map=new Map(30,30);
+        map = new Map(30, 30);
         map.initialisationMap();
-        MapVue mVue= new MapVue(map.getTab(),tilepane);
-        perso= new PersoPrincipale("Joseph",40,50,50);
-        ActeurVue av=new ActeurVue(perso, paneid);
+        MapVue mVue = new MapVue(map.getTab(), tilepane);
+        perso = new PersoPrincipale("Joseph", 40, 1, 1, map);
+        ActeurVue av = new ActeurVue(perso, paneid);
         mVue.creationMap();
     }
 
     @FXML
-    public void interactionDeplacement(KeyEvent event){
+    public void interactionDeplacement(KeyEvent event) {
         KeyCode key = event.getCode();
         Acteur p = perso;
-        System.out.println("zieofoizjefji");
         switch (key) {
-            case Z -> p.deplacement(50, 0);
-            case S -> p.deplacement(-50, 0);
-            case D -> p.deplacement(0, 50);
-            case Q -> p.deplacement(0, -50);
+            case Z:
+                p.deplacement(0, -1);
+                System.out.println("Z");
+                break;
+            case S:
+                p.deplacement(0, 1);
+                System.out.println("S");
+                break;
+            case D:
+                p.deplacement(1, 0);
+                System.out.println("D");
+                break;
+            case Q:
+                p.deplacement(-1, 0);
+                System.out.println("Q");
+                break;
         }
     }
 }

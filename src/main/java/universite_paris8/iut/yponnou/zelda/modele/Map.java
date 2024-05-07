@@ -6,7 +6,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
-public class Map {
+public class Map{
     private int[][] tab;
     private int h,l;
     public Map(int h, int l) {

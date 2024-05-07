@@ -13,7 +13,7 @@ import java.io.IOException;
 public class Lanceur extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Lanceur.class.getResource("village.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1500, 900);
+        Scene scene = new Scene(fxmlLoader.load(), 800, 800);
         BorderPane bpane=(BorderPane) scene.getRoot();
         bpane.requestFocus();
         stage.setScene(scene);
