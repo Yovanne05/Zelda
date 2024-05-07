@@ -3,8 +3,6 @@ package universite_paris8.iut.yponnou.zelda.vue;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.modele.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.PersoPrincipale;
 
 public class MapVue {
     private int[][] tab;

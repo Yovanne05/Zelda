@@ -7,13 +7,15 @@ public abstract class Acteur {
     private String nom;
     private int pv;
     private IntegerProperty x,y;
+    private double v;
     private Map map;
 
-    public Acteur(String nom, int pv, int x, int y, Map map) {
+    public Acteur(String nom, int pv, int x, int y, double vitesse, Map map) {
         this.nom = nom;
         this.pv = pv;
         this.x =  new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
+        v = vitesse;
         this.map=map;
     }
     public int getX() {
@@ -34,19 +36,31 @@ public abstract class Acteur {
     public IntegerProperty yProperty(){
         return y;
     }
+    public double getVitesse(){
+        return v;
+    }
 
     public void deplacement(int dx, int dy){
-        if(directionValide(dx,dy)){
-            System.out.println("valide");
-            setX(this.getX()+dx*50);
-            setY(this.getY()+dy*50);
+        int prochainX = getX()+dx*Map.tailleCase;
+        int prochainY = getY()+dy*Map.tailleCase;
+
+        if (prochainX < 0 || prochainY < 0 || prochainX > map.getLargeur()*Map.tailleCase || prochainY > map.getHauteur()*Map.tailleCase) {
+            System.out.println("AU BORD");
+        }
+        else if(directionValide(dx,dy)){
+            setX(prochainX);
+            setY(prochainY);
+        }
+        else {
+            System.out.println("rencontre un obstacle");
         }
     }
-    public boolean directionValide(int x, int y){
-        int pixelX = x * 50 + this.getX();
-        int pixelY = y * 50 + this.getY();
-        int tableauX = pixelX / 50;
-        int tableauY = pixelY / 50;
-        return (this.map.getTab()[tableauX][tableauY]==1 && pixelX>=0 && pixelX < map.getL()*50 && pixelY>=0 && pixelY <map.getH()*50);
+    public boolean directionValide(int dx, int dy){
+        int prochainX = dx * Map.tailleCase + this.getX();
+        int prochainY = dy * Map.tailleCase + this.getY();
+        int tableauX = prochainX / Map.tailleCase;
+        int tableauY = prochainY / Map.tailleCase;
+        return (this.map.getTabNum()[tableauX][tableauY]==1 && prochainX>=0 && prochainX < map.getLargeur()*Map.tailleCase
+                && prochainY>=0 && prochainY <= map.getHauteur()*Map.tailleCase);
     }
 }
