@@ -19,7 +19,7 @@ public class MapVue {
                 Rectangle rectangle = new Rectangle(50,50);
                 rectangle.setX(i*50);
                 rectangle.setY(j*50);
-                if(tab[i][j]==1){
+                if(tab[j][i]==1){
                     rectangle.setFill(Color.BLACK);
                 }
                 else{

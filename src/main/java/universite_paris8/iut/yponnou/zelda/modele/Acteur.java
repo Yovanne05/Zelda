@@ -37,7 +37,7 @@ public abstract class Acteur {
 
     public void deplacement(int dx, int dy){
         if(directionValide(dx,dy)){
-            System.out.println(this.getX() + " "+ this.getY());
+            System.out.println("valide");
             setX(this.getX()+dx*50);
             setY(this.getY()+dy*50);
         }
