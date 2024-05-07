@@ -22,6 +22,4 @@ public class ActeurVue {
         rectangle.translateXProperty().bind(a.xProperty());
         rectangle.translateYProperty().bind(a.yProperty());
     }
-
-
 }

@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.yponnou.zelda.modele.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
-import universite_paris8.iut.yponnou.zelda.modele.PersoPrincipale;
+import universite_paris8.iut.yponnou.zelda.modele.Heros;
 import universite_paris8.iut.yponnou.zelda.vue.ActeurVue;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 
@@ -18,18 +18,18 @@ import java.util.ResourceBundle;
 public class Controleur implements Initializable {
     private Map map;
     @FXML
-    private Pane paneid;
+    private Pane paneMap;
     @FXML
-    private TilePane tilepane;
-    private PersoPrincipale perso;
+    private TilePane tilePaneMap;
+    private Heros perso;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         map = new Map(30, 30);
         map.initialisationMap();
-        MapVue mVue = new MapVue(map.getTab(), tilepane);
-        perso = new PersoPrincipale("Joseph", 40, 1, 1, map);
-        ActeurVue av = new ActeurVue(perso, paneid);
+        MapVue mVue = new MapVue(map.getTabNum(), tilePaneMap);
+        perso = new Heros("Joseph", 40, 1, 1, map);
+        ActeurVue av = new ActeurVue(perso, paneMap);
         mVue.creationMap();
     }
 
