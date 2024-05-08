@@ -2,6 +2,8 @@ package universite_paris8.iut.yponnou.zelda.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import universite_paris8.iut.yponnou.zelda.vue.ActeurVue;
+import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 
 public abstract class Acteur {
     private String nom;
@@ -18,49 +20,52 @@ public abstract class Acteur {
         v = vitesse;
         this.map=map;
     }
-    public int getX() {
+    public final int getX() {
         return x.getValue();
     }
-    public int getY(){
+    public final int getY(){
         return y.getValue();
     }
-    public void setX(int x){
+    public final void setX(int x){
         this.x.setValue(x);
     }
-    public void setY(int y){
+    public final void setY(int y){
         this.y.setValue(y);
     }
-    public IntegerProperty xProperty(){
+    public final IntegerProperty xProperty(){
         return x;
     }
-    public IntegerProperty yProperty(){
+    public final IntegerProperty yProperty(){
         return y;
     }
-    public double getVitesse(){
+    public final double getVitesse(){
         return v;
+    }
+    public Map getMap(){
+        return map;
     }
 
     public void deplacement(int dx, int dy){
-        int prochainX = getX()+dx*Map.tailleCase;
-        int prochainY = getY()+dy*Map.tailleCase;
+        int prochainX = getX()+ dx*ActeurVue.tailleCaseX;
+        int prochainY = getY()+ dy*ActeurVue.tailleCaseY;
 
-        if (prochainX < 0 || prochainY < 0 || prochainX > map.getLargeur()*Map.tailleCase || prochainY > map.getHauteur()*Map.tailleCase) {
-            System.out.println("AU BORD");
+        if (prochainX < 0 || prochainY < 0 || prochainX >= map.getLargeur()*ActeurVue.tailleCaseX || prochainY >= map.getHauteur()*ActeurVue.tailleCaseY) {
+            System.out.print("BORD ");
         }
         else if(directionValide(dx,dy)){
             setX(prochainX);
             setY(prochainY);
         }
         else {
-            System.out.println("rencontre un obstacle");
+            System.out.print("OBSTACLE ");
         }
     }
     public boolean directionValide(int dx, int dy){
-        int prochainX = dx * Map.tailleCase + this.getX();
-        int prochainY = dy * Map.tailleCase + this.getY();
-        int tableauX = prochainX / Map.tailleCase;
-        int tableauY = prochainY / Map.tailleCase;
-        return (this.map.getTabNum()[tableauX][tableauY]==1 && prochainX>=0 && prochainX < map.getLargeur()*Map.tailleCase
-                && prochainY>=0 && prochainY <= map.getHauteur()*Map.tailleCase);
+        int prochainX = dx * ActeurVue.tailleCaseX + this.getX();
+        int prochainY = dy * ActeurVue.tailleCaseY + this.getY();
+        int tableauX = prochainX / ActeurVue.tailleCaseX;
+        int tableauY = prochainY / ActeurVue.tailleCaseY;
+        return (this.map.getTabNum()[tableauX][tableauY]==0 && prochainX>=0 && prochainX < map.getLargeur()*ActeurVue.tailleCaseX
+                && prochainY >= 0 && prochainY < map.getHauteur()*ActeurVue.tailleCaseY);
     }
 }

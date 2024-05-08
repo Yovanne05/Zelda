@@ -4,7 +4,6 @@ package universite_paris8.iut.yponnou.zelda.modele;
 public class Map{
     private int[][] tabNum;
     private int hauteur, largeur;
-    public static final int tailleCase = 50;
 
     public Map(int h, int l) {
         this.hauteur =h;
@@ -39,9 +38,9 @@ public class Map{
                         (i == 12 && j == 17) || (i == 15 && j == 13)  || (i == 14 && j == 12) ||
                         (i == 11 && j == 18) || (i == 17 && j == 14) || (i == 13 && j == 16) ||
                         (i == 16 && j == 18) || (i == 19 && j == 11)) {
-                    tabNum[i][j] = 0;
-                } else {
                     tabNum[i][j] = 1;
+                } else {
+                    tabNum[i][j] = 0;
                 }
             }
         }
