@@ -6,24 +6,29 @@ import javafx.scene.shape.Rectangle;
 
 public class MapVue {
     private int[][] tab;
-    private TilePane tilepane;
+    private TilePane tilePane;
+    public static int tailleCaseX;
+    public static int tailleCaseY;
+
     public MapVue(int[][] tab, TilePane tilepane){
-        this.tab=tab;
-        this.tilepane=tilepane;
+        this.tab = tab;
+        this.tilePane = tilepane;
+        tailleCaseX = (int)(tilepane.getPrefWidth() / tab.length);
+        tailleCaseY = (int)(tilepane.getPrefHeight() / tab[0].length);
     }
     public void creationMap(){
         for(int i=0;i<tab.length;i++){
             for (int j=0;j<tab[i].length;j++){
-                Rectangle rectangle = new Rectangle(50,50);
-                rectangle.setX(i*50);
-                rectangle.setY(j*50);
-                if(tab[j][i]==1){
+                Rectangle rectangle = new Rectangle(tailleCaseX,tailleCaseY);
+                rectangle.setX(i*tailleCaseX);
+                rectangle.setY(j*tailleCaseY);
+                if(tab[j][i]==0){
                     rectangle.setFill(Color.BLACK);
                 }
                 else{
                     rectangle.setFill(Color.RED);
                 }
-                tilepane.getChildren().add(rectangle);
+                tilePane.getChildren().add(rectangle);
             }
         }
     }
