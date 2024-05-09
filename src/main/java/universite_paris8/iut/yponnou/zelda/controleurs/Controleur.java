@@ -9,11 +9,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import universite_paris8.iut.yponnou.zelda.modele.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Heros;
+import universite_paris8.iut.yponnou.zelda.modele.Objet;
 import universite_paris8.iut.yponnou.zelda.vue.ActeurVue;
-import universite_paris8.iut.yponnou.zelda.vue.MapVue;
+import universite_paris8.iut.yponnou.zelda.vue.ObjetVue;
+import universite_paris8.iut.yponnou.zelda.vue.TileMap;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,6 +22,8 @@ import java.util.ResourceBundle;
 public class Controleur implements Initializable {
     private Map map;
     private Heros perso;
+    private Objet objet1;
+    private Objet objet2;
 
     private Timeline gameLoop;
     private int temps;
@@ -28,7 +31,9 @@ public class Controleur implements Initializable {
     @FXML
     private Pane paneMap;
     @FXML
-    private TilePane tilePaneMap;
+    private TilePane tilePaneDecors;
+    @FXML
+    private TilePane tilePaneObjets;
 
 
     @Override
@@ -37,16 +42,24 @@ public class Controleur implements Initializable {
         gameLoop.play();
         map = new Map(30, 30);
         map.initialisationMap();
-        MapVue mVue = new MapVue(map.getTabNum(), tilePaneMap);
+        TileMap tileMap = new TileMap(map.getTabNum(), tilePaneDecors);
         perso = new Heros("Joseph", 40, 0, 0, map);
-        ActeurVue av = new ActeurVue(perso, paneMap);
-        mVue.creationMap();
+        objet1 = new Objet(6,9,map);
+        objet2 = new Objet(15,9,map);
+        ActeurVue aV = new ActeurVue(perso, paneMap);
+        ObjetVue oV = new ObjetVue(objet1, tilePaneObjets);
+        ObjetVue oV2 = new ObjetVue(objet2, tilePaneObjets);
+
+        tileMap.afficher();
+        oV.afficher();
+        oV2.afficher();
+        aV.afficher();
     }
 
     @FXML
-    public void interactionDeplacement(KeyEvent event) {
+    public void interaction(KeyEvent event) {
         KeyCode key = event.getCode();
-        Acteur p = perso;
+        Heros p = perso;
         switch (key) {
             case Z:
             case UP:
@@ -67,6 +80,16 @@ public class Controleur implements Initializable {
             case LEFT:
                 p.deplacement(-1, 0);
                 System.out.println("GAUGHE - x:"+p.getX()+" y:"+p.getY());
+                break;
+            case J:
+                if (p.objetsProches() && p.getInventaire().size() != 5) {
+                    p.recuperer(objet1);
+                    tilePaneObjets.getChildren().clear();
+                    System.out.println("Objets récupéré !");
+                }
+                else {
+                    System.out.println("Aucun objets trouvés !");
+                }
                 break;
         }
     }
