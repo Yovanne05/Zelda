@@ -9,8 +9,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
-import universite_paris8.iut.yponnou.zelda.modele.Heros;
+import universite_paris8.iut.yponnou.zelda.modele.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Objet;
 import universite_paris8.iut.yponnou.zelda.vue.ActeurVue;
 import universite_paris8.iut.yponnou.zelda.vue.ObjetVue;
@@ -20,8 +21,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
+    private Environnement environnement;
     private Map map;
-    private Heros perso;
+    private Hero perso;
     private Objet objet1;
     private Objet objet2;
 
@@ -42,24 +44,26 @@ public class Controleur implements Initializable {
         gameLoop.play();
         map = new Map(30, 30);
         map.initialisationMap();
+        environnement = new Environnement((int)paneMap.getPrefWidth(),(int)paneMap.getPrefHeight(),map);
         TileMap tileMap = new TileMap(map.getTabNum(), tilePaneDecors);
-        perso = new Heros("Joseph", 40, 0, 0, map);
-        objet1 = new Objet(6,9,map);
-        objet2 = new Objet(15,9,map);
-        ActeurVue aV = new ActeurVue(perso, paneMap);
-        ObjetVue oV = new ObjetVue(objet1, tilePaneObjets);
-        ObjetVue oV2 = new ObjetVue(objet2, tilePaneObjets);
-
-        tileMap.afficher();
-        oV.afficher();
-        oV2.afficher();
-        aV.afficher();
+        perso = new Hero("Joseph", 40, 0, 0, map,environnement);
+        objet1 = new Objet(2,0,map,environnement);
+        objet2 = new Objet(0,2,map,environnement);
+//        ActeurVue aV = new ActeurVue(perso.getMap().getTabNum(), paneMap);
+//        ObjetVue oV = new ObjetVue(map.getTabNum(), tilePaneObjets);
+//        ObjetVue oV2 = new ObjetVue(map.getTabNum(), tilePaneObjets);
+        environnement.getActeurs().addListener(new ActeurVue(environnement.getMap().getTabNum(), paneMap));
+        environnement.getObjets().addListener(new ObjetVue(environnement.getMap().getTabNum(), tilePaneObjets));
+        environnement.ajouterActeur(perso);
+        environnement.ajouterObjet(objet1);
+        environnement.ajouterObjet(objet2);
+        tileMap.creerSprite();
     }
 
     @FXML
     public void interaction(KeyEvent event) {
         KeyCode key = event.getCode();
-        Heros p = perso;
+        Hero p = perso;
         switch (key) {
             case Z:
             case UP:
@@ -82,9 +86,9 @@ public class Controleur implements Initializable {
                 System.out.println("GAUGHE - x:"+p.getX()+" y:"+p.getY());
                 break;
             case J:
-                if (p.objetsProches() && p.getInventaire().size() != 5) {
-                    p.recuperer(objet1);
-                    tilePaneObjets.getChildren().clear();
+                Objet ob = p.objetsProches();
+                if (ob != null && p.getInventaire().size() != 5) {
+                    p.recuperer(ob);
                     System.out.println("Objets récupéré !");
                 }
                 else {
