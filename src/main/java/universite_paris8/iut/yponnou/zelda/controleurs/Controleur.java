@@ -39,19 +39,19 @@ public class Controleur implements Initializable {
         Acteur p = perso;
         switch (key) {
             case Z:
-                p.deplacement(0, -1*p.getVitesse());
+                p.deplacement(0, -1);
                 System.out.println("Z");
                 break;
             case S:
-                p.deplacement(0, 1*p.getVitesse());
+                p.deplacement(0, 1);
                 System.out.println("S");
                 break;
             case D:
-                p.deplacement(1*p.getVitesse(), 0);
+                p.deplacement(1, 0);
                 System.out.println("D");
                 break;
             case Q:
-                p.deplacement(-1*p.getVitesse(), 0);
+                p.deplacement(-1, 0);
                 System.out.println("Q");
                 break;
         }
