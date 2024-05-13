@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.TilePane?>
 
-<BorderPane onKeyPressed="#interactionDeplacement" prefHeight="1500.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.Controleur">
+<BorderPane onKeyPressed="#interaction" prefHeight="900.0" prefWidth="1500.0" style="-fx-background-color: brown;" xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.Controleur">
    <center>
-      <Pane fx:id="paneMap" prefHeight="1500.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
+      <Pane fx:id="paneMap" prefHeight="900.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
          <children>
-            <TilePane fx:id="tilePaneMap" prefHeight="1500.0" prefWidth="1500.0"/>
+            <TilePane fx:id="tilePaneDecors" prefHeight="900.0" prefWidth="1500.0" />
+         </children>
+         <children>
+            <TilePane fx:id="tilePaneObjets" prefHeight="900.0" prefWidth="1500.0" />
          </children>
       </Pane>
    </center>
