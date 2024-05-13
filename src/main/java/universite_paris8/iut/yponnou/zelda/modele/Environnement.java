@@ -3,6 +3,8 @@ package universite_paris8.iut.yponnou.zelda.modele;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+
 public class Environnement {
 
     private final int largeur;

@@ -5,12 +5,12 @@ import universite_paris8.iut.yponnou.zelda.vue.ObjetVue;
 
 import java.util.ArrayList;
 
-public class Hero extends Acteur{
+public class Hero extends Guerrier{
 
     private ArrayList<Objet> inventaire;
 
-    public Hero(String nom, int pv, int x, int y, Map map, Environnement environnement) {
-        super(nom, pv, x, y, 0.3,map, environnement);
+    public Hero(String nom, double coeurs, int x, int y, double vitesse, Map map, Environnement environnement, Arme arme, ArrayList<Objet> inventaire) {
+        super(nom, coeurs, x, y, vitesse, map, environnement, arme);
         inventaire = new ArrayList<>(5);
     }
 

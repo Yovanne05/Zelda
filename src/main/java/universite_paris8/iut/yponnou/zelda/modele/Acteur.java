@@ -7,14 +7,14 @@ public abstract class Acteur extends Case {
     private String idActeur;
     private static int incremente = 0;
     private String nom;
-    private int pv;
+    private double coeurs;
     private double v;
     private Environnement env;
 
-    public Acteur(String nom, int pv, int x, int y, double vitesse, Map map, Environnement environnement) {
+    public Acteur(String nom, double coeurs, int x, int y, double vitesse, Map map, Environnement environnement) {
         super(x,y,map);
         this.nom = nom;
-        this.pv = pv;
+        this.coeurs = coeurs;
         v = vitesse;
         this.env = environnement;
         idActeur = "Acteur-"+incremente++;
@@ -26,9 +26,14 @@ public abstract class Acteur extends Case {
     public String getNom() {
         return nom;
     }
-    public int getPv() {
-        return pv;
+    public double getCoeurs() {
+        return coeurs;
     }
+
+    public void setCoeurs(double coeurs) {
+        this.coeurs = coeurs;
+    }
+
     public final double getVitesse(){
         return v;
     }
