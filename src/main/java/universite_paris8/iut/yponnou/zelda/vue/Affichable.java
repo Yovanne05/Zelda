@@ -14,8 +14,8 @@ public abstract class Affichable {
     public Affichable(int[][] tab, Pane pane) {
         this.tab = tab;
         this.pane = pane;
-        tailleCaseX = (int)pane.getPrefWidth()/tab.length;
-        tailleCaseY = (int)pane.getPrefHeight()/tab[0].length;
+        tailleCaseX = 50;
+        tailleCaseY = 50;
     }
 
     public int[][] getTab() {

@@ -16,12 +16,12 @@ public class TileMap extends Affichable {
         for(int i=0;i< getTab().length;i++){
             for (int j=0; j < getTab()[i].length;j++){
                 Rectangle rectangle = new Rectangle(getTailleCaseX(),getTailleCaseY());
-                rectangle.setX(i*getTailleCaseX());
-                rectangle.setY(j*getTailleCaseY());
-                if(getTab()[j][i]==0){
+                rectangle.setX(j*getTailleCaseX());
+                rectangle.setY(i*getTailleCaseY());
+                if(getTab()[i][j]==0){
                     rectangle.setFill(Color.BLACK);
                 }
-                else if (getTab()[j][i]==1){
+                else if (getTab()[i][j]==1){
                     rectangle.setFill(Color.RED);
                 }
                 getPane().getChildren().add(rectangle);

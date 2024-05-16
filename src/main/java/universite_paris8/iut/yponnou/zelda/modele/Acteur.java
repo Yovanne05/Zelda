@@ -79,7 +79,7 @@ public abstract class Acteur extends Case {
 //            tableauFinY = (int)(prochainFinalY/ActeurVue.getTailleCaseY());
 //
 //        }
-        return (this.getMap().getTabNum()[tableauX][tableauY]==0 && prochainX>=0 && prochainX < getMap().getLargeur()*ActeurVue.getTailleCaseX()
+        return (this.getMap().getTabNum()[tableauY][tableauX]==0 && prochainX>=0 && prochainX < getMap().getLargeur()*ActeurVue.getTailleCaseX()
                 && prochainY >= 0 && prochainY < getMap().getHauteur()*ActeurVue.getTailleCaseY());
     }
 
