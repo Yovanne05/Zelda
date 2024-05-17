@@ -13,16 +13,16 @@ public class TileMap extends Affichable {
 
 
     public void creerSprite() {
-        for(int i=0;i< getTab().length;i++){
-            for (int j=0; j < getTab()[i].length;j++){
+        for(int y=0;y< getTab().length;y++){
+            for (int x=0; x < getTab()[y].length;x++){
                 Rectangle rectangle = new Rectangle(getTailleCaseX(),getTailleCaseY());
-                rectangle.setX(j*getTailleCaseX());
-                rectangle.setY(i*getTailleCaseY());
-                if(getTab()[i][j]==0){
+                rectangle.setX(x*getTailleCaseX());
+                rectangle.setY(y*getTailleCaseY());
+                if(getTab()[y][x]==0){
                     rectangle.setFill(Color.BLACK);
                 }
-                else if (getTab()[i][j]==1){
-                    rectangle.setFill(Color.RED);
+                else if (getTab()[y][x]==1){
+                    rectangle.setFill(Color.BLUE);
                 }
                 getPane().getChildren().add(rectangle);
             }

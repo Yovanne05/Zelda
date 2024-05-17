@@ -1,4 +1,4 @@
-package universite_paris8.iut.yponnou.zelda.modele;
+package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
 public class Epee extends ArmeMelee{
 

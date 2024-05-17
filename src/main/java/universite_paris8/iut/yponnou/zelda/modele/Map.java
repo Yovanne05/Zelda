@@ -82,5 +82,9 @@ public class Map{
     public void changerMap(int[][] map) {
         tabNum = map;
     }
+
+    public void setTabNum(int[][] tabNum) {
+        this.tabNum = tabNum;
+    }
 }
 //Test
