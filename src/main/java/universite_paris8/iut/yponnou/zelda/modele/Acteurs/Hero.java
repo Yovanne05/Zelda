@@ -1,18 +1,27 @@
-package universite_paris8.iut.yponnou.zelda.modele;
+package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
+import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Objet;
 import universite_paris8.iut.yponnou.zelda.vue.ActeurVue;
 import universite_paris8.iut.yponnou.zelda.vue.ObjetVue;
 
 import java.util.ArrayList;
 
-public class Hero extends Acteur{
+public class Hero extends Guerrier{
 
     private ArrayList<Objet> inventaire;
 
-    public Hero(String nom, int pv, int x, int y, Map map, Environnement environnement) {
-        super(nom, pv, x, y, 0.3,map, environnement);
-        inventaire = new ArrayList<>(5);
+    public Hero(String nom, double coeurs, int x, int y, double vitesse, Environnement environnement, Arme arme) {
+        super(nom, coeurs, x, y, vitesse, environnement, arme);
+        inventaire=new ArrayList<>();
     }
+
+    @Override
+    public void attaquer() {
+
+    }
+
 
     public ArrayList<Objet> getInventaire() {
         return inventaire;
@@ -51,9 +60,9 @@ public class Hero extends Acteur{
         int objetY = objet.getY()/ ObjetVue.getTailleCaseY();
 
         inventaire.add(objet);
-        getMap().setIndexTab(objetX,objetY,0);
+        getEnvironnement().getMap().setIndexTab(objetX,objetY,0);
         objet.getEnvironnement().enleverObjet(objet);
-        objet.setMap(getMap());
+        objet.getEnvironnement().setMap(getEnvironnement().getMap());
     }
     @Override
     void parler() {

@@ -9,10 +9,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
-import universite_paris8.iut.yponnou.zelda.modele.Map;
-import universite_paris8.iut.yponnou.zelda.modele.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.Objet;
+import universite_paris8.iut.yponnou.zelda.modele.*;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.*;
 import universite_paris8.iut.yponnou.zelda.vue.ActeurVue;
 import universite_paris8.iut.yponnou.zelda.vue.ObjetVue;
 import universite_paris8.iut.yponnou.zelda.vue.TileMap;
@@ -26,16 +26,17 @@ public class Controleur implements Initializable {
     private Hero perso;
     private Objet objet1;
     private Objet objet2;
+    private Arme arme;
 
     private Timeline gameLoop;
     private int temps;
-
     @FXML
     private Pane paneMap;
     @FXML
     private TilePane tilePaneDecors;
     @FXML
     private TilePane tilePaneObjets;
+    private Garde garde;
 
 
     @Override
@@ -43,20 +44,24 @@ public class Controleur implements Initializable {
         initAnimation();
         gameLoop.play();
         map = new Map(30, 30);
-        map.initialisationMap();
         environnement = new Environnement((int)paneMap.getPrefWidth(),(int)paneMap.getPrefHeight(),map);
-        TileMap tileMap = new TileMap(map.getTabNum(), tilePaneDecors);
-        perso = new Hero("Joseph", 40, 0, 0, map,environnement);
-        objet1 = new Objet(2,0,map,environnement);
-        objet2 = new Objet(0,2,map,environnement);
+        arme = new ArmeMelee("Fourche",2,0);
+        perso = new Hero("Joseph", 40, 0, 0,1,environnement,arme);
+        Epee e= new Epee("Epee",2,0);
+        garde=new Garde("Garde",2,8,8,1,environnement,e);
+        objet1 = new Objet(environnement,2,0);
+//        objet2 = new Objet(0,2,map,environnement);
 //        ActeurVue aV = new ActeurVue(perso.getMap().getTabNum(), paneMap);
 //        ObjetVue oV = new ObjetVue(map.getTabNum(), tilePaneObjets);
 //        ObjetVue oV2 = new ObjetVue(map.getTabNum(), tilePaneObjets);
         environnement.getActeurs().addListener(new ActeurVue(environnement.getMap().getTabNum(), paneMap));
-        environnement.getObjets().addListener(new ObjetVue(environnement.getMap().getTabNum(), tilePaneObjets));
+        environnement.getObjets().addListener(new ObjetVue(environnement.getMap().getTabNum(), paneMap));
         environnement.ajouterActeur(perso);
-        environnement.ajouterObjet(objet1);
-        environnement.ajouterObjet(objet2);
+//        environnement.ajouterObjet(objet1);
+//        environnement.ajouterObjet(objet2);
+        environnement.ajouterActeur(garde);
+        map.initialisationMap();
+        TileMap tileMap = new TileMap(map.getTabNum(), tilePaneDecors);
         tileMap.creerSprite();
     }
 

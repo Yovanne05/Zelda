@@ -5,7 +5,9 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.modele.Acteur;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Ennemi;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 
 public class ActeurVue extends Affichable implements ListChangeListener<Acteur> {
 
@@ -16,7 +18,12 @@ public class ActeurVue extends Affichable implements ListChangeListener<Acteur> 
 
     public void creerSprite(Acteur a) {
         Rectangle r = new Rectangle(getTailleCaseX(),getTailleCaseY());
-        r.setFill(Color.YELLOW);
+        if(a instanceof Hero){
+            r.setFill(Color.YELLOW);
+        }else if(a instanceof Ennemi){
+            r.setFill(Color.RED);
+        }
+
         r.setId(a.getId());
 //        int at = a.getX();
 //        int b = a.getY();

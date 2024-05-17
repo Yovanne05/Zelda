@@ -2,6 +2,7 @@ package universite_paris8.iut.yponnou.zelda.vue;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -10,8 +11,8 @@ import universite_paris8.iut.yponnou.zelda.modele.Objet;
 public class ObjetVue extends Affichable implements ListChangeListener<Objet> {
 
 
-    public ObjetVue(int[][] tab, TilePane tilePane) {
-        super(tab,tilePane);
+    public ObjetVue(int[][] tab, Pane pane) {
+        super(tab,pane);
     }
 
     public void creerSprite(Objet objet) {

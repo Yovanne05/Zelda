@@ -2,6 +2,7 @@ package universite_paris8.iut.yponnou.zelda.modele;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 
 public class Environnement {
 
@@ -30,6 +31,7 @@ public class Environnement {
 
     public void ajouterActeur(Acteur acteur) {
         acteurs.add(acteur);
+//        map.setTabNum(acteur);
     }
     public void enleverActeur(Acteur acteur) {
         acteurs.remove(acteur);
@@ -51,4 +53,7 @@ public class Environnement {
         return map;
     }
 
+    public void setMap(Map map) {
+        this.map = map;
+    }
 }
