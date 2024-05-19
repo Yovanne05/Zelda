@@ -1,26 +1,17 @@
-package universite_paris8.iut.yponnou.zelda.vue;
+package universite_paris8.iut.yponnou.zelda.controleurs;
 
 
 import javafx.scene.layout.Pane;
 
-import javax.swing.text.Element;
-
 public abstract class Affichable {
-    private int[][] tab;
     private Pane pane;
-    private static int tailleCaseX;
-    private static int tailleCaseY;
+    private static final int tailleCaseX = 50;
+    private static final int tailleCaseY = 50;
 
-    public Affichable(int[][] tab, Pane pane) {
-        this.tab = tab;
+    public Affichable(Pane pane) {
         this.pane = pane;
-        tailleCaseX = (int)pane.getPrefWidth()/tab.length;
-        tailleCaseY = (int)pane.getPrefHeight()/tab[0].length;
     }
 
-    public int[][] getTab() {
-        return tab;
-    }
     public Pane getPane() {
         return pane;
     }

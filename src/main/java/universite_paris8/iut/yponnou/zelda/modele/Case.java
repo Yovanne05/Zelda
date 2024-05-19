@@ -1,36 +1,37 @@
 package universite_paris8.iut.yponnou.zelda.modele;
 
-import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class Case {
 
-    private IntegerProperty x;
-    private IntegerProperty y;
+    private DoubleProperty x;
+    private DoubleProperty y;
     private Map map;
 
-    public Case(int x, int y, Map map) {
-        this.x = new SimpleIntegerProperty(x);
-        this.y = new SimpleIntegerProperty(y);
+    public Case(double x, double y, Map map) {
+        this.x = new SimpleDoubleProperty(x);
+        this.y = new SimpleDoubleProperty(y);
         this.map = map;
     }
 
-    public int getX() {
+    public double getX() {
         return x.getValue();
     }
-    public void setX(int x) {
+    public void setX(double x) {
         this.x.setValue(x);
     }
-    public int getY() {
+    public double getY() {
         return y.getValue();
     }
-    public void setY(int y) {
+    public void setY(double y) {
         this.y.setValue(y);
     }
-    public IntegerProperty xProperty() {
+    public DoubleProperty xProperty() {
         return x;
     }
-    public IntegerProperty yProperty() {
+    public DoubleProperty yProperty() {
         return y;
     }
 
@@ -40,5 +41,4 @@ public class Case {
     public void setMap(Map map) {
         this.map = map;
     }
-
 }

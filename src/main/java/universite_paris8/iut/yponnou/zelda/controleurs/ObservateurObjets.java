@@ -1,32 +1,27 @@
-package universite_paris8.iut.yponnou.zelda.vue;
+package universite_paris8.iut.yponnou.zelda.controleurs;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.modele.Objet;
 
-public class ObjetVue extends Affichable implements ListChangeListener<Objet> {
+public class ObservateurObjets extends Affichable implements ListChangeListener<Objet> {
 
 
-    public ObjetVue(int[][] tab, TilePane tilePane) {
-        super(tab,tilePane);
+    public ObservateurObjets(Pane pane) {
+        super(pane);
     }
 
-    public void creerSprite(Objet objet) {
-        Rectangle r;
-        r = new Rectangle(getTailleCaseX(),getTailleCaseY());
+    public void creerSprite(Objet ob) {
+        Rectangle r = new Rectangle(getTailleCaseX(),getTailleCaseY());
         r.setFill(Color.GREEN);
-        r.setId(objet.getId());
-
-        r.setX(getTailleCaseX()*objet.getX());
-        r.setY(getTailleCaseY()*objet.getY());
-        objet.setX((int)r.getX());
-        objet.setY((int)r.getY());
-
-        r.translateXProperty().bind(objet.xProperty());
-        r.translateYProperty().bind(objet.yProperty());
+        r.setId(ob.getId());
+        r.setX(getTailleCaseX()*ob.getX());
+        r.setY(getTailleCaseY()*ob.getY());
+//        r.translateXProperty().bind(ob.xProperty());
+//        r.translateYProperty().bind(ob.yProperty());
         getPane().getChildren().add(r);
     }
 

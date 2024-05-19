@@ -22,4 +22,3 @@ public class Lanceur extends Application {
         launch(args);
     }
 }
-//test

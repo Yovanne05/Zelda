@@ -9,9 +9,9 @@ public class Objet extends Case{
 
     public Objet(int x, int y, Map map, Environnement environnement) {
         super(x,y,map);
-        getMap().getTabNum()[x][y] = valeur;
+        getMap().getTabNum()[y][x] = valeur;
         env = environnement;
-        id = "Objet-"+incremente++;
+        id = "Ob"+incremente++;
     }
 
 
@@ -29,7 +29,5 @@ public class Objet extends Case{
     public Environnement getEnvironnement() {
         return env;
     }
-
-//    public void agit(Heros hero){}
 
 }
