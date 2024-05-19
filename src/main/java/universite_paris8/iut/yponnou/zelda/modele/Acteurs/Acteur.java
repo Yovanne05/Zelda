@@ -1,8 +1,10 @@
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 import universite_paris8.iut.yponnou.zelda.vue.ActeurVue;
 
@@ -14,25 +16,29 @@ public abstract class Acteur {
     private double coeurs;
     private double v;
     private Environnement env;
-    private IntegerProperty x;
-    private IntegerProperty y;
+    private DoubleProperty x;
+    private DoubleProperty y;
+    private Rectangle hitbox;
 
-    public Acteur(String nom, double coeurs, int x, int y, double vitesse,Environnement environnement) {
-        this.x = new SimpleIntegerProperty(x);
-        this.y= new SimpleIntegerProperty(y);
+    public Acteur(String nom, double coeurs, double x, double y, double vitesse, Environnement environnement) {
+        this.x = new SimpleDoubleProperty(x);
+        this.y = new SimpleDoubleProperty(y);
         this.nom = nom;
         this.coeurs = coeurs;
         v = vitesse;
         this.env = environnement;
-        idActeur = "Acteur-"+incremente++;
+        idActeur = "Acteur-" + incremente++;
+        hitbox = new Rectangle(x, y, ActeurVue.getTailleCaseX(), ActeurVue.getTailleCaseY());
     }
 
     public String getId() {
         return idActeur;
     }
+
     public String getNom() {
         return nom;
     }
+
     public double getCoeurs() {
         return coeurs;
     }
@@ -41,74 +47,68 @@ public abstract class Acteur {
         this.coeurs = coeurs;
     }
 
-    public int getX() {
+    public double getX() {
         return x.getValue();
     }
 
-    public IntegerProperty xProperty() {
+    public DoubleProperty xProperty() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y.getValue();
     }
 
-    public IntegerProperty yProperty() {
+    public DoubleProperty yProperty() {
         return y;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x.setValue(x);
+        hitbox.setX(x);
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y.setValue(y);
+        hitbox.setY(y);
     }
 
-    public final double getVitesse(){
+    public final double getVitesse() {
         return v;
     }
+
     public Environnement getEnvironnement() {
         return env;
     }
 
-    public void deplacement(int dx, int dy){
-        int prochainX = getX()+dx*ActeurVue.getTailleCaseX();
-        int prochainY = getY()+ dy*ActeurVue.getTailleCaseY();
-        int tableauX = prochainX/ActeurVue.getTailleCaseX();
-        int tableauY = prochainY/ActeurVue.getTailleCaseY();
+    public void deplacement(double dx, double dy) {
+        double prochainX = getX() + dx * ActeurVue.getTailleCaseX();
+        double prochainY = getY() + dy * ActeurVue.getTailleCaseY();
 
-        if (prochainX < 0 || prochainY < 0 || prochainX >= env.getMap().getLargeur()*ActeurVue.getTailleCaseX() || prochainY >= env.getMap().getHauteur()*ActeurVue.getTailleCaseY()) {
-            System.out.print("BORD ");
-        } else if(directionValide(dx,dy)){
+        // Création de la nouvelle hitbox après déplacement
+        Rectangle futureHitbox = new Rectangle(prochainX, prochainY, ActeurVue.getTailleCaseX(), ActeurVue.getTailleCaseY());
+
+        if (!collisionAvecObstacle(futureHitbox)) {
             setX(prochainX);
             setY(prochainY);
         }
-        else if (env.getMap().getTabNum()[tableauY][tableauX] == 1){
-            System.out.print("OBSTACLE ");
-        }
-        else if (env.getMap().getTabNum()[tableauY][tableauX] == 2) {
-            System.out.print("OBJET ");
-        }
     }
-    public boolean directionValide(int dx, int dy){
-        int prochainX, prochainY;
+
+    private boolean collisionAvecObstacle(Rectangle futureHitbox) {
         int tableauX, tableauY;
+        tableauX = (int) (futureHitbox.getX() / ActeurVue.getTailleCaseX());
+        tableauY = (int) (futureHitbox.getY() / ActeurVue.getTailleCaseY());
 
-        prochainX = dx * ActeurVue.getTailleCaseX() + this.getX();
-        prochainY = dy * ActeurVue.getTailleCaseY() + this.getY();
-        tableauX = prochainX / ActeurVue.getTailleCaseX();
-        tableauY = prochainY / ActeurVue.getTailleCaseY();
+        if (tableauX < 0 || tableauY < 0 || tableauX >= env.getMap().getLargeur() || tableauY >= env.getMap().getHauteur()) {
+            return true; // Collides with border
+        }
 
-        return (env.getMap().getTabNum()[tableauY][tableauX]==0 && prochainX>=0 && prochainX < env.getMap().getLargeur()*ActeurVue.getTailleCaseX()
-                && prochainY >= 0 && prochainY < env.getMap().getHauteur()*ActeurVue.getTailleCaseY());
+        if (env.getMap().getTabNum()[tableauY][tableauX] == 1) {
+            return true; // Collides with an obstacle
+        }
+
+        return false;
     }
-
-//    public boolean verifEnnemi(){
-
-//    }
 
     abstract void parler();
-
-
 }

@@ -28,14 +28,14 @@ public class Hero extends Guerrier{
     }
 
     public Objet objetsProches(){
-        int Xgauche = (getX()/ActeurVue.getTailleCaseX())-1;
-        int Xdroite = (getX()/ActeurVue.getTailleCaseX())+1;
-        int Yhaut = (getY()/ActeurVue.getTailleCaseY())-1;
-        int Ybas = (getY()/ActeurVue.getTailleCaseY())+1;
+        double Xgauche = (getX()/ActeurVue.getTailleCaseX())-1;
+        double Xdroite = (getX()/ActeurVue.getTailleCaseX())+1;
+        double Yhaut = (getY()/ActeurVue.getTailleCaseY())-1;
+        double Ybas = (getY()/ActeurVue.getTailleCaseY())+1;
 
-        int actuelX = getX()/ActeurVue.getTailleCaseX();
-        int actuelY = getY()/ActeurVue.getTailleCaseY();
-        int objetX,objetY;
+        double actuelX = getX()/ActeurVue.getTailleCaseX();
+        double actuelY = getY()/ActeurVue.getTailleCaseY();
+        double objetX,objetY;
 
 //        return ((Xgauche > 0 && getMap().getTabNum()[Xgauche][actuelY] == 2) || (Xdroite < getMap().getLargeur() && getMap().getTabNum()[Xdroite][actuelY] == 2)
 //                || (Yhaut < getMap().getHauteur() && getMap().getTabNum()[actuelX][Yhaut] == 2) || (Ybas < getMap().getHauteur() && getMap().getTabNum()[actuelX][Ybas] == 2)

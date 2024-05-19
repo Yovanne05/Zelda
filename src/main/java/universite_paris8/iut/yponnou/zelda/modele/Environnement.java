@@ -3,11 +3,13 @@ package universite_paris8.iut.yponnou.zelda.modele;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
+import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 
 public class Environnement {
 
-    private final int largeur;
-    private final int hauteur;
+    private int largeur;
+    private int hauteur;
+    private MapVue tilemap;
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
     private ObservableList<Objet> objets = FXCollections.observableArrayList();;
     private Map map;
@@ -56,4 +58,14 @@ public class Environnement {
     public void setMap(Map map) {
         this.map = map;
     }
+
+
+    public Environnement(MapVue tilemap) {
+        this.tilemap = tilemap;
+    }
+
+    public MapVue getTilemap() {
+        return tilemap;
+    }
 }
+
