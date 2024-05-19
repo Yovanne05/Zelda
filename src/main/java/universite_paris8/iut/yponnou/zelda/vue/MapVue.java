@@ -1,32 +1,50 @@
 package universite_paris8.iut.yponnou.zelda.vue;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.modele.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.PersoPrincipale;
 
-public class MapVue {
-    private int[][] tab;
-    private TilePane tilepane;
-    public MapVue(int[][] tab, TilePane tilepane){
-        this.tab=tab;
-        this.tilepane=tilepane;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MapVue extends Affichable {
+
+    private Image floorImage;
+    private Image obstacleImage;
+    private List<Rectangle> obstacleHitboxes;
+
+    public MapVue(int[][] tab, TilePane tilePane) {
+        super(tab, tilePane);
+        floorImage = new Image("file:C:\\Users\\Mazur\\IdeaProjects\\Zelda\\src\\main\\resources\\universite_paris8\\iut\\yponnou\\zelda\\Images\\sol.jpg");
+        obstacleImage = new Image("file:C:\\Users\\Mazur\\IdeaProjects\\Zelda\\src\\main\\resources\\universite_paris8\\iut\\yponnou\\zelda\\Images\\mur.png");
+        obstacleHitboxes = new ArrayList<>();
     }
-    public void creationMap(){
-        for(int i=0;i<tab.length;i++){
-            for (int j=0;j<tab[i].length;j++){
-                Rectangle rectangle = new Rectangle(50,50);
-                rectangle.setX(i*50);
-                rectangle.setY(j*50);
-                if(tab[j][i]==1){
-                    rectangle.setFill(Color.BLACK);
+
+    public void creerSprite() {
+        for (int y = 0; y < getTab().length; y++) {
+            for (int x = 0; x < getTab()[y].length; x++) {
+                ImageView imageView;
+                if (getTab()[y][x] == 0) {
+                    imageView = new ImageView(floorImage);
+                } else if (getTab()[y][x] == 1) {
+                    imageView = new ImageView(obstacleImage);
+                    Rectangle obstacleHitbox = new Rectangle(x * getTailleCaseX(), y * getTailleCaseY(), getTailleCaseX(), getTailleCaseY());
+                    obstacleHitboxes.add(obstacleHitbox);
+                } else {
+                    continue; // Ignore other values
                 }
-                else{
-                    rectangle.setFill(Color.RED);
-                }
-                tilepane.getChildren().add(rectangle);
+
+                imageView.setFitWidth(getTailleCaseX());
+                imageView.setFitHeight(getTailleCaseY());
+                imageView.setX(x * getTailleCaseX());
+                imageView.setY(y * getTailleCaseY());
+                getPane().getChildren().add(imageView);
             }
         }
+    }
+
+    public List<Rectangle> getObstacleHitboxes() {
+        return obstacleHitboxes;
     }
 }

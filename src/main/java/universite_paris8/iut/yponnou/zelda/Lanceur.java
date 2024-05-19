@@ -3,6 +3,7 @@ package universite_paris8.iut.yponnou.zelda;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -11,7 +12,9 @@ import java.io.IOException;
 public class Lanceur extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Lanceur.class.getResource("village.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1500, 900);
+        Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
+        BorderPane root = (BorderPane) scene.getRoot();
+        root.requestFocus();
         stage.setScene(scene);
         stage.show();
     }
@@ -19,4 +22,3 @@ public class Lanceur extends Application {
         launch(args);
     }
 }
-//test
