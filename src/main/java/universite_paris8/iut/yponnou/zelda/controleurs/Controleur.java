@@ -15,7 +15,7 @@ import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.*;
 import universite_paris8.iut.yponnou.zelda.vue.ActeurVue;
 import universite_paris8.iut.yponnou.zelda.vue.ObjetVue;
-import universite_paris8.iut.yponnou.zelda.vue.TileMap;
+import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -61,7 +61,7 @@ public class Controleur implements Initializable {
 //        environnement.ajouterObjet(objet2);
         environnement.ajouterActeur(garde);
         map.initialisationMap();
-        TileMap tileMap = new TileMap(map.getTabNum(), tilePaneDecors);
+        MapVue tileMap = new MapVue(map.getTabNum(), tilePaneDecors);
         tileMap.creerSprite();
     }
 
@@ -72,22 +72,22 @@ public class Controleur implements Initializable {
         switch (key) {
             case Z:
             case UP:
-                p.deplacement(0, -1);
+                p.deplacement(0, -1*0.2);
                 System.out.println("HAUT - x:"+p.getX()+" y:"+p.getY());
                 break;
             case S:
             case DOWN:
-                p.deplacement(0, 1);
+                p.deplacement(0, 1*0.2);
                 System.out.println("BAS - x:"+p.getX()+" y:"+p.getY());
                 break;
             case D:
             case RIGHT:
-                p.deplacement(1, 0);
+                p.deplacement(1*0.2, 0);
                 System.out.println("DROITE - x:"+p.getX()+" y:"+p.getY());
                 break;
             case Q:
             case LEFT:
-                p.deplacement(-1, 0);
+                p.deplacement(-1*0.2, 0);
                 System.out.println("GAUGHE - x:"+p.getX()+" y:"+p.getY());
                 break;
             case J:
