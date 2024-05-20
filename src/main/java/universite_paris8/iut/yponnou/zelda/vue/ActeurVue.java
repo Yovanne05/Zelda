@@ -16,8 +16,8 @@ public class ActeurVue extends Affichable implements ListChangeListener<Acteur> 
 
     public ActeurVue(int[][] tab, Pane pane) {
         super(tab, pane);
-        heroImage = new Image("file:C:\\\\Users\\\\Mazur\\\\IdeaProjects\\\\Zelda\\\\src\\\\main\\\\resources\\\\universite_paris8\\\\iut\\\\yponnou\\\\zelda\\\\Images\\\\carrerouge.png");
-
+        //heroImage = new Image("file:C:\\\\Users\\\\Mazur\\\\IdeaProjects\\\\Zelda\\\\src\\\\main\\\\resources\\\\universite_paris8\\\\iut\\\\yponnou\\\\zelda\\\\Images\\\\carrerouge.png");
+        heroImage = new Image("file:C:\\\\Users\\\\Mazur\\\\IdeaProjects\\\\Zelda\\\\src\\\\main\\\\resources\\\\universite_paris8\\\\iut\\\\yponnou\\\\zelda\\\\Images\\LD75.jpg");
         //  heroImage = new Image("file:C:\\Users\\Mazur\\IdeaProjects\\Zelda\\src\\main\\resources\\universite_paris8\\iut\\yponnou\\zelda\\Images\\player.png");
         enemyImage = new Image("file:src/main/resources/enemy.png");
     }
