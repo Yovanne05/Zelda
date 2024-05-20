@@ -64,8 +64,5 @@ public class Hero extends Guerrier{
         objet.getEnvironnement().enleverObjet(objet);
         objet.getEnvironnement().setMap(getEnvironnement().getMap());
     }
-    @Override
-    void parler() {
 
-    }
 }

@@ -95,20 +95,73 @@ public abstract class Acteur {
     }
 
     private boolean collisionAvecObstacle(Rectangle futureHitbox) {
-        int tableauX, tableauY;
-        tableauX = (int) (futureHitbox.getX() / ActeurVue.getTailleCaseX());
-        tableauY = (int) (futureHitbox.getY() / ActeurVue.getTailleCaseY());
+        // Calcul des positions des quatre coins de la hitbox
+        double x = futureHitbox.getX();
+        double y = futureHitbox.getY();
+        double width = futureHitbox.getWidth();
+        double height = futureHitbox.getHeight();
 
-        if (tableauX < 0 || tableauY < 0 || tableauX >= env.getMap().getLargeur() || tableauY >= env.getMap().getHauteur()) {
-            return true; // Collides with border
+        // Coordonnées des coins de la hitbox en termes de cases
+        int tableauXHG = (int) (x / ActeurVue.getTailleCaseX());
+        int tableauYHG = (int) (y / ActeurVue.getTailleCaseY());
+        int tableauXHD = (int) ((x + width-1) / ActeurVue.getTailleCaseX());
+        int tableauYHD = tableauYHG;
+        int tableauXBG = tableauXHG;
+        int tableauYBG = (int) ((y + height-1) / ActeurVue.getTailleCaseY());
+        int tableauXBD = tableauXHD;
+        int tableauYBD = tableauYBG;
+
+        // Vérification des bordures de la carte
+        if (tableauXHG < 0 || tableauYHG < 0 || tableauXHD >= env.getMap().getLargeur() || tableauYBG >= env.getMap().getHauteur()) {
+            return true; // Collision avec la bordure de la carte
         }
 
-        if (env.getMap().getTabNum()[tableauY][tableauX] == 1) {
-            return true; // Collides with an obstacle
+        // Vérification des collisions avec les obstacles
+        int[][] map = env.getMap().getTabNum();
+        if (map[tableauYHG][tableauXHG] == 1 || map[tableauYHD][tableauXHD] == 1 || map[tableauYBG][tableauXBG] == 1 || map[tableauYBD][tableauXBD] == 1) {
+            return true; // Collision avec un obstacle
         }
 
         return false;
     }
 
-    abstract void parler();
+
+  /*  private boolean collisionAvecObstacle(Rectangle futureHitbox) {
+
+        int tableauXHG, tableauYHG;
+        tableauXHG = (int) (futureHitbox.getX() / ActeurVue.getTailleCaseX());
+        tableauYHG = (int) (futureHitbox.getY() / ActeurVue.getTailleCaseY());
+        if (tableauXHG < 0 || tableauYHG < 0 || tableauXHG >= env.getMap().getLargeur() || tableauYHG >= env.getMap().getHauteur()) {
+            return true; // Collides with border
+        }
+
+        int tableauXHD, tableauYHD;
+        tableauXHD = (int) (futureHitbox.getX() / ActeurVue.getTailleCaseX());
+        tableauYHD = (int) (futureHitbox.getY() / ActeurVue.getTailleCaseY());
+
+        if (tableauXHD < 0 || tableauYHD < 0 || tableauXHD >= env.getMap().getLargeur() || tableauYHD >= env.getMap().getHauteur()) {
+            return true; // Collides with border
+        }
+
+        int tableauXBG, tableauYBG;
+        tableauXBG = (int) (futureHitbox.getX() / ActeurVue.getTailleCaseX());
+        tableauYBG = (int) (futureHitbox.getY() / ActeurVue.getTailleCaseY());
+
+        if (tableauXBG < 0 || tableauYBG < 0 || tableauXBG >= env.getMap().getLargeur() || tableauYBG >= env.getMap().getHauteur()) {
+            return true; // Collides with border
+        }
+
+        int tableauXBD, tableauYBD;
+        tableauXBD = (int) (futureHitbox.getX() / ActeurVue.getTailleCaseX());
+        tableauYBD = (int) (futureHitbox.getY() / ActeurVue.getTailleCaseY());
+
+        if (tableauXBD < 0 || tableauYBD < 0 || tableauXBD >= env.getMap().getLargeur() || tableauYBD >= env.getMap().getHauteur()) {
+            return true; // Collides with border
+        }
+
+        return false;
+    }
+    */
+
+
 }
