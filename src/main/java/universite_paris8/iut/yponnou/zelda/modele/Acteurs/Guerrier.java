@@ -20,9 +20,4 @@ public abstract class Guerrier extends Acteur {
         }
         return null;
     }
-
-    @Override
-    void parler() {
-
-    }
 }

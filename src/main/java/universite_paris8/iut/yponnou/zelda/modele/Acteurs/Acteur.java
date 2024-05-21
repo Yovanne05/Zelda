@@ -1,12 +1,13 @@
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.shape.Rectangle;
+import universite_paris8.iut.yponnou.zelda.modele.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
-import universite_paris8.iut.yponnou.zelda.vue.ActeurVue;
+
+
+import java.util.ArrayList;
 
 public abstract class Acteur {
 
@@ -28,7 +29,7 @@ public abstract class Acteur {
         v = vitesse;
         this.env = environnement;
         idActeur = "Acteur-" + incremente++;
-        hitbox = new Rectangle(x, y, ActeurVue.getTailleCaseX(), ActeurVue.getTailleCaseY());
+        hitbox = new Rectangle(x, y, Constante.getTailleCaseX(), Constante.getTailleCaseY());
     }
 
     public String getId() {
@@ -82,33 +83,58 @@ public abstract class Acteur {
     }
 
     public void deplacement(double dx, double dy) {
-        double prochainX = getX() + dx * ActeurVue.getTailleCaseX();
-        double prochainY = getY() + dy * ActeurVue.getTailleCaseY();
+        double prochainX = getX() + dx * Constante.getTailleCaseX();
+        double prochainY = getY() + dy * Constante.getTailleCaseY();
 
         // Création de la nouvelle hitbox après déplacement
-        Rectangle futureHitbox = new Rectangle(prochainX, prochainY, ActeurVue.getTailleCaseX(), ActeurVue.getTailleCaseY());
+        Rectangle futureHitbox = new Rectangle(prochainX, prochainY, Constante.getTailleCaseX(), Constante.getTailleCaseY());
 
-        if (!collisionAvecObstacle(futureHitbox)) {
+        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecEnnemi(dx, dy)) {
             setX(prochainX);
             setY(prochainY);
         }
     }
 
     private boolean collisionAvecObstacle(Rectangle futureHitbox) {
-        int tableauX, tableauY;
-        tableauX = (int) (futureHitbox.getX() / ActeurVue.getTailleCaseX());
-        tableauY = (int) (futureHitbox.getY() / ActeurVue.getTailleCaseY());
+        // Calcul des positions des quatre coins de la hitbox
+        double x = futureHitbox.getX();
+        double y = futureHitbox.getY();
+        double width = futureHitbox.getWidth();
+        double height = futureHitbox.getHeight();
 
-        if (tableauX < 0 || tableauY < 0 || tableauX >= env.getMap().getLargeur() || tableauY >= env.getMap().getHauteur()) {
-            return true; // Collides with border
+        // Coordonnées des coins de la hitbox en termes de cases
+        int tableauXHG = (int) (x / Constante.getTailleCaseX());
+        int tableauYHG = (int) (y / Constante.getTailleCaseY());
+        int tableauXHD = (int) ((x + width-1) / Constante.getTailleCaseX());
+        int tableauYHD = tableauYHG;
+        int tableauXBG = tableauXHG;
+        int tableauYBG = (int) ((y + height-1) / Constante.getTailleCaseY());
+        int tableauXBD = tableauXHD;
+        int tableauYBD = tableauYBG;
+
+        // Vérification des bordures de la carte
+        if (tableauXHG < 0 || tableauYHG < 0 || tableauXHD >= env.getMap().getLargeur() || tableauYBG >= env.getMap().getHauteur()) {
+            return true; // Collision avec la bordure de la carte
         }
 
-        if (env.getMap().getTabNum()[tableauY][tableauX] == 1) {
-            return true; // Collides with an obstacle
+        // Vérification des collisions avec les obstacles
+        int[][] map = env.getMap().getTabNum();
+        if (map[tableauYHG][tableauXHG] == 1 || map[tableauYHD][tableauXHD] == 1 || map[tableauYBG][tableauXBG] == 1 || map[tableauYBD][tableauXBD] == 1) {
+            return true; // Collision avec un obstacle
         }
 
         return false;
     }
 
-    abstract void parler();
+    private boolean collisionAvecEnnemi(double dx, double dy) {
+        ArrayList<Garde> lstE=env.lstEnnemi();
+        for(Garde g : lstE){
+            if(g.getX()==this.getX()+dx*Constante.getTailleCaseX() && g.getY()==this.getY()+dy*Constante.getTailleCaseY()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }

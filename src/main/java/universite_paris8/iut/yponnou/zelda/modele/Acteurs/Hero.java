@@ -33,9 +33,9 @@ public class Hero extends Guerrier{
         double Yhaut = (getY()/ActeurVue.getTailleCaseY())-1;
         double Ybas = (getY()/ActeurVue.getTailleCaseY())+1;
 
-        double actuelX = getX()/ActeurVue.getTailleCaseX();
-        double actuelY = getY()/ActeurVue.getTailleCaseY();
-        double objetX,objetY;
+        int actuelX = (int) (getX()/ActeurVue.getTailleCaseX());
+        int actuelY = (int) (getY()/ActeurVue.getTailleCaseY());
+        int objetX,objetY;
 
 //        return ((Xgauche > 0 && getMap().getTabNum()[Xgauche][actuelY] == 2) || (Xdroite < getMap().getLargeur() && getMap().getTabNum()[Xdroite][actuelY] == 2)
 //                || (Yhaut < getMap().getHauteur() && getMap().getTabNum()[actuelX][Yhaut] == 2) || (Ybas < getMap().getHauteur() && getMap().getTabNum()[actuelX][Ybas] == 2)
@@ -64,8 +64,5 @@ public class Hero extends Guerrier{
         objet.getEnvironnement().enleverObjet(objet);
         objet.getEnvironnement().setMap(getEnvironnement().getMap());
     }
-    @Override
-    void parler() {
 
-    }
 }

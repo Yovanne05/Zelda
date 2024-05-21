@@ -10,12 +10,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.yponnou.zelda.modele.*;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Ennemi;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.*;
 import universite_paris8.iut.yponnou.zelda.vue.ActeurVue;
 import universite_paris8.iut.yponnou.zelda.vue.ObjetVue;
-import universite_paris8.iut.yponnou.zelda.vue.MapVue;
+import universite_paris8.iut.yponnou.zelda.vue.TileMap;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -48,7 +49,7 @@ public class Controleur implements Initializable {
         arme = new ArmeMelee("Fourche",2,0);
         perso = new Hero("Joseph", 40, 0, 0,1,environnement,arme);
         Epee e= new Epee("Epee",2,0);
-        garde=new Garde("Garde",2,8,8,1,environnement,e);
+        garde=new Garde("Garde",2,800,800,1,environnement,e);
         objet1 = new Objet(environnement,2,0);
 //        objet2 = new Objet(0,2,map,environnement);
 //        ActeurVue aV = new ActeurVue(perso.getMap().getTabNum(), paneMap);
@@ -61,7 +62,7 @@ public class Controleur implements Initializable {
 //        environnement.ajouterObjet(objet2);
         environnement.ajouterActeur(garde);
         map.initialisationMap();
-        MapVue tileMap = new MapVue(map.getTabNum(), tilePaneDecors);
+        TileMap tileMap = new TileMap(map.getTabNum(), tilePaneDecors);
         tileMap.creerSprite();
     }
 
@@ -72,22 +73,22 @@ public class Controleur implements Initializable {
         switch (key) {
             case Z:
             case UP:
-                p.deplacement(0, -1*0.2);
+                p.deplacement(0, -1);
                 System.out.println("HAUT - x:"+p.getX()+" y:"+p.getY());
                 break;
             case S:
             case DOWN:
-                p.deplacement(0, 1*0.2);
+                p.deplacement(0, 1);
                 System.out.println("BAS - x:"+p.getX()+" y:"+p.getY());
                 break;
             case D:
             case RIGHT:
-                p.deplacement(1*0.2, 0);
+                p.deplacement(1, 0);
                 System.out.println("DROITE - x:"+p.getX()+" y:"+p.getY());
                 break;
             case Q:
             case LEFT:
-                p.deplacement(-1*0.2, 0);
+                p.deplacement(-1, 0);
                 System.out.println("GAUGHE - x:"+p.getX()+" y:"+p.getY());
                 break;
             case J:
