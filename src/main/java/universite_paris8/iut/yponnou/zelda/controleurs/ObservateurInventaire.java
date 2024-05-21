@@ -1,6 +1,6 @@
 package universite_paris8.iut.yponnou.zelda.controleurs;
 
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.modele.Objet;
@@ -8,21 +8,20 @@ import universite_paris8.iut.yponnou.zelda.modele.Objet;
 public class ObservateurInventaire extends ObservateurObjets {
 
     private static double x = 5;
-    private static double y = 4;
+    private static double y = 5;
 
-    public ObservateurInventaire(Pane pane) {
-        super(pane);
+    public ObservateurInventaire(HBox hBox) {
+        super(hBox);
     }
 
     @Override
     public void creerSprite(Objet ob){
-
-        Rectangle rectangle = new Rectangle(ObservateurObjets.getTailleCaseX(), ObservateurObjets.getTailleCaseY());
+        Rectangle rectangle = new Rectangle(getTailleCaseX(), getTailleCaseY());
         rectangle.setFill(Color.GREEN);
         rectangle.setId(ob.getId());
         rectangle.setX(x);
         rectangle.setY(y);
         getPane().getChildren().add(rectangle);
-        x += ObservateurObjets.getTailleCaseX()+10;
+        x += getTailleCaseX()+10;
     }
 }

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
@@ -19,11 +20,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
-    private Environnement environnement;
-    private Map map;
     private Hero perso;
-    private Objet objet1;
-    private Objet objet2;
 
     private Timeline gameLoop;
     private int temps;
@@ -33,24 +30,33 @@ public class Controleur implements Initializable {
     @FXML
     private TilePane tilePaneDecors;
     @FXML
-    private Pane paneInventaire;
+    private HBox hboxInventaire;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initAnimation();
         gameLoop.play();
-        map = new Map(30, 30);
+
+        Map map = new Map(30, 30);
         map.initialisationMap();
-        environnement = new Environnement(1500,900,map);
+        Environnement environnement = new Environnement(map);
         MapVue tileMap = new MapVue(map.getTabNum(), tilePaneDecors);
-        perso = new Hero("Joseph", 40, 0, 0, map,environnement);
-        objet1 = new Objet(2,0,map,environnement);
-        objet2 = new Objet(0,2,map,environnement);
+        perso = new Hero("Joseph", 40, 0, 0, map, environnement);
+        Objet objet1 = new Objet(80, 650, map, environnement);
+        Objet objet2 = new Objet(65, 500, map, environnement);
+        Objet objet3 = new Objet(165, 800, map, environnement);
+        Objet objet4 = new Objet(65, 400, map, environnement);
+        Objet objet5 = new Objet(250, 500, map, environnement);
+
         environnement.getObjets().addListener(new ObservateurObjets(paneMap));
         environnement.getActeurs().addListener(new ObservateurActeurs(paneMap));
-        perso.getInventaire().getObjets().addListener(new ObservateurInventaire(paneInventaire));
+        perso.getInventaire().getObjets().addListener(new ObservateurInventaire(hboxInventaire));
+
         environnement.ajouterObjet(objet1);
         environnement.ajouterObjet(objet2);
+        environnement.ajouterObjet(objet3);
+        environnement.ajouterObjet(objet4);
+        environnement.ajouterObjet(objet5);
         environnement.ajouterActeur(perso);
         tileMap.affichageMap();
     }
@@ -81,16 +87,26 @@ public class Controleur implements Initializable {
                 System.out.println("GAUGHE - x:"+p.getX()+" y:"+p.getY());
                 break;
             case J:
-                Objet ob = p.objetsProches();
+                 Objet ob = p.objetsProches();
                 if (ob != null && p.getInventaire().getObjets().size() != p.getInventaire().getTaille()) {
                     p.recuperer(ob);
-                    System.out.println("Objets récupéré !");
+                    System.out.println("Objet récupéré !");
                 } else if (ob != null && p.getInventaire().getObjets().size() == p.getInventaire().getTaille()) {
                     System.out.println("Inventaire complet !");
                 } else {
                     System.out.println("Aucun objets trouvés !");
                 }
                 break;
+            case K:
+                Objet ob2;
+                if (!p.getInventaire().getObjets().isEmpty()) {
+                    ob2 = p.getInventaire().getObjets().get(0);
+                    p.deposer(ob2);
+                    System.out.println("Objet déposé !");
+                }
+                else {
+                    System.out.println("Inventaire vide");
+                }
         }
     }
 

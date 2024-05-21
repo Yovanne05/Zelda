@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.TilePane?>
 
@@ -10,7 +12,11 @@
          <children>
             <TilePane fx:id="tilePaneDecors" prefHeight="900.0" prefWidth="1500.0" />
             <Pane fx:id="paneCoeurs" prefHeight="57.0" prefWidth="264.0" style="-fx-background-color: pink;" />
-            <Pane fx:id="paneInventaire" layoutX="1200" layoutY="843" prefHeight="57.0" prefWidth="300.0" style="-fx-background-color: gray;" />
+            <HBox fx:id="hboxInventaire" layoutX="1200" layoutY="840" prefHeight="60.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: gray;">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
+               </padding>
+            </HBox>
          </children>
       </Pane>
    </center>

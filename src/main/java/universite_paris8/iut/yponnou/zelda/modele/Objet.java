@@ -1,6 +1,6 @@
 package universite_paris8.iut.yponnou.zelda.modele;
 
-public class Objet extends Case{
+public class Objet extends Tile {
 
     private static int valeur = 2;
     private String id;
@@ -9,11 +9,9 @@ public class Objet extends Case{
 
     public Objet(int x, int y, Map map, Environnement environnement) {
         super(x,y,map);
-        getMap().getTabNum()[y][x] = valeur;
         env = environnement;
         id = "Ob"+incremente++;
     }
-
 
     public String getId() {
         return id;

@@ -7,22 +7,23 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.modele.Acteur;
 
-public class ObservateurActeurs extends Affichable implements ListChangeListener<Acteur> {
+public class ObservateurActeurs implements ListChangeListener<Acteur>, Dimension {
 
+    private Pane pane;
 
     public ObservateurActeurs(Pane pane) {
-        super(pane);
+        this.pane = pane;
     }
 
     public void creerSprite(Acteur a) {
         Rectangle r = new Rectangle(getTailleCaseX(),getTailleCaseY());
         r.setFill(Color.YELLOW);
         r.setId(a.getId());
-        r.setX(getTailleCaseX()*a.getX());
-        r.setY(getTailleCaseY()*a.getY());
+        r.setX(a.getX());
+        r.setY(a.getY());
         r.translateXProperty().bind(a.xProperty());
         r.translateYProperty().bind(a.yProperty());
-        getPane().getChildren().add(r);
+        pane.getChildren().add(r);
     }
 
     @Override
@@ -32,10 +33,10 @@ public class ObservateurActeurs extends Affichable implements ListChangeListener
                 creerSprite(a);
             }
             for (Acteur a : change.getRemoved()) {
-                for (int i = 0; i < getPane().getChildren().size(); i++) {
-                    if (getPane().getChildren().get(i).getId().equals(a.getId())){
-                        Node node = getPane().getChildren().get(i);
-                        getPane().getChildren().remove(node);
+                for (int i = 0; i < pane.getChildren().size(); i++) {
+                    if (pane.getChildren().get(i).getId().equals(a.getId())){
+                        Node node = pane.getChildren().get(i);
+                        pane.getChildren().remove(node);
                     }
                 }
             }

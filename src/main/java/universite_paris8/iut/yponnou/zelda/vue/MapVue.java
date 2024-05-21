@@ -3,14 +3,15 @@ package universite_paris8.iut.yponnou.zelda.vue;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.controleurs.Affichable;
+import universite_paris8.iut.yponnou.zelda.controleurs.Dimension;
 
-public class MapVue extends Affichable {
+public class MapVue implements Dimension {
 
     private int[][] tab;
+    private TilePane tilePane;
 
     public MapVue(int[][] tab, TilePane tilePane) {
-        super(tilePane);
+        this.tilePane=tilePane;
         this.tab = tab;
     }
 
@@ -26,7 +27,7 @@ public class MapVue extends Affichable {
                 else if (tab[y][x]==1){
                     rectangle.setFill(Color.RED);
                 }
-                getPane().getChildren().add(rectangle);
+                tilePane.getChildren().add(rectangle);
             }
         }
     }

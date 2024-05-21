@@ -1,10 +1,5 @@
 package universite_paris8.iut.yponnou.zelda.modele;
 
-import universite_paris8.iut.yponnou.zelda.controleurs.ObservateurActeurs;
-import universite_paris8.iut.yponnou.zelda.controleurs.ObservateurObjets;
-
-import java.util.ArrayList;
-
 public class Hero extends Acteur{
 
     private Inventaire inventaire;
@@ -19,29 +14,36 @@ public class Hero extends Acteur{
     }
 
     public Objet objetsProches(){
-        double objetX,objetY;
-
         for(Objet obj : getEnvironnement().getObjets()){
-            objetX = obj.getX()* ObservateurObjets.getTailleCaseX();
-            objetY = obj.getY()* ObservateurObjets.getTailleCaseY();
-            if (this.getY()- ObservateurActeurs.getTailleCaseY()<= objetY && objetY <= getY()+ ObservateurActeurs.getTailleCaseY()
-                && this.getX()- ObservateurActeurs.getTailleCaseX()<= objetX && objetX <= getX()+ ObservateurActeurs.getTailleCaseX()
-            ){
+            if (verifObjetsAutour(obj)){
                 return obj;
             }
         }
         return null;
     }
 
-
     public void recuperer(Objet objet){
-        int objetX = (int)objet.getX();
-        int objetY = (int)objet.getY();
-
         inventaire.ajouterObjet(objet);
-        getMap().setIndexTab(objetX,objetY,0);
         objet.getEnvironnement().enleverObjet(objet);
-        objet.setMap(getMap());
+    }
+
+    public void deposer(Objet objet){
+        double objetX, objetY;
+        do {
+            objetX = (Math.random()*getTailleCaseX()) + getX();
+            objetY = (Math.random()*getTailleCaseX()) + getY();
+        }while (!getEnvironnement().dansMap(objetX,objetY) && !verifObjetsAutour(objet));
+
+        objet.setX(objetX);
+        objet.setY(objetY);
+        inventaire.deposerObjet(objet);
+        objet.getEnvironnement().ajouterObjet(objet);
+    }
+
+
+    public boolean verifObjetsAutour(Objet obj){
+        return (this.getY()-getTailleCaseY()<= obj.getY() && obj.getY() <= getY()+getTailleCaseY()
+                && this.getX()-getTailleCaseX()<= obj.getX() && obj.getX() <= getX()+getTailleCaseX());
     }
     @Override
     void parler() {
