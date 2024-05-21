@@ -118,50 +118,12 @@ public abstract class Acteur {
 
         // Vérification des collisions avec les obstacles
         int[][] map = env.getMap().getTabNum();
-        if (map[tableauYHG][tableauXHG] == 1 || map[tableauYHD][tableauXHD] == 1 || map[tableauYBG][tableauXBG] == 1 || map[tableauYBD][tableauXBD] == 1) {
+        if (map[tableauYHG][tableauXHG] > 10 || map[tableauYHD][tableauXHD] > 10 || map[tableauYBG][tableauXBG] > 10 || map[tableauYBD][tableauXBD] > 10) {
             return true; // Collision avec un obstacle
         }
 
         return false;
     }
-
-
-  /*  private boolean collisionAvecObstacle(Rectangle futureHitbox) {
-
-        int tableauXHG, tableauYHG;
-        tableauXHG = (int) (futureHitbox.getX() / ActeurVue.getTailleCaseX());
-        tableauYHG = (int) (futureHitbox.getY() / ActeurVue.getTailleCaseY());
-        if (tableauXHG < 0 || tableauYHG < 0 || tableauXHG >= env.getMap().getLargeur() || tableauYHG >= env.getMap().getHauteur()) {
-            return true; // Collides with border
-        }
-
-        int tableauXHD, tableauYHD;
-        tableauXHD = (int) (futureHitbox.getX() / ActeurVue.getTailleCaseX());
-        tableauYHD = (int) (futureHitbox.getY() / ActeurVue.getTailleCaseY());
-
-        if (tableauXHD < 0 || tableauYHD < 0 || tableauXHD >= env.getMap().getLargeur() || tableauYHD >= env.getMap().getHauteur()) {
-            return true; // Collides with border
-        }
-
-        int tableauXBG, tableauYBG;
-        tableauXBG = (int) (futureHitbox.getX() / ActeurVue.getTailleCaseX());
-        tableauYBG = (int) (futureHitbox.getY() / ActeurVue.getTailleCaseY());
-
-        if (tableauXBG < 0 || tableauYBG < 0 || tableauXBG >= env.getMap().getLargeur() || tableauYBG >= env.getMap().getHauteur()) {
-            return true; // Collides with border
-        }
-
-        int tableauXBD, tableauYBD;
-        tableauXBD = (int) (futureHitbox.getX() / ActeurVue.getTailleCaseX());
-        tableauYBD = (int) (futureHitbox.getY() / ActeurVue.getTailleCaseY());
-
-        if (tableauXBD < 0 || tableauYBD < 0 || tableauXBD >= env.getMap().getLargeur() || tableauYBD >= env.getMap().getHauteur()) {
-            return true; // Collides with border
-        }
-
-        return false;
-    }
-    */
 
 
 }

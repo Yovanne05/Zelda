@@ -17,9 +17,9 @@ public class ActeurVue extends Affichable implements ListChangeListener<Acteur> 
     public ActeurVue(int[][] tab, Pane pane) {
         super(tab, pane);
         //heroImage = new Image("file:C:\\\\Users\\\\Mazur\\\\IdeaProjects\\\\Zelda\\\\src\\\\main\\\\resources\\\\universite_paris8\\\\iut\\\\yponnou\\\\zelda\\\\Images\\\\carrerouge.png");
-        heroImage = new Image("file:C:\\\\Users\\\\Mazur\\\\IdeaProjects\\\\Zelda\\\\src\\\\main\\\\resources\\\\universite_paris8\\\\iut\\\\yponnou\\\\zelda\\\\Images\\LD75.jpg");
+        heroImage = new Image("file:/home/etudiants/info/jmazur/IdeaProjects/Zelda/src/main/resources/universite_paris8/iut/yponnou/zelda/Images/LD75.jpg");
         //  heroImage = new Image("file:C:\\Users\\Mazur\\IdeaProjects\\Zelda\\src\\main\\resources\\universite_paris8\\iut\\yponnou\\zelda\\Images\\player.png");
-        enemyImage = new Image("file:src/main/resources/enemy.png");
+        enemyImage = new Image("file:/home/etudiants/info/jmazur/IdeaProjects/Zelda/src/main/resources/universite_paris8/iut/yponnou/zelda/Images/player.png");
     }
 
     public void creerSprite(Acteur a) {
@@ -58,22 +58,5 @@ public class ActeurVue extends Affichable implements ListChangeListener<Acteur> 
         }
     }
 
-    public boolean checkCollision(Acteur a, double dx, double dy) {
-        for (Node node : getPane().getChildren()) {
-            if (node instanceof ImageView && !node.getId().equals(a.getId())) {
-                ImageView other = (ImageView) node;
-                if (other.getBoundsInParent().intersects(a.getX() + dx, a.getY() + dy, getTailleCaseX(), getTailleCaseY())) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
-    public void moveHero(Hero hero, double dx, double dy) {
-        if (!checkCollision(hero, dx, dy)) {
-            hero.setX( (hero.getX() + dx));
-            hero.setY((hero.getY() + dy));
-        }
-    }
 }

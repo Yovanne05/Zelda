@@ -46,7 +46,7 @@ public class Controleur implements Initializable {
         map = new Map(30, 30);
         environnement = new Environnement((int)paneMap.getPrefWidth(),(int)paneMap.getPrefHeight(),map);
         arme = new ArmeMelee("Fourche",2,0);
-        perso = new Hero("Joseph", 40, 0, 0,1,environnement,arme);
+        perso = new Hero("Joseph", 40, 0, 0,0.2,environnement,arme);
         Epee e= new Epee("Epee",2,0);
         garde=new Garde("Garde",2,8,8,1,environnement,e);
         objet1 = new Objet(environnement,2,0);
@@ -72,22 +72,22 @@ public class Controleur implements Initializable {
         switch (key) {
             case Z:
             case UP:
-                p.deplacement(0, -1*0.2);
+                p.deplacement(0, -1*p.getVitesse());
                 System.out.println("HAUT - x:"+p.getX()+" y:"+p.getY());
                 break;
             case S:
             case DOWN:
-                p.deplacement(0, 1*0.2);
+                p.deplacement(0, 1*p.getVitesse());
                 System.out.println("BAS - x:"+p.getX()+" y:"+p.getY());
                 break;
             case D:
             case RIGHT:
-                p.deplacement(1*0.2, 0);
+                p.deplacement(1*p.getVitesse(), 0);
                 System.out.println("DROITE - x:"+p.getX()+" y:"+p.getY());
                 break;
             case Q:
             case LEFT:
-                p.deplacement(-1*0.2, 0);
+                p.deplacement(-1*p.getVitesse(), 0);
                 System.out.println("GAUGHE - x:"+p.getX()+" y:"+p.getY());
                 break;
             case J:

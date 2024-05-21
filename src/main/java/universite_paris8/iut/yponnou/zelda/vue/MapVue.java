@@ -11,14 +11,20 @@ import java.util.List;
 public class MapVue extends Affichable {
 
     private Image floorImage;
-    private Image obstacleImage;
-    private List<Rectangle> obstacleHitboxes;
+    private Image murImage;
+
+    private Image brickImage;
+    private Image arbreImage;
+    private List<Rectangle> obstaclesHitboxes;
+
 
     public MapVue(int[][] tab, TilePane tilePane) {
         super(tab, tilePane);
-        floorImage = new Image("file:C:\\Users\\Mazur\\IdeaProjects\\Zelda\\src\\main\\resources\\universite_paris8\\iut\\yponnou\\zelda\\Images\\sol.jpg");
-        obstacleImage = new Image("file:C:\\Users\\Mazur\\IdeaProjects\\Zelda\\src\\main\\resources\\universite_paris8\\iut\\yponnou\\zelda\\Images\\mur.png");
-        obstacleHitboxes = new ArrayList<>();
+        floorImage = new Image("file:/home/etudiants/info/jmazur/IdeaProjects/Zelda/src/main/resources/universite_paris8/iut/yponnou/zelda/Images/grass.jpg");
+        murImage = new Image("file:/home/etudiants/info/jmazur/IdeaProjects/Zelda/src/main/resources/universite_paris8/iut/yponnou/zelda/Images/mur.png");
+        arbreImage = new Image("file:/home/etudiants/info/jmazur/IdeaProjects/Zelda/src/main/resources/universite_paris8/iut/yponnou/zelda/Images/arbre.png");
+        brickImage = new Image("file:/home/etudiants/info/jmazur/IdeaProjects/Zelda/src/main/resources/universite_paris8/iut/yponnou/zelda/Images/brick.png");
+        obstaclesHitboxes = new ArrayList<>();
     }
 
     public void creerSprite() {
@@ -27,12 +33,20 @@ public class MapVue extends Affichable {
                 ImageView imageView;
                 if (getTab()[y][x] == 0) {
                     imageView = new ImageView(floorImage);
-                } else if (getTab()[y][x] == 1) {
-                    imageView = new ImageView(obstacleImage);
-                    Rectangle obstacleHitbox = new Rectangle(x * getTailleCaseX(), y * getTailleCaseY(), getTailleCaseX(), getTailleCaseY());
-                    obstacleHitboxes.add(obstacleHitbox);
+                } else if (getTab()[y][x] == 11) {
+                    imageView = new ImageView(murImage);
+                    Rectangle obstacle = new Rectangle(x * getTailleCaseX(), y * getTailleCaseY(), getTailleCaseX(), getTailleCaseY());
+                    obstaclesHitboxes.add(obstacle);
+                } else if (getTab()[y][x] == 12) {
+                    imageView = new ImageView(arbreImage);
+                    Rectangle obstacle = new Rectangle(x * getTailleCaseX(), y * getTailleCaseY(), getTailleCaseX(), getTailleCaseY());
+                    obstaclesHitboxes.add(obstacle);
+                } else if (getTab()[y][x] == 13) {
+                    imageView = new ImageView(brickImage);
+                    Rectangle obstacle = new Rectangle(x * getTailleCaseX(), y * getTailleCaseY(), getTailleCaseX(), getTailleCaseY());
+                    obstaclesHitboxes.add(obstacle);
                 } else {
-                    continue; // Ignore other values
+                    continue; // Ignore other valuesz
                 }
 
                 imageView.setFitWidth(getTailleCaseX());
@@ -45,6 +59,6 @@ public class MapVue extends Affichable {
     }
 
     public List<Rectangle> getObstacleHitboxes() {
-        return obstacleHitboxes;
+        return obstaclesHitboxes;
     }
 }
