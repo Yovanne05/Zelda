@@ -114,7 +114,7 @@ public abstract class Acteur {
         // Vérification des bordures de la carte
         if (tableauXHG < 0 || tableauYHG < 0 || tableauXHD >= env.getMap().getLargeur() || tableauYBG >= env.getMap().getHauteur()) {
             return true; // Collision avec la bordure de la carte
-        }
+        }//123
 
         // Vérification des collisions avec les obstacles
         int[][] map = env.getMap().getTabNum();
