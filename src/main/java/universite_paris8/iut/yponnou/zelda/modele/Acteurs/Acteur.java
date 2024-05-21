@@ -74,6 +74,8 @@ public abstract class Acteur {
         hitbox.setY(y);
     }
 
+
+
     public final double getVitesse() {
         return v;
     }
@@ -83,13 +85,13 @@ public abstract class Acteur {
     }
 
     public void deplacement(double dx, double dy) {
-        double prochainX = getX() + dx * Constante.getTailleCaseX();
-        double prochainY = getY() + dy * Constante.getTailleCaseY();
+        double prochainX = getX() + (dx*this.v) * Constante.getTailleCaseX();
+        double prochainY = getY() + (dy*this.v)  * Constante.getTailleCaseY();
 
         // Création de la nouvelle hitbox après déplacement
         Rectangle futureHitbox = new Rectangle(prochainX, prochainY, Constante.getTailleCaseX(), Constante.getTailleCaseY());
 
-        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecEnnemi(dx, dy)) {
+        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecEnnemi(futureHitbox)) {
             setX(prochainX);
             setY(prochainY);
         }
@@ -126,15 +128,26 @@ public abstract class Acteur {
         return false;
     }
 
-    private boolean collisionAvecEnnemi(double dx, double dy) {
-        ArrayList<Garde> lstE=env.lstEnnemi();
-        for(Garde g : lstE){
-            if(g.getX()==this.getX()+dx*Constante.getTailleCaseX() && g.getY()==this.getY()+dy*Constante.getTailleCaseY()){
-                return true;
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
+
+    private boolean collisionAvecEnnemi(Rectangle futureHitbox) {
+        ArrayList<Acteur> lstActeurs = env.getLstActeurs();
+
+        for (Acteur acteur : lstActeurs) {
+            if (acteur != this && acteur instanceof Garde) {
+                Rectangle ennemiHitbox = acteur.getHitbox();
+                //getBoundsInParent  retourne un objet de type Bounds représentant les coordonnées du rectangle
+                //intersects elle vérifie si les deux ensembles de limites (bounds) se chevauchent
+                if (futureHitbox.getBoundsInParent().intersects(ennemiHitbox.getBoundsInParent())) {
+                    return true;
+                }
             }
         }
         return false;
     }
+
 
 
 }

@@ -33,6 +33,14 @@ public class Environnement {
         return acteurs;
     }
 
+    public ArrayList<Acteur> getLstActeurs(){
+        ArrayList<Acteur> lstA=new ArrayList<>();
+        for(Acteur a: acteurs){
+            lstA.add(a);
+        }
+        return lstA;
+    }
+
     public void ajouterActeur(Acteur acteur) {
         acteurs.add(acteur);
 //        map.setTabNum(acteur);

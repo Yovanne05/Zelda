@@ -18,5 +18,13 @@ public abstract class Ennemi extends Guerrier {
         }
         return null;
     }
+    public void deplacementAleatoire(){
+        double dx = 0;
+        double dy = 0;
 
+        dx = Math.random() * 2 - 1;
+        dy = Math.random() * 2 - 1;
+
+        deplacement(dx, dy);
+    }
 }

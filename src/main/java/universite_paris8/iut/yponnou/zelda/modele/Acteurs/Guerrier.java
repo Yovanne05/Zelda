@@ -8,7 +8,6 @@ public abstract class Guerrier extends Acteur {
 
     public Guerrier(String nom, double coeurs, int x, int y, double vitesse, Environnement environnement, Arme arme) {
         super(nom, coeurs, x, y, vitesse, environnement);
-
         this.arme=arme;
     }
     public abstract void attaquer();

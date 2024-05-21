@@ -37,10 +37,6 @@ public class Hero extends Guerrier{
         int actuelY = (int) (getY()/ActeurVue.getTailleCaseY());
         int objetX,objetY;
 
-//        return ((Xgauche > 0 && getMap().getTabNum()[Xgauche][actuelY] == 2) || (Xdroite < getMap().getLargeur() && getMap().getTabNum()[Xdroite][actuelY] == 2)
-//                || (Yhaut < getMap().getHauteur() && getMap().getTabNum()[actuelX][Yhaut] == 2) || (Ybas < getMap().getHauteur() && getMap().getTabNum()[actuelX][Ybas] == 2)
-//                || Xgauche > 0 && Yhaut > 0 && getMap().getTabNum()[Xgauche][Yhaut] == 2) || (Xdroite < getMap().getLargeur() && Yhaut > 0 && getMap().getTabNum()[Xdroite][Yhaut] == 2)
-//                || (Xgauche > 0 && Ybas < getMap().getHauteur() && getMap().getTabNum()[Xgauche][Ybas] == 2) || (Xdroite < getMap().getLargeur() && Ybas < getMap().getHauteur() && getMap().getTabNum()[Xdroite][Ybas] == 2);
         for(Objet obj : getEnvironnement().getObjets()){
             objetX = obj.getX()/ObjetVue.getTailleCaseX();
             objetY = obj.getY()/ObjetVue.getTailleCaseY();

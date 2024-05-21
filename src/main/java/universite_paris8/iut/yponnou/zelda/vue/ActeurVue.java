@@ -23,12 +23,7 @@ public class ActeurVue extends Affichable implements ListChangeListener<Acteur> 
         }else if(a instanceof Ennemi){
             r.setFill(Color.RED);
         }
-
         r.setId(a.getId());
-//        int at = a.getX();
-//        int b = a.getY();
-        // r.setX(a.getX());
-        // r.setY(a.getY());
         r.translateXProperty().bind(a.xProperty());
         r.translateYProperty().bind(a.yProperty());
         getPane().getChildren().add(r);
