@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.yponnou.zelda.controleurs.Dimension;
 
-public class Environnement implements Dimension{
+public class Environnement implements Dimension {
 
     private final int largeur;
     private final int hauteur;
