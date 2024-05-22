@@ -75,7 +75,6 @@ public abstract class Acteur {
     }
 
 
-
     public final double getVitesse() {
         return v;
     }
@@ -85,13 +84,13 @@ public abstract class Acteur {
     }
 
     public void deplacement(double dx, double dy) {
-        double prochainX = getX() + (dx*this.v) * Constante.getTailleCaseX();
-        double prochainY = getY() + (dy*this.v)  * Constante.getTailleCaseY();
+        double prochainX = getX() + (dx * this.v) * Constante.getTailleCaseX();
+        double prochainY = getY() + (dy * this.v) * Constante.getTailleCaseY();
 
         // Création de la nouvelle hitbox après déplacement
         Rectangle futureHitbox = new Rectangle(prochainX, prochainY, Constante.getTailleCaseX(), Constante.getTailleCaseY());
 
-        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecEnnemi(futureHitbox)) {
+        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
             setX(prochainX);
             setY(prochainY);
         }
@@ -107,10 +106,10 @@ public abstract class Acteur {
         // Coordonnées des coins de la hitbox en termes de cases
         int tableauXHG = (int) (x / Constante.getTailleCaseX());
         int tableauYHG = (int) (y / Constante.getTailleCaseY());
-        int tableauXHD = (int) ((x + width-1) / Constante.getTailleCaseX());
+        int tableauXHD = (int) ((x + width - 1) / Constante.getTailleCaseX());
         int tableauYHD = tableauYHG;
         int tableauXBG = tableauXHG;
-        int tableauYBG = (int) ((y + height-1) / Constante.getTailleCaseY());
+        int tableauYBG = (int) ((y + height - 1) / Constante.getTailleCaseY());
         int tableauXBD = tableauXHD;
         int tableauYBD = tableauYBG;
 
@@ -132,22 +131,19 @@ public abstract class Acteur {
         return hitbox;
     }
 
-    private boolean collisionAvecEnnemi(Rectangle futureHitbox) {
+    private boolean collisionAvecActeur(Rectangle futureHitbox) {
         ArrayList<Acteur> lstActeurs = env.getLstActeurs();
 
         for (Acteur acteur : lstActeurs) {
-            if (acteur != this && acteur instanceof Garde) {
-                Rectangle ennemiHitbox = acteur.getHitbox();
-                //getBoundsInParent  retourne un objet de type Bounds représentant les coordonnées du rectangle
-                //intersects elle vérifie si les deux ensembles de limites (bounds) se chevauchent
-                if (futureHitbox.getBoundsInParent().intersects(ennemiHitbox.getBoundsInParent())) {
-                    return true;
-                }
+            Rectangle ennemiHitbox = acteur.getHitbox();
+            //getBoundsInParent  retourne un objet de type Bounds représentant les coordonnées du rectangle
+            //intersects elle vérifie si les deux ensembles de limites (bounds) se chevauchent
+            if (futureHitbox.getBoundsInParent().intersects(ennemiHitbox.getBoundsInParent()) && !this.getId().equals(acteur.getId())) {
+                return true;
             }
         }
         return false;
     }
-
 
 
 }

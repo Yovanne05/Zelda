@@ -49,7 +49,7 @@ public class Controleur implements Initializable {
         arme = new ArmeMelee("Fourche",2);
         perso = new Hero("Joseph", 40, 0, 0,0.2,environnement,arme);
         Epee e= new Epee("Epee",2);
-        garde=new Garde("Garde",2,800,800,0.05,environnement,e);
+        garde=new Garde("Garde",2,800,800,0.03,environnement,e);
         objet1 = new Objet(environnement,2,0);
 //        objet2 = new Objet(0,2,map,environnement);
 //        ActeurVue aV = new ActeurVue(perso.getMap().getTabNum(), paneMap);
@@ -115,7 +115,7 @@ public class Controleur implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
-                    garde.deplacementAleatoire();
+                    garde.deplacementEnRonde();
 //                    if(temps==100){
 //                        System.out.println("fini");
 //                        gameLoop.stop();
