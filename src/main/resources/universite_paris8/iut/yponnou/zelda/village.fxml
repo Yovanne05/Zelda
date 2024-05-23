@@ -11,6 +11,7 @@
       <Pane fx:id="paneMap" prefHeight="900.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
          <children>
             <TilePane fx:id="tilePaneDecors" prefHeight="900.0" prefWidth="1500.0" />
+            <Pane fx:id="paneObjets" prefHeight="900" prefWidth="1500" />
             <Pane fx:id="paneCoeurs" prefHeight="57.0" prefWidth="264.0" style="-fx-background-color: pink;" />
             <HBox fx:id="hboxInventaire" layoutX="1200" layoutY="840" prefHeight="60.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: gray;">
                <padding>

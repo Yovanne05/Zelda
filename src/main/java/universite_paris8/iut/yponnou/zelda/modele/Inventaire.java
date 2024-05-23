@@ -5,8 +5,8 @@ import javafx.collections.ObservableList;
 
 public class Inventaire{
 
-    private ObservableList<Objet> objets = FXCollections.observableArrayList();
-    private int taille;
+    private final ObservableList<Objet> objets = FXCollections.observableArrayList();
+    private final int taille;
 
     public Inventaire(int capaciteStockage) {
         taille = capaciteStockage;

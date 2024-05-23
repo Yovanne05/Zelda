@@ -7,8 +7,8 @@ public class Objet extends Tile {
     private static int incremente = 0;
     Environnement env;
 
-    public Objet(int x, int y, Map map, Environnement environnement) {
-        super(x,y,map);
+    public Objet(int x, int y, Environnement environnement) {
+        super(x,y);
         env = environnement;
         id = "Ob"+incremente++;
     }

@@ -28,6 +28,8 @@ public class Controleur implements Initializable {
     @FXML
     private Pane paneMap;
     @FXML
+    private Pane paneObjets;
+    @FXML
     private TilePane tilePaneDecors;
     @FXML
     private HBox hboxInventaire;
@@ -41,22 +43,22 @@ public class Controleur implements Initializable {
         map.initialisationMap();
         Environnement environnement = new Environnement(map);
         MapVue tileMap = new MapVue(map.getTabNum(), tilePaneDecors);
-        perso = new Hero("Joseph", 40, 0, 0, map, environnement);
-        Objet objet1 = new Objet(80, 650, map, environnement);
-        Objet objet2 = new Objet(65, 500, map, environnement);
-        Objet objet3 = new Objet(165, 800, map, environnement);
-        Objet objet4 = new Objet(65, 400, map, environnement);
-        Objet objet5 = new Objet(250, 500, map, environnement);
+        perso = new Hero("Joseph", 40, 0, 0, environnement);
+        Objet objet1 = new Objet(80, 650, environnement);
+        Objet objet2 = new Objet(65, 500, environnement);
+//        Objet objet3 = new Objet(165, 800, environnement);
+//        Objet objet4 = new Objet(65, 400, environnement);
+//        Objet objet5 = new Objet(250, 500, environnement);
 
-        environnement.getObjets().addListener(new ObservateurObjets(paneMap));
+        environnement.getObjets().addListener(new ObservateurObjets(paneObjets));
         environnement.getActeurs().addListener(new ObservateurActeurs(paneMap));
         perso.getInventaire().getObjets().addListener(new ObservateurInventaire(hboxInventaire));
 
         environnement.ajouterObjet(objet1);
         environnement.ajouterObjet(objet2);
-        environnement.ajouterObjet(objet3);
-        environnement.ajouterObjet(objet4);
-        environnement.ajouterObjet(objet5);
+//        environnement.ajouterObjet(objet3);
+//        environnement.ajouterObjet(objet4);
+//        environnement.ajouterObjet(objet5);
         environnement.ajouterActeur(perso);
         tileMap.affichageMap();
     }
@@ -65,6 +67,7 @@ public class Controleur implements Initializable {
     public void interaction(KeyEvent event) {
         KeyCode key = event.getCode();
         Hero p = perso;
+        Objet ob;
         switch (key) {
             case Z:
             case UP:
@@ -87,7 +90,7 @@ public class Controleur implements Initializable {
                 System.out.println("GAUGHE - x:"+p.getX()+" y:"+p.getY());
                 break;
             case J:
-                 Objet ob = p.objetsProches();
+                ob = p.objetsProches();
                 if (ob != null && p.getInventaire().getObjets().size() != p.getInventaire().getTaille()) {
                     p.recuperer(ob);
                     System.out.println("Objet récupéré !");
@@ -98,10 +101,9 @@ public class Controleur implements Initializable {
                 }
                 break;
             case K:
-                Objet ob2;
                 if (!p.getInventaire().getObjets().isEmpty()) {
-                    ob2 = p.getInventaire().getObjets().get(0);
-                    p.deposer(ob2);
+                    ob = p.getInventaire().getObjets().get(0);
+                    p.deposer(ob);
                     System.out.println("Objet déposé !");
                 }
                 else {

@@ -8,12 +8,10 @@ public class Tile implements Dimension {
 
     private DoubleProperty x;
     private DoubleProperty y;
-    private Map map;
 
-    public Tile(double x, double y, Map map) {
+    public Tile(double x, double y) {
         this.x = new SimpleDoubleProperty(x);
         this.y = new SimpleDoubleProperty(y);
-        this.map = map;
     }
 
     public double getX() {
@@ -33,12 +31,5 @@ public class Tile implements Dimension {
     }
     public DoubleProperty yProperty() {
         return y;
-    }
-
-    public Map getMap() {
-        return map;
-    }
-    public void setMap(Map map) {
-        this.map = map;
     }
 }

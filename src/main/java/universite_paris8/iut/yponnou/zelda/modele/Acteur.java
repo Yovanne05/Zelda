@@ -4,16 +4,16 @@ import javafx.scene.shape.Rectangle;
 
 public abstract class Acteur extends Tile {
 
-    private String idActeur;
+    private final String idActeur;
     private static int incremente = 0;
-    private String nom;
-    private int pv;
-    private double vitesse;
+    private final String nom;
+    private final int pv;
+    private final double vitesse;
     private Environnement env;
-    private Rectangle hitbox;
+    private final Rectangle hitbox;
 
-    public Acteur(String nom, int pv, double x, double y, double vitesse, Map map, Environnement environnement) {
-        super(x,y,map);
+    public Acteur(String nom, int pv, double x, double y, double vitesse, Environnement environnement) {
+        super(x,y);
         this.nom = nom;
         this.pv = pv;
         this.vitesse = vitesse;
@@ -47,6 +47,9 @@ public abstract class Acteur extends Tile {
     public Environnement getEnvironnement() {
         return env;
     }
+    public void setEnvironnement(Environnement environnement) {
+        this.env = environnement;
+    }
 
     public void deplacement(int dx, int dy){
         double prochainX = getX()+dx*vitesse;
@@ -60,26 +63,22 @@ public abstract class Acteur extends Tile {
         }
     }
 
-    private boolean collisionAvecObstacle(Rectangle futureHitbox) {
+    public boolean collisionAvecObstacle(Rectangle futurHitbox) {
         // Calcul des positions des quatre coins de la hitbox
-        double x = futureHitbox.getX();
-        double y = futureHitbox.getY();
-        double width = futureHitbox.getWidth();
-        double height = futureHitbox.getHeight();
+        double x = futurHitbox.getX();
+        double y = futurHitbox.getY();
+        double width = futurHitbox.getWidth();
+        double height = futurHitbox.getHeight();
 
-        // Coordonnées des coins de la hitbox en termes de cases
+        // Coordonnées des coins de la hitbox en terme de cases
         int tableauXHG = (int) (x / getTailleCaseX());
         int tableauYHG = (int) (y / getTailleCaseY());
         int tableauXHD = (int) ((x + width-1) / getTailleCaseX());
-        int tableauYHD = tableauYHG;
-        int tableauXBG = tableauXHG;
         int tableauYBG = (int) ((y + height-1) / getTailleCaseY());
-        int tableauXBD = tableauXHD;
-        int tableauYBD = tableauYBG;
 
         // Vérification des collisions avec les obstacles
         int[][] map = env.getMap().getTabNum();
-        return map[tableauYHG][tableauXHG] == 1 || map[tableauYHD][tableauXHD] == 1 || map[tableauYBG][tableauXBG] == 1 || map[tableauYBD][tableauXBD] == 1; // Collision avec un obstacle
+        return map[tableauYHG][tableauXHG] == 1 || map[tableauYHG][tableauXHD] == 1 || map[tableauYBG][tableauXHG] == 1 || map[tableauYBG][tableauXHD] == 1; // Collision avec un obstacle
     }
 
     abstract void parler();
