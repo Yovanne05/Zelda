@@ -3,13 +3,13 @@ package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.modele.Constante;
+import universite_paris8.iut.yponnou.zelda.controleurs.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 
 
 import java.util.ArrayList;
 
-public abstract class Acteur {
+public abstract class Acteur extends Constante {
 
     private String idActeur;
     private static int incremente = 0;
@@ -29,7 +29,7 @@ public abstract class Acteur {
         v = vitesse;
         this.env = environnement;
         idActeur = "Acteur-" + incremente++;
-        hitbox = new Rectangle(x, y, Constante.getTailleCaseX(), Constante.getTailleCaseY());
+        hitbox = new Rectangle(x, y, TAILLECASEX, TAILLECASEY);
     }
 
     public String getId() {
@@ -46,6 +46,14 @@ public abstract class Acteur {
 
     public void setCoeurs(double coeurs) {
         this.coeurs = coeurs;
+    }
+    public void seFaitAttquer(double pts){
+        double nvPv =getCoeurs()-pts;
+        if(nvPv>0){
+            setCoeurs(nvPv);
+        }else {
+            setCoeurs(0);
+        }
     }
 
     public double getX() {
@@ -84,11 +92,11 @@ public abstract class Acteur {
     }
 
     public void deplacement(double dx, double dy) {
-        double prochainX = getX() + (dx * this.v) * Constante.getTailleCaseX();
-        double prochainY = getY() + (dy * this.v) * Constante.getTailleCaseY();
+        double prochainX = getX() + (dx * this.v) * TAILLECASEX;
+        double prochainY = getY() + (dy * this.v) * TAILLECASEY;
 
         // Création de la nouvelle hitbox après déplacement
-        Rectangle futureHitbox = new Rectangle(prochainX, prochainY, Constante.getTailleCaseX(), Constante.getTailleCaseY());
+        Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLECASEX, TAILLECASEY);
 
         if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
             setX(prochainX);
@@ -96,7 +104,7 @@ public abstract class Acteur {
         }
     }
 
-    private boolean collisionAvecObstacle(Rectangle futureHitbox) {
+    public boolean collisionAvecObstacle(Rectangle futureHitbox) {
         // Calcul des positions des quatre coins de la hitbox
         double x = futureHitbox.getX();
         double y = futureHitbox.getY();
@@ -104,12 +112,12 @@ public abstract class Acteur {
         double height = futureHitbox.getHeight();
 
         // Coordonnées des coins de la hitbox en termes de cases
-        int tableauXHG = (int) (x / Constante.getTailleCaseX());
-        int tableauYHG = (int) (y / Constante.getTailleCaseY());
-        int tableauXHD = (int) ((x + width - 1) / Constante.getTailleCaseX());
+        int tableauXHG = (int) (x / TAILLECASEX);
+        int tableauYHG = (int) (y / TAILLECASEY);
+        int tableauXHD = (int) ((x + width - 1) / TAILLECASEX);
         int tableauYHD = tableauYHG;
         int tableauXBG = tableauXHG;
-        int tableauYBG = (int) ((y + height - 1) / Constante.getTailleCaseY());
+        int tableauYBG = (int) ((y + height - 1) / TAILLECASEY);
         int tableauXBD = tableauXHD;
         int tableauYBD = tableauYBG;
 
@@ -145,5 +153,17 @@ public abstract class Acteur {
         return false;
     }
 
-
+    @Override
+    public String toString() {
+        return "Acteur{" +
+                "idActeur='" + idActeur + '\'' +
+                ", nom='" + nom + '\'' +
+                ", coeurs=" + coeurs +
+                ", v=" + v +
+                ", env=" + env +
+                ", x=" + x +
+                ", y=" + y +
+                ", hitbox=" + hitbox +
+                '}';
+    }
 }

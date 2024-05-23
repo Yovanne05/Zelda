@@ -1,4 +1,4 @@
-package universite_paris8.iut.yponnou.zelda.vue;
+package universite_paris8.iut.yponnou.zelda.controleurs;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
@@ -9,15 +9,16 @@ import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Ennemi;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 
-public class ActeurVue extends Affichable implements ListChangeListener<Acteur> {
+public class ObservateurActeurs extends Constante implements ListChangeListener<Acteur> {
 
+    private Pane pane;
 
-    public ActeurVue(int[][] tab, Pane pane) {
-        super(tab,pane);
+    public ObservateurActeurs(Pane pane) {
+        this.pane = pane;
     }
 
     public void creerSprite(Acteur a) {
-        Rectangle r = new Rectangle(getTailleCaseX(),getTailleCaseY());
+        Rectangle r = new Rectangle(TAILLECASEX,TAILLECASEY);
         if(a instanceof Hero){
             r.setFill(Color.YELLOW);
         }else if(a instanceof Ennemi){
@@ -26,7 +27,7 @@ public class ActeurVue extends Affichable implements ListChangeListener<Acteur> 
         r.setId(a.getId());
         r.translateXProperty().bind(a.xProperty());
         r.translateYProperty().bind(a.yProperty());
-        getPane().getChildren().add(r);
+        pane.getChildren().add(r);
     }
 
     @Override
@@ -36,11 +37,10 @@ public class ActeurVue extends Affichable implements ListChangeListener<Acteur> 
                 creerSprite(a);
             }
             for (Acteur a : change.getRemoved()) {
-                for (int i = 0; i < getPane().getChildren().size(); i++) {
-                    if (getPane().getChildren().get(i).getId().equals(a.getId())){
-                        Node node = getPane().getChildren().get(i);
-                        getPane().getChildren().remove(node);
-                    }
+                for (int i = 0; i < pane.getChildren().size(); i++) {
+                    System.out.println(this.pane.lookup("#"+a.getId()));
+                        this.pane.getChildren().remove(this.pane.lookup("#"+a.getId()));
+
                 }
             }
         }
