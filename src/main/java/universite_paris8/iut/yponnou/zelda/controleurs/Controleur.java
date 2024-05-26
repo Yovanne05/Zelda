@@ -48,9 +48,9 @@ public class Controleur implements Initializable {
         Environnement environnement = new Environnement(map);
         MapVue tileMap = new MapVue(map.getTabNum(), tilePaneDecors);
         ArmeMelee a1=new ArmeMelee("Fourche",1);
-        perso = new Hero("Joseph", 40, 0, 0,0.2, environnement,a1);
-        Objet objet1 = new Objet(80, 650, environnement);
-        Objet objet2 = new Objet(65, 500, environnement);
+        perso = new Hero("Joseph", 40, 400, 400,0.2, environnement,a1);
+        Objet objet1 = new Objet(800, 650, environnement);
+        Objet objet2 = new Objet(765, 500, environnement);
 
         environnement.getObjets().addListener(new ObservateurObjets(paneObjets));
         environnement.getActeurs().addListener(new ObservateurActeurs(paneMap));
@@ -61,12 +61,12 @@ public class Controleur implements Initializable {
         environnement.ajouterActeur(perso);
 
         Epee e= new Epee("E",1);
-        g=new Garde("G", 20,60,60,0.03,environnement,e);
+        g=new Garde("G", 20,400,500,0.03,environnement,e);
 
         environnement.ajouterActeur(g);
 
-
-        tileMap.affichageMap();
+        map.initialisationMap();
+        tileMap.creerSprite();
     }
 
     @FXML
@@ -132,7 +132,7 @@ public class Controleur implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
-                    //g.deplacementEnRonde();
+                    g.deplacementEnRonde();
 //                    if(temps==100){
 //                        System.out.println("fini");
 //                        gameLoop.stop();
