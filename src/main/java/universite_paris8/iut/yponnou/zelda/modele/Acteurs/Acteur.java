@@ -128,7 +128,7 @@ public abstract class Acteur extends Constante {
 
         // Vérification des collisions avec les obstacles
         int[][] map = env.getMap().getTabNum();
-        if (map[tableauYHG][tableauXHG] == 1 || map[tableauYHD][tableauXHD] == 1 || map[tableauYBG][tableauXBG] == 1 || map[tableauYBD][tableauXBD] == 1) {
+        if (map[tableauYHG][tableauXHG] > 20 || map[tableauYHD][tableauXHD] > 20 || map[tableauYBG][tableauXBG] > 20 || map[tableauYBD][tableauXBD] > 20) {
             return true; // Collision avec un obstacle
         }
 
