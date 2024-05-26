@@ -95,34 +95,20 @@ public abstract class Acteur {
     }
 
     private boolean collisionAvecObstacle(Rectangle futureHitbox) {
-        // Calcul des positions des quatre coins de la hitbox
-        double x = futureHitbox.getX();
-        double y = futureHitbox.getY();
-        double width = futureHitbox.getWidth();
-        double height = futureHitbox.getHeight();
+        int tableauX, tableauY;
+        tableauX = (int) (futureHitbox.getX() / ActeurVue.getTailleCaseX());
+        tableauY = (int) (futureHitbox.getY() / ActeurVue.getTailleCaseY());
 
-        // Coordonnées des coins de la hitbox en termes de cases
-        int tableauXHG = (int) (x / ActeurVue.getTailleCaseX());
-        int tableauYHG = (int) (y / ActeurVue.getTailleCaseY());
-        int tableauXHD = (int) ((x + width-1) / ActeurVue.getTailleCaseX());
-        int tableauYHD = tableauYHG;
-        int tableauXBG = tableauXHG;
-        int tableauYBG = (int) ((y + height-1) / ActeurVue.getTailleCaseY());
-        int tableauXBD = tableauXHD;
-        int tableauYBD = tableauYBG;
-
-        // Vérification des bordures de la carte
-        if (tableauXHG < 0 || tableauYHG < 0 || tableauXHD >= env.getMap().getLargeur() || tableauYBG >= env.getMap().getHauteur()) {
-            return true; // Collision avec la bordure de la carte
-        }//123
-
-        // Vérification des collisions avec les obstacles
-        int[][] map = env.getMap().getTabNum();
-        if (map[tableauYHG][tableauXHG] > 40 || map[tableauYHD][tableauXHD] > 40 || map[tableauYBG][tableauXBG] > 40 || map[tableauYBD][tableauXBD] > 40) {
-            return true; // Collision avec un obstacle
+        if (tableauX < 0 || tableauY < 0 || tableauX >= env.getMap().getLargeur() || tableauY >= env.getMap().getHauteur()) {
+            return true; // Collides with border
         }
+
+        if (env.getMap().getTabNum()[tableauY][tableauX] == 1) {
+            return true; // Collides with an obstacle
+        }
+
         return false;
     }
 
-
+    abstract void parler();
 }

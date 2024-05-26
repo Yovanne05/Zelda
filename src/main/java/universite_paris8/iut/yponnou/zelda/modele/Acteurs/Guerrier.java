@@ -8,18 +8,25 @@ public abstract class Guerrier extends Acteur {
 
     public Guerrier(String nom, double coeurs, int x, int y, double vitesse, Environnement environnement, Arme arme) {
         super(nom, coeurs, x, y, vitesse, environnement);
-
         this.arme=arme;
     }
     public abstract void attaquer();
-    public Acteur verifEnnemiAcoter() {
+    public Acteur verifEnnemiAcoter(){
+        double dist = 100;
         for (Acteur a : getEnvironnement().getActeurs()) {
-            if (((getX() + 1) == a.getX()) || (getX() - 1 == a.getX()) || getY() + 1 == a.getY() || getY() - 1 == a.getY()) {
-                return a;
+            // Vérifie que l'acteur n'est pas lui-même
+            if (!a.getId().equals(this.getId())) {
+                // Vérifie la distance en utilisant la distance de Manhattan
+                if (Math.abs(getX() - a.getX()) <= dist && Math.abs(getY() - a.getY()) <= dist) {
+                    return a;
+                }
             }
         }
         return null;
     }
 
 
+    public Arme getArme() {
+        return arme;
+    }
 }

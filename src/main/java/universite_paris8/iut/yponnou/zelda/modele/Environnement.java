@@ -2,22 +2,23 @@ package universite_paris8.iut.yponnou.zelda.modele;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import universite_paris8.iut.yponnou.zelda.controleurs.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 
-public class Environnement {
+import java.util.ArrayList;
 
-    private int largeur;
-    private int hauteur;
-    private MapVue tilemap;
+public class Environnement extends Constante {
+
+    private final int largeur;
+    private final int hauteur;
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
-    private ObservableList<Objet> objets = FXCollections.observableArrayList();;
+    private ObservableList<Objet> objets = FXCollections.observableArrayList();
     private Map map;
 
-    public Environnement(int largeur, int hauteur, Map map) {
-        this.largeur = largeur;
-        this.hauteur = hauteur;
+    public Environnement(Map map) {
         this.map = map;
+        this.largeur = this.map.getLargeur()* TAILLECASEX;
+        this.hauteur = this.map.getHauteur()* TAILLECASEY;
     }
 
     public int getLargeur() {
@@ -30,10 +31,8 @@ public class Environnement {
     public ObservableList<Acteur> getActeurs() {
         return acteurs;
     }
-
     public void ajouterActeur(Acteur acteur) {
         acteurs.add(acteur);
-//        map.setTabNum(acteur);
     }
     public void enleverActeur(Acteur acteur) {
         acteurs.remove(acteur);
@@ -42,7 +41,6 @@ public class Environnement {
     public ObservableList<Objet> getObjets() {
         return objets;
     }
-
     public void ajouterObjet(Objet objet) {
         objets.add(objet);
     }
@@ -50,22 +48,20 @@ public class Environnement {
         objets.remove(objet);
     }
 
+    public ArrayList<Acteur> getLstActeurs(){
+        ArrayList<Acteur> lstA=new ArrayList<>();
+        for(Acteur a: acteurs){
+            lstA.add(a);
+        }
+        return lstA;
+    }
 
-    public Map getMap() {
+    public Map getMap(){
         return map;
     }
 
-    public void setMap(Map map) {
-        this.map = map;
+    public boolean dansMap(double x, double y) {
+        return x >= 0 && y >= 0 && x <= largeur-TAILLECASEX && y <= hauteur-TAILLECASEY;
     }
 
-
-    public Environnement(MapVue tilemap) {
-        this.tilemap = tilemap;
-    }
-
-    public MapVue getTilemap() {
-        return tilemap;
-    }
 }
-
