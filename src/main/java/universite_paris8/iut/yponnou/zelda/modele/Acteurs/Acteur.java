@@ -3,13 +3,10 @@ package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.controleurs.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.controleurs.ObservateurActeurs;
 
-
-import java.util.ArrayList;
-
-public abstract class Acteur extends Constante {
+public abstract class Acteur {
 
     private String idActeur;
     private static int incremente = 0;
@@ -29,7 +26,7 @@ public abstract class Acteur extends Constante {
         v = vitesse;
         this.env = environnement;
         idActeur = "Acteur-" + incremente++;
-        hitbox = new Rectangle(x, y, TAILLECASEX, TAILLECASEY);
+        hitbox = new Rectangle(x, y, ObservateurActeurs.TAILLECASEX, ObservateurActeurs.TAILLECASEY);
     }
 
     public String getId() {
@@ -46,14 +43,6 @@ public abstract class Acteur extends Constante {
 
     public void setCoeurs(double coeurs) {
         this.coeurs = coeurs;
-    }
-    public void seFaitAttquer(double pts){
-        double nvPv =getCoeurs()-pts;
-        if(nvPv>0){
-            setCoeurs(nvPv);
-        }else {
-            setCoeurs(0);
-        }
     }
 
     public double getX() {
@@ -82,7 +71,6 @@ public abstract class Acteur extends Constante {
         hitbox.setY(y);
     }
 
-
     public final double getVitesse() {
         return v;
     }
@@ -92,13 +80,13 @@ public abstract class Acteur extends Constante {
     }
 
     public void deplacement(double dx, double dy) {
-        double prochainX = getX() + (dx * this.v) * TAILLECASEX;
-        double prochainY = getY() + (dy * this.v) * TAILLECASEY;
+        double prochainX = getX() + dx * ObservateurActeurs.TAILLECASEX;
+        double prochainY = getY() + dy * ObservateurActeurs.TAILLECASEY;
 
         // Création de la nouvelle hitbox après déplacement
-        Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLECASEX, TAILLECASEY);
+        Rectangle futureHitbox = new Rectangle(prochainX, prochainY, ObservateurActeurs.TAILLECASEX, ObservateurActeurs.TAILLECASEY);
 
-        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
+        if (!collisionAvecObstacle(futureHitbox)) {
             setX(prochainX);
             setY(prochainY);
         }
@@ -112,58 +100,27 @@ public abstract class Acteur extends Constante {
         double height = futureHitbox.getHeight();
 
         // Coordonnées des coins de la hitbox en termes de cases
-        int tableauXHG = (int) (x / TAILLECASEX);
-        int tableauYHG = (int) (y / TAILLECASEY);
-        int tableauXHD = (int) ((x + width - 1) / TAILLECASEX);
+        int tableauXHG = (int) (x / ObservateurActeurs.TAILLECASEX);
+        int tableauYHG = (int) (y / ObservateurActeurs.TAILLECASEY);
+        int tableauXHD = (int) ((x + width-1) / ObservateurActeurs.TAILLECASEX);
         int tableauYHD = tableauYHG;
         int tableauXBG = tableauXHG;
-        int tableauYBG = (int) ((y + height - 1) / TAILLECASEY);
+        int tableauYBG = (int) ((y + height-1) / ObservateurActeurs.TAILLECASEY);
         int tableauXBD = tableauXHD;
         int tableauYBD = tableauYBG;
 
         // Vérification des bordures de la carte
         if (tableauXHG < 0 || tableauYHG < 0 || tableauXHD >= env.getMap().getLargeur() || tableauYBG >= env.getMap().getHauteur()) {
             return true; // Collision avec la bordure de la carte
-        }
+        }//123
 
         // Vérification des collisions avec les obstacles
         int[][] map = env.getMap().getTabNum();
         if (map[tableauYHG][tableauXHG] > 20 || map[tableauYHD][tableauXHD] > 20 || map[tableauYBG][tableauXBG] > 20 || map[tableauYBD][tableauXBD] > 20) {
             return true; // Collision avec un obstacle
         }
-
         return false;
     }
 
-    public Rectangle getHitbox() {
-        return hitbox;
-    }
-
-    private boolean collisionAvecActeur(Rectangle futureHitbox) {
-        ArrayList<Acteur> lstActeurs = env.getLstActeurs();
-
-        for (Acteur acteur : lstActeurs) {
-            Rectangle ennemiHitbox = acteur.getHitbox();
-            //getBoundsInParent  retourne un objet de type Bounds représentant les coordonnées du rectangle
-            //intersects elle vérifie si les deux ensembles de limites (bounds) se chevauchent
-            if (futureHitbox.getBoundsInParent().intersects(ennemiHitbox.getBoundsInParent()) && !this.getId().equals(acteur.getId())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public String toString() {
-        return "Acteur{" +
-                "idActeur='" + idActeur + '\'' +
-                ", nom='" + nom + '\'' +
-                ", coeurs=" + coeurs +
-                ", v=" + v +
-                ", env=" + env +
-                ", x=" + x +
-                ", y=" + y +
-                ", hitbox=" + hitbox +
-                '}';
-    }
+    abstract void parler();
 }

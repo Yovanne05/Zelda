@@ -15,5 +15,9 @@ public class Garde extends Ennemi{
     }
 
 
+    @Override
+    void parler() {
+
+    }
 }
 //test
