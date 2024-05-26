@@ -121,7 +121,6 @@ public abstract class Acteur {
         if (map[tableauYHG][tableauXHG] > 40 || map[tableauYHD][tableauXHD] > 40 || map[tableauYBG][tableauXBG] > 40 || map[tableauYBD][tableauXBD] > 40) {
             return true; // Collision avec un obstacle
         }
-
         return false;
     }
 
