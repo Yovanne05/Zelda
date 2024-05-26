@@ -27,4 +27,8 @@ public class Garde extends Ennemi{
         attaquer();
     }
 
+    @Override
+    void parler() {
+
+    }
 }
