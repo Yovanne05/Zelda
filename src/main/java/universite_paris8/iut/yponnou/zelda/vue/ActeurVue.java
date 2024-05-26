@@ -13,13 +13,14 @@ public class ActeurVue extends Affichable implements ListChangeListener<Acteur> 
 
     private Image heroImage;
     private Image enemyImage;
+    private Image HeroSwim;
 
     public ActeurVue(int[][] tab, Pane pane) {
         super(tab, pane);
         //heroImage = new Image("file:C:\\\\Users\\\\Mazur\\\\IdeaProjects\\\\Zelda\\\\src\\\\main\\\\resources\\\\universite_paris8\\\\iut\\\\yponnou\\\\zelda\\\\Images\\\\carrerouge.png");
-        heroImage = new Image("file:/home/etudiants/info/jmazur/IdeaProjects/Zelda/src/main/resources/universite_paris8/iut/yponnou/zelda/Images/LD75.jpg");
+        heroImage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/LD75.jpg");
         //  heroImage = new Image("file:C:\\Users\\Mazur\\IdeaProjects\\Zelda\\src\\main\\resources\\universite_paris8\\iut\\yponnou\\zelda\\Images\\player.png");
-        enemyImage = new Image("file:/home/etudiants/info/jmazur/IdeaProjects/Zelda/src/main/resources/universite_paris8/iut/yponnou/zelda/Images/player.png");
+        enemyImage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/player.png");
     }
 
     public void creerSprite(Acteur a) {

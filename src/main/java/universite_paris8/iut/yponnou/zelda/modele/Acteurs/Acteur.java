@@ -118,7 +118,7 @@ public abstract class Acteur {
 
         // Vérification des collisions avec les obstacles
         int[][] map = env.getMap().getTabNum();
-        if (map[tableauYHG][tableauXHG] > 10 || map[tableauYHD][tableauXHD] > 10 || map[tableauYBG][tableauXBG] > 10 || map[tableauYBD][tableauXBD] > 10) {
+        if (map[tableauYHG][tableauXHG] > 40 || map[tableauYHD][tableauXHD] > 40 || map[tableauYBG][tableauXBG] > 40 || map[tableauYBD][tableauXBD] > 40) {
             return true; // Collision avec un obstacle
         }
 
