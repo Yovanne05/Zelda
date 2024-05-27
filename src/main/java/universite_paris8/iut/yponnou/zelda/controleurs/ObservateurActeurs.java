@@ -21,34 +21,43 @@ public class ObservateurActeurs extends Constante implements ListChangeListener<
 
     public ObservateurActeurs(Pane pane) {
         this.pane = pane;
-        heroImage = new Image("file:C:\\Users\\Mazur\\IdeaProjects\\Zelda\\src\\main\\resources\\universite_paris8\\iut\\yponnou\\zelda\\Images\\LD75.jpg");
-        //  heroImage = new Image("file:C:\\Users\\Mazur\\IdeaProjects\\Zelda\\src\\main\\resources\\universite_paris8\\iut\\yponnou\\zelda\\Images\\player.png");
-        enemyImage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/zombie.png");
+        heroImage=new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/perso.png");
+        enemyImage=new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/zombie.png");
     }
 
     public void creerSprite(Acteur a) {
         ImageView imageView;
-        if (a instanceof Hero) {
-            imageView = new ImageView(heroImage);
-        } else if (a instanceof Ennemi) {
+        if(a instanceof Hero){
+            imageView =  new ImageView(heroImage);
+            System.out.println("zef");
+        }else if(a instanceof Ennemi){
             imageView = new ImageView(enemyImage);
-        } else {
+            System.out.println("efzf");
+        }else{
             throw new IllegalArgumentException("Acteur non supporté");
         }
-
         imageView.setFitWidth(TAILLECASEX);
         imageView.setFitHeight(TAILLECASEY);
-        imageView.setId(a.getId());
 
-        imageView.setX(TAILLECASEX * a.getX());
-        imageView.setY(TAILLECASEY * a.getY());
-        a.setX((int) imageView.getX());
-        a.setY((int) imageView.getY());
         imageView.translateXProperty().bind(a.xProperty());
         imageView.translateYProperty().bind(a.yProperty());
-
+        imageView.setId(a.getId());
         pane.getChildren().add(imageView);
     }
+
+//    public void creerSprite(Acteur a) {
+//        Rectangle r = new Rectangle(TAILLECASEX,TAILLECASEY);
+//        if(a instanceof Hero){
+//            r.setFill(Color.YELLOW);
+//        }else if(a instanceof Ennemi){
+//            r.setFill(Color.RED);
+//        }
+//        r.setId(a.getId());
+//        r.translateXProperty().bind(a.xProperty());
+//        r.translateYProperty().bind(a.yProperty());
+//        pane.getChildren().add(r);
+//    }
+
 
     @Override
     public void onChanged(Change<? extends Acteur> change) {

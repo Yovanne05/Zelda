@@ -61,7 +61,7 @@ public class Controleur implements Initializable {
         environnement.ajouterActeur(perso);
 
         Epee e= new Epee("E",1);
-        g=new Garde("G", 20,400,500,0.03,environnement,e);
+        g=new Garde("G", 5,400,500,0.03,environnement,e);
 
         environnement.ajouterActeur(g);
 
