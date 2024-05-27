@@ -83,6 +83,7 @@ public class Hero extends Guerrier {
     public void attaquer(){
         Acteur e = this.verifEnnemiAcoter();
         if(e!=null){
+            e.seFaitAttquer(this.getArme().getPtsDegats());
             if(e.getCoeurs()==0){
                 ObservableList<Acteur> lstA= getEnvironnement().getActeurs();
                 for(Acteur a : lstA){
@@ -93,11 +94,6 @@ public class Hero extends Guerrier {
             }
         }
         System.out.println(e);
-    }
-
-    @Override
-    void parler() {
-
     }
 }
 //t
