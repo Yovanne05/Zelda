@@ -1,6 +1,9 @@
 package universite_paris8.iut.yponnou.zelda.modele;
 
 
+import javafx.scene.shape.Rectangle;
+import universite_paris8.iut.yponnou.zelda.vue.MapVue;
+
 public class Map{
     private int[][] tabNum;
     private int hauteur, largeur;
