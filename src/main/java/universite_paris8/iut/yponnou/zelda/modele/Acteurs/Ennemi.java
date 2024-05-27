@@ -23,14 +23,14 @@ public abstract class Ennemi extends Guerrier {
     public void deplacementEnRonde() {
         int dx = 0;
         int dy = 0;
-        if(cpt<50){
+        if(cpt<500){
             cpt++;
             dx=1;
         }else{
             cpt++;
             dx=-1;
         }
-        if(cpt>99){
+        if(cpt>999){
             cpt=0;
         }
         deplacement(dx, dy);
