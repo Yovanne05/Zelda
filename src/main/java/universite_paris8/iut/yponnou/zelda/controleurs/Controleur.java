@@ -12,8 +12,10 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
-import universite_paris8.iut.yponnou.zelda.modele.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.Objet;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Nourriture;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Pomme;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 
 import java.net.URL;
@@ -32,6 +34,8 @@ public class Controleur implements Initializable {
     @FXML
     private TilePane tilePaneDecors;
     @FXML
+    private HBox paneCoeurs;
+    @FXML
     private HBox hboxInventaire;
 
     @Override
@@ -43,23 +47,26 @@ public class Controleur implements Initializable {
         map.initialisationMap();
         Environnement environnement = new Environnement(map);
         MapVue tileMap = new MapVue(map.getTabNum(), tilePaneDecors);
-        perso = new Hero("Joseph", 40, 0, 0, environnement);
-        Objet objet1 = new Objet(80, 650, environnement);
-        Objet objet2 = new Objet(65, 500, environnement);
-//        Objet objet3 = new Objet(165, 800, environnement);
-//        Objet objet4 = new Objet(65, 400, environnement);
-//        Objet objet5 = new Objet(250, 500, environnement);
+        perso = new Hero("Joseph", 0, 0, environnement);
+        Pomme objet1 = new Pomme(80, 100, environnement);
+        Pomme objet2 = new Pomme(60, 90, environnement);
+        Pomme objet3 = new Pomme(100, 100, environnement);
+        Pomme objet4 = new Pomme(60, 140, environnement);
+        Pomme objet5 = new Pomme(165, 90, environnement);
 
         environnement.getObjets().addListener(new ObservateurObjets(paneObjets));
         environnement.getActeurs().addListener(new ObservateurActeurs(paneMap));
-        perso.getInventaire().getObjets().addListener(new ObservateurInventaire(hboxInventaire));
+        perso.pvProperty().addListener(new ObservateurCoeurs(paneCoeurs));
+        perso.getInventaire().addListener(new ObservateurObjets(hboxInventaire));
+
 
         environnement.ajouterObjet(objet1);
         environnement.ajouterObjet(objet2);
-//        environnement.ajouterObjet(objet3);
-//        environnement.ajouterObjet(objet4);
-//        environnement.ajouterObjet(objet5);
+        environnement.ajouterObjet(objet3);
+        environnement.ajouterObjet(objet4);
+        environnement.ajouterObjet(objet5);
         environnement.ajouterActeur(perso);
+        perso.subitDegats(100);
         tileMap.affichageMap();
     }
 
@@ -68,47 +75,61 @@ public class Controleur implements Initializable {
         KeyCode key = event.getCode();
         Hero p = perso;
         Objet ob;
+        Nourriture aliment;
         switch (key) {
             case Z:
             case UP:
                 p.deplacement(0, -1);
-                System.out.println("HAUT - x:"+p.getX()+" y:"+p.getY());
+                System.out.println("HAUT - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
             case S:
             case DOWN:
                 p.deplacement(0, 1);
-                System.out.println("BAS - x:"+p.getX()+" y:"+p.getY());
+                System.out.println("BAS - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
             case D:
             case RIGHT:
                 p.deplacement(1, 0);
-                System.out.println("DROITE - x:"+p.getX()+" y:"+p.getY());
+                System.out.println("DROITE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
             case Q:
             case LEFT:
                 p.deplacement(-1, 0);
-                System.out.println("GAUGHE - x:"+p.getX()+" y:"+p.getY());
+                System.out.println("GAUGHE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
-            case J:
+            case E:
                 ob = p.objetsProches();
-                if (ob != null && p.getInventaire().getObjets().size() != p.getInventaire().getTaille()) {
+                if (ob != null && p.getInventaire().size() != p.getCapaciteMax()) {
                     p.recuperer(ob);
                     System.out.println("Objet récupéré !");
-                } else if (ob != null && p.getInventaire().getObjets().size() == p.getInventaire().getTaille()) {
+                } else if (ob != null && p.getInventaire().size() == p.getCapaciteMax()) {
                     System.out.println("Inventaire complet !");
                 } else {
                     System.out.println("Aucun objets trouvés !");
                 }
                 break;
             case K:
-                if (!p.getInventaire().getObjets().isEmpty()) {
-                    ob = p.getInventaire().getObjets().get(0);
+                if (!p.getInventaire().isEmpty()) {
+                    ob = p.getInventaire().get(0);
                     p.deposer(ob);
                     System.out.println("Objet déposé !");
                 }
                 else {
                     System.out.println("Inventaire vide");
                 }
+            case M:
+                aliment = perso.possedeNourritures();
+                if (aliment != null) {
+                    if (!perso.pleineSante()) {
+                        perso.guerison(aliment.getPv());
+                        System.out.println(perso.getNom() + " a mangé " + aliment.getNom());
+                        perso.getInventaire().remove(aliment);
+                    }
+                    else
+                        System.out.println("Votre santé déjà complète !");
+                }
+                else
+                    System.out.println("Aucun aliments trouvés");
         }
     }
 

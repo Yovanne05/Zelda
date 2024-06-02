@@ -2,9 +2,11 @@ package universite_paris8.iut.yponnou.zelda.modele;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import universite_paris8.iut.yponnou.zelda.controleurs.Dimension;
+import universite_paris8.iut.yponnou.zelda.Constante;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
-public class Environnement implements Dimension {
+public class Environnement{
 
     private final int largeur;
     private final int hauteur;
@@ -14,8 +16,8 @@ public class Environnement implements Dimension {
 
     public Environnement(Map map) {
         this.map = map;
-        this.largeur = this.map.getLargeur()* getTailleCaseX();
-        this.hauteur = this.map.getHauteur()* getTailleCaseY();
+        this.largeur = this.map.getLargeur()*Constante.TAILLECASEX;
+        this.hauteur = this.map.getHauteur()*Constante.TAILLECASEY;
     }
 
     public int getLargeur() {
@@ -50,7 +52,7 @@ public class Environnement implements Dimension {
     }
 
     public boolean dansMap(double x, double y) {
-        return x >= 0 && y >= 0 && x <= largeur-getTailleCaseX() && y <= hauteur-getTailleCaseY();
+        return x >= 0 && y >= 0 && x <= largeur-Constante.TAILLECASEX && y <= hauteur-Constante.TAILLECASEX;
     }
 
 }

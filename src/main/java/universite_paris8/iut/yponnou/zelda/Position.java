@@ -1,17 +1,19 @@
-package universite_paris8.iut.yponnou.zelda.modele;
+package universite_paris8.iut.yponnou.zelda;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import universite_paris8.iut.yponnou.zelda.controleurs.Dimension;
+import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 
-public class Tile implements Dimension {
+public class Position {
 
     private DoubleProperty x;
     private DoubleProperty y;
+    private Environnement env;
 
-    public Tile(double x, double y) {
+    public Position(double x, double y, Environnement env) {
         this.x = new SimpleDoubleProperty(x);
         this.y = new SimpleDoubleProperty(y);
+        this.env = env;
     }
 
     public double getX() {
@@ -31,5 +33,11 @@ public class Tile implements Dimension {
     }
     public DoubleProperty yProperty() {
         return y;
+    }
+    public Environnement getEnv() {
+        return env;
+    }
+    public void setEnv(Environnement env) {
+        this.env = env;
     }
 }

@@ -5,25 +5,20 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.modele.Objet;
+import universite_paris8.iut.yponnou.zelda.Constante;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Nourriture;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Pomme;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
+import universite_paris8.iut.yponnou.zelda.vue.NourritureVue;
+import universite_paris8.iut.yponnou.zelda.vue.ObjetVue;
+import universite_paris8.iut.yponnou.zelda.vue.PommeVue;
 
-public class ObservateurObjets implements ListChangeListener<Objet>,Dimension {
+public class ObservateurObjets implements ListChangeListener<Objet> {
 
     private Pane pane;
 
     public ObservateurObjets(Pane pane) {
         this.pane=pane;
-    }
-
-    public void creerSprite(Objet ob) {
-        Rectangle r = new Rectangle(getTailleCaseX(),getTailleCaseY());
-        r.setFill(Color.GREEN);
-        r.setId(ob.getId());
-        r.setX(ob.getX());
-        r.setY(ob.getY());
-//        r.translateXProperty().bind(ob.xProperty());
-//        r.translateYProperty().bind(ob.yProperty());
-        pane.getChildren().add(r);
     }
 
     public Pane getPane() {
@@ -35,7 +30,14 @@ public class ObservateurObjets implements ListChangeListener<Objet>,Dimension {
         Node node;
         while (change.next()) {
             for (Objet ob : change.getAddedSubList()) {
-                creerSprite(ob);
+                if (ob instanceof Pomme) {
+                    PommeVue pommeVue = new PommeVue((Pomme) ob,pane);
+                    pommeVue.creerSprite();
+                }
+                else {
+                    ObjetVue objVue = new ObjetVue(ob, pane);
+                    objVue.creerSprite();
+                }
             }
             for (Objet ob : change.getRemoved()) {
                 for (int i = 0; i < pane.getChildren().size(); i++) {
