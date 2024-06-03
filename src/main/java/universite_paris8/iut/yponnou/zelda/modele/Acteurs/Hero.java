@@ -93,7 +93,13 @@ public class Hero extends Guerrier {
                 }
             }
         }
-        System.out.println(e);
+    }
+
+    @Override
+    public String toString() {
+        return "Hero{" +
+                "inventaire=" + inventaire +
+                '}';
     }
 }
 //t

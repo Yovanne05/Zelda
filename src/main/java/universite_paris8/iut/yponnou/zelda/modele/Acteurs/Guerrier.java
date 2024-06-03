@@ -12,7 +12,7 @@ public abstract class Guerrier extends Acteur {
     }
     public abstract void attaquer();
     public Acteur verifEnnemiAcoter(){
-        double dist = 100;
+        double dist = 80;
         for (Acteur a : getEnvironnement().getActeurs()) {
             // Vérifie que l'acteur n'est pas lui-même
             if (!a.getId().equals(this.getId())) {
@@ -25,6 +25,9 @@ public abstract class Guerrier extends Acteur {
         return null;
     }
 
+    public void setArme(Arme arme) {
+        this.arme = arme;
+    }
 
     public Arme getArme() {
         return arme;

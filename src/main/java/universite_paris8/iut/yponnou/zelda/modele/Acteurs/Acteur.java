@@ -53,6 +53,7 @@ public abstract class Acteur extends Constante {
             setCoeurs(nvPv);
         }else {
             setCoeurs(0);
+            env.enleverActeur(this);
         }
     }
 

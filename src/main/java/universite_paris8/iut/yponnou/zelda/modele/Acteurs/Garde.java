@@ -4,15 +4,29 @@ import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 
-public class Garde extends Ennemi{
+public class Garde extends Ennemi {
+    private static final long delaisAvantAttaque = 2000; // Délai de 2 secondes entre les attaques
+    private long derniereAttaque;
+
     public Garde(String nom, double coeurs, int x, int y, double vitesse, Environnement environnement, Epee epee) {
         super(nom, coeurs, x, y, vitesse, environnement, epee);
+        this.derniereAttaque = 0;
     }
 
     @Override
     public void attaquer() {
-
+        long now = System.currentTimeMillis();
+        if (peuxAttaquer(now)) {
+            Hero h = verifHeroProx();
+            if (h != null) {
+                h.seFaitAttquer(getArme().getPtsDegats());
+                derniereAttaque = now;
+            }
+        }
     }
 
-
+    private boolean peuxAttaquer(long now) {
+        return (now - derniereAttaque) >= delaisAvantAttaque;
+    }
 }
+

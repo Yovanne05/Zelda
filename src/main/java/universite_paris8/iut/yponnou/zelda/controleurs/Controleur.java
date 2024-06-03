@@ -11,12 +11,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeMelee;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Objet;
+import universite_paris8.iut.yponnou.zelda.vue.FelcheVue;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 
 import java.net.URL;
@@ -37,36 +38,36 @@ public class Controleur implements Initializable {
     private HBox hboxInventaire;
 
     private Garde g;
+    private Map map;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initAnimation();
-        gameLoop.play();
 
-        Map map = new Map(30, 30);
+        map = new Map(30, 30);
         map.initialisationMap();
         Environnement environnement = new Environnement(map);
         MapVue tileMap = new MapVue(map.getTabNum(), tilePaneDecors);
-        ArmeMelee a1=new ArmeMelee("Fourche",1);
-        perso = new Hero("Joseph", 40, 400, 400,0.2, environnement,a1);
-        Objet objet1 = new Objet(800, 650, environnement);
-        Objet objet2 = new Objet(765, 500, environnement);
+
+
+        perso = new Hero("Joseph", 10, 400, 400,0.2, environnement,null);
+        ArcArme a =new ArcArme(perso.getX(), perso.getY());
+        perso.setArme(a);
 
         environnement.getObjets().addListener(new ObservateurObjets(paneObjets));
         environnement.getActeurs().addListener(new ObservateurActeurs(paneMap));
         perso.getInventaire().getObjets().addListener(new ObservateurInventaire(hboxInventaire));
 
-        environnement.ajouterObjet(objet1);
-        environnement.ajouterObjet(objet2);
         environnement.ajouterActeur(perso);
 
-        Epee e= new Epee("E",1);
+        Epee e= new Epee();
         g=new Garde("G", 5,400,500,0.03,environnement,e);
 
         environnement.ajouterActeur(g);
 
         map.initialisationMap();
         tileMap.creerSprite();
+        initAnimation();
+        gameLoop.play();
     }
 
     @FXML
@@ -74,26 +75,37 @@ public class Controleur implements Initializable {
         KeyCode key = event.getCode();
         Hero p = perso;
         Objet ob;
+        int dx,dy;
+        dx=0;
+        dy=0;
         switch (key) {
             case Z:
             case UP:
                 p.deplacement(0, -1);
                 System.out.println("HAUT - x:"+p.getX()+" y:"+p.getY());
+                dx=0;
+                dy=-1;
                 break;
             case S:
             case DOWN:
                 p.deplacement(0, 1);
                 System.out.println("BAS - x:"+p.getX()+" y:"+p.getY());
+                dx=0;
+                dy=1;
                 break;
             case D:
             case RIGHT:
                 p.deplacement(1, 0);
                 System.out.println("DROITE - x:"+p.getX()+" y:"+p.getY());
+                dx=1;
+                dy=0;
                 break;
             case Q:
             case LEFT:
                 p.deplacement(-1, 0);
                 System.out.println("GAUGHE - x:"+p.getX()+" y:"+p.getY());
+                dx=-1;
+                dy=0;
                 break;
             case E:
                 ob = p.objetsProches();

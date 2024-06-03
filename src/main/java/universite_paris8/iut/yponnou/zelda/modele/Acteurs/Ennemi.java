@@ -12,7 +12,8 @@ public abstract class Ennemi extends Guerrier {
     }
     public Hero verifHeroProx(){
         for (Acteur a : getEnvironnement().getActeurs()) {
-            if (((getX() + 1) == a.getX()) || (getX() - 1 == a.getX()) || getY() + 1 == a.getY() || getY() - 1 == a.getY()) {
+            double dist=80;
+            if ((Math.abs(getX() - a.getX()) <= dist && Math.abs(getY() - a.getY()) <= dist)) {
                 if(a instanceof Hero){
                     return (Hero) a;
                 }
@@ -23,16 +24,21 @@ public abstract class Ennemi extends Guerrier {
     public void deplacementEnRonde() {
         int dx = 0;
         int dy = 0;
-        if(cpt<500){
-            cpt++;
-            dx=1;
+        Hero h =verifHeroProx();
+        if(h==null){
+            if(cpt<500){
+                cpt++;
+                dx=1;
+            }else if(cpt<999){
+                cpt++;
+                dx=-1;
+            }else{
+                cpt=0;
+            }
         }else{
-            cpt++;
-            dx=-1;
+            this.attaquer();
         }
-        if(cpt>999){
-            cpt=0;
-        }
+
         deplacement(dx, dy);
 
     }
