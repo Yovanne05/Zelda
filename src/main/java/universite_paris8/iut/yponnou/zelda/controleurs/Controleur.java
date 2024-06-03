@@ -35,13 +35,14 @@ public class Controleur implements Initializable {
     private TilePane tilePaneDecors;
     @FXML
     private HBox hboxInventaire;
+    private boolean pas=true;
 
     private Garde g;
+    private ObservateurActeurs acteurObs;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initAnimation();
-        gameLoop.play();
 
         Map map = new Map(30, 30);
         map.initialisationMap();
@@ -51,24 +52,20 @@ public class Controleur implements Initializable {
         perso = new Hero("Joseph", 40, 400, 400,0.2, environnement,a1);
         Objet objet1 = new Objet(800, 650, environnement);
         Objet objet2 = new Objet(765, 500, environnement);
-
         environnement.getObjets().addListener(new ObservateurObjets(paneObjets));
-        environnement.getActeurs().addListener(new ObservateurActeurs(paneMap));
+        this.acteurObs=new ObservateurActeurs(paneMap);
+        environnement.getActeurs().addListener(acteurObs);
         perso.getInventaire().getObjets().addListener(new ObservateurInventaire(hboxInventaire));
-
         environnement.ajouterObjet(objet1);
         environnement.ajouterObjet(objet2);
         environnement.ajouterActeur(perso);
-
         Epee e= new Epee("E",1);
         g=new Garde("G", 5,400,500,0.03,environnement,e);
-
         environnement.ajouterActeur(g);
-
         map.initialisationMap();
         tileMap.creerSprite();
+        gameLoop.play();
     }
-
     @FXML
     public void interaction(KeyEvent event) {
         KeyCode key = event.getCode();
@@ -77,23 +74,53 @@ public class Controleur implements Initializable {
         switch (key) {
             case Z:
             case UP:
+                if(p.getDirection()=="up")
+                {
+                    System.out.println(pas);
+                    pas=!pas;
+                    System.out.println(pas);
+                }
+                    p.setDirection("up");
                 p.deplacement(0, -1);
-                System.out.println("HAUT - x:"+p.getX()+" y:"+p.getY());
+                System.out.println("HAUT - x:" + p.getX() + " y:" + p.getY());
+                acteurObs.upgradeSprite(p,pas);
                 break;
             case S:
             case DOWN:
+                if(p.getDirection()=="down")
+                {
+                    System.out.println(pas);
+                    pas=!pas;
+                    System.out.println(pas);
+                }
+                p.setDirection("down");
                 p.deplacement(0, 1);
-                System.out.println("BAS - x:"+p.getX()+" y:"+p.getY());
-                break;
+                System.out.println("BAS - x:" + p.getX() + " y:" + p.getY());
+                acteurObs.upgradeSprite(p,pas);                break;
             case D:
             case RIGHT:
+                if(p.getDirection()=="right")
+                {
+                    System.out.println(pas);
+                    pas=!pas;
+                    System.out.println(pas);
+                }
+                p.setDirection("right");
                 p.deplacement(1, 0);
-                System.out.println("DROITE - x:"+p.getX()+" y:"+p.getY());
-                break;
+                System.out.println("DROITE - x:" + p.getX() + " y:" + p.getY());
+                acteurObs.upgradeSprite(p,pas);                break;
             case Q:
             case LEFT:
+                if(p.getDirection()=="left")
+                {
+                    System.out.println(pas);
+                    pas=!pas;
+                    System.out.println(pas);
+                }
+                p.setDirection("left");
                 p.deplacement(-1, 0);
-                System.out.println("GAUGHE - x:"+p.getX()+" y:"+p.getY());
+                System.out.println("GAUCHE - x:" + p.getX() + " y:" + p.getY());
+                acteurObs.upgradeSprite(p,pas);                System.out.println("GGGG");
                 break;
             case E:
                 ob = p.objetsProches();
@@ -117,10 +144,8 @@ public class Controleur implements Initializable {
                 }
             case J:
                 perso.attaquer();
-
         }
     }
-
     private void initAnimation() {
         gameLoop = new Timeline();
         temps = 0;

@@ -7,6 +7,7 @@ import universite_paris8.iut.yponnou.zelda.controleurs.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 
 
+
 import java.util.ArrayList;
 
 public abstract class Acteur extends Constante {
@@ -20,6 +21,7 @@ public abstract class Acteur extends Constante {
     private DoubleProperty x;
     private DoubleProperty y;
     private Rectangle hitbox;
+    private String direction;
 
     public Acteur(String nom, double coeurs, double x, double y, double vitesse, Environnement environnement) {
         this.x = new SimpleDoubleProperty(x);
@@ -30,6 +32,15 @@ public abstract class Acteur extends Constante {
         this.env = environnement;
         idActeur = "Acteur-" + incremente++;
         hitbox = new Rectangle(x, y, TAILLECASEX, TAILLECASEY);
+        this.direction="down";
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
     public String getId() {
@@ -82,7 +93,6 @@ public abstract class Acteur extends Constante {
         hitbox.setY(y);
     }
 
-
     public final double getVitesse() {
         return v;
     }
@@ -92,6 +102,18 @@ public abstract class Acteur extends Constante {
     }
 
     public void deplacement(double dx, double dy) {
+
+        /*System.out.println(dx);
+        System.out.println(dy);
+        if (dx==1) {
+            System.out.println("DROITEDOITE");
+        } else if (dx==-1) {
+            System.out.println("GAUCHEGAUCHE");
+        } else if (dy==1) {
+            System.out.println("BASBAS");
+        } else if (dy==-1) {
+            System.out.println("UPUP");}
+       */
         double prochainX = getX() + (dx * this.v) * TAILLECASEX;
         double prochainY = getY() + (dy * this.v) * TAILLECASEY;
 
