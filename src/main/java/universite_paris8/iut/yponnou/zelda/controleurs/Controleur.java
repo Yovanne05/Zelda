@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Npc;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeMelee;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
@@ -35,10 +36,10 @@ public class Controleur implements Initializable {
     private TilePane tilePaneDecors;
     @FXML
     private HBox hboxInventaire;
-    private boolean pas=true;
-
     private Garde g;
+    private Npc n;
     private ObservateurActeurs acteurObs;
+    private boolean touche;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -61,7 +62,9 @@ public class Controleur implements Initializable {
         environnement.ajouterActeur(perso);
         Epee e= new Epee("E",1);
         g=new Garde("G", 5,400,500,0.03,environnement,e);
+        n = new Npc("N", 300, 500, 0.03, environnement);
         environnement.ajouterActeur(g);
+        environnement.ajouterActeur(n);
         map.initialisationMap();
         tileMap.creerSprite();
         gameLoop.play();
@@ -71,56 +74,33 @@ public class Controleur implements Initializable {
         KeyCode key = event.getCode();
         Hero p = perso;
         Objet ob;
+        toucheLacher();
         switch (key) {
             case Z:
             case UP:
-                if(p.getDirection()=="up")
-                {
-                    System.out.println(pas);
-                    pas=!pas;
-                    System.out.println(pas);
-                }
                     p.setDirection("up");
                 p.deplacement(0, -1);
                 System.out.println("HAUT - x:" + p.getX() + " y:" + p.getY());
-                acteurObs.upgradeSprite(p,pas);
+                acteurObs.upgradeSprite(p);
                 break;
             case S:
             case DOWN:
-                if(p.getDirection()=="down")
-                {
-                    System.out.println(pas);
-                    pas=!pas;
-                    System.out.println(pas);
-                }
                 p.setDirection("down");
                 p.deplacement(0, 1);
                 System.out.println("BAS - x:" + p.getX() + " y:" + p.getY());
-                acteurObs.upgradeSprite(p,pas);                break;
+                acteurObs.upgradeSprite(p);                break;
             case D:
             case RIGHT:
-                if(p.getDirection()=="right")
-                {
-                    System.out.println(pas);
-                    pas=!pas;
-                    System.out.println(pas);
-                }
                 p.setDirection("right");
                 p.deplacement(1, 0);
                 System.out.println("DROITE - x:" + p.getX() + " y:" + p.getY());
-                acteurObs.upgradeSprite(p,pas);                break;
+                acteurObs.upgradeSprite(p);                break;
             case Q:
             case LEFT:
-                if(p.getDirection()=="left")
-                {
-                    System.out.println(pas);
-                    pas=!pas;
-                    System.out.println(pas);
-                }
                 p.setDirection("left");
                 p.deplacement(-1, 0);
                 System.out.println("GAUCHE - x:" + p.getX() + " y:" + p.getY());
-                acteurObs.upgradeSprite(p,pas);                System.out.println("GGGG");
+                acteurObs.upgradeSprite(p);                System.out.println("GGGG");
                 break;
             case E:
                 ob = p.objetsProches();
@@ -145,6 +125,10 @@ public class Controleur implements Initializable {
             case J:
                 perso.attaquer();
         }
+    }
+    @FXML
+    private void toucheLacher(){
+    this.touche=false;
     }
     private void initAnimation() {
         gameLoop = new Timeline();
