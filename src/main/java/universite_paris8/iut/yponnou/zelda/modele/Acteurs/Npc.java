@@ -1,5 +1,6 @@
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
+import universite_paris8.iut.yponnou.zelda.controleurs.ObservateurActeurs;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 
