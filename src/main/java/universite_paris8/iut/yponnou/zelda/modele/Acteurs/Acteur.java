@@ -103,17 +103,6 @@ public abstract class Acteur extends Constante {
 
     public void deplacement(double dx, double dy) {
 
-        /*System.out.println(dx);
-        System.out.println(dy);
-        if (dx==1) {
-            System.out.println("DROITEDOITE");
-        } else if (dx==-1) {
-            System.out.println("GAUCHEGAUCHE");
-        } else if (dy==1) {
-            System.out.println("BASBAS");
-        } else if (dy==-1) {
-            System.out.println("UPUP");}
-       */
         double prochainX = getX() + (dx * this.v) * TAILLECASEX;
         double prochainY = getY() + (dy * this.v) * TAILLECASEY;
 

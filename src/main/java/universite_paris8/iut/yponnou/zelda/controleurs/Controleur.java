@@ -71,36 +71,39 @@ public class Controleur implements Initializable {
     }
     @FXML
     public void interaction(KeyEvent event) {
+        this.touche=true;
         KeyCode key = event.getCode();
         Hero p = perso;
         Objet ob;
-        toucheLacher();
         switch (key) {
             case Z:
             case UP:
                     p.setDirection("up");
                 p.deplacement(0, -1);
                 System.out.println("HAUT - x:" + p.getX() + " y:" + p.getY());
-                acteurObs.upgradeSprite(p);
+                acteurObs.upgradeSprite(p,touche);
                 break;
             case S:
             case DOWN:
                 p.setDirection("down");
                 p.deplacement(0, 1);
                 System.out.println("BAS - x:" + p.getX() + " y:" + p.getY());
-                acteurObs.upgradeSprite(p);                break;
+                acteurObs.upgradeSprite(p,touche);
+                break;
             case D:
             case RIGHT:
                 p.setDirection("right");
                 p.deplacement(1, 0);
                 System.out.println("DROITE - x:" + p.getX() + " y:" + p.getY());
-                acteurObs.upgradeSprite(p);                break;
+                acteurObs.upgradeSprite(p,touche);
+                break;
             case Q:
             case LEFT:
                 p.setDirection("left");
                 p.deplacement(-1, 0);
                 System.out.println("GAUCHE - x:" + p.getX() + " y:" + p.getY());
-                acteurObs.upgradeSprite(p);                System.out.println("GGGG");
+                acteurObs.upgradeSprite(p,touche);
+                System.out.println("GGGG");
                 break;
             case E:
                 ob = p.objetsProches();
@@ -124,12 +127,18 @@ public class Controleur implements Initializable {
                 }
             case J:
                 perso.attaquer();
+            case P:
+                n.parler();
         }
     }
     @FXML
     private void toucheLacher(){
-    this.touche=false;
+        System.out.println("La touche est lachée");
+        this.touche=false;
+        acteurObs.upgradeSprite(perso,touche);
     }
+
+
     private void initAnimation() {
         gameLoop = new Timeline();
         temps = 0;

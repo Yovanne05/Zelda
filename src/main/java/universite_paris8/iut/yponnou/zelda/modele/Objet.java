@@ -5,7 +5,7 @@ public class Objet extends Tile {
     private static int valeur = 2;
     private String id;
     private static int incremente = 0;
-    Environnement env;
+    private Environnement env;
 
     public Objet(int x, int y, Environnement environnement) {
         super(x,y);

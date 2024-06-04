@@ -11,12 +11,14 @@ public class Environnement extends Constante {
 
     private final int largeur;
     private final int hauteur;
-    private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
-    private ObservableList<Objet> objets = FXCollections.observableArrayList();
+    private ObservableList<Acteur> acteurs;
+    private ObservableList<Objet> objets;
     private Map map;
 
     public Environnement(Map map) {
         this.map = map;
+        this.acteurs = FXCollections.observableArrayList();
+        this.objets = FXCollections.observableArrayList();
         this.largeur = this.map.getLargeur()* TAILLECASEX;
         this.hauteur = this.map.getHauteur()* TAILLECASEY;
     }

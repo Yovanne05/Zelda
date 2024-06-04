@@ -20,11 +20,16 @@ public class ObservateurActeurs extends Constante implements ListChangeListener<
     private Image NPC;
 
     private Image enemyImage;
-    /////////////////////
-    private Image playerup;
-    private Image playerright;
-    private Image playerleft;
-    private Image playerdown;
+    /////////////////////player static
+    private Image playerupS;
+    private Image playerrightS;
+    private Image playerleftS;
+    private Image playerdownS;
+    ////////////////plauyer mouvement
+    private Image playerupM;
+    private Image playerrightM;
+    private Image playerleftM;
+    private Image playerdownM;
 
     //////////////////////////
     public ObservateurActeurs(Pane pane) {
@@ -32,10 +37,15 @@ public class ObservateurActeurs extends Constante implements ListChangeListener<
         NPC=new Image(("file:/home/etudiants/info/jmazur/IdeaProjects/Zelda/src/main/resources/universite_paris8/iut/yponnou/zelda/player/NPC.gif"));
         enemyImage=new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/zombie.png");
         //player tout les angles
-        playerup = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/player/player_up.gif");
-        playerright = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/player/player_right.gif");
-        playerleft = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/player/player_left.gif");
-        playerdown = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/player/player_down.gif");
+        playerupM = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/player/player_up.gif");
+        playerrightM = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/player/player_right.gif");
+        playerleftM = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/player/player_left.gif");
+        playerdownM = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/player/player_down.gif");
+
+        playerupS = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/player/player_upS.gif");
+        playerrightS = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/player/player_rightS.gif");
+        playerleftS = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/player/player_leftS.gif");
+        playerdownS = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/player/player_downS.gif");
 
 
     }
@@ -43,7 +53,7 @@ public class ObservateurActeurs extends Constante implements ListChangeListener<
     public void creerSprite(Acteur a) {
         ImageView imageView;
         if (a instanceof Hero) {
-            imageView = new ImageView(playerdown);
+            imageView = new ImageView(playerdownS);
             System.out.println("zef");
         } else if (a instanceof Ennemi) {
             imageView = new ImageView(enemyImage);
@@ -63,11 +73,11 @@ public class ObservateurActeurs extends Constante implements ListChangeListener<
         pane.getChildren().add(imageView);
     }
 
-    public void upgradeSprite(Acteur a ) {
+    public void upgradeSprite(Acteur a ,boolean touche) {
         ImageView imageView;
         this.pane.getChildren().remove(this.pane.lookup("#"+a.getId()));
         if (a instanceof Hero) {
-            imageView = new ImageView(getHeroImage(a.getDirection()));
+            imageView = new ImageView(getHeroImage(a.getDirection(),touche));
         } else if (a instanceof Ennemi) {
             imageView = new ImageView(getEnemyImage(a.getDirection()));
         } else {
@@ -82,16 +92,29 @@ public class ObservateurActeurs extends Constante implements ListChangeListener<
         pane.getChildren().add(imageView);
     }
 
-    private Image getHeroImage(String direction) {
+    private Image getHeroImage(String direction,boolean touche) {
+        if(touche){
+            System.out.println("TOUCHE");
         switch (direction) {
             case "right":
-                return playerright;
+                return playerrightM;
             case "left":
-                return playerleft;
+                return playerleftM;
             case "up":
-                return playerup;
+                return playerupM;
             default:
-                return playerdown;// Default image if direction is not set
+                return playerdownM;// Default image if direction is not set
+        }}
+
+        switch (direction) {
+            case "right":
+                return playerrightS;
+            case "left":
+                return playerleftS;
+            case "up":
+                return playerupS;
+            default:
+                return playerdownS;// Default image if direction is not set
         }
     }
     private Image getEnemyImage(String direction) {

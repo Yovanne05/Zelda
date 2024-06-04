@@ -6,9 +6,10 @@ import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 
 public abstract class Ennemi extends Guerrier {
 
-    private int cpt =0;
+    private int cpt;
     public Ennemi(String nom, double coeurs, int x, int y, double vitesse, Environnement environnement, Arme arme) {
         super(nom, coeurs, x, y, vitesse, environnement, arme);
+        cpt = 0;
     }
     public Hero verifHeroProx(){
         for (Acteur a : getEnvironnement().getActeurs()) {
