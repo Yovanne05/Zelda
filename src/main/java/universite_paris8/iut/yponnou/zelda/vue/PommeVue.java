@@ -10,8 +10,7 @@ public class PommeVue extends NourritureVue{
     private final Pane pane;
     private final Pomme pomme;
 
-    private static final Image pommeImage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/Aliments/apple.png");
-
+    private static final Image pommeImage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/aliments/apple.png");
 
     public PommeVue(Pomme pomme, Pane pane) {
         super(pomme,pane);
@@ -22,6 +21,8 @@ public class PommeVue extends NourritureVue{
     @Override
     public void creerSprite(){
         ImageView mainImage = new ImageView(pommeImage);
+        mainImage.setFitWidth(pommeImage.getWidth());
+        mainImage.setFitHeight(pommeImage.getHeight());
         mainImage.setId(pomme.getId());
         mainImage.setX(pomme.getPosition().getX());
         mainImage.setY(pomme.getPosition().getY());

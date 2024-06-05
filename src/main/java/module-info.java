@@ -19,4 +19,8 @@ module universite_paris8.iut.yponnou.zelda {
     opens universite_paris8.iut.yponnou.zelda.modele.Objets to javafx.fxml;
     exports universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments;
     opens universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.vue.Acteurs;
+    opens universite_paris8.iut.yponnou.zelda.vue.Acteurs to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.vue.Pv;
+    opens universite_paris8.iut.yponnou.zelda.vue.Pv to javafx.fxml;
 }

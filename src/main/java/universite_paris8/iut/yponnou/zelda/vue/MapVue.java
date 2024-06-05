@@ -1,34 +1,268 @@
 package universite_paris8.iut.yponnou.zelda.vue;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.Constante;
 
-public class MapVue extends Constante {
+import java.util.ArrayList;
+import java.util.List;
 
-    private int[][] tab;
-    private TilePane tilePane;
+public class MapVue {
+
+    private final Image grass;
+    //PLATE
+    private final Image plateKingdom;
+    private final Image plateVillage;
+    //NATURE
+    private final Image arbre;
+    //WATER
+    private final Image water0;
+    private final Image water1;
+    private final Image water2;
+    private final Image water3;
+    private final Image water4;
+    private final Image water5;
+    private final Image water6;
+    private final Image water7;
+    private final Image water8;
+    private final Image water9;
+    private final Image water10;
+    private final Image water11;
+    private final Image water12;
+    private final Image water13;
+    //ROAD
+    private final Image road0;
+    private final Image road1;
+    private final Image road2;
+    private final Image road3;
+    private final Image road4;
+    private final Image road5;
+    private final Image road6;
+    private final Image road7;
+    private final Image road8;
+    private final Image road9;
+    private final Image road10;
+    private final Image road11;
+    private final Image road12;
+    //HOUSE
+    private final Image house1;
+    private final Image house2;
+    private final Image house3;
+    private final Image house4;
+    private final Image house5;
+    private final Image house6;
+    private final Image house7;
+    private final Image house8;
+    private final Image house9;
+    private final Image house10;
+    private final Image house11;
+    private final Image house12;
+    private final Image house13;
+    private final Image house14;
+    private final Image house15;
+    private final Image house16;
+
+    private final int[][] tab;
+    private final TilePane tilePane;
+
+
+    private final List<Rectangle> obstaclesHitboxes;
+
 
     public MapVue(int[][] tab, TilePane tilePane) {
         this.tilePane=tilePane;
         this.tab = tab;
+        grass = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/grass/grass01.png");
+        arbre = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/nature/tree.png");
+//PLATE
+        plateVillage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/plate/plate_village.png");
+        plateKingdom = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/plate/plate_castle.png");
+//WATER
+        water0= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water00.png");
+        water1= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water01.png");
+        water2= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water02.png");
+        water3= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water03.png");
+        water4= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water04.png");
+        water5= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water05.png");
+        water6= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water06.png");
+        water7= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water07.png");
+        water8= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water08.png");
+        water9= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water09.png");
+        water10= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water10.png");
+        water11= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water11.png");
+        water12= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water12.png");
+        water13= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water13.png");
+//ROAD
+        road0= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road00.png");
+        road1= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road01.png");
+        road2= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road02.png");
+        road3= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road03.png");
+        road4= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road04.png");
+        road5= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road05.png");
+        road6= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road06.png");
+        road7= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road07.png");
+        road8= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road08.png");
+        road9= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road09.png");
+        road10= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road10.png");
+        road11= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road11.png");
+        road12= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road12.png");
+
+//HOUSE
+        house1 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison1.png");
+        house2 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison2.png");
+        house3 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison3.png");
+        house4 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison4.png");
+        house5 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison5.png");
+        house6 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison6.png");
+        house7 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison7.png");
+        house8 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison8.png");
+        house9= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison9.png");
+        house10 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison10.png");
+        house11 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison11.png");
+        house12 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison12.png");
+        house13 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison13.png");
+        house14 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison14.png");
+        house15 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison15.png");
+        house16 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison16.png");
+
+        obstaclesHitboxes = new ArrayList<>();
     }
 
-    public void affichageMap() {
-        for(int y=0;y< tab.length;y++){
-            for (int x=0; x < tab[y].length;x++){
-                Rectangle rectangle = new Rectangle(TAILLECASEX,TAILLECASEY);
-                rectangle.setX(x*TAILLECASEX);
-                rectangle.setY(y*TAILLECASEY);
-                if(tab[y][x]==0){
-                    rectangle.setFill(Color.BLACK);
+    public void creerSprite() {
+        for (int y = 0; y < tab.length; y++) {
+            for (int x = 0; x < tab[y].length; x++) {
+                ImageView imageView;
+//GRASS
+                if (tab[y][x] == 0) {
+                    imageView = new ImageView(grass);
                 }
-                else if (tab[y][x]==1){
-                    rectangle.setFill(Color.RED);
+// TREE
+                else if (tab[y][x] == 43) {
+                    imageView = new ImageView(arbre);
                 }
-                tilePane.getChildren().add(rectangle);
+// PLATE
+                else if (tab[y][x] == 41) {
+                    imageView = new ImageView(plateVillage);
+                }
+                else if (tab[y][x] == 42) {
+                    imageView = new ImageView(plateKingdom);
+                }
+
+// WATER
+                else if (tab[y][x] == 20) {
+                    imageView = new ImageView(water0);
+                } else if (tab[y][x] == 21) {
+                    imageView = new ImageView(water1);
+                }else if (tab[y][x] == 22) {
+                    imageView = new ImageView(water2);
+                } else if (tab[y][x] == 23) {
+                    imageView = new ImageView(water3);
+                }else if (tab[y][x] == 24) {
+                    imageView = new ImageView(water4);
+                } else if (tab[y][x] == 25) {
+                    imageView = new ImageView(water5);
+                }else if (tab[y][x] == 26) {
+                    imageView = new ImageView(water6);
+                } else if (tab[y][x] == 27) {
+                    imageView = new ImageView(water7);
+                }else if (tab[y][x] == 28) {
+                    imageView = new ImageView(water8);
+                }else if (tab[y][x] == 29) {
+                    imageView = new ImageView(water9);
+                }else if (tab[y][x] == 30) {
+                    imageView = new ImageView(water10);
+                }else if (tab[y][x] == 31) {
+                    imageView = new ImageView(water11);
+                }else if (tab[y][x] == 32) {
+                    imageView = new ImageView(water12);
+                }else if (tab[y][x] == 33) {
+                    imageView = new ImageView(water13);
+                }
+// ROAD
+                else if (tab[y][x] == 1) {
+                    imageView = new ImageView(road0);
+                } else if (tab[y][x] == 2) {
+                    imageView = new ImageView(road1);
+                }else if (tab[y][x] == 3) {
+                    imageView = new ImageView(road2);
+                } else if (tab[y][x] == 4) {
+                    imageView = new ImageView(road3);
+                }else if (tab[y][x] == 5) {
+                    imageView = new ImageView(road4);
+                } else if (tab[y][x] == 6) {
+                    imageView = new ImageView(road5);
+                }else if (tab[y][x] == 7) {
+                    imageView = new ImageView(road6);
+                } else if (tab[y][x] == 8) {
+                    imageView = new ImageView(road7);
+                }else if (tab[y][x] == 9) {
+                    imageView = new ImageView(road8);
+                }else if (tab[y][x] == 10) {
+                    imageView = new ImageView(road9);
+                }else if (tab[y][x] == 11) {
+                    imageView = new ImageView(road10);
+                }else if (tab[y][x] == 12) {
+                    imageView = new ImageView(road11);
+                }else if (tab[y][x] == 13) {
+                    imageView = new ImageView(road12);
+                }
+//HOUSE
+                else if (tab[y][x] == 51) {
+                    imageView = new ImageView(house1);
+                } else if (tab[y][x] == 52) {
+                    imageView = new ImageView(house2);
+                }else if (tab[y][x] == 53) {
+                    imageView = new ImageView(house3);
+                } else if (tab[y][x] == 54) {
+                    imageView = new ImageView(house4);
+                }else if (tab[y][x] == 55) {
+                    imageView = new ImageView(house5);
+                } else if (tab[y][x] == 56) {
+                    imageView = new ImageView(house6);
+                }else if (tab[y][x] == 57) {
+                    imageView = new ImageView(house7);
+                } else if (tab[y][x] == 58) {
+                    imageView = new ImageView(house8);
+                }else if (tab[y][x] == 59) {
+                    imageView = new ImageView(house9);
+                }else if (tab[y][x] == 60) {
+                    imageView = new ImageView(house10);
+                }else if (tab[y][x] == 61) {
+                    imageView = new ImageView(house11);
+                }else if (tab[y][x] == 62) {
+                    imageView = new ImageView(house12);
+                }else if (tab[y][x] == 63) {
+                    imageView = new ImageView(house13);
+                }else if (tab[y][x] == 64) {
+                    imageView = new ImageView(house14);
+                }else if (tab[y][x] == 65) {
+                    imageView = new ImageView(house15);
+                }else if (tab[y][x] == 66) {
+                    imageView = new ImageView(house16);
+                }
+
+                else {
+                    continue; // Ignore other valuesz
+                }
+
+                imageView.setFitWidth(Constante.TAILLECASEX);
+                imageView.setFitHeight(Constante.TAILLECASEY);
+                imageView.setX(x * Constante.TAILLECASEX);
+                imageView.setY(y * Constante.TAILLECASEX);
+                tilePane.getChildren().add(imageView);
             }
         }
+    }
+
+
+
+
+
+
+
+    public List<Rectangle> getObstacleHitboxes() {
+        return obstaclesHitboxes;
     }
 }

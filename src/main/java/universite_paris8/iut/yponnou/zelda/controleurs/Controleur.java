@@ -10,6 +10,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
@@ -22,10 +24,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
+
     private Hero perso;
+    private Garde g;
 
     private Timeline gameLoop;
     private int temps;
+
+    private boolean touche;
 
     @FXML
     private Pane paneMap;
@@ -38,6 +44,9 @@ public class Controleur implements Initializable {
     @FXML
     private HBox hboxInventaire;
 
+    private ObservateurActeurs obsActeurs;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initAnimation();
@@ -47,27 +56,29 @@ public class Controleur implements Initializable {
         map.initialisationMap();
         Environnement environnement = new Environnement(map);
         MapVue tileMap = new MapVue(map.getTabNum(), tilePaneDecors);
-        perso = new Hero("Joseph", 0, 0, environnement);
-        Pomme objet1 = new Pomme(80, 100, environnement);
-        Pomme objet2 = new Pomme(60, 90, environnement);
-        Pomme objet3 = new Pomme(100, 100, environnement);
-        Pomme objet4 = new Pomme(60, 140, environnement);
-        Pomme objet5 = new Pomme(165, 90, environnement);
+        Epee e = new Epee("Excalibur",15,5);
+        perso = new Hero("Joseph", 400, 400, environnement,e);
+        g = new Garde("G", 400,500,100,0.03,environnement,e);
+        Pomme objet1 = new Pomme(605, 500, environnement);
+        Pomme objet2 = new Pomme(700, 500, environnement);
+//        Pomme objet3 = new Pomme(100, 100, environnement);
+//        Pomme objet4 = new Pomme(60, 140, environnement);
+//        Pomme objet5 = new Pomme(165, 90, environnement);
 
-        environnement.getObjets().addListener(new ObservateurObjets(paneObjets));
-        environnement.getActeurs().addListener(new ObservateurActeurs(paneMap));
-        perso.pvProperty().addListener(new ObservateurCoeurs(paneCoeurs));
-        perso.getInventaire().addListener(new ObservateurObjets(hboxInventaire));
+        environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
+        obsActeurs = new ObservateurActeurs(paneMap);
+        environnement.acteursProperty().addListener(obsActeurs);
+        perso.initialisationHero(paneCoeurs,hboxInventaire);
+        g.initialisationEnnemi(paneMap);
 
-
+        environnement.ajouterActeur(g);
         environnement.ajouterObjet(objet1);
         environnement.ajouterObjet(objet2);
-        environnement.ajouterObjet(objet3);
-        environnement.ajouterObjet(objet4);
-        environnement.ajouterObjet(objet5);
+//        environnement.ajouterObjet(objet3);
+//        environnement.ajouterObjet(objet4);
+//        environnement.ajouterObjet(objet5);
         environnement.ajouterActeur(perso);
-        perso.subitDegats(100);
-        tileMap.affichageMap();
+        tileMap.creerSprite();
     }
 
     @FXML
@@ -79,21 +90,25 @@ public class Controleur implements Initializable {
         switch (key) {
             case Z:
             case UP:
+                p.setDirection("up");
                 p.deplacement(0, -1);
                 System.out.println("HAUT - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
             case S:
             case DOWN:
+                p.setDirection("down");
                 p.deplacement(0, 1);
                 System.out.println("BAS - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
             case D:
             case RIGHT:
+                p.setDirection("right");
                 p.deplacement(1, 0);
                 System.out.println("DROITE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
             case Q:
             case LEFT:
+                p.setDirection("left");
                 p.deplacement(-1, 0);
                 System.out.println("GAUGHE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
@@ -117,6 +132,7 @@ public class Controleur implements Initializable {
                 else {
                     System.out.println("Inventaire vide");
                 }
+                break;
             case M:
                 aliment = perso.possedeNourritures();
                 if (aliment != null) {
@@ -130,7 +146,15 @@ public class Controleur implements Initializable {
                 }
                 else
                     System.out.println("Aucun aliments trouvés");
+                break;
+            case J:
+                perso.attaquer();
         }
+    }
+
+    @FXML
+    private void toucheLacher(){
+        this.touche=false;
     }
 
     private void initAnimation() {
@@ -144,6 +168,7 @@ public class Controleur implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
+                    g.deplacementEnRonde();
 //                    if(temps==100){
 //                        System.out.println("fini");
 //                        gameLoop.stop();

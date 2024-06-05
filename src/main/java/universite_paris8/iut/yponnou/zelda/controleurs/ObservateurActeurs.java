@@ -1,17 +1,17 @@
 package universite_paris8.iut.yponnou.zelda.controleurs;
 
 import javafx.collections.ListChangeListener;
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.Constante;
-import universite_paris8.iut.yponnou.zelda.vue.ActeurVue;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Ennemi;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
+import universite_paris8.iut.yponnou.zelda.vue.Acteurs.ActeurVue;
+import universite_paris8.iut.yponnou.zelda.vue.Acteurs.EnnemiVue;
+import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
 
 public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
-    private Pane pane;
+    private final Pane pane;
 
     public ObservateurActeurs(Pane pane) {
         this.pane = pane;
@@ -21,15 +21,19 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
     public void onChanged(Change<? extends Acteur> change) {
         while (change.next()) {
             for (Acteur a : change.getAddedSubList()) {
-                ActeurVue actVue = new ActeurVue(a,pane);
+                ActeurVue actVue;
+                if (a instanceof Hero)
+                    actVue = new HeroVue(a,pane);
+                else
+                    actVue = new EnnemiVue(a,pane);
                 actVue.creerSprite();
             }
             for (Acteur a : change.getRemoved()) {
                 for (int i = 0; i < pane.getChildren().size(); i++) {
-                    if (pane.getChildren().get(i).getId().equals(a.getId())){
-                        Node node = pane.getChildren().get(i);
-                        pane.getChildren().remove(node);
-                    }
+                    System.out.println(this.pane.lookup("#"+a.getId()));
+                    this.pane.getChildren().remove(this.pane.lookup("#"+a.getId()));
+                    if (a instanceof Ennemi)
+                        this.pane.getChildren().remove(this.pane.lookup("#"+a.getId()+"BarreVie"));
                 }
             }
         }

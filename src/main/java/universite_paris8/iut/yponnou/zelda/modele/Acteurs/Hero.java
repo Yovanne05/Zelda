@@ -3,19 +3,23 @@ package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.Constante;
+import universite_paris8.iut.yponnou.zelda.controleurs.ObservateurCoeurs;
+import universite_paris8.iut.yponnou.zelda.controleurs.ObservateurObjets;
 import universite_paris8.iut.yponnou.zelda.modele.*;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Nourriture;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
-public class Hero extends Acteur {
+public class Hero extends Guerrier {
 
     private final ObservableList<Objet> inventaire = FXCollections.observableArrayList();
     private final int capaciteMax;
 
-    public Hero(String nom, int x, int y, Environnement environnement) {
-        super(nom, x, y, 100, 10, environnement);
+    public Hero(String nom, int x, int y, Environnement environnement, Arme arme) {
+        super(nom, x, y, 0, 0.2, environnement, arme);
         capaciteMax = 5;
     }
 
@@ -26,14 +30,22 @@ public class Hero extends Acteur {
         return capaciteMax;
     }
 
+    // methode qui initialise les listeners du hero ainsi que les pv
+    public void initialisationHero(Pane paneCoeurs, Pane hboxInventaire){
+        pvProperty().addListener(new ObservateurCoeurs(paneCoeurs));
+        getInventaire().addListener(new ObservateurObjets(hboxInventaire));
+        setPv(100);
+    }
+
     public void guerison(int pv){
         setPv(getPv()+pv);
     }
     public void subitDegats(int degats){
-        setPv(getPv()-degats);
+        super.subitDegats(degats);
         System.out.println(getNom()+" a perdu "+degats+" pv");
     }
 
+    // méthode qui renvoie un objet Nourriture si l'inventaire du héro en possède.
     public Nourriture possedeNourritures(){
         for (Objet objet : inventaire) {
             if (objet instanceof Nourriture)
@@ -47,7 +59,7 @@ public class Hero extends Acteur {
 
     // méthode qui renvoie un objet trouvé autour du hero
     public Objet objetsProches(){
-        for(Objet obj : getPosition().getEnv().getObjets()){
+        for(Objet obj : getPosition().getEnv().objetsProperty()){
             if (verifObjetsAutour(obj))
                 return obj;
         }
@@ -101,8 +113,17 @@ public class Hero extends Acteur {
         }
         return null;
     }
-    @Override
-    void parler() {
 
+    public void attaquer(){
+        Ennemi e = this.verifEnnemiAcoter();
+        if(e!=null){
+            e.subitDegats(this.getArme().getPtsDegats());
+            if(e.estMort()){
+                getPosition().getEnv().enleverActeur(e);
+            }
+        }
     }
+
+    @Override
+    void parler() {}
 }

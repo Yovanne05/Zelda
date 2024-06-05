@@ -9,6 +9,7 @@ public abstract class ObservateurPv implements ChangeListener<Number>{
     private final Pane pane;
     private final int portionPv;
 
+    // cette classe prend pour attribut un pane et un int qui représente la portion de pv choisie.
     public ObservateurPv(Pane pane, int portionPv) {
         this.pane = pane;
         this.portionPv = portionPv;
@@ -22,5 +23,5 @@ public abstract class ObservateurPv implements ChangeListener<Number>{
     }
 
     @Override
-    public void changed(ObservableValue<? extends Number> observableValue, Number oldInt, Number newInt) {}
+    public abstract void changed(ObservableValue<? extends Number> observableValue, Number oldInt, Number newInt);
 }

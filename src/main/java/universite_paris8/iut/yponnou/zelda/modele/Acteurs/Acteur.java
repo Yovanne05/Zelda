@@ -9,12 +9,13 @@ import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 
 public abstract class Acteur {
 
-    private final String idActeur;
+    private final String id;
     private static int incremente = 0;
     private final String nom;
-    private Position position;
-    private IntegerProperty pv;
+    private final Position position;
+    private String direction;
     private final double vitesse;
+    private final IntegerProperty pv;
     private final Rectangle hitbox;
 
     public Acteur(String nom, double x, double y, int pv, double vitesse, Environnement environnement) {
@@ -22,12 +23,13 @@ public abstract class Acteur {
         position = new Position(x,y,environnement);
         this.pv = new SimpleIntegerProperty(pv);
         this.vitesse = vitesse;
-        idActeur = "A"+incremente++;
+        id = "A"+incremente++;
         hitbox = new Rectangle(x, y, Constante.TAILLECASEX, Constante.TAILLECASEY);
+        direction = "down";
     }
 
     public String getId() {
-        return idActeur;
+        return id;
     }
     public String getNom() {
         return nom;
@@ -60,13 +62,24 @@ public abstract class Acteur {
         return vitesse;
     }
 
+    public void subitDegats(int degats){
+        setPv(getPv()-degats);
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+    public void setDirection(String direction){
+        this.direction = direction;
+    }
+
     public void deplacement(int dx, int dy){
-        double prochainX = position.getX()+dx*vitesse;
-        double prochainY = position.getY()+dy*vitesse;
+        double prochainX = position.getX() + (dx * this.vitesse) * Constante.TAILLECASEX;
+        double prochainY = position.getY() + (dy * this.vitesse) * Constante.TAILLECASEY;
 
         Rectangle futureHitbox = new Rectangle(prochainX, prochainY, Constante.TAILLECASEX, Constante.TAILLECASEY);
 
-        if (position.getEnv().dansMap(prochainX, prochainY) && !collisionAvecObstacle(futureHitbox)) {
+        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
             setX(prochainX);
             setY(prochainY);
         }
@@ -79,16 +92,50 @@ public abstract class Acteur {
         double width = futurHitbox.getWidth();
         double height = futurHitbox.getHeight();
 
-        // Coordonnées des coins de la hitbox en terme de cases
+        // Coordonnées des coins de la hitbox en termes de cases
         int tableauXHG = (int) (x / Constante.TAILLECASEX);
         int tableauYHG = (int) (y / Constante.TAILLECASEY);
-        int tableauXHD = (int) ((x + width-1) / Constante.TAILLECASEX);
-        int tableauYBG = (int) ((y + height-1) / Constante.TAILLECASEY);
+        int tableauXHD = (int) ((x + width - 1) / Constante.TAILLECASEX);
+        int tableauYBG = (int) ((y + height - 1) / Constante.TAILLECASEY);
 
+        // Vérification des bordures de la carte
+        if (tableauXHG < 0 || tableauYHG < 0 || tableauXHD >= position.getEnv().getMap().getLargeur() || tableauYBG >= position.getEnv().getMap().getHauteur())
+            return true; // Collision avec la bordure de la carte
         // Vérification des collisions avec les obstacles
         int[][] map = position.getEnv().getMap().getTabNum();
-        return map[tableauYHG][tableauXHG] == 1 || map[tableauYHG][tableauXHD] == 1 || map[tableauYBG][tableauXHG] == 1 || map[tableauYBG][tableauXHD] == 1; // Collision avec un obstacle
+        return map[tableauYHG][tableauXHG] > 20 || map[tableauYHG][tableauXHD] > 20 || map[tableauYBG][tableauXHG] > 20 || map[tableauYBG][tableauXHD] > 20; // Collision avec un obstacle
+    }
+
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
+
+
+    private boolean collisionAvecActeur(Rectangle futureHitbox) {
+        for (Acteur acteur : getPosition().getEnv().acteursProperty()) {
+            Rectangle ennemiHitbox = acteur.getHitbox();
+            //getBoundsInParent  retourne un objet de type Bounds représentant les coordonnées du rectangle
+            //intersects elle vérifie si les deux ensembles de limites (bounds) se chevauchent
+            if (futureHitbox.getBoundsInParent().intersects(ennemiHitbox.getBoundsInParent()) && !this.getId().equals(acteur.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     abstract void parler();
+
+    @Override
+    public String toString() {
+        return "Acteur{" +
+                "idActeur='" + id + '\'' +
+                ", nom='" + nom + '\'' +
+                ", coeurs=" + pv +
+                ", v=" + vitesse +
+                ", env=" + position.getEnv() +
+                ", x=" + position.getX() +
+                ", y=" + position.getY() +
+                ", hitbox=" + hitbox +
+                '}';
+    }
 }

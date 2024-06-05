@@ -8,7 +8,7 @@ public abstract class Objet {
     private String nom;
     private final String id;
     private static int incremente = 0;
-    private Position position;
+    private final Position position;
 
     public Objet(int x, int y, Environnement environnement) {
         position = new Position(x,y,environnement);
