@@ -23,6 +23,11 @@ import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.ScaleTransition;
+import javafx.scene.transform.Scale;
+import javafx.util.Duration;
+import javafx.beans.binding.Bindings;
+
 
 public class Controleur implements Initializable {
 
@@ -47,7 +52,7 @@ public class Controleur implements Initializable {
 
     private ObservateurActeurs obsActeurs;
     private HeroVue vueHero;
-
+    private ScaleTransition cameraTransition;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -68,8 +73,7 @@ public class Controleur implements Initializable {
 //        Pomme objet5 = new Pomme(165, 90, environnement);
 
         environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
-        obsActeurs = new ObservateurActeurs(paneMap);
-        environnement.acteursProperty().addListener(obsActeurs);
+        environnement.acteursProperty().addListener(new ObservateurActeurs(paneMap));
         perso.initialisationHero(paneCoeurs,hboxInventaire);
         g.initialisationEnnemi(paneMap);
         this.vueHero = new HeroVue(perso,paneMap);
@@ -82,11 +86,20 @@ public class Controleur implements Initializable {
 //        environnement.ajouterObjet(objet5);
         environnement.ajouterActeur(perso);
         tileMap.creerSprite();
+
+        cameraTransition = new ScaleTransition(Duration.millis(500), paneMap);
+        cameraTransition.setToX(1); // Set X scale to 1
+        cameraTransition.setToY(1); // Set Y scale to 1
+        cameraTransition.setCycleCount(1); // Run once
+        cameraTransition.setAutoReverse(false); // Do not reverse
+
+        // Start camera transition
+        cameraTransition.play();
     }
 
     @FXML
     public void interaction(KeyEvent event) {
-        this.touche=true;
+        this.touche = true;
         KeyCode key = event.getCode();
         Hero p = perso;
         Objet ob;
@@ -96,29 +109,33 @@ public class Controleur implements Initializable {
             case UP:
                 p.setDirection("up");
                 p.deplacement(0, -1);
-                System.out.println("HAUT - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
-                vueHero.upgradeSprite(perso,touche);
+                System.out.println("HAUT - x:" + p.getPosition().getX() + " y:" + p.getPosition().getY());
+                vueHero.upgradeSprite(perso, touche);
+                adjustCamera();
                 break;
             case S:
             case DOWN:
                 p.setDirection("down");
                 p.deplacement(0, 1);
-                System.out.println("BAS - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
-                vueHero.upgradeSprite(perso,touche);
+                System.out.println("BAS - x:" + p.getPosition().getX() + " y:" + p.getPosition().getY());
+                vueHero.upgradeSprite(perso, touche);
+                adjustCamera();
                 break;
             case D:
             case RIGHT:
                 p.setDirection("right");
                 p.deplacement(1, 0);
-                System.out.println("DROITE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
-                vueHero.upgradeSprite(perso,touche);
+                System.out.println("DROITE - x:" + p.getPosition().getX() + " y:" + p.getPosition().getY());
+                vueHero.upgradeSprite(perso, touche);
+                adjustCamera();
                 break;
             case Q:
             case LEFT:
                 p.setDirection("left");
                 p.deplacement(-1, 0);
-                System.out.println("GAUGHE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
-                vueHero.upgradeSprite(perso,touche);
+                System.out.println("GAUCHE - x:" + p.getPosition().getX() + " y:" + p.getPosition().getY());
+                vueHero.upgradeSprite(perso, touche);
+                adjustCamera();
                 break;
             case E:
                 ob = p.objetsProches();
@@ -136,8 +153,7 @@ public class Controleur implements Initializable {
                     ob = p.getInventaire().get(0);
                     p.deposer(ob);
                     System.out.println("Objet déposé !");
-                }
-                else {
+                } else {
                     System.out.println("Inventaire vide");
                 }
                 break;
@@ -148,15 +164,14 @@ public class Controleur implements Initializable {
                         perso.guerison(aliment.getPv());
                         System.out.println(perso.getNom() + " a mangé " + aliment.getNom());
                         perso.getInventaire().remove(aliment);
-                    }
-                    else
-                        System.out.println("Votre santé déjà complète !");
-                }
-                else
-                    System.out.println("Aucun aliments trouvés");
+                    } else
+                        System.out.println("Votre santé est déjà complète !");
+                } else
+                    System.out.println("Aucun aliment trouvé");
                 break;
             case J:
                 perso.attaquer();
+                break;
         }
     }
 
@@ -196,11 +211,24 @@ public class Controleur implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
-    private void updateCamera(Hero hero) {
-        double centerX = paneMap.getWidth() / 2 - hero.getPosition().getX();
-        double centerY = paneMap.getHeight() / 2 - hero.getPosition().getY();
-        paneMap.setTranslateX(centerX);
-        paneMap.setTranslateY(centerY);
+
+
+    private void adjustCamera() {
+        double targetScale = 2.0; // Adjust as needed
+
+        // Calculate target position based on player's position and scale
+        double targetX = (paneMap.getWidth() / 2) - (perso.getPosition().getX() * targetScale);
+        double targetY = (paneMap.getHeight() / 2) - (perso.getPosition().getY() * targetScale);
+
+        // Bind translation of the map pane to the target position
+        paneMap.translateXProperty().bind(Bindings.subtract(paneMap.getWidth() / 2, perso.getPosition().xProperty()).multiply(targetScale));
+        paneMap.translateYProperty().bind(Bindings.subtract(paneMap.getHeight() / 2, perso.getPosition().yProperty()).multiply(targetScale));
+
+        // Set scale of the map pane
+        paneMap.setScaleX(targetScale);
+        paneMap.setScaleY(targetScale);
     }
+
+
 
 }
