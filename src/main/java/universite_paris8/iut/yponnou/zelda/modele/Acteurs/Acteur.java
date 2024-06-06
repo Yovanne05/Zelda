@@ -48,6 +48,8 @@ public abstract class Acteur {
         hitbox.setY(y);
     }
 
+
+
     public int getPv() {
         return pv.getValue();
     }

@@ -22,5 +22,5 @@ public abstract class ActeurVue {
     }
 
     public abstract void creerSprite();
-    public abstract void upgradeSprite();
+    public abstract void upgradeSprite(Acteur a ,boolean touche);
 }

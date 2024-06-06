@@ -3,9 +3,11 @@ package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.Constante;
+import universite_paris8.iut.yponnou.zelda.Position;
 import universite_paris8.iut.yponnou.zelda.controleurs.ObservateurCoeurs;
 import universite_paris8.iut.yponnou.zelda.controleurs.ObservateurObjets;
 import universite_paris8.iut.yponnou.zelda.modele.*;
@@ -17,10 +19,14 @@ public class Hero extends Guerrier {
 
     private final ObservableList<Objet> inventaire = FXCollections.observableArrayList();
     private final int capaciteMax;
-
     public Hero(String nom, int x, int y, Environnement environnement, Arme arme) {
         super(nom, x, y, 0, 0.2, environnement, arme);
         capaciteMax = 5;
+    }
+
+    @Override
+    public Position getPosition() {
+        return super.getPosition();
     }
 
     public ObservableList<Objet> getInventaire() {

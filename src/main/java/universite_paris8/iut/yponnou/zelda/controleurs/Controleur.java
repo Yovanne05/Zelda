@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
@@ -18,8 +19,8 @@ import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Nourriture;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Pomme;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
+import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -45,6 +46,7 @@ public class Controleur implements Initializable {
     private HBox hboxInventaire;
 
     private ObservateurActeurs obsActeurs;
+    private HeroVue vueHero;
 
 
     @Override
@@ -70,6 +72,7 @@ public class Controleur implements Initializable {
         environnement.acteursProperty().addListener(obsActeurs);
         perso.initialisationHero(paneCoeurs,hboxInventaire);
         g.initialisationEnnemi(paneMap);
+        this.vueHero = new HeroVue(perso,paneMap);
 
         environnement.ajouterActeur(g);
         environnement.ajouterObjet(objet1);
@@ -83,6 +86,7 @@ public class Controleur implements Initializable {
 
     @FXML
     public void interaction(KeyEvent event) {
+        this.touche=true;
         KeyCode key = event.getCode();
         Hero p = perso;
         Objet ob;
@@ -93,24 +97,28 @@ public class Controleur implements Initializable {
                 p.setDirection("up");
                 p.deplacement(0, -1);
                 System.out.println("HAUT - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
+                vueHero.upgradeSprite(perso,touche);
                 break;
             case S:
             case DOWN:
                 p.setDirection("down");
                 p.deplacement(0, 1);
                 System.out.println("BAS - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
+                vueHero.upgradeSprite(perso,touche);
                 break;
             case D:
             case RIGHT:
                 p.setDirection("right");
                 p.deplacement(1, 0);
                 System.out.println("DROITE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
+                vueHero.upgradeSprite(perso,touche);
                 break;
             case Q:
             case LEFT:
                 p.setDirection("left");
                 p.deplacement(-1, 0);
                 System.out.println("GAUGHE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
+                vueHero.upgradeSprite(perso,touche);
                 break;
             case E:
                 ob = p.objetsProches();
@@ -154,7 +162,9 @@ public class Controleur implements Initializable {
 
     @FXML
     private void toucheLacher(){
+        System.out.println("La touche est lachée");
         this.touche=false;
+        vueHero.upgradeSprite(perso,touche);
     }
 
     private void initAnimation() {
@@ -185,4 +195,12 @@ public class Controleur implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
+
+    private void updateCamera(Hero hero) {
+        double centerX = paneMap.getWidth() / 2 - hero.getPosition().getX();
+        double centerY = paneMap.getHeight() / 2 - hero.getPosition().getY();
+        paneMap.setTranslateX(centerX);
+        paneMap.setTranslateY(centerY);
+    }
+
 }
