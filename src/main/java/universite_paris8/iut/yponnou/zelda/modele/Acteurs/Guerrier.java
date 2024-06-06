@@ -6,11 +6,13 @@ import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 public abstract class Guerrier extends Acteur {
     private Arme arme;
 
-    public Guerrier(String nom, double coeurs, int x, int y, double vitesse, Environnement environnement, Arme arme) {
-        super(nom, coeurs, x, y, vitesse, environnement);
+    public Guerrier(String nom, double coeurs, double x, double y, double vitesse, Environnement environnement, int dx, int dy, Arme arme) {
+        super(nom, coeurs, x, y, vitesse, environnement, dx, dy);
         this.arme=arme;
     }
-    public abstract void attaquer();
+
+
+    public abstract void attaquer(int dx, int dy);
     public Acteur verifEnnemiAcoter(){
         double dist = 80;
         for (Acteur a : getEnvironnement().getActeurs()) {

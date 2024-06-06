@@ -1,9 +1,17 @@
 package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
+import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+
 public class Epee extends ArmeMelee{
 
 
-    public Epee() {
-        super("Epee", 1);
+    public Epee(Environnement environnement) {
+        super("Epee", 1,environnement);
+    }
+
+    @Override
+    public double utiliser(int dx, int dy) {
+
+        return this.getPtsDegats();
     }
 }

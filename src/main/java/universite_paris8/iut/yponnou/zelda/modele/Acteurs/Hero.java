@@ -5,6 +5,7 @@ import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.controleurs.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeDistance;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Inventaire;
 import universite_paris8.iut.yponnou.zelda.modele.Objet;
@@ -14,10 +15,11 @@ public class Hero extends Guerrier {
 
     private Inventaire inventaire;
 
-    public Hero(String nom, int pv, int x, int y, double vitesse, Environnement environnement, Arme a) {
-        super(nom, pv, x, y, vitesse, environnement,a);
-        inventaire = new Inventaire(5);
+    public Hero(String nom, double coeurs, double x, double y, double vitesse, Environnement environnement, int dx, int dy, Arme arme) {
+        super(nom, coeurs, x, y, vitesse, environnement, dx, dy, arme);
+        inventaire=new Inventaire(5);
     }
+    
 
     public Inventaire getInventaire() {
         return inventaire;
@@ -80,10 +82,24 @@ public class Hero extends Guerrier {
         }
         return null;
     }
-    public void attaquer(){
+
+
+    @Override
+    public String toString() {
+        return "Hero{" +
+                "inventaire=" + inventaire +
+                '}';
+    }
+
+    @Override
+    public void attaquer(int dx, int dy) {
         Acteur e = this.verifEnnemiAcoter();
-        if(e!=null){
-            e.seFaitAttquer(this.getArme().getPtsDegats());
+        if(this.getArme() instanceof  ArmeDistance){
+            ((ArmeDistance) this.getArme()).getProjectile().setX(this.getX());
+            ((ArmeDistance) this.getArme()).getProjectile().setY(this.getY());
+            this.getArme().utiliser(dx, dy);
+        }else if(e!=null){
+            e.seFaitAttquer(this.getArme().utiliser(dx, dy));
             if(e.getCoeurs()==0){
                 ObservableList<Acteur> lstA= getEnvironnement().getActeurs();
                 for(Acteur a : lstA){
@@ -94,12 +110,4 @@ public class Hero extends Guerrier {
             }
         }
     }
-
-    @Override
-    public String toString() {
-        return "Hero{" +
-                "inventaire=" + inventaire +
-                '}';
-    }
 }
-//t

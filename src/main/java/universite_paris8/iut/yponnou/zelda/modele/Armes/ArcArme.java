@@ -1,23 +1,47 @@
 package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
 import javafx.scene.shape.Rectangle;
+import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 
 public class ArcArme extends ArmeDistance {
 
-    public ArcArme(double posx, double posy) {
-        super("ArcArme", 2, 300, posx, posy, 0.2);
+
+    public ArcArme(double posxi, double posyi, Fleche fleche, Environnement environnement) {
+        super("Arc", posxi, posyi, fleche, environnement);
     }
 
     @Override
-    public void utiliser(int dx, int dy) {
-        int tailleX=12;
-        int tailleY=3;
-        double prochainX = this.getPosx() + (dx * this.getV()) * tailleX;
-        double prochainY = this.getPosy() + (dy * this.getV()) * tailleY;
-
-        // Création de la nouvelle hitbox après déplacement
-        Rectangle flecheHitbox = new Rectangle(prochainX, prochainY, tailleX, tailleY);
-        this.setPosx(prochainX);
-        this.setPosy(prochainY);
+    public double utiliser(int dx, int dy) {
+        Fleche f = (Fleche) this.getProjectile();
+        this.getEnvironnement().ajouterProjectiles(f);
+        f.utiliserFleche();
+        return this.getProjectile().getPtsDegats();
     }
+
+
+//    @Override
+//    public double utiliser(int dx, int dy) {
+//        int tailleX = 12;
+//        int tailleY = 3;
+//        double prochainX = 0;
+//        double prochainY = 0;
+//
+//        while (prochainX < this.getPortee() + this.getProjectile().getX() || prochainY < this.getPortee() + this.getProjectile().getY()){
+//            prochainX = this.getProjectile().getX() + (dx * this.getProjectile().getX()  * this.getProjectile().getVitesse());
+//            prochainY = this.getProjectile().getY() + (dy * this.getProjectile().getY()  * this.getProjectile().getVitesse());
+//
+//            this.getProjectile().getEnvironnement().ajouterProjectiles(this.getProjectile());
+//
+//            this.getProjectile().setX(prochainX);
+//            this.getProjectile().setY(prochainY);
+//
+//
+//            System.out.println(this.getProjectile().getX() + " " + this.getProjectile().getY());
+//
+////            Rectangle flecheHitbox = new Rectangle(prochainX, prochainY, tailleX, tailleY);
+////            getProjectile().collisionAvecObstacle(flecheHitbox);
+//        }
+//        return this.getProjectile().getPtsDegats();
+//    }
+
 }

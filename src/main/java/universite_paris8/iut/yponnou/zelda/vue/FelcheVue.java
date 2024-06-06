@@ -8,18 +8,23 @@ import javafx.scene.shape.Arc;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.controleurs.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Projectile;
 
-public class FelcheVue extends Constante {
+public class FelcheVue {
     private Rectangle fleche;
+    private Fleche f;
     private Pane pane;
-    public FelcheVue(Pane pane) {
+    public FelcheVue(Pane pane, Fleche f) {
         this.pane=pane;
-    }
-    public void creerSprite(ArcArme a){
         fleche = new Rectangle(10, 2, Color.WHITE);
-        fleche.setId(a.getId());
-        fleche.translateXProperty().bind(a.posyProperty());
-        fleche.translateYProperty().bind(a.posxProperty());
+        this.f=f;
+        creerSprite();
+    }
+    public void creerSprite(){
+        fleche.setId(f.getId());
+        fleche.translateXProperty().bind(f.xProperty());
+        fleche.translateYProperty().bind(f.yProperty());
         pane.getChildren().add(fleche);
     }
 }

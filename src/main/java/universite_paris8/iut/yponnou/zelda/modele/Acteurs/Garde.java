@@ -8,13 +8,13 @@ public class Garde extends Ennemi {
     private static final long delaisAvantAttaque = 2000; // Délai de 2 secondes entre les attaques
     private long derniereAttaque;
 
-    public Garde(String nom, double coeurs, int x, int y, double vitesse, Environnement environnement, Epee epee) {
-        super(nom, coeurs, x, y, vitesse, environnement, epee);
-        this.derniereAttaque = 0;
+    public Garde(String nom, double coeurs, double x, double y, double vitesse, Environnement environnement, int dx, int dy, Epee epee) {
+        super(nom, coeurs, x, y, vitesse, environnement, dx, dy, epee);
     }
 
+
     @Override
-    public void attaquer() {
+    public void attaquer(int dx, int dy) {
         long now = System.currentTimeMillis();
         if (peuxAttaquer(now)) {
             Hero h = verifHeroProx();

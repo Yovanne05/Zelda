@@ -7,9 +7,11 @@ import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 public abstract class Ennemi extends Guerrier {
 
     private int cpt =0;
-    public Ennemi(String nom, double coeurs, int x, int y, double vitesse, Environnement environnement, Arme arme) {
-        super(nom, coeurs, x, y, vitesse, environnement, arme);
+
+    public Ennemi(String nom, double coeurs, double x, double y, double vitesse, Environnement environnement, int dx, int dy, Arme arme) {
+        super(nom, coeurs, x, y, vitesse, environnement, dx, dy, arme);
     }
+
     public Hero verifHeroProx(){
         for (Acteur a : getEnvironnement().getActeurs()) {
             double dist=80;
@@ -36,10 +38,10 @@ public abstract class Ennemi extends Guerrier {
                 cpt=0;
             }
         }else{
-            this.attaquer();
+            this.attaquer(0,0);
         }
 
-        deplacement(dx, dy);
+        deplacement();
 
     }
 

@@ -2,26 +2,22 @@ package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.scene.shape.Rectangle;
+import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 
 public abstract class ArmeDistance extends Arme{
-    private double portee;
-    private double v;
     private DoubleProperty posx;
     private DoubleProperty posy;
-    private static int cpt = 0;
-    private String id;
-    public ArmeDistance(String nom, double ptsDegats, double portee, double posxi, double posyi, double v) {
-        super(nom, ptsDegats);
+    private Projectile projectile;
+    public ArmeDistance(String nom, double posxi, double posyi, Projectile projectile, Environnement environnement) {
+        super(nom, projectile.getPtsDegats(),environnement);
+        this.projectile=projectile;
         posx=new SimpleDoubleProperty(posxi);
         posy=new SimpleDoubleProperty(posyi);
-        this.portee=portee;
-        id=""+cpt++;
-        this.v=v;
     }
 
-    public String getId() {
-        return id;
+
+    public Projectile getProjectile() {
+        return projectile;
     }
 
     public double getPosx() {
@@ -40,13 +36,6 @@ public abstract class ArmeDistance extends Arme{
         return posy;
     }
 
-    public double getPortee() {
-        return portee;
-    }
-
-    public double getV() {
-        return v;
-    }
 
     public void setPosx(double posx) {
         this.posx.setValue(posx);
@@ -56,5 +45,5 @@ public abstract class ArmeDistance extends Arme{
         this.posy.setValue(posy);
     }
 
-    public abstract void utiliser(int dx, int dy);
+    public abstract double utiliser(int dx, int dy);
 }

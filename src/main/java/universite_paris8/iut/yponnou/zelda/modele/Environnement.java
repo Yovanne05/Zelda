@@ -2,8 +2,13 @@ package universite_paris8.iut.yponnou.zelda.modele;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.shape.Arc;
 import universite_paris8.iut.yponnou.zelda.controleurs.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Projectile;
 
 import java.util.ArrayList;
 
@@ -13,6 +18,7 @@ public class Environnement extends Constante {
     private final int hauteur;
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
     private ObservableList<Objet> objets = FXCollections.observableArrayList();
+    private ObservableList<Projectile> projectiles = FXCollections.observableArrayList();
     private Map map;
 
     public Environnement(Map map) {
@@ -36,6 +42,17 @@ public class Environnement extends Constante {
     }
     public void enleverActeur(Acteur acteur) {
         acteurs.remove(acteur);
+    }
+
+    public ObservableList<Projectile> getProjectiles() {
+        return projectiles;
+    }
+
+    public void ajouterProjectiles(Projectile p) {
+        projectiles.add(p);
+    }
+    public void enleverProjectiles(Projectile p) {
+        projectiles.remove(p);
     }
 
     public ObservableList<Objet> getObjets() {
@@ -62,6 +79,20 @@ public class Environnement extends Constante {
 
     public boolean dansMap(double x, double y) {
         return x >= 0 && y >= 0 && x <= largeur-TAILLECASEX && y <= hauteur-TAILLECASEY;
+    }
+
+    public void toutLeMondeBouge(){
+//        for (Acteur a: acteurs){
+//            if(a instanceof Garde){
+//                ((Garde) a).deplacementEnRonde();
+//            }
+//        }
+        for(Projectile p :projectiles){
+            if(p instanceof Fleche){
+                System.out.println("Fleche");
+                ((Fleche) p).utiliserFleche();
+            }
+        }
     }
 
 }

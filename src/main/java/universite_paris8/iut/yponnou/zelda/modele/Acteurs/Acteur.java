@@ -4,6 +4,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.controleurs.Constante;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Projectile;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 
 
@@ -20,16 +21,31 @@ public abstract class Acteur extends Constante {
     private DoubleProperty x;
     private DoubleProperty y;
     private Rectangle hitbox;
+    private int dx;
+    private int dy;
 
-    public Acteur(String nom, double coeurs, double x, double y, double vitesse, Environnement environnement) {
+    public Acteur(String nom, double coeurs, double x, double y, double vitesse, Environnement environnement, int dx, int dy) {
         this.x = new SimpleDoubleProperty(x);
         this.y = new SimpleDoubleProperty(y);
         this.nom = nom;
         this.coeurs = coeurs;
+        this.dx=dx;
+        this.dy=dy;
         v = vitesse;
         this.env = environnement;
         idActeur = "Acteur-" + incremente++;
         hitbox = new Rectangle(x, y, TAILLECASEX, TAILLECASEY);
+        hitbox.xProperty().bind(this.xProperty());
+        hitbox.yProperty().bind(this.yProperty());
+
+    }
+
+    public int getDx() {
+        return dx;
+    }
+
+    public int getDy() {
+        return dy;
     }
 
     public String getId() {
@@ -75,12 +91,10 @@ public abstract class Acteur extends Constante {
 
     public void setX(double x) {
         this.x.setValue(x);
-        hitbox.setX(x);
     }
 
     public void setY(double y) {
         this.y.setValue(y);
-        hitbox.setY(y);
     }
 
 
@@ -92,17 +106,25 @@ public abstract class Acteur extends Constante {
         return env;
     }
 
-    public void deplacement(double dx, double dy) {
-        double prochainX = getX() + (dx * this.v) * TAILLECASEX;
-        double prochainY = getY() + (dy * this.v) * TAILLECASEY;
+    public void deplacement() {
+        //System.out.println("deplace");
+        double prochainX = getX() + (this.dx * this.v) * TAILLECASEX;
+        double prochainY = getY() + (this.dy * this.v) * TAILLECASEY;
 
         // Création de la nouvelle hitbox après déplacement
         Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLECASEX, TAILLECASEY);
-
         if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
             setX(prochainX);
             setY(prochainY);
         }
+    }
+
+    public void setDx(int dx) {
+        this.dx = dx;
+    }
+
+    public void setDy(int dy) {
+        this.dy = dy;
     }
 
     public boolean collisionAvecObstacle(Rectangle futureHitbox) {
