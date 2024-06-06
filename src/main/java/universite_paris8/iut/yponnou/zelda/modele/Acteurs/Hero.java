@@ -6,6 +6,7 @@ import universite_paris8.iut.yponnou.zelda.controleurs.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeDistance;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Inventaire;
 import universite_paris8.iut.yponnou.zelda.modele.Objet;
@@ -95,11 +96,12 @@ public class Hero extends Guerrier {
     public void attaquer(int dx, int dy) {
         Acteur e = this.verifEnnemiAcoter();
         if(this.getArme() instanceof  ArmeDistance){
-            ((ArmeDistance) this.getArme()).getProjectile().setX(this.getX());
-            ((ArmeDistance) this.getArme()).getProjectile().setY(this.getY());
-            this.getArme().utiliser(dx, dy);
+            Fleche f= new Fleche(getX(),getY(),getEnvironnement(), getDx(),getDy());
+            ((ArmeDistance) this.getArme()).setProjectile(f);
+            this.getArme().utiliser();
+
         }else if(e!=null){
-            e.seFaitAttquer(this.getArme().utiliser(dx, dy));
+            e.seFaitAttquer(this.getArme().utiliser());
             if(e.getCoeurs()==0){
                 ObservableList<Acteur> lstA= getEnvironnement().getActeurs();
                 for(Acteur a : lstA){

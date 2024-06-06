@@ -55,8 +55,7 @@ public class Controleur implements Initializable {
 
 
         perso = new Hero("Joseph", 10, 400, 400,0.2, environnement,0,0,null);
-        f= new Fleche(perso.getX(),perso.getY(),environnement, 1,0);
-        ArcArme a =new ArcArme(perso.getX(), perso.getY(),f, environnement);
+        ArcArme a =new ArcArme(perso.getX(), perso.getY(),null, environnement);
         perso.setArme(a);
 
         environnement.getObjets().addListener(new ObservateurObjets(paneObjets));

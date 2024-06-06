@@ -87,10 +87,10 @@ public class Environnement extends Constante {
 //                ((Garde) a).deplacementEnRonde();
 //            }
 //        }
-        for(Projectile p :projectiles){
-            if(p instanceof Fleche){
+        for(int i = 0;i<projectiles.size();i++){
+            if(projectiles.get(i) instanceof Fleche){
                 System.out.println("Fleche");
-                ((Fleche) p).utiliserFleche();
+                ((Fleche) projectiles.get(i)).utiliserFleche();
             }
         }
     }

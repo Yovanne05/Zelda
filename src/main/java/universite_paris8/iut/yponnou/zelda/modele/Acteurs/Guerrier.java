@@ -27,6 +27,8 @@ public abstract class Guerrier extends Acteur {
         return null;
     }
 
+
+
     public void setArme(Arme arme) {
         this.arme = arme;
     }

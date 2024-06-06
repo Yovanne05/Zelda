@@ -10,8 +10,9 @@ public class Epee extends ArmeMelee{
     }
 
     @Override
-    public double utiliser(int dx, int dy) {
+    public double utiliser() {
 
         return this.getPtsDegats();
     }
+
 }

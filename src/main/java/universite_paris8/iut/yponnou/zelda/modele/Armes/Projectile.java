@@ -10,10 +10,12 @@ public class Projectile extends Acteur {
     private double ptsDegats;
     private double portee;
 
-    public Projectile(String nom, double coeurs, double x, double y, double vitesse,double portee, Environnement environnement, int dx, int dy) {
+    public Projectile(String nom, double coeurs, double x, double y, double vitesse,double portee, Environnement environnement, int dx, int dy,double ptsDegats) {
         super(nom, coeurs, x, y, vitesse, environnement, dx, dy);
         this.portee=portee;
+        this.ptsDegats=ptsDegats;
     }
+
 
 
     public double getPortee() {

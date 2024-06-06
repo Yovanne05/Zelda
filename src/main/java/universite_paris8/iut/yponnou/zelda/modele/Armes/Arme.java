@@ -4,12 +4,10 @@ import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 
 public abstract class Arme{
     private String nom;
-    private double ptsDegats;
     private Environnement environnement;
 
-    public Arme(String nom, double ptsDegats, Environnement environnement) {
+    public Arme(String nom, Environnement environnement) {
         this.nom = nom;
-        this.ptsDegats = ptsDegats;
         this.environnement=environnement;
     }
 
@@ -20,8 +18,5 @@ public abstract class Arme{
     public String getNom() {
         return nom;
     }
-    public double getPtsDegats() {
-        return ptsDegats;
-    }
-    public abstract double utiliser(int dx, int dy);
+    public abstract double utiliser();
 }

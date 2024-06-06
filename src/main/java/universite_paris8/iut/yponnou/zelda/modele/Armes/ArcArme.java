@@ -6,12 +6,12 @@ import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 public class ArcArme extends ArmeDistance {
 
 
-    public ArcArme(double posxi, double posyi, Fleche fleche, Environnement environnement) {
-        super("Arc", posxi, posyi, fleche, environnement);
+    public ArcArme(double posxi, double posyi, Projectile projectile, Environnement environnement) {
+        super("Arc", posxi, posyi, projectile, environnement);
     }
 
     @Override
-    public double utiliser(int dx, int dy) {
+    public double utiliser() {
         Fleche f = (Fleche) this.getProjectile();
         this.getEnvironnement().ajouterProjectiles(f);
         f.utiliserFleche();
