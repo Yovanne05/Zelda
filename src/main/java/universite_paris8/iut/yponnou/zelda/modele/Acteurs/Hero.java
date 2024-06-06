@@ -1,42 +1,75 @@
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
-import javafx.collections.ObservableList;
-import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.controleurs.Constante;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
-import universite_paris8.iut.yponnou.zelda.modele.Inventaire;
-import universite_paris8.iut.yponnou.zelda.modele.Objet;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
+import universite_paris8.iut.yponnou.zelda.Constante;
+import universite_paris8.iut.yponnou.zelda.controleurs.ObservateurCoeurs;
+import universite_paris8.iut.yponnou.zelda.controleurs.ObservateurObjets;
+import universite_paris8.iut.yponnou.zelda.modele.*;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Nourriture;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
 public class Hero extends Guerrier {
 
-    private Inventaire inventaire;
+    private final ObservableList<Objet> inventaire = FXCollections.observableArrayList();
+    private final int capaciteMax;
 
-    public Hero(String nom, int pv, int x, int y, double vitesse, Environnement environnement, Arme a) {
-        super(nom, pv, x, y, vitesse, environnement,a);
-        inventaire = new Inventaire(5);
+    public Hero(String nom, int x, int y, Environnement environnement, Arme arme) {
+        super(nom, x, y, 0, 0.2, environnement, arme);
+        capaciteMax = 5;
     }
 
-    public Inventaire getInventaire() {
+    public ObservableList<Objet> getInventaire() {
         return inventaire;
+    }
+    public int getCapaciteMax() {
+        return capaciteMax;
+    }
+
+    // methode qui initialise les listeners du hero ainsi que les pv
+    public void initialisationHero(Pane paneCoeurs, Pane hboxInventaire){
+        pvProperty().addListener(new ObservateurCoeurs(paneCoeurs));
+        getInventaire().addListener(new ObservateurObjets(hboxInventaire));
+        setPv(100);
+    }
+
+    public void guerison(int pv){
+        setPv(getPv()+pv);
+    }
+    public void subitDegats(int degats){
+        super.subitDegats(degats);
+        System.out.println(getNom()+" a perdu "+degats+" pv");
+    }
+
+    // méthode qui renvoie un objet Nourriture si l'inventaire du héro en possède.
+    public Nourriture possedeNourritures(){
+        for (Objet objet : inventaire) {
+            if (objet instanceof Nourriture)
+                return (Nourriture) objet;
+        }
+        return null;
+    }
+    public boolean pleineSante(){
+        return getPv() == 100;
     }
 
     // méthode qui renvoie un objet trouvé autour du hero
     public Objet objetsProches(){
-        for(Objet obj : getEnvironnement().getObjets()){
-            if (verifObjetsAutour(obj)){
+        for(Objet obj : getPosition().getEnv().objetsProperty()){
+            if (verifObjetsAutour(obj))
                 return obj;
-            }
         }
         return null;
     }
 
     // méthode qui récupère un objet de la map
     public void recuperer(Objet objet){
-        inventaire.ajouterObjet(objet);
-        objet.getEnvironnement().enleverObjet(objet);
+        inventaire.add(objet);
+        objet.getPosition().getEnv().enleverObjet(objet);
     }
 
     /* methode qui depose l'objet de l'inventaire du hero
@@ -48,52 +81,49 @@ public class Hero extends Guerrier {
         Rectangle hitbox;
         do {
             do {
-                objetX = (int)Math.abs(Math.random() * (getX()+2* Constante.TAILLECASEX+1)) - Constante.TAILLECASEX;
-                objetY = (int)Math.abs(Math.random() * (getY()+2*Constante.TAILLECASEY+1)) - Constante.TAILLECASEY;
-            }while (!getEnvironnement().dansMap(objetX,objetY));
+                objetX = (int)Math.abs(Math.random() * (getPosition().getX()+2* Constante.TAILLECASEX +1)) - Constante.TAILLECASEX;
+                objetY = (int)Math.abs(Math.random() * (getPosition().getY()+2*Constante.TAILLECASEY+1)) - Constante.TAILLECASEY;
+            }while (!getPosition().getEnv().dansMap(objetX,objetY));
             hitbox = depotPossible(objetX,objetY);
         }while (hitbox == null);
 
-        objet.setX(objetX);
-        objet.setY(objetY);
-        inventaire.deposerObjet(objet);
-        objet.getEnvironnement().ajouterObjet(objet);
+        objet.getPosition().setX(objetX);
+        objet.getPosition().setY(objetY);
+        inventaire.remove(objet);
+        objet.getPosition().getEnv().ajouterObjet(objet);
     }
 
     // méthode qui renvoie vrai si un objet se trouve à portée du hero
-    public boolean verifObjetsAutour(Objet obj){
-        return (this.getY()-Constante.TAILLECASEY<= obj.getY() && obj.getY() <= getY()+Constante.TAILLECASEY
-                && this.getX()-Constante.TAILLECASEX<= obj.getX() && obj.getX() <= getX()+Constante.TAILLECASEX);
+    private boolean verifObjetsAutour(Objet obj){
+        return (this.getPosition().getY()-Constante.TAILLECASEY<= obj.getPosition().getY() && obj.getPosition().getY() <= getPosition().getY()+Constante.TAILLECASEY
+                && this.getPosition().getX()-Constante.TAILLECASEX<= obj.getPosition().getX() && obj.getPosition().getX() <= getPosition().getX()+Constante.TAILLECASEX);
     }
 
     // méthode qui prends en paramètre des coordonnées x et y de type double et renvoie un rectangle rect placé autour du hero
-    public Rectangle depotPossible(double x, double y){
+    private Rectangle depotPossible(double x, double y){
         Rectangle rect = new Rectangle(x, y, Constante.TAILLECASEX, Constante.TAILLECASEY);
-        // verifie qu'il n'y a pas de collision avec des obstacles
+            // verifie qu'il n'y a pas de collision avec des obstacles
         if(!collisionAvecObstacle(rect)
-                && ( // vérifie que les coordonnées sont autour du hero
-                ((Math.abs(getX()-x) == Constante.TAILLECASEX && Math.abs(getY()-y) <= Constante.TAILLECASEY)
-                        || (Math.abs(getY()-y) == Constante.TAILLECASEY) && Math.abs(getX()-x) <= Constante.TAILLECASEX))
-        )
+           && ( // vérifie que les coordonnées sont autour du hero
+               ((Math.abs(getPosition().getX()-x) == Constante.TAILLECASEX && Math.abs(getPosition().getY()-y) <= Constante.TAILLECASEY)
+               || (Math.abs(getPosition().getY()-y) == Constante.TAILLECASEY) && Math.abs(getPosition().getX()-x) <= Constante.TAILLECASEX))
+               )
         {
             return rect;
         }
         return null;
     }
+
     public void attaquer(){
-        Acteur e = this.verifEnnemiAcoter();
+        Ennemi e = this.verifEnnemiAcoter();
         if(e!=null){
-            e.seFaitAttquer(this.getArme().getPtsDegats());
-            if(e.getCoeurs()==0){
-                ObservableList<Acteur> lstA= getEnvironnement().getActeurs();
-                for(Acteur a : lstA){
-                    if(e.getId().equals(a.getId())){
-                        lstA.remove(a);
-                    }
-                }
+            e.subitDegats(this.getArme().getPtsDegats());
+            if(e.estMort()){
+                getPosition().getEnv().enleverActeur(e);
             }
         }
-        System.out.println(e);
     }
+
+    @Override
+    void parler() {}
 }
-//t

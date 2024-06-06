@@ -11,23 +11,28 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Npc;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeMelee;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.Objet;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Nourriture;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Pomme;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
+
     private Hero perso;
+    private Garde g;
 
     private Timeline gameLoop;
     private int temps;
+
+    private boolean touche;
+
     @FXML
     private Pane paneMap;
     @FXML
@@ -35,109 +40,122 @@ public class Controleur implements Initializable {
     @FXML
     private TilePane tilePaneDecors;
     @FXML
+    private HBox paneCoeurs;
+    @FXML
     private HBox hboxInventaire;
-    private Garde g;
-    private Npc n;
-    private ObservateurActeurs acteurObs;
-    private boolean touche;
+
+    private ObservateurActeurs obsActeurs;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initAnimation();
+        gameLoop.play();
 
         Map map = new Map(30, 30);
         map.initialisationMap();
         Environnement environnement = new Environnement(map);
         MapVue tileMap = new MapVue(map.getTabNum(), tilePaneDecors);
-        ArmeMelee a1=new ArmeMelee("Fourche",1);
-        perso = new Hero("Joseph", 40, 400, 400,0.2, environnement,a1);
-        Objet objet1 = new Objet(800, 650, environnement);
-        Objet objet2 = new Objet(765, 500, environnement);
-        environnement.getObjets().addListener(new ObservateurObjets(paneObjets));
-        this.acteurObs=new ObservateurActeurs(paneMap);
-        environnement.getActeurs().addListener(acteurObs);
-        perso.getInventaire().getObjets().addListener(new ObservateurInventaire(hboxInventaire));
+        Epee e = new Epee("Excalibur",15,5);
+        perso = new Hero("Joseph", 400, 400, environnement,e);
+        g = new Garde("G", 400,500,100,0.03,environnement,e);
+        Pomme objet1 = new Pomme(605, 500, environnement);
+        Pomme objet2 = new Pomme(700, 500, environnement);
+//        Pomme objet3 = new Pomme(100, 100, environnement);
+//        Pomme objet4 = new Pomme(60, 140, environnement);
+//        Pomme objet5 = new Pomme(165, 90, environnement);
+
+        environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
+        obsActeurs = new ObservateurActeurs(paneMap);
+        environnement.acteursProperty().addListener(obsActeurs);
+        perso.initialisationHero(paneCoeurs,hboxInventaire);
+        g.initialisationEnnemi(paneMap);
+
+        environnement.ajouterActeur(g);
         environnement.ajouterObjet(objet1);
         environnement.ajouterObjet(objet2);
+//        environnement.ajouterObjet(objet3);
+//        environnement.ajouterObjet(objet4);
+//        environnement.ajouterObjet(objet5);
         environnement.ajouterActeur(perso);
-        Epee e= new Epee("E",1);
-        g=new Garde("G", 5,400,500,0.03,environnement,e);
-        n = new Npc("N", 300, 500, 0.03, environnement);
-        environnement.ajouterActeur(g);
-        environnement.ajouterActeur(n);
-        map.initialisationMap();
         tileMap.creerSprite();
-        gameLoop.play();
     }
+
     @FXML
     public void interaction(KeyEvent event) {
-        this.touche=true;
         KeyCode key = event.getCode();
         Hero p = perso;
         Objet ob;
+        Nourriture aliment;
         switch (key) {
             case Z:
             case UP:
-                    p.setDirection("up");
+                p.setDirection("up");
                 p.deplacement(0, -1);
-                System.out.println("HAUT - x:" + p.getX() + " y:" + p.getY());
-                acteurObs.upgradeSprite(p,touche);
+                System.out.println("HAUT - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
             case S:
             case DOWN:
                 p.setDirection("down");
                 p.deplacement(0, 1);
-                System.out.println("BAS - x:" + p.getX() + " y:" + p.getY());
-                acteurObs.upgradeSprite(p,touche);
+                System.out.println("BAS - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
             case D:
             case RIGHT:
                 p.setDirection("right");
                 p.deplacement(1, 0);
-                System.out.println("DROITE - x:" + p.getX() + " y:" + p.getY());
-                acteurObs.upgradeSprite(p,touche);
+                System.out.println("DROITE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
             case Q:
             case LEFT:
                 p.setDirection("left");
                 p.deplacement(-1, 0);
-                System.out.println("GAUCHE - x:" + p.getX() + " y:" + p.getY());
-                acteurObs.upgradeSprite(p,touche);
-                System.out.println("GGGG");
+                System.out.println("GAUGHE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
             case E:
                 ob = p.objetsProches();
-                if (ob != null && p.getInventaire().getObjets().size() != p.getInventaire().getTaille()) {
+                if (ob != null && p.getInventaire().size() != p.getCapaciteMax()) {
                     p.recuperer(ob);
                     System.out.println("Objet récupéré !");
-                } else if (ob != null && p.getInventaire().getObjets().size() == p.getInventaire().getTaille()) {
+                } else if (ob != null && p.getInventaire().size() == p.getCapaciteMax()) {
                     System.out.println("Inventaire complet !");
                 } else {
                     System.out.println("Aucun objets trouvés !");
                 }
                 break;
             case K:
-                if (!p.getInventaire().getObjets().isEmpty()) {
-                    ob = p.getInventaire().getObjets().get(0);
+                if (!p.getInventaire().isEmpty()) {
+                    ob = p.getInventaire().get(0);
                     p.deposer(ob);
                     System.out.println("Objet déposé !");
                 }
                 else {
                     System.out.println("Inventaire vide");
                 }
+                break;
+            case M:
+                aliment = perso.possedeNourritures();
+                if (aliment != null) {
+                    if (!perso.pleineSante()) {
+                        perso.guerison(aliment.getPv());
+                        System.out.println(perso.getNom() + " a mangé " + aliment.getNom());
+                        perso.getInventaire().remove(aliment);
+                    }
+                    else
+                        System.out.println("Votre santé déjà complète !");
+                }
+                else
+                    System.out.println("Aucun aliments trouvés");
+                break;
             case J:
                 perso.attaquer();
-            case P:
-                n.parler();
         }
     }
+
     @FXML
     private void toucheLacher(){
-        System.out.println("La touche est lachée");
         this.touche=false;
-        acteurObs.upgradeSprite(perso,touche);
     }
-
 
     private void initAnimation() {
         gameLoop = new Timeline();

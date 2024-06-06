@@ -4,128 +4,128 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.controleurs.Constante;
+import universite_paris8.iut.yponnou.zelda.Constante;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapVue extends Constante {
+public class MapVue {
 
-    private Image grass;
+    private final Image grass;
     //PLATE
-    private Image plateKingdom;
-    private Image plateVillage;
+    private final Image plateKingdom;
+    private final Image plateVillage;
     //NATURE
-    private Image arbre;
+    private final Image arbre;
     //WATER
-    private Image water0;
-    private Image water1;
-    private Image water2;
-    private Image water3;
-    private Image water4;
-    private Image water5;
-    private Image water6;
-    private Image water7;
-    private Image water8;
-    private Image water9;
-    private Image water10;
-    private Image water11;
-    private Image water12;
-    private Image water13;
+    private final Image water0;
+    private final Image water1;
+    private final Image water2;
+    private final Image water3;
+    private final Image water4;
+    private final Image water5;
+    private final Image water6;
+    private final Image water7;
+    private final Image water8;
+    private final Image water9;
+    private final Image water10;
+    private final Image water11;
+    private final Image water12;
+    private final Image water13;
     //ROAD
-    private Image road0;
-    private Image road1;
-    private Image road2;
-    private Image road3;
-    private Image road4;
-    private Image road5;
-    private Image road6;
-    private Image road7;
-    private Image road8;
-    private Image road9;
-    private Image road10;
-    private Image road11;
-    private Image road12;
+    private final Image road0;
+    private final Image road1;
+    private final Image road2;
+    private final Image road3;
+    private final Image road4;
+    private final Image road5;
+    private final Image road6;
+    private final Image road7;
+    private final Image road8;
+    private final Image road9;
+    private final Image road10;
+    private final Image road11;
+    private final Image road12;
     //HOUSE
-    private Image house1;
-    private Image house2;
-    private Image house3;
-    private Image house4;
-    private Image house5;
-    private Image house6;
-    private Image house7;
-    private Image house8;
-    private Image house9;
-    private Image house10;
-    private Image house11;
-    private Image house12;
-    private Image house13;
-    private Image house14;
-    private Image house15;
-    private Image house16;
+    private final Image house1;
+    private final Image house2;
+    private final Image house3;
+    private final Image house4;
+    private final Image house5;
+    private final Image house6;
+    private final Image house7;
+    private final Image house8;
+    private final Image house9;
+    private final Image house10;
+    private final Image house11;
+    private final Image house12;
+    private final Image house13;
+    private final Image house14;
+    private final Image house15;
+    private final Image house16;
 
-    private int[][] tab;
-    private TilePane tilePane;
+    private final int[][] tab;
+    private final TilePane tilePane;
 
 
-    private List<Rectangle> obstaclesHitboxes;
+    private final List<Rectangle> obstaclesHitboxes;
 
 
     public MapVue(int[][] tab, TilePane tilePane) {
         this.tilePane=tilePane;
         this.tab = tab;
-        grass = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/grass/grass01.png");
-        arbre = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/nature/tree.png");
+        grass = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/grass/grass01.png");
+        arbre = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/nature/tree.png");
 //PLATE
-        plateVillage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/plate/plate_village.png");
-        plateKingdom = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/plate/plate_castle.png");
+        plateVillage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/plate/plate_village.png");
+        plateKingdom = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/plate/plate_castle.png");
 //WATER
-        water0= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/water/water00.png");
-        water1= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/water/water01.png");
-        water2= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/water/water02.png");
-        water3= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/water/water03.png");
-        water4= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/water/water04.png");
-        water5= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/water/water05.png");
-        water6= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/water/water06.png");
-        water7= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/water/water07.png");
-        water8= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/water/water08.png");
-        water9= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/water/water09.png");
-        water10= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/water/water10.png");
-        water11= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/water/water11.png");
-        water12= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/water/water12.png");
-        water13= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/water/water13.png");
+        water0= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water00.png");
+        water1= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water01.png");
+        water2= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water02.png");
+        water3= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water03.png");
+        water4= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water04.png");
+        water5= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water05.png");
+        water6= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water06.png");
+        water7= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water07.png");
+        water8= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water08.png");
+        water9= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water09.png");
+        water10= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water10.png");
+        water11= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water11.png");
+        water12= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water12.png");
+        water13= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/water/water13.png");
 //ROAD
-        road0= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/road/road00.png");
-        road1= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/road/road01.png");
-        road2= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/road/road02.png");
-        road3= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/road/road03.png");
-        road4= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/road/road04.png");
-        road5= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/road/road05.png");
-        road6= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/road/road06.png");
-        road7= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/road/road07.png");
-        road8= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/road/road08.png");
-        road9= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/road/road09.png");
-        road10= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/road/road10.png");
-        road11= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/road/road11.png");
-        road12= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/road/road12.png");
+        road0= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road00.png");
+        road1= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road01.png");
+        road2= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road02.png");
+        road3= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road03.png");
+        road4= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road04.png");
+        road5= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road05.png");
+        road6= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road06.png");
+        road7= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road07.png");
+        road8= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road08.png");
+        road9= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road09.png");
+        road10= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road10.png");
+        road11= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road11.png");
+        road12= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/road/road12.png");
 
 //HOUSE
-        house1 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/house/maison1.png");
-        house2 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/house/maison2.png");
-        house3 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/house/maison3.png");
-        house4 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/house/maison4.png");
-        house5 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/house/maison5.png");
-        house6 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/house/maison6.png");
-        house7 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/house/maison7.png");
-        house8 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/house/maison8.png");
-        house9= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/house/maison9.png");
-        house10 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/house/maison10.png");
-        house11 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/house/maison11.png");
-        house12 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/house/maison12.png");
-        house13 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/house/maison13.png");
-        house14 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/house/maison14.png");
-        house15 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/house/maison15.png");
-        house16 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/house/maison16.png");
+        house1 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison1.png");
+        house2 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison2.png");
+        house3 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison3.png");
+        house4 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison4.png");
+        house5 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison5.png");
+        house6 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison6.png");
+        house7 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison7.png");
+        house8 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison8.png");
+        house9= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison9.png");
+        house10 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison10.png");
+        house11 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison11.png");
+        house12 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison12.png");
+        house13 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison13.png");
+        house14 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison14.png");
+        house15 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison15.png");
+        house16 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison16.png");
 
         obstaclesHitboxes = new ArrayList<>();
     }
@@ -247,10 +247,10 @@ public class MapVue extends Constante {
                     continue; // Ignore other valuesz
                 }
 
-                imageView.setFitWidth(TAILLECASEX);
-                imageView.setFitHeight(TAILLECASEY);
-                imageView.setX(x * TAILLECASEX);
-                imageView.setY(y * TAILLECASEY);
+                imageView.setFitWidth(Constante.TAILLECASEX);
+                imageView.setFitHeight(Constante.TAILLECASEY);
+                imageView.setX(x * Constante.TAILLECASEX);
+                imageView.setY(y * Constante.TAILLECASEX);
                 tilePane.getChildren().add(imageView);
             }
         }
