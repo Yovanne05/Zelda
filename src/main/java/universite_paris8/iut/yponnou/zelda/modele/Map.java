@@ -13,7 +13,6 @@ public class Map{
         this.largeur = l;
         this.tabNum = new int[h][l];
     }
-
     public int getHauteur() {
         return hauteur;
     }

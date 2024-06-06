@@ -61,6 +61,8 @@ public class Acteur {
         position.setY(y);
     }
 
+
+
     public int getPv() {
         return pv.getValue();
     }
