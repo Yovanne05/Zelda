@@ -2,6 +2,7 @@ package universite_paris8.iut.yponnou.zelda.modele;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
 public class Inventaire{
 
