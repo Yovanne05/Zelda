@@ -1,11 +1,15 @@
 package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
-public class Arme{
+import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
+
+public class Arme extends Objet {
     private String nom;
     private int ptsDegats;
     private int portee;
 
-    public Arme(String nom, int ptsDegats, int portee) {
+    public Arme(String nom, int x, int y, Environnement env, int ptsDegats, int portee) {
+        super(x,y,env);
         this.nom = nom;
         this.ptsDegats = ptsDegats;
         this.portee = portee;
@@ -14,6 +18,12 @@ public class Arme{
     public String getNom() {
         return nom;
     }
+
+    @Override
+    public String toString() {
+        return "";
+    }
+
     public int getPtsDegats() {
         return ptsDegats;
     }

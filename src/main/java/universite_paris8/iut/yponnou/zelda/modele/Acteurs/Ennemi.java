@@ -13,7 +13,6 @@ public abstract class Ennemi extends Guerrier {
     }
 
     public void initialisationEnnemi(Pane pane){
-        pvProperty().addListener(new ObservateurBarreDeVie(this,pane));
         setPv(120);
     }
 
@@ -28,14 +27,14 @@ public abstract class Ennemi extends Guerrier {
         return null;
     }
     public void deplacementEnRonde() {
-        int dx;
-        int dy = 0;
+        int dx = 0;
+        int dy;
         if(cpt<500){
             cpt++;
-            dx=1;
+            dy=1;
         }else{
             cpt++;
-            dx=-1;
+            dy=-1;
         }
         if(cpt>999){
             cpt=0;

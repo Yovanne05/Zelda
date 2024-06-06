@@ -14,6 +14,9 @@ public abstract class Guerrier extends Acteur {
     public Arme getArme() {
         return arme;
     }
+    public void setArme(Arme arme) {
+        this.arme = arme;
+    }
 
     public abstract void attaquer();
 

@@ -3,11 +3,8 @@ package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.Constante;
-import universite_paris8.iut.yponnou.zelda.controleurs.ObservateurCoeurs;
-import universite_paris8.iut.yponnou.zelda.controleurs.ObservateurObjets;
 import universite_paris8.iut.yponnou.zelda.modele.*;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Nourriture;
@@ -19,27 +16,32 @@ public class Hero extends Guerrier {
     private final int capaciteMax;
 
     public Hero(String nom, int x, int y, Environnement environnement, Arme arme) {
-        super(nom, x, y, 0, 0.2, environnement, arme);
+        super(nom, x, y, 100, 0.2, environnement, arme);
         capaciteMax = 5;
     }
 
     public ObservableList<Objet> getInventaire() {
         return inventaire;
     }
-    public int getCapaciteMax() {
-        return capaciteMax;
+//    public int getCapaciteMax() {
+//        return capaciteMax;
+//    }
+
+    public void guerison(){
+        Nourriture aliment = possedeNourritures();
+        if (aliment != null) {
+            if (!pleineSante()) {
+                setPv(getPv()+ aliment.getPv());
+                System.out.println(getNom() + " a mangé " + aliment.getNom());
+                inventaire.remove(aliment);
+            }
+            else
+                System.out.println("Votre santé déjà complète !");
+        }
+        else
+            System.out.println("Aucun aliments trouvés");
     }
 
-    // methode qui initialise les listeners du hero ainsi que les pv
-    public void initialisationHero(Pane paneCoeurs, Pane hboxInventaire){
-        pvProperty().addListener(new ObservateurCoeurs(paneCoeurs));
-        getInventaire().addListener(new ObservateurObjets(hboxInventaire));
-        setPv(100);
-    }
-
-    public void guerison(int pv){
-        setPv(getPv()+pv);
-    }
     public void subitDegats(int degats){
         super.subitDegats(degats);
         System.out.println(getNom()+" a perdu "+degats+" pv");
@@ -67,9 +69,17 @@ public class Hero extends Guerrier {
     }
 
     // méthode qui récupère un objet de la map
-    public void recuperer(Objet objet){
-        inventaire.add(objet);
-        objet.getPosition().getEnv().enleverObjet(objet);
+    public void recuperer(){
+        Objet ob = objetsProches();
+        if (ob != null && inventaire.size() != capaciteMax) {
+            inventaire.add(ob);
+            ob.getPosition().getEnv().enleverObjet(ob);
+            System.out.println("Objet récupéré !");
+        } else if (ob != null) {
+            System.out.println("Inventaire complet !");
+        } else {
+            System.out.println("Aucun objets trouvés !");
+        }
     }
 
     /* methode qui depose l'objet de l'inventaire du hero
@@ -126,4 +136,24 @@ public class Hero extends Guerrier {
 
     @Override
     void parler() {}
+
+    public void selectionObjet(int indexe) {
+        if (indexe < inventaire.size()){
+            Objet ob = inventaire.get(indexe);
+            if(ob instanceof Nourriture n) {
+                if (!pleineSante()) {
+                    setPv(getPv() + n.getPv());
+                    System.out.println(getNom() + " a mangé " + n.getNom());
+                    inventaire.remove(n);
+                } else
+                    System.out.println("Votre santé déjà complète !");
+            }
+            else if(ob instanceof Arme ar){
+                setArme(ar);
+            }
+            System.out.println("Objet selectionné !");
+        }
+        else
+            System.out.println("Vous n'avez pas d'objets à cet emplacement !");
+    }
 }

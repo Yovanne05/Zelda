@@ -15,8 +15,8 @@ public class HeroVue extends ActeurVue{
     private final Image playerLeft = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/player/player_left.gif");
     private final Image playerDown = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/player/player_down.gif");
 
-    public HeroVue(Acteur actVue, Pane pane) {
-        super(actVue, pane);
+    public HeroVue(Acteur acteur, Pane pane) {
+        super(acteur, pane);
     }
 
     private Image getHeroImage(String direction) {
