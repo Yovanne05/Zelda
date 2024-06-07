@@ -2,6 +2,8 @@ package universite_paris8.iut.yponnou.zelda.controleurs;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
@@ -9,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
@@ -214,20 +217,27 @@ public class Controleur implements Initializable {
 
 
     private void adjustCamera() {
-        double targetScale = 2.0; // Adjust as needed
+        double targetScale = 1.0; // Ajustez selon vos besoins
 
-        // Calculate target position based on player's position and scale
+        // Calcule la position cible basée sur la position du joueur et l'échelle
         double targetX = (paneMap.getWidth() / 2) - (perso.getPosition().getX() * targetScale);
         double targetY = (paneMap.getHeight() / 2) - (perso.getPosition().getY() * targetScale);
 
-        // Bind translation of the map pane to the target position
+        // Lie la translation de paneMap à la position cible
         paneMap.translateXProperty().bind(Bindings.subtract(paneMap.getWidth() / 2, perso.getPosition().xProperty()).multiply(targetScale));
         paneMap.translateYProperty().bind(Bindings.subtract(paneMap.getHeight() / 2, perso.getPosition().yProperty()).multiply(targetScale));
 
-        // Set scale of the map pane
+        // Ajuste la position de hboxInventaire en fonction du mouvement de la caméra
+        hboxInventaire.setLayoutX(1186.0 - (targetX));
+        hboxInventaire.setLayoutY(768.0 - (targetY));
+
+        // Définit l'échelle de paneMap
         paneMap.setScaleX(targetScale);
         paneMap.setScaleY(targetScale);
     }
+
+
+
 
 
 
