@@ -82,11 +82,11 @@ public class Environnement extends Constante {
     }
 
     public void toutLeMondeBouge(){
-//        for (Acteur a: acteurs){
-//            if(a instanceof Garde){
-//                ((Garde) a).deplacementEnRonde();
-//            }
-//        }
+        for (Acteur a: acteurs){
+            if(a instanceof Garde){
+                ((Garde) a).deplacementEnRonde();
+            }
+        }
         for(int i = 0;i<projectiles.size();i++){
             if(projectiles.get(i) instanceof Fleche){
                 System.out.println("Fleche");
