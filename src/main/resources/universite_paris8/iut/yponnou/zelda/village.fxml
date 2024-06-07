@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<BorderPane onKeyPressed="#interaction" onKeyReleased="#toucheLacher" prefHeight="900.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.Controleur">
+<BorderPane onKeyPressed="#interaction" onKeyReleased="#toucheLacher"  minWidth="1500.0" maxWidth="1500.0" minHeight="900.0" maxHeight="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.Controleur">
    <center>
       <Pane fx:id="paneMap" prefHeight="900.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
          <TilePane fx:id="tilePaneDecors" prefHeight="900.0" prefWidth="1500.0" />
