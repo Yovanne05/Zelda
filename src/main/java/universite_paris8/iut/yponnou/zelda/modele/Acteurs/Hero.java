@@ -111,14 +111,14 @@ public class Hero extends Guerrier {
 
     // vérifie que les coordonnées de l'objet sont autour du hero
     private boolean auPied(double x, double y, int longueurMin, int longueurMax){
-        return (x == getPosition().getX()-longueurMin && y == getPosition().getY()+ longueurMax) || (x == getPosition().getX()+longueurMax && y == getPosition().getY()+ longueurMax);
+        return (x == getPosition().getX()-longueurMin && y == getPosition().getY()+ longueurMax) || (x == getPosition().getX()+longueurMax+10 && y == getPosition().getY()+ longueurMax);
     }
 
     // méthode qui prends en paramètre des coordonnées x et y de type double et renvoie un rectangle rect placé autour du hero
     private Rectangle depotPossible(Objet objet, double x, double y){
         Rectangle rect;
         int longueurMin;
-        int longueurMax = Constante.TAILLE50;
+        int longueurMax = Constante.TAILLE32;
 
         if (objet instanceof Nourriture)
             longueurMin = Constante.TAILLE16;
