@@ -6,19 +6,18 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.TilePane?>
 
-<BorderPane onKeyPressed="#interaction" prefHeight="900.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.Controleur">
-    <center>
-        <Pane fx:id="paneMap" prefHeight="900.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
-            <children>
-                <TilePane fx:id="tilePaneDecors" prefHeight="900.0" prefWidth="1500.0" />
-                <Pane fx:id="paneObjets" prefHeight="900" prefWidth="1500" />
-                <Pane fx:id="paneCoeurs" prefHeight="57.0" prefWidth="264.0" style="-fx-background-color: pink;" />
-                <HBox fx:id="hboxInventaire" layoutX="1200" layoutY="840" prefHeight="60.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: gray;">
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" top="5.0" />
-                    </padding>
-                </HBox>
-            </children>
-        </Pane>
-    </center>
+<BorderPane onKeyPressed="#interaction" onKeyReleased="#toucheLacher" prefHeight="900.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.Controleur">
+   <center>
+      <Pane fx:id="paneMap" prefHeight="900.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
+         <TilePane fx:id="tilePaneDecors" prefHeight="900.0" prefWidth="1500.0"/>
+         <Pane fx:id="paneObjets" prefHeight="900" prefWidth="1500"/>
+         <HBox fx:id="paneCoeurs" prefHeight="57.0" prefWidth="264.0"/>
+         <HBox fx:id="hboxInventaire" layoutX="1200" layoutY="840" prefHeight="60.0" prefWidth="300.0" spacing="10.0"
+               style="-fx-background-color: gray;">
+            <padding>
+               <Insets bottom="5.0" left="5.0" top="5.0"/>
+            </padding>
+         </HBox>
+      </Pane>
+   </center>
 </BorderPane>

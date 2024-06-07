@@ -1,11 +1,13 @@
 package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
-import universite_paris8.iut.yponnou.zelda.controleurs.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Ennemi;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 
 import java.util.ArrayList;
+
+import static universite_paris8.iut.yponnou.zelda.Constante.TAILLECASEX;
+import static universite_paris8.iut.yponnou.zelda.Constante.TAILLECASEY;
 
 public class Fleche extends Projectile {
 
@@ -15,15 +17,16 @@ public class Fleche extends Projectile {
     private final double initialY;
 
     public Fleche(double x, double y, Environnement environnement, int dx, int dy) {
-        super("Fleche", 0, x, y, 5, 300, environnement, dx, dy,1);
+        super("Fleche", x, y, 0, 5, environnement, dx, dy, 300, 50);
         this.x = x;
         this.y = y;
         this.initialX = x;
         this.initialY = y;
     }
 
+
     public void utiliserFleche() {
-        double distanceParcourue = Math.sqrt(Math.pow(this.getX() - initialX, 2) + Math.pow(this.getY() - initialY, 2));
+        double distanceParcourue = Math.sqrt(Math.pow(getPosition().getX() - initialX, 2) + Math.pow(getPosition().getY() - initialY, 2));
         //Math.pow(a, 2) calcule le carré du nombre a. Ici, on calcule les carrés des distances parcourues en x et y.
         //Cela est fait pour appliquer le théorème de Pythagore.
         //Math.sqrt(b) calcule la racine carrée du nombre b. Ici, on prend la racine carrée de la somme des carrés des distances
@@ -32,7 +35,7 @@ public class Fleche extends Projectile {
             this.deplacement();
             this.collisionAvecEnnemi();
         } else {
-            this.getEnvironnement().enleverProjectiles(this);
+            this.getPosition().getEnv().enleverProjectile(this);
         }
     }
 
@@ -47,14 +50,14 @@ public class Fleche extends Projectile {
     }
 
     public void collisionAvecEnnemi() {
-        ArrayList<Acteur> lstA = getEnvironnement().getLstActeurs();
+        ArrayList<Acteur> lstA = getPosition().getEnv().getLstActeurs();
 
         for (Acteur a : lstA) {
             if (a instanceof Ennemi) {
                 Ennemi ennemi = (Ennemi) a;
                 if (this.touche(ennemi)) {
                     ennemi.seFaitAttquer(this.getPtsDegats());
-                    this.getEnvironnement().enleverProjectiles(this);
+                    getPosition().getEnv().enleverProjectile(this);
                 }
             }
         }
@@ -62,10 +65,10 @@ public class Fleche extends Projectile {
 
     private boolean touche(Ennemi ennemi) {
         // Supposons que chaque acteur a des coordonnées (x, y) et une largeur/hauteur (w, h)
-        double ennemiX = ennemi.getX();
-        double ennemiY = ennemi.getY();
+        double ennemiX = ennemi.getPosition().getX();
+        double ennemiY = ennemi.getPosition().getY();
 
         // Vérifiez si la flèche est à l'intérieur des limites de l'ennemi
-        return (this.x >= ennemiX && this.x <= ennemiX + Constante.TAILLECASEX) && (this.y >= ennemiY && this.y <= ennemiY + Constante.TAILLECASEY);
+        return (this.x >= ennemiX && this.x <= ennemiX + TAILLECASEX) && (this.y >= ennemiY && this.y <= ennemiY + TAILLECASEY);
     }
 }

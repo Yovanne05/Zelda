@@ -4,13 +4,17 @@ import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 
 public class Epee extends ArmeMelee{
 
-
-    public Epee(Environnement environnement) {
-        super("Epee", 1,environnement);
+    public Epee(double x, double y,Environnement environnement) {
+        super("Epee",x,y,1,environnement);
     }
 
     @Override
-    public double utiliser() {
+    public String toString() {
+        return null;
+    }
+
+    @Override
+    public int utiliser() {
 
         return this.getPtsDegats();
     }

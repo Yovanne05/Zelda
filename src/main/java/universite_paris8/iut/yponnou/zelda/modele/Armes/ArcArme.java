@@ -11,11 +11,16 @@ public class ArcArme extends ArmeDistance {
     }
 
     @Override
-    public double utiliser() {
+    public int utiliser() {
         Fleche f = (Fleche) this.getProjectile();
-        this.getEnvironnement().ajouterProjectiles(f);
+        this.getPosition().getEnv().ajouterProjectile(f);
         f.utiliserFleche();
         return this.getProjectile().getPtsDegats();
+    }
+
+    @Override
+    public String toString() {
+        return null;
     }
 
 

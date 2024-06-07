@@ -1,45 +1,99 @@
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.controleurs.Constante;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
+import universite_paris8.iut.yponnou.zelda.Constante;
+import universite_paris8.iut.yponnou.zelda.modele.*;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeDistance;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
-import universite_paris8.iut.yponnou.zelda.modele.Inventaire;
-import universite_paris8.iut.yponnou.zelda.modele.Objet;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Nourriture;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
+import java.util.ArrayList;
 
 public class Hero extends Guerrier {
 
-    private Inventaire inventaire;
+    private final ObservableList<Objet> inventaire = FXCollections.observableArrayList();
+    private final int capaciteMax;
 
-    public Hero(String nom, double coeurs, double x, double y, double vitesse, Environnement environnement, int dx, int dy, Arme arme) {
-        super(nom, coeurs, x, y, vitesse, environnement, dx, dy, arme);
-        inventaire=new Inventaire(5);
+    public Hero(double x, double y, Environnement environnement, int dx, int dy, Arme arme) {
+        super("Jakub", x, y, 100, 0.2, environnement, dx, dy, arme);
+        capaciteMax=5;
     }
-    
 
-    public Inventaire getInventaire() {
+
+    public ObservableList<Objet> getInventaire() {
         return inventaire;
     }
+//    public int getCapaciteMax() {
+//        return capaciteMax;
+//    }
 
-    // méthode qui renvoie un objet trouvé autour du hero
-    public Objet objetsProches(){
-        for(Objet obj : getEnvironnement().getObjets()){
-            if (verifObjetsAutour(obj)){
-                return obj;
+    public Paysans paysansProches() {
+        for (Acteur acteur : getPosition().getEnv().getLstActeurs()) {
+            if (acteur instanceof Paysans && verifPaysansAutour((Paysans) acteur)) {
+                return (Paysans) acteur;
             }
         }
         return null;
     }
 
+    public void guerison(){
+        Nourriture aliment = possedeNourritures();
+        if (aliment != null) {
+            if (!pleineSante()) {
+                setPv(getPv()+ aliment.getPv());
+                System.out.println(getNom() + " a mangé " + aliment.getNom());
+                inventaire.remove(aliment);
+            }
+            else
+                System.out.println("Votre santé déjà complète !");
+        }
+        else
+            System.out.println("Aucun aliments trouvés");
+    }
+
+    public void subitDegats(int degats){
+        super.subitDegats(degats);
+        System.out.println(getNom()+" a perdu "+degats+" pv");
+    }
+
+    // méthode qui renvoie un objet Nourriture si l'inventaire du héro en possède.
+    public Nourriture possedeNourritures(){
+        for (Objet objet : inventaire) {
+            if (objet instanceof Nourriture)
+                return (Nourriture) objet;
+        }
+        return null;
+    }
+    public boolean pleineSante(){
+        return getPv() == 100;
+    }
+
+    // méthode qui renvoie un objet trouvé autour du hero
+    public Objet objetsProches(){
+        for(Objet obj : getPosition().getEnv().objetsProperty()){
+            if (verifObjetsAutour(obj))
+                return obj;
+        }
+        return null;
+    }
+
     // méthode qui récupère un objet de la map
-    public void recuperer(Objet objet){
-        inventaire.ajouterObjet(objet);
-        objet.getEnvironnement().enleverObjet(objet);
+    public void recuperer(){
+        Objet ob = objetsProches();
+        if (ob != null && inventaire.size() != capaciteMax) {
+            inventaire.add(ob);
+            ob.getPosition().getEnv().enleverObjet(ob);
+            System.out.println("Objet récupéré !");
+        } else if (ob != null) {
+            System.out.println("Inventaire complet !");
+        } else {
+            System.out.println("Aucun objets trouvés !");
+        }
     }
 
     /* methode qui depose l'objet de l'inventaire du hero
@@ -51,33 +105,38 @@ public class Hero extends Guerrier {
         Rectangle hitbox;
         do {
             do {
-                objetX = (int)Math.abs(Math.random() * (getX()+2* Constante.TAILLECASEX+1)) - Constante.TAILLECASEX;
-                objetY = (int)Math.abs(Math.random() * (getY()+2*Constante.TAILLECASEY+1)) - Constante.TAILLECASEY;
-            }while (!getEnvironnement().dansMap(objetX,objetY));
+                objetX = (int)Math.abs(Math.random() * (getPosition().getX()+2* Constante.TAILLECASEX +1)) - Constante.TAILLECASEX;
+                objetY = (int)Math.abs(Math.random() * (getPosition().getY()+2*Constante.TAILLECASEY+1)) - Constante.TAILLECASEY;
+            }while (!getPosition().getEnv().dansMap(objetX,objetY));
             hitbox = depotPossible(objetX,objetY);
         }while (hitbox == null);
 
-        objet.setX(objetX);
-        objet.setY(objetY);
-        inventaire.deposerObjet(objet);
-        objet.getEnvironnement().ajouterObjet(objet);
+        objet.getPosition().setX(objetX);
+        objet.getPosition().setY(objetY);
+        inventaire.remove(objet);
+        objet.getPosition().getEnv().ajouterObjet(objet);
     }
 
     // méthode qui renvoie vrai si un objet se trouve à portée du hero
-    public boolean verifObjetsAutour(Objet obj){
-        return (this.getY()-Constante.TAILLECASEY<= obj.getY() && obj.getY() <= getY()+Constante.TAILLECASEY
-                && this.getX()-Constante.TAILLECASEX<= obj.getX() && obj.getX() <= getX()+Constante.TAILLECASEX);
+    private boolean verifObjetsAutour(Objet obj){
+        return (this.getPosition().getY()-Constante.TAILLECASEY<= obj.getPosition().getY() && obj.getPosition().getY() <= getPosition().getY()+Constante.TAILLECASEY
+                && this.getPosition().getX()-Constante.TAILLECASEX<= obj.getPosition().getX() && obj.getPosition().getX() <= getPosition().getX()+Constante.TAILLECASEX);
+    }
+
+    private boolean verifPaysansAutour(Paysans p){
+        return (this.getPosition().getY()-Constante.TAILLECASEY<= p.getPosition().getY() && p.getPosition().getY() <= getPosition().getY()+Constante.TAILLECASEY
+                && this.getPosition().getX()-Constante.TAILLECASEX<= p.getPosition().getX() && p.getPosition().getX() <= getPosition().getX()+Constante.TAILLECASEX);
     }
 
     // méthode qui prends en paramètre des coordonnées x et y de type double et renvoie un rectangle rect placé autour du hero
-    public Rectangle depotPossible(double x, double y){
+    private Rectangle depotPossible(double x, double y){
         Rectangle rect = new Rectangle(x, y, Constante.TAILLECASEX, Constante.TAILLECASEY);
-        // verifie qu'il n'y a pas de collision avec des obstacles
+            // verifie qu'il n'y a pas de collision avec des obstacles
         if(!collisionAvecObstacle(rect)
-                && ( // vérifie que les coordonnées sont autour du hero
-                ((Math.abs(getX()-x) == Constante.TAILLECASEX && Math.abs(getY()-y) <= Constante.TAILLECASEY)
-                        || (Math.abs(getY()-y) == Constante.TAILLECASEY) && Math.abs(getX()-x) <= Constante.TAILLECASEX))
-        )
+           && ( // vérifie que les coordonnées sont autour du hero
+               ((Math.abs(getPosition().getX()-x) == Constante.TAILLECASEX && Math.abs(getPosition().getY()-y) <= Constante.TAILLECASEY)
+               || (Math.abs(getPosition().getY()-y) == Constante.TAILLECASEY) && Math.abs(getPosition().getX()-x) <= Constante.TAILLECASEX))
+               )
         {
             return rect;
         }
@@ -86,24 +145,17 @@ public class Hero extends Guerrier {
 
 
     @Override
-    public String toString() {
-        return "Hero{" +
-                "inventaire=" + inventaire +
-                '}';
-    }
-
-    @Override
-    public void attaquer(int dx, int dy) {
+    public void attaquer() {
         Acteur e = this.verifEnnemiAcoter();
-        if(this.getArme() instanceof  ArmeDistance){
-            Fleche f= new Fleche(getX(),getY(),getEnvironnement(), getDx(),getDy());
+        if(this.getArme() instanceof ArmeDistance){
+            Fleche f= new Fleche(getPosition().getX(),getPosition().getY(),getPosition().getEnv(), getDx(),getDy());
             ((ArmeDistance) this.getArme()).setProjectile(f);
             this.getArme().utiliser();
 
         }else if(e!=null){
             e.seFaitAttquer(this.getArme().utiliser());
-            if(e.getCoeurs()==0){
-                ObservableList<Acteur> lstA= getEnvironnement().getActeurs();
+            if(e.getPv()==0){
+                ArrayList<Acteur> lstA= getPosition().getEnv().getLstActeurs();
                 for(Acteur a : lstA){
                     if(e.getId().equals(a.getId())){
                         lstA.remove(a);
@@ -112,4 +164,26 @@ public class Hero extends Guerrier {
             }
         }
     }
+
+
+    public void selectionObjet(int indexe) {
+        if (indexe < inventaire.size()){
+            Objet ob = inventaire.get(indexe);
+            if(ob instanceof Nourriture n) {
+                if (!pleineSante()) {
+                    setPv(getPv() + n.getPv());
+                    System.out.println(getNom() + " a mangé " + n.getNom());
+                    inventaire.remove(n);
+                } else
+                    System.out.println("Votre santé déjà complète !");
+            }
+            else if(ob instanceof  Arme ar){
+                setArme(ar);
+            }
+            System.out.println("Objet selectionné !");
+        }
+        else
+            System.out.println("Vous n'avez pas d'objets à cet emplacement !");
+    }
+
 }

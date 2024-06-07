@@ -4,33 +4,40 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysans;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.Objet;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Pomme;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
+import universite_paris8.iut.yponnou.zelda.vue.Pv.BarreDeVieVue;
+import universite_paris8.iut.yponnou.zelda.vue.Pv.CoeursVue;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
+
     private Hero perso;
-
-    private static int dx;
-    private static int dy;
-
+    private Garde g;
     private Timeline gameLoop;
     private int temps;
+
+    private boolean touche;
+
     @FXML
     private Pane paneMap;
     @FXML
@@ -38,42 +45,60 @@ public class Controleur implements Initializable {
     @FXML
     private TilePane tilePaneDecors;
     @FXML
+    private HBox paneCoeurs;
+    @FXML
     private HBox hboxInventaire;
 
-    private Garde g;
-    private Map map;
+    private ObservateurActeurs obsActeurs;
+
     private Environnement environnement;
-    private Fleche f;
+
+    private Paysans paysans;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        initAnimation();
+        gameLoop.play();
 
-        map = new Map(30, 30);
+        Map map = new Map(30, 30);
         map.initialisationMap();
         environnement = new Environnement(map);
         MapVue tileMap = new MapVue(map.getTabNum(), tilePaneDecors);
+        ArcArme a =new ArcArme(400, 400,null,environnement);
+        perso=new Hero(400,400,environnement,0,0,a);
+        Epee e= new Epee(400,500,environnement);
+        g=new Garde(400,500,0.03,environnement,0,1,e);
+        Pomme objet1 = new Pomme(605, 500, environnement);
+        Pomme objet2 = new Pomme(700, 500, environnement);
+        Pomme objet3 = new Pomme(700, 400, environnement);
+        Pomme objet4 = new Pomme(750, 400, environnement);
+        Pomme objet5 = new Pomme(820, 400, environnement);
+        Pomme objet6 = new Pomme(820, 400, environnement);
+        paysans = new Paysans(800, 400, 120, environnement, 0, 1);
 
+        environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
 
-        perso = new Hero("Joseph", 10, 400, 400,0.2, environnement,0,0,null);
-        ArcArme a =new ArcArme(perso.getX(), perso.getY(),null, environnement);
-        perso.setArme(a);
-
-        environnement.getObjets().addListener(new ObservateurObjets(paneObjets));
-        environnement.getActeurs().addListener(new ObservateurActeurs(paneMap));
+        obsActeurs = new ObservateurActeurs(paneMap);
+        environnement.acteursProperty().addListener(obsActeurs);
         environnement.getProjectiles().addListener(new ObservateurProjectiles(paneMap));
-        perso.getInventaire().getObjets().addListener(new ObservateurInventaire(hboxInventaire));
 
-        environnement.ajouterActeur(perso);
+        perso.pvProperty().addListener(new ObservateurCoeurs(paneCoeurs,new CoeursVue(paneCoeurs)));
+        perso.getInventaire().addListener(new ObservateurObjets(hboxInventaire));
 
-        Epee e= new Epee(environnement);
-        g=new Garde("G", 5,400,500,0.03,environnement,0,1,e);
+        g.pvProperty().addListener(new ObservateurBarreDeVie(g,paneMap, new BarreDeVieVue(g,paneMap)));
 
         environnement.ajouterActeur(g);
-
-        map.initialisationMap();
+        environnement.ajouterObjet(objet1);
+        environnement.ajouterObjet(objet2);
+        environnement.ajouterObjet(objet3);
+        environnement.ajouterObjet(objet4);
+        environnement.ajouterObjet(objet5);
+        environnement.ajouterObjet(objet6);
+        environnement.ajouterActeur(perso);
+        environnement.ajouterActeur(paysans);
+//        perso.subitDegats(40);
         tileMap.creerSprite();
-        initAnimation();
-        gameLoop.play();
     }
 
     @FXML
@@ -84,63 +109,78 @@ public class Controleur implements Initializable {
         switch (key) {
             case Z:
             case UP:
+                p.setDirection("up");
                 p.setDx(0);
                 p.setDy(-1);
                 p.deplacement();
-                System.out.println("HAUT - x:"+p.getX()+" y:"+p.getY());
-                dx=0;
-                dy=-1;
+                System.out.println("HAUT - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
             case S:
             case DOWN:
+                p.setDirection("down");
                 p.setDx(0);
                 p.setDy(1);
                 p.deplacement();
-                System.out.println("BAS - x:"+p.getX()+" y:"+p.getY());
-                dx=0;
-                dy=1;
+                System.out.println("BAS - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
             case D:
             case RIGHT:
+                p.setDirection("right");
                 p.setDx(1);
                 p.setDy(0);
                 p.deplacement();
-                System.out.println("DROITE - x:"+p.getX()+" y:"+p.getY());
-                dx=1;
-                dy=0;
+                System.out.println("DROITE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
             case Q:
             case LEFT:
+                p.setDirection("left");
                 p.setDx(-1);
                 p.setDy(0);
                 p.deplacement();
-                System.out.println("GAUGHE - x:"+p.getX()+" y:"+p.getY());
-                dx=-1;
-                dy=0;
+                System.out.println("GAUGHE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
             case E:
-                ob = p.objetsProches();
-                if (ob != null && p.getInventaire().getObjets().size() != p.getInventaire().getTaille()) {
-                    p.recuperer(ob);
-                    System.out.println("Objet récupéré !");
-                } else if (ob != null && p.getInventaire().getObjets().size() == p.getInventaire().getTaille()) {
-                    System.out.println("Inventaire complet !");
-                } else {
-                    System.out.println("Aucun objets trouvés !");
-                }
+                perso.recuperer();
                 break;
             case K:
-                if (!p.getInventaire().getObjets().isEmpty()) {
-                    ob = p.getInventaire().getObjets().get(0);
+                if (!p.getInventaire().isEmpty()) {
+                    ob = p.getInventaire().get(0);
                     p.deposer(ob);
                     System.out.println("Objet déposé !");
                 }
-                else {
+                else
                     System.out.println("Inventaire vide");
-                }
+                break;
+            case M:
+                perso.guerison();
+                break;
             case J:
-                perso.attaquer(dx,dy);
+                perso.attaquer();
+                break;
+            case DIGIT1:
+                perso.selectionObjet(0);
+                break;
+            case DIGIT2:
+                perso.selectionObjet(1);
+                break;
+            case DIGIT3:
+                perso.selectionObjet(2);
+                break;
+            case DIGIT4:
+                perso.selectionObjet(3);
+                break;
+            case DIGIT5:
+                perso.selectionObjet(4);
+                break;
+            case A:
+                break;
+
         }
+    }
+
+    @FXML
+    private void toucheLacher(){
+        this.touche=false;
     }
 
     private void initAnimation() {

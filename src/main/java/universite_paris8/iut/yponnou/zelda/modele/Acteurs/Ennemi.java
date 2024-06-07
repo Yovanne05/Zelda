@@ -8,14 +8,15 @@ public abstract class Ennemi extends Guerrier {
 
     private int cpt =0;
 
-    public Ennemi(String nom, double coeurs, double x, double y, double vitesse, Environnement environnement, int dx, int dy, Arme arme) {
-        super(nom, coeurs, x, y, vitesse, environnement, dx, dy, arme);
+    public Ennemi(String nom, double x, double y, int pv, double vitesse, Environnement environnement, int dx, int dy, Arme arme) {
+        super(nom, x, y, pv, vitesse, environnement, dx, dy, arme);
     }
 
+
     public Hero verifHeroProx(){
-        for (Acteur a : getEnvironnement().getActeurs()) {
+        for (Acteur a : this.getPosition().getEnv().getLstActeurs()) {
             double dist=80;
-            if ((Math.abs(getX() - a.getX()) <= dist && Math.abs(getY() - a.getY()) <= dist)) {
+            if ((Math.abs(getPosition().getX() - a.getPosition().getX()) <= dist && Math.abs(getPosition().getY() - a.getPosition().getY()) <= dist)) {
                 if(a instanceof Hero){
                     return (Hero) a;
                 }
@@ -38,7 +39,7 @@ public abstract class Ennemi extends Guerrier {
                 cpt=0;
             }
         }else{
-            this.attaquer(0,0);
+            this.attaquer();
         }
 
         deplacement();

@@ -6,7 +6,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.controleurs.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Projectile;
@@ -23,8 +22,8 @@ public class FelcheVue {
     }
     public void creerSprite(){
         fleche.setId(f.getId());
-        fleche.translateXProperty().bind(f.xProperty());
-        fleche.translateYProperty().bind(f.yProperty());
+        fleche.translateXProperty().bind(f.getPosition().xProperty());
+        fleche.translateYProperty().bind(f.getPosition().yProperty());
         pane.getChildren().add(fleche);
     }
 }

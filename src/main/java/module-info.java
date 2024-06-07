@@ -9,4 +9,18 @@ module universite_paris8.iut.yponnou.zelda {
     exports universite_paris8.iut.yponnou.zelda;
     exports universite_paris8.iut.yponnou.zelda.controleurs;
     opens universite_paris8.iut.yponnou.zelda.controleurs to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.vue;
+    opens universite_paris8.iut.yponnou.zelda.vue to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.modele;
+    opens universite_paris8.iut.yponnou.zelda.modele to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.modele.Acteurs;
+    opens universite_paris8.iut.yponnou.zelda.modele.Acteurs to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.modele.Objets;
+    opens universite_paris8.iut.yponnou.zelda.modele.Objets to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments;
+    opens universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.vue.Acteurs;
+    opens universite_paris8.iut.yponnou.zelda.vue.Acteurs to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.vue.Pv;
+    opens universite_paris8.iut.yponnou.zelda.vue.Pv to javafx.fxml;
 }
