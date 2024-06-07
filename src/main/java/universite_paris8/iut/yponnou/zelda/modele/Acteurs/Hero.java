@@ -165,3 +165,4 @@ public class Hero extends Guerrier {
             System.out.println("Vous n'avez pas d'objets à cet emplacement !");
     }
 }
+//test
