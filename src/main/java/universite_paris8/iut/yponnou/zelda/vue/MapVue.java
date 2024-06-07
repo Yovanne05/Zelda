@@ -247,10 +247,10 @@ public class MapVue {
                     continue; // Ignore other valuesz
                 }
 
-                imageView.setFitWidth(Constante.TAILLECASEX);
-                imageView.setFitHeight(Constante.TAILLECASEY);
-                imageView.setX(x * Constante.TAILLECASEX);
-                imageView.setY(y * Constante.TAILLECASEX);
+                imageView.setFitWidth(Constante.TAILLE50);
+                imageView.setFitHeight(Constante.TAILLE50);
+                imageView.setX(x * Constante.TAILLE50);
+                imageView.setY(y * Constante.TAILLE50);
                 tilePane.getChildren().add(imageView);
             }
         }

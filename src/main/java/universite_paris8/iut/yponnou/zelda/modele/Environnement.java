@@ -6,20 +6,18 @@ import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
-import java.util.ArrayList;
-
 public class Environnement{
 
     private final int largeur;
     private final int hauteur;
-    private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
-    private ObservableList<Objet> objets = FXCollections.observableArrayList();
+    private final ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
+    private final ObservableList<Objet> objets = FXCollections.observableArrayList();
     private Map map;
 
     public Environnement(Map map) {
         this.map = map;
-        this.largeur = this.map.getLargeur()*Constante.TAILLECASEX;
-        this.hauteur = this.map.getHauteur()*Constante.TAILLECASEY;
+        this.largeur = this.map.getLargeur()*Constante.TAILLE50;
+        this.hauteur = this.map.getHauteur()*Constante.TAILLE50;
     }
 
     public int getLargeur() {
@@ -55,15 +53,6 @@ public class Environnement{
     }
 
     public boolean dansMap(double x, double y) {
-        return x >= 0 && y >= 0 && x <= largeur-Constante.TAILLECASEX && y <= hauteur-Constante.TAILLECASEX;
+        return x >= 0 && y >= 0 && x <= largeur-Constante.TAILLE16 && y <= hauteur-Constante.TAILLE16;
     }
-
-    public ArrayList<Acteur> getLstActeurs(){
-        ArrayList<Acteur> lstA=new ArrayList<>();
-        for(Acteur a: acteurs){
-            lstA.add(a);
-        }
-        return lstA;
-    }
-
 }

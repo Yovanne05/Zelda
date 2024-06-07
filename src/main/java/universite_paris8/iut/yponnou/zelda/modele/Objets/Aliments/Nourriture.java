@@ -7,7 +7,7 @@ public abstract class Nourriture extends Objet {
 
     private int pv;
 
-    public Nourriture(int x, int y, Environnement environnement, int gainPv) {
+    public Nourriture(double x, double y, Environnement environnement, int gainPv) {
         super(x, y, environnement);
         this.pv = gainPv;
     }

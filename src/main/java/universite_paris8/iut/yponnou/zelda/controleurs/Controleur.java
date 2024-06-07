@@ -15,9 +15,9 @@ import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Nourriture;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Pomme;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
+import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 import universite_paris8.iut.yponnou.zelda.vue.Pv.BarreDeVieVue;
 import universite_paris8.iut.yponnou.zelda.vue.Pv.CoeursVue;
@@ -46,7 +46,7 @@ public class Controleur implements Initializable {
     @FXML
     private HBox hboxInventaire;
 
-    private ObservateurActeurs obsActeurs;
+    private HeroVue heroVue;
 
 
     @Override
@@ -67,13 +67,13 @@ public class Controleur implements Initializable {
         Pomme objet5 = new Pomme(820, 400, environnement);
         Pomme objet6 = new Pomme(820, 400, environnement);
 
+        environnement.acteursProperty().addListener(new ObservateurActeurs(paneMap));
         environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
-
-        obsActeurs = new ObservateurActeurs(paneMap);
-        environnement.acteursProperty().addListener(obsActeurs);
 
         perso.pvProperty().addListener(new ObservateurCoeurs(paneCoeurs,new CoeursVue(paneCoeurs)));
         perso.getInventaire().addListener(new ObservateurObjets(hboxInventaire));
+
+        heroVue = new HeroVue(perso,paneMap);
 
         g.pvProperty().addListener(new ObservateurBarreDeVie(g,paneMap, new BarreDeVieVue(g,paneMap)));
 
@@ -100,24 +100,28 @@ public class Controleur implements Initializable {
                 p.setDirection("up");
                 p.deplacement(0, -1);
                 System.out.println("HAUT - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
+                heroVue.upgradeSprite(perso,touche);
                 break;
             case S:
             case DOWN:
                 p.setDirection("down");
                 p.deplacement(0, 1);
                 System.out.println("BAS - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
+                heroVue.upgradeSprite(perso,touche);
                 break;
             case D:
             case RIGHT:
                 p.setDirection("right");
                 p.deplacement(1, 0);
                 System.out.println("DROITE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
+                heroVue.upgradeSprite(perso,touche);
                 break;
             case Q:
             case LEFT:
                 p.setDirection("left");
                 p.deplacement(-1, 0);
                 System.out.println("GAUGHE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
+                heroVue.upgradeSprite(perso,touche);
                 break;
             case E:
                 perso.recuperer();
@@ -154,10 +158,11 @@ public class Controleur implements Initializable {
                 break;
         }
     }
-
     @FXML
     private void toucheLacher(){
+        System.out.println("La touche est lachée");
         this.touche=false;
+        heroVue.upgradeSprite(perso,touche);
     }
 
     private void initAnimation() {

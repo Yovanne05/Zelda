@@ -91,10 +91,10 @@ public class Hero extends Guerrier {
         Rectangle hitbox;
         do {
             do {
-                objetX = (int)Math.abs(Math.random() * (getPosition().getX()+2* Constante.TAILLECASEX +1)) - Constante.TAILLECASEX;
-                objetY = (int)Math.abs(Math.random() * (getPosition().getY()+2*Constante.TAILLECASEY+1)) - Constante.TAILLECASEY;
+                objetX = (int)(Math.random() * getPosition().getX() + Constante.TAILLE50 + Constante.TAILLE16 + 1) - Constante.TAILLE16;
+                objetY = (int)(Math.random() * getPosition().getY() + Constante.TAILLE50 + Constante.TAILLE16 + 1) - Constante.TAILLE16;
             }while (!getPosition().getEnv().dansMap(objetX,objetY));
-            hitbox = depotPossible(objetX,objetY);
+            hitbox = depotPossible(objet,objetX,objetY);
         }while (hitbox == null);
 
         objet.getPosition().setX(objetX);
@@ -105,22 +105,30 @@ public class Hero extends Guerrier {
 
     // méthode qui renvoie vrai si un objet se trouve à portée du hero
     private boolean verifObjetsAutour(Objet obj){
-        return (this.getPosition().getY()-Constante.TAILLECASEY<= obj.getPosition().getY() && obj.getPosition().getY() <= getPosition().getY()+Constante.TAILLECASEY
-                && this.getPosition().getX()-Constante.TAILLECASEX<= obj.getPosition().getX() && obj.getPosition().getX() <= getPosition().getX()+Constante.TAILLECASEX);
+        return (this.getPosition().getY()-Constante.TAILLE16 <= obj.getPosition().getY() && obj.getPosition().getY() <= getPosition().getY()+Constante.TAILLE50
+                && this.getPosition().getX()-Constante.TAILLE16 <= obj.getPosition().getX() && obj.getPosition().getX() <= getPosition().getX()+Constante.TAILLE50);
+    }
+
+    // vérifie que les coordonnées de l'objet sont autour du hero
+    private boolean auPied(double x, double y, int longueurMin, int longueurMax){
+        return (x == getPosition().getX()-longueurMin && y == getPosition().getY()+ longueurMax) || (x == getPosition().getX()+longueurMax && y == getPosition().getY()+ longueurMax);
     }
 
     // méthode qui prends en paramètre des coordonnées x et y de type double et renvoie un rectangle rect placé autour du hero
-    private Rectangle depotPossible(double x, double y){
-        Rectangle rect = new Rectangle(x, y, Constante.TAILLECASEX, Constante.TAILLECASEY);
-            // verifie qu'il n'y a pas de collision avec des obstacles
-        if(!collisionAvecObstacle(rect)
-           && ( // vérifie que les coordonnées sont autour du hero
-               ((Math.abs(getPosition().getX()-x) == Constante.TAILLECASEX && Math.abs(getPosition().getY()-y) <= Constante.TAILLECASEY)
-               || (Math.abs(getPosition().getY()-y) == Constante.TAILLECASEY) && Math.abs(getPosition().getX()-x) <= Constante.TAILLECASEX))
-               )
-        {
+    private Rectangle depotPossible(Objet objet, double x, double y){
+        Rectangle rect;
+        int longueurMin;
+        int longueurMax = Constante.TAILLE50;
+
+        if (objet instanceof Nourriture)
+            longueurMin = Constante.TAILLE16;
+        else // l'objet est une arme
+            longueurMin = Constante.TAILLE32;
+
+        rect = new Rectangle(x, y, longueurMin, longueurMin);
+        // verifie qu'il n'y a pas de collision avec des obstacles et qu'il est au pied du hero
+        if (!collisionAvecObstacle(rect) && auPied(x, y, longueurMin,longueurMax))
             return rect;
-        }
         return null;
     }
 

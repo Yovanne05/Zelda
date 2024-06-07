@@ -38,8 +38,8 @@ public class EnnemiVue extends ActeurVue{
         else
             throw new IllegalArgumentException("Acteur non supporté");
 
-        imageView.setFitWidth(Constante.TAILLECASEX);
-        imageView.setFitHeight(Constante.TAILLECASEY);
+        imageView.setFitWidth(Constante.TAILLE50);
+        imageView.setFitHeight(Constante.TAILLE50);
 
         imageView.translateXProperty().bind(getActeur().getPosition().xProperty());
         imageView.translateYProperty().bind(getActeur().getPosition().yProperty());
@@ -47,7 +47,6 @@ public class EnnemiVue extends ActeurVue{
         getPane().getChildren().add(imageView);
     }
 
-    @Override
     public void upgradeSprite() {
         ImageView imageView;
 
@@ -58,8 +57,8 @@ public class EnnemiVue extends ActeurVue{
         else
             throw new IllegalArgumentException("Acteur non supporté");
 //        return imageView;
-        imageView.setFitWidth(Constante.TAILLECASEX);
-        imageView.setFitHeight(Constante.TAILLECASEY);
+        imageView.setFitWidth(Constante.TAILLE50);
+        imageView.setFitHeight(Constante.TAILLE50);
 
         imageView.translateXProperty().bind(getActeur().getPosition().xProperty());
         imageView.translateYProperty().bind(getActeur().getPosition().yProperty());

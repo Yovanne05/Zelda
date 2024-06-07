@@ -10,7 +10,7 @@ public abstract class Objet {
     private static int incremente = 0;
     private final Position position;
 
-    public Objet(int x, int y, Environnement environnement) {
+    public Objet(double x, double y, Environnement environnement) {
         position = new Position(x,y,environnement);
         id = "Ob"+incremente++;
     }

@@ -15,17 +15,34 @@ public class HeroVue extends ActeurVue{
     private final Image playerLeft = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/player/player_left.gif");
     private final Image playerDown = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/player/player_down.gif");
 
+    private final Image playerUpS = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/player/player_upS.gif");
+    private final Image playerRightS = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/player/player_rightS.gif");
+    private final Image playerLeftS = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/player/player_leftS.gif");
+    private final Image playerDownS = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/player/player_downS.gif");
+
+
     public HeroVue(Acteur acteur, Pane pane) {
         super(acteur, pane);
     }
 
-    private Image getHeroImage(String direction) {
-        return switch (direction) {
-            case "right" -> playerRight;
-            case "left" -> playerLeft;
-            case "up" -> playerUp;
-            default -> playerDown;// Default image if direction is not set
-        };
+    private Image getHeroImage(String direction,boolean touche) {
+        if(touche){
+            System.out.println("TOUCHE");
+            return switch (direction) {
+                case "right" -> playerRight;
+                case "left" -> playerLeft;
+                case "up" -> playerUp;
+                default -> playerDown;// Default image if direction is not set
+            };
+        }
+        else {
+            return switch (direction) {
+                case "right" -> playerRightS;
+                case "left" -> playerLeftS;
+                case "up" -> playerUpS;
+                default -> playerDownS;// Default image if direction is not set
+            };
+        }
     }
 
     @Override
@@ -41,8 +58,8 @@ public class HeroVue extends ActeurVue{
         else
             throw new IllegalArgumentException("Acteur non supporté");
 
-        imageView.setFitWidth(Constante.TAILLECASEX);
-        imageView.setFitHeight(Constante.TAILLECASEY);
+        imageView.setFitWidth(Constante.TAILLE50);
+        imageView.setFitHeight(Constante.TAILLE50);
 
         imageView.translateXProperty().bind(getActeur().getPosition().xProperty());
         imageView.translateYProperty().bind(getActeur().getPosition().yProperty());
@@ -50,19 +67,14 @@ public class HeroVue extends ActeurVue{
         getPane().getChildren().add(imageView);
     }
 
-    @Override
-    public void upgradeSprite() {
+    public void upgradeSprite(Acteur a, boolean touche) {
         ImageView imageView;
 
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
+        imageView = new ImageView(getHeroImage(a.getDirection(),touche));
 
-        if (getActeur() instanceof Hero)
-            imageView = new ImageView(getHeroImage(getActeur().getDirection()));
-        else
-            throw new IllegalArgumentException("Acteur non supporté");
-//        return imageView;
-        imageView.setFitWidth(Constante.TAILLECASEX);
-        imageView.setFitHeight(Constante.TAILLECASEY);
+        imageView.setFitWidth(Constante.TAILLE50);
+        imageView.setFitHeight(Constante.TAILLE50);
 
         imageView.translateXProperty().bind(getActeur().getPosition().xProperty());
         imageView.translateYProperty().bind(getActeur().getPosition().yProperty());

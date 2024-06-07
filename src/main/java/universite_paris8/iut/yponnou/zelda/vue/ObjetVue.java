@@ -24,7 +24,7 @@ public class ObjetVue {
     }
 
     public void creerSprite(){
-        Rectangle r = new Rectangle(Constante.TAILLECASEX,Constante.TAILLECASEY);
+        Rectangle r = new Rectangle(Constante.TAILLE50,Constante.TAILLE50);
         r.setFill(Color.GREEN);
         r.setId(objet.getId());
         r.setX(objet.getPosition().getX());

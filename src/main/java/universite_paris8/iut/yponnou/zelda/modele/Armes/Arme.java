@@ -8,7 +8,7 @@ public class Arme extends Objet {
     private int ptsDegats;
     private int portee;
 
-    public Arme(String nom, int x, int y, Environnement env, int ptsDegats, int portee) {
+    public Arme(String nom, double x, double y, Environnement env, int ptsDegats, int portee) {
         super(x,y,env);
         this.nom = nom;
         this.ptsDegats = ptsDegats;

@@ -15,7 +15,7 @@ public class NourritureVue extends ObjetVue{
 
     @Override
     public void creerSprite(){
-        Rectangle r = new Rectangle(Constante.TAILLECASEX,Constante.TAILLECASEY);
+        Rectangle r = new Rectangle(Constante.TAILLE16,Constante.TAILLE16);
         r.setFill(Color.ORANGE);
         r.setId(getObjet().getId());
         r.setX(getObjet().getPosition().getX());
