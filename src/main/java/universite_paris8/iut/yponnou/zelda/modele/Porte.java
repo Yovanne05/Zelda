@@ -1,5 +1,6 @@
 package universite_paris8.iut.yponnou.zelda.modele;
 
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Clef;
 
 public class Porte {

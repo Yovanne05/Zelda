@@ -1,24 +1,22 @@
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
-import javafx.scene.layout.Pane;
-import universite_paris8.iut.yponnou.zelda.controleurs.ObservateurBarreDeVie;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
+
 
 public abstract class Ennemi extends Guerrier {
 
-    private int cpt = 0;
-    public Ennemi(String nom, double x, double y, int pv, double vitesse, Environnement environnement, Arme arme) {
-        super(nom, x, y, pv, vitesse, environnement, arme);
+    private int cpt =0;
+
+    public Ennemi(String nom, double x, double y, int pv, double vitesse, Environnement environnement, int dx, int dy, Arme arme) {
+        super(nom, x, y, pv, vitesse, environnement, dx, dy, arme);
     }
 
-    public void initialisationEnnemi(Pane pane){
-        setPv(120);
-    }
 
     public Hero verifHeroProx(){
-        for (Acteur a : getPosition().getEnv().acteursProperty()) {
-            if (((getPosition().getX() + 1) == a.getPosition().getX()) || (getPosition().getX() - 1 == a.getPosition().getX()) || getPosition().getY() + 1 == a.getPosition().getY() || getPosition().getY() - 1 == a.getPosition().getY()) {
+        for (Acteur a : this.getPosition().getEnv().acteursProperty()) {
+            double dist=80;
+            if ((Math.abs(getPosition().getX() - a.getPosition().getX()) <= dist && Math.abs(getPosition().getY() - a.getPosition().getY()) <= dist)) {
                 if(a instanceof Hero){
                     return (Hero) a;
                 }
@@ -28,19 +26,28 @@ public abstract class Ennemi extends Guerrier {
     }
     public void deplacementEnRonde() {
         int dx = 0;
-        int dy;
-        if(cpt<500){
-            cpt++;
-            dy=1;
+        int dy = 0;
+        setDy(0);
+        Hero h =verifHeroProx();
+        if(h==null){
+            if(cpt<500){
+                cpt++;
+                dx=1;
+                setDx(1);
+            }else if(cpt<999){
+                cpt++;
+                dx=-1;
+                setDx(-1);
+            }else{
+                cpt=0;
+            }
         }else{
-            cpt++;
-            dy=-1;
+            this.attaquer();
         }
-        if(cpt>999){
-            cpt=0;
-        }
-        deplacement(dx, dy);
+        deplacement();
 
     }
+
+
 
 }

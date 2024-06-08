@@ -1,19 +1,16 @@
+
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
 public class Garde extends Ennemi{
-    public Garde(String nom, double x, double y, int pv, double vitesse, Environnement environnement, Arme arme) {
-        super(nom, x, y, pv,vitesse, environnement, arme);
+
+
+    public Garde(double x, double y, double vitesse, Environnement environnement, int dx, int dy, Arme arme) {
+        super("Garde", x, y, 120, vitesse, environnement, dx, dy, arme);
     }
 
-    @Override
     public void attaquer() {
     }
-
-    @Override
-    void parler() {
-    }
 }
-//test

@@ -1,7 +1,7 @@
 package universite_paris8.iut.yponnou.zelda.modele.Objets;
 
 import universite_paris8.iut.yponnou.zelda.Position;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
 public abstract class Objet {
 

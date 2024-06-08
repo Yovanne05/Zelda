@@ -5,9 +5,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.Constante;
-import universite_paris8.iut.yponnou.zelda.modele.*;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Nourriture;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeDistance;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
+import universite_paris8.iut.yponnou.zelda.modele.Aliments.Nourriture;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
 public class Hero extends Guerrier {
@@ -15,8 +17,8 @@ public class Hero extends Guerrier {
     private final ObservableList<Objet> inventaire = FXCollections.observableArrayList();
     private final int capaciteMax;
 
-    public Hero(String nom, int x, int y, Environnement environnement, Arme arme) {
-        super(nom, x, y, 100, 0.2, environnement, arme);
+    public Hero(int x, int y, Environnement environnement, int dx, int dy, Arme arme) {
+        super("Joseph", x, y, 100, 0.2, environnement, dx, dy, arme);
         capaciteMax = 5;
     }
 
@@ -132,18 +134,28 @@ public class Hero extends Guerrier {
         return null;
     }
 
-    public void attaquer(){
-        Ennemi e = this.verifEnnemiAcoter();
-        if(e!=null){
-            e.subitDegats(this.getArme().getPtsDegats());
-            if(e.estMort()){
-                getPosition().getEnv().enleverActeur(e);
+    private boolean verifPaysansAutour(Paysans p){
+        return (this.getPosition().getY()-Constante.TAILLE50<= p.getPosition().getY() && p.getPosition().getY() <= getPosition().getY()+Constante.TAILLE50
+                && this.getPosition().getX()-Constante.TAILLE50<= p.getPosition().getX() && p.getPosition().getX() <= getPosition().getX()+Constante.TAILLE50);
+    }
+
+    @Override
+    public void attaquer() {
+        Acteur e = this.verifEnnemiAcoter();
+        if(this.getArme() instanceof ArmeDistance){
+            Fleche f= new Fleche(getPosition().getX(),getPosition().getY(),getPosition().getEnv(), getDx(),getDy());
+            ((ArmeDistance) this.getArme()).setProjectile(f);
+            System.out.println("j'attaque");
+            this.getArme().utiliser();
+
+        }else if(e!=null){
+            e.seFaitAttquer(this.getArme().utiliser());
+            if(e.getPv()==0){
+                getPosition().getEnv().getActeurs().removeIf(a -> e.getId().equals(a.getId()));
             }
         }
     }
 
-    @Override
-    void parler() {}
 
     public void selectionObjet(int indexe) {
         if (indexe < inventaire.size()){

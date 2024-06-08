@@ -1,6 +1,6 @@
 package universite_paris8.iut.yponnou.zelda.modele.Objets;
 
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
 public class Clef extends Objet {
 

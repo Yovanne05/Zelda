@@ -1,11 +1,53 @@
 package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
-public class ArmeDistance extends Arme{
+public abstract class ArmeDistance extends Arme{
+    private DoubleProperty posx;
+    private DoubleProperty posy;
+    private Projectile projectile;
+    public ArmeDistance(String nom, double posxi, double posyi, Projectile projectile, Environnement environnement) {
+        super(nom,posxi,posyi,environnement);
+        this.projectile=projectile;
+        posx=new SimpleDoubleProperty(posxi);
+        posy=new SimpleDoubleProperty(posyi);
+    }
 
 
-    public ArmeDistance(String nom, double x, double y, Environnement env, int ptsDegats, int portee) {
-        super(nom, x, y, env, ptsDegats, portee);
+    public Projectile getProjectile() {
+        return projectile;
+    }
+
+    public double getPosx() {
+        return posx.getValue();
+    }
+
+    public DoubleProperty posxProperty() {
+        return posx;
+    }
+
+    public double getPosy() {
+        return posy.getValue();
+    }
+
+    public DoubleProperty posyProperty() {
+        return posy;
+    }
+
+
+    public void setPosx(double posx) {
+        this.posx.setValue(posx);
+    }
+
+    public void setPosy(double posy) {
+        this.posy.setValue(posy);
+    }
+
+    public abstract int utiliser();
+
+    public void setProjectile(Projectile projectile) {
+        this.projectile = projectile;
     }
 }

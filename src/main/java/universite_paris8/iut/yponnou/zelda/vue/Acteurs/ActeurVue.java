@@ -17,11 +17,10 @@ public abstract class ActeurVue {
     public Pane getPane() {
         return pane;
     }
-
     public Acteur getActeur() {
         return acteur;
     }
 
     public abstract void creerSprite();
-//    public abstract void upgradeSprite(Acteur a ,boolean touche);
+    public abstract void upgradeSprite();
 }
