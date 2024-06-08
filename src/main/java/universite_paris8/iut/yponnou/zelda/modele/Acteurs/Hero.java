@@ -150,6 +150,7 @@ public class Hero extends Guerrier {
         if(this.getArme() instanceof ArmeDistance){
             Fleche f= new Fleche(getPosition().getX(),getPosition().getY(),getPosition().getEnv(), getDx(),getDy());
             ((ArmeDistance) this.getArme()).setProjectile(f);
+            System.out.println("j'attaque");
             this.getArme().utiliser();
 
         }else if(e!=null){

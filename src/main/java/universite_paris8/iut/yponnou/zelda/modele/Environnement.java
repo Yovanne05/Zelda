@@ -14,7 +14,7 @@ import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
 import java.util.ArrayList;
 
-public class Environnement{
+public abstract class Environnement{
     private final Label toucheA = new Label("A");
     private final int largeur;
     private final int hauteur;
@@ -54,14 +54,7 @@ public class Environnement{
         objets.add(objet);
     }
 
-    public Hero heroEnv(){
-        for(Acteur a:getLstActeurs()){
-            if (a instanceof Hero){
-                return (Hero) a;
-            }
-        }
-        return null;
-    }
+
     public void enleverObjet(Objet objet) {
         objets.remove(objet);
     }
@@ -79,41 +72,9 @@ public class Environnement{
     public boolean dansMap(double x, double y) {
         return x >= 0 && y >= 0 && x <= largeur-Constante.TAILLECASEX && y <= hauteur-Constante.TAILLECASEX;
     }
-    public void toutLeMondeBouge(){
-        for (Acteur a: acteurs){
-            if(a instanceof Garde){
-                ((Garde) a).deplacementEnRonde();
-            }
-        }
-        for(int i = 0;i<projectiles.size();i++){
-            if(projectiles.get(i) instanceof Fleche){
-                System.out.println("Fleche");
-                ((Fleche) projectiles.get(i)).utiliserFleche();
-            }
-        }
-        Hero p =heroEnv();
-        Paysans villageois = p.paysansProches();
-        if (villageois != null) {
-            double distance = distance(p.getPosition().getX(), p.getPosition().getY(), villageois.getPosition().getX(), villageois.getPosition().getY());
-            if (distance <= 800) {
-                showToucheA();
-            } else {
-                hideToucheA();
-            }
-        }
-    }
 
-    private double distance(double x1, double y1, double x2, double y2) {
-        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-    }
+    public abstract void toutLeMondeBouge();
 
-    private void showToucheA() {
-        toucheA.setVisible(true);
-    }
-
-    private void hideToucheA() {
-        toucheA.setVisible(false);
-    }
 
     public ObservableList<Acteur> getActeurs() {
         return acteurs;
@@ -133,6 +94,15 @@ public class Environnement{
             lstA.add(a);
         }
         return lstA;
+    }
+
+    public Paysans paysansQuiParle(){
+        for(Acteur a : acteurs){
+            if(a instanceof Paysans){
+                return (Paysans) a;
+            }
+        }
+        return null;
     }
 
 }

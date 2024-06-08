@@ -40,4 +40,10 @@ public class Position {
     public void setEnv(Environnement env) {
         this.env = env;
     }
+
+    public double distance(Position other) {
+        double dx = this.getX() - other.getX();
+        double dy = this.getY() - other.getX();
+        return Math.sqrt(dx * dx + dy * dy);
+    }
 }

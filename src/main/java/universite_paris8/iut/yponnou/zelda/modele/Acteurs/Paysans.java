@@ -27,8 +27,8 @@ public class Paysans extends Acteur {
         StackPane root = new StackPane();
         root.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 20px;");
 
-        Label label = new Label("Bonjour, je suis un paysan de ce village.J'ai appris que votre frère a été capturé et que la clé se trouverait peut-être dans un royaume." +
-                "\nLe gardien qui garde votre frère s'appelle M. Homps, je crois...");
+        Label label = new Label("Bonjour, je suis un paysan de ce village. J'ai appris que votre frère a été capturé et que la clé se trouverait peut-être dans un royaume." +
+                "\n Le gardien qui garde votre frère s'appelle M. Homps il me semble. Il aurait cacher une clé dans l'une des maison.");
         label.setTextFill(Color.WHITE);
         label.setFont(new Font(20));
         label.setMaxWidth(400); // Ajustez la largeur maximale selon vos besoins
@@ -42,7 +42,7 @@ public class Paysans extends Acteur {
         popupStage.setScene(scene);
         popupStage.show();
 
-        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        PauseTransition delay = new PauseTransition(Duration.seconds(10));
         delay.setOnFinished(event -> popupStage.close());
         delay.play();
     }

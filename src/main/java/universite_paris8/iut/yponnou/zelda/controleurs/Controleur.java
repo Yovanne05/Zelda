@@ -22,6 +22,7 @@ import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Pomme;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
+import universite_paris8.iut.yponnou.zelda.modele.Village;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 import universite_paris8.iut.yponnou.zelda.vue.Pv.BarreDeVieVue;
 import universite_paris8.iut.yponnou.zelda.vue.Pv.CoeursVue;
@@ -49,62 +50,23 @@ public class Controleur implements Initializable {
     @FXML
     private HBox hboxInventaire;
 
-    private ObservateurActeurs obsActeurs;
+    private Village v;
 
-    private Environnement environnement;
-
-    private Paysans paysans;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initAnimation();
         gameLoop.play();
-
         Map map = new Map(30, 30);
-        map.initialisationMap();
-        environnement = new Environnement(map);
-        MapVue tileMap = new MapVue(map.getTabNum(), tilePaneDecors);
-        ArcArme a =new ArcArme(400, 400,null,environnement);
-        perso=new Hero(400,400,environnement,0,0,a);
-        Epee e= new Epee(400,500,environnement);
-        g=new Garde(400,500,0.03,environnement,0,1,e);
-        Pomme objet1 = new Pomme(605, 500, environnement);
-        Pomme objet2 = new Pomme(700, 500, environnement);
-        Pomme objet3 = new Pomme(700, 400, environnement);
-        Pomme objet4 = new Pomme(750, 400, environnement);
-        Pomme objet5 = new Pomme(820, 400, environnement);
-        Pomme objet6 = new Pomme(820, 400, environnement);
-        paysans = new Paysans(800, 400, 120, environnement, 0, 1);
-
-        environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
-
-        obsActeurs = new ObservateurActeurs(paneMap);
-        environnement.acteursProperty().addListener(obsActeurs);
-        environnement.getProjectiles().addListener(new ObservateurProjectiles(paneMap));
-
-        perso.pvProperty().addListener(new ObservateurCoeurs(paneCoeurs,new CoeursVue(paneCoeurs)));
-        perso.getInventaire().addListener(new ObservateurObjets(hboxInventaire));
-
-        g.pvProperty().addListener(new ObservateurBarreDeVie(g,paneMap, new BarreDeVieVue(g,paneMap)));
-
-        environnement.ajouterActeur(g);
-        environnement.ajouterObjet(objet1);
-        environnement.ajouterObjet(objet2);
-        environnement.ajouterObjet(objet3);
-        environnement.ajouterObjet(objet4);
-        environnement.ajouterObjet(objet5);
-        environnement.ajouterObjet(objet6);
-        environnement.ajouterActeur(perso);
-        environnement.ajouterActeur(paysans);
-//        perso.subitDegats(40);
-        tileMap.creerSprite();
+        v = new Village(map,tilePaneDecors, paneObjets, paneMap, paneCoeurs, hboxInventaire);
     }
 
     @FXML
     public void interaction(KeyEvent event) {
         KeyCode key = event.getCode();
-        Hero p = perso;
+        Hero p = v.heroEnv();
+        System.out.println(p);
         Objet ob;
         switch (key) {
             case Z:
@@ -152,27 +114,28 @@ public class Controleur implements Initializable {
                     System.out.println("Inventaire vide");
                 break;
             case M:
-                perso.guerison();
+                p.guerison();
                 break;
             case J:
-                perso.attaquer();
+                p.attaquer();
                 break;
             case DIGIT1:
-                perso.selectionObjet(0);
+                p.selectionObjet(0);
                 break;
             case DIGIT2:
-                perso.selectionObjet(1);
+                p.selectionObjet(1);
                 break;
             case DIGIT3:
-                perso.selectionObjet(2);
+                p.selectionObjet(2);
                 break;
             case DIGIT4:
-                perso.selectionObjet(3);
+                p.selectionObjet(3);
                 break;
             case DIGIT5:
-                perso.selectionObjet(4);
+                p.selectionObjet(4);
                 break;
             case A:
+                v.paysansQuiParle().parler();
                 break;
 
         }
@@ -194,7 +157,7 @@ public class Controleur implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
-                    environnement.toutLeMondeBouge();
+                    v.toutLeMondeBouge();
 //                    if(temps==100){
 //                        System.out.println("fini");
 //                        gameLoop.stop();
