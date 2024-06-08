@@ -32,8 +32,6 @@ import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
 
-    private Hero perso;
-    private Garde g;
     private Timeline gameLoop;
     private int temps;
 
@@ -51,8 +49,6 @@ public class Controleur implements Initializable {
     private HBox hboxInventaire;
 
     private Village v;
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -102,7 +98,7 @@ public class Controleur implements Initializable {
                 System.out.println("GAUGHE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
                 break;
             case E:
-                perso.recuperer();
+                p.recuperer();
                 break;
             case K:
                 if (!p.getInventaire().isEmpty()) {
