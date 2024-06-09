@@ -63,12 +63,16 @@ public class MapVue {
     private final Image house14;
     private final Image house15;
     private final Image house16;
+    ///////////////////////
+    private final Image mossyBrick1;
+    private final Image mossyBrick2;
+    private final Image mossyCobble;
+    private final Image floor_castle;
+
 
     private final int[][] tab;
     private final TilePane tilePane;
-
-
-    private final List<Rectangle> obstaclesHitboxes;
+    private int[][] tabNum;
 
 
     public MapVue(int[][] tab, TilePane tilePane) {
@@ -127,7 +131,10 @@ public class MapVue {
         house15 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison15.png");
         house16 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison16.png");
 
-        obstaclesHitboxes = new ArrayList<>();
+        mossyBrick1 = new Image("file:C:/Users/Mazur/IdeaProjects/Zelda/src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/mossyBrick.PNG");
+        mossyBrick2 = new Image("file:C:/Users/Mazur/IdeaProjects/Zelda/src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/mossyBrick2.PNG");
+        mossyCobble = new Image("file:C:/Users/Mazur/IdeaProjects/Zelda/src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/mossyCobble.PNG");
+        floor_castle = new Image("file:C:/Users/Mazur/IdeaProjects/Zelda/src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/floor_castle.gif");
     }
 
     public void creerSprite() {
@@ -208,6 +215,16 @@ public class MapVue {
                 }else if (tab[y][x] == 13) {
                     imageView = new ImageView(road12);
                 }
+                /////////////////
+                else if (tab[y][x] == 14) {
+                    imageView = new ImageView(floor_castle);
+                }else if (tab[y][x] == 71) {
+                    imageView = new ImageView(mossyBrick1);
+                }else if (tab[y][x] == 72) {
+                    imageView = new ImageView(mossyBrick2);
+                }else if (tab[y][x] == 73) {
+                    imageView = new ImageView(mossyCobble);
+                }
 //HOUSE
                 else if (tab[y][x] == 51) {
                     imageView = new ImageView(house1);
@@ -242,6 +259,8 @@ public class MapVue {
                 }else if (tab[y][x] == 66) {
                     imageView = new ImageView(house16);
                 }
+                ///////////////
+
 
                 else {
                     continue; // Ignore other valuesz
@@ -257,12 +276,7 @@ public class MapVue {
     }
 
 
-
-
-
-
-
-    public List<Rectangle> getObstacleHitboxes() {
-        return obstaclesHitboxes;
+    public void setMap(int[][] newMap) {
+        this.tabNum = newMap;
     }
 }
