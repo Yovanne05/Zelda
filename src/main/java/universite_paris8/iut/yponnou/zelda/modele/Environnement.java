@@ -66,4 +66,7 @@ public class Environnement{
         return lstA;
     }
 
+    public void setMap(Map map) {
+        this.map = map;
+    }
 }

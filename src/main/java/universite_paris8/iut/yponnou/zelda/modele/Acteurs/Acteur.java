@@ -39,6 +39,7 @@ public abstract class Acteur {
         return position;
     }
 
+
     public void setX(double x) {
         position.setX(x);
         hitbox.setX(x);
@@ -47,7 +48,10 @@ public abstract class Acteur {
         position.setY(y);
         hitbox.setY(y);
     }
-
+    public void setPosition(double x,double y) {
+        setX(x);
+        setY(y);
+    }
 
 
     public int getPv() {
@@ -140,4 +144,5 @@ public abstract class Acteur {
                 ", hitbox=" + hitbox +
                 '}';
     }
+
 }

@@ -2,8 +2,6 @@ package universite_paris8.iut.yponnou.zelda.controleurs;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
@@ -11,7 +9,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
@@ -56,19 +53,22 @@ public class Controleur implements Initializable {
     private ObservateurActeurs obsActeurs;
     private HeroVue vueHero;
     private ScaleTransition cameraTransition;
+    private Map mapActuelle;
+    private MapVue tileMap;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initAnimation();
         gameLoop.play();
 
-        Map map = new Map(30, 30);
-        map.initialisationMap();
-        Environnement environnement = new Environnement(map);
-        MapVue tileMap = new MapVue(map.getTabNum(), tilePaneDecors);
-        Epee e = new Epee("Excalibur",15,5);
-        perso = new Hero("Joseph", 400, 400, environnement,e);
-        g = new Garde("G", 400,500,100,0.03,environnement,e);
+        mapActuelle = new Map(30, 30);
+        mapActuelle.initialisationMap1();
+
+        Environnement environnement = new Environnement(mapActuelle);
+        tileMap = new MapVue(mapActuelle.getTabNum(), tilePaneDecors);
+        Epee e = new Epee("Excalibur", 15, 5);
+        perso = new Hero("Joseph", 400, 400, environnement, e);
+        g = new Garde("G", 400, 500, 100, 0.03, environnement, e);
         Pomme objet1 = new Pomme(605, 500, environnement);
         Pomme objet2 = new Pomme(700, 500, environnement);
 //        Pomme objet3 = new Pomme(100, 100, environnement);
@@ -77,9 +77,9 @@ public class Controleur implements Initializable {
 
         environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
         environnement.acteursProperty().addListener(new ObservateurActeurs(paneMap));
-        perso.initialisationHero(paneCoeurs,hboxInventaire);
+        perso.initialisationHero(paneCoeurs, hboxInventaire);
         g.initialisationEnnemi(paneMap);
-        this.vueHero = new HeroVue(perso,paneMap);
+        this.vueHero = new HeroVue(perso, paneMap);
 
         environnement.ajouterActeur(g);
         environnement.ajouterObjet(objet1);
@@ -175,14 +175,20 @@ public class Controleur implements Initializable {
             case J:
                 perso.attaquer();
                 break;
+            case T:
+                System.out.println("T");
+                mapActuelle.initialisationMap2();
+                tileMap = new MapVue(mapActuelle.getTabNum(), tilePaneDecors);
+                break;
         }
     }
 
+
     @FXML
-    private void toucheLacher(){
+    private void toucheLacher() {
         System.out.println("La touche est lachée");
-        this.touche=false;
-        vueHero.upgradeSprite(perso,touche);
+        this.touche = false;
+        vueHero.upgradeSprite(perso, touche);
     }
 
     private void initAnimation() {
@@ -190,12 +196,12 @@ public class Controleur implements Initializable {
         temps = 0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
-        KeyFrame kf = new KeyFrame (
+        KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(0.017),
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
-                (ev ->{
+                (ev -> {
                     g.deplacementEnRonde();
 //                    if(temps==100){
 //                        System.out.println("fini");
@@ -215,21 +221,12 @@ public class Controleur implements Initializable {
     }
 
 
-
     private void adjustCamera() {
-        double targetScale = 1.0; // Ajustez selon vos besoins
-
-        // Calcule la position cible basée sur la position du joueur et l'échelle
-        double targetX = (paneMap.getWidth() / 2) - (perso.getPosition().getX() * targetScale);
-        double targetY = (paneMap.getHeight() / 2) - (perso.getPosition().getY() * targetScale);
+        double targetScale = 1.250; // Ajustez selon vos besoins
 
         // Lie la translation de paneMap à la position cible
         paneMap.translateXProperty().bind(Bindings.subtract(paneMap.getWidth() / 2, perso.getPosition().xProperty()).multiply(targetScale));
         paneMap.translateYProperty().bind(Bindings.subtract(paneMap.getHeight() / 2, perso.getPosition().yProperty()).multiply(targetScale));
-
-        // Ajuste la position de hboxInventaire en fonction du mouvement de la caméra
-        hboxInventaire.setLayoutX(1186.0 - (targetX));
-        hboxInventaire.setLayoutY(768.0 - (targetY));
 
         // Définit l'échelle de paneMap
         paneMap.setScaleX(targetScale);
@@ -237,8 +234,5 @@ public class Controleur implements Initializable {
     }
 
 
-
-
-
-
 }
+
