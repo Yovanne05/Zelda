@@ -2,22 +2,24 @@ package universite_paris8.iut.yponnou.zelda.modele;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.vue.MapVue;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
-public class Environnement {
+import java.util.ArrayList;
 
-    private int largeur;
-    private int hauteur;
-    private MapVue tilemap;
+public class Environnement{
+
+    private final int largeur;
+    private final int hauteur;
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
-    private ObservableList<Objet> objets = FXCollections.observableArrayList();;
+    private ObservableList<Objet> objets = FXCollections.observableArrayList();
     private Map map;
 
-    public Environnement(int largeur, int hauteur, Map map) {
-        this.largeur = largeur;
-        this.hauteur = hauteur;
+    public Environnement(Map map) {
         this.map = map;
+        this.largeur = this.map.getLargeur()*Constante.TAILLECASEX;
+        this.hauteur = this.map.getHauteur()*Constante.TAILLECASEY;
     }
 
     public int getLargeur() {
@@ -27,22 +29,20 @@ public class Environnement {
         return hauteur;
     }
 
-    public ObservableList<Acteur> getActeurs() {
+    public ObservableList<Acteur> acteursProperty() {
         return acteurs;
     }
-
     public void ajouterActeur(Acteur acteur) {
         acteurs.add(acteur);
-//        map.setTabNum(acteur);
     }
     public void enleverActeur(Acteur acteur) {
-        acteurs.remove(acteur);
+        acteurs.removeIf(a -> acteur.getId().equals(a.getId()));
+        acteurs.removeIf(a -> acteur.getId().equals(a.getId()+"BarreVie"));
     }
 
-    public ObservableList<Objet> getObjets() {
+    public ObservableList<Objet> objetsProperty() {
         return objets;
     }
-
     public void ajouterObjet(Objet objet) {
         objets.add(objet);
     }
@@ -50,22 +50,23 @@ public class Environnement {
         objets.remove(objet);
     }
 
-
-    public Map getMap() {
+    public Map getMap(){
         return map;
+    }
+
+    public boolean dansMap(double x, double y) {
+        return x >= 0 && y >= 0 && x <= largeur-Constante.TAILLECASEX && y <= hauteur-Constante.TAILLECASEX;
+    }
+
+    public ArrayList<Acteur> getLstActeurs(){
+        ArrayList<Acteur> lstA=new ArrayList<>();
+        for(Acteur a: acteurs){
+            lstA.add(a);
+        }
+        return lstA;
     }
 
     public void setMap(Map map) {
         this.map = map;
     }
-
-
-    public Environnement(MapVue tilemap) {
-        this.tilemap = tilemap;
-    }
-
-    public MapVue getTilemap() {
-        return tilemap;
-    }
 }
-
