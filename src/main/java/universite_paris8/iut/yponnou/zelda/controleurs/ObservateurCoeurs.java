@@ -6,15 +6,17 @@ import universite_paris8.iut.yponnou.zelda.vue.Pv.CoeursVue;
 
 public class ObservateurCoeurs extends ObservateurPv{
 
-    public ObservateurCoeurs(Pane pane) {
+    private final CoeursVue cVue;
+
+    public ObservateurCoeurs(Pane pane, CoeursVue coeurVue) {
         super(pane,20);
+        this.cVue = coeurVue;
     }
 
     @Override
     public void changed(ObservableValue<? extends Number> observableValue, Number oldInt, Number newInt) {
         int nbCoeursPleins = newInt.intValue()/getPortionPv();
         int pvCoeurEndommage = newInt.intValue()%getPortionPv();
-        CoeursVue pvVue = new CoeursVue(nbCoeursPleins,pvCoeurEndommage,getPane());
-        pvVue.spritePv();
+        cVue.spritePv(nbCoeursPleins, pvCoeurEndommage);
     }
 }

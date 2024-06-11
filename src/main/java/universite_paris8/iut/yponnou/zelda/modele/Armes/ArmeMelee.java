@@ -1,8 +1,16 @@
 package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
-public class ArmeMelee extends Arme{
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
-    public ArmeMelee(String nom, int ptsDegats, int portee) {
-        super(nom, ptsDegats, portee);
+public abstract class ArmeMelee extends Arme{
+    private int ptsDegats;
+    public ArmeMelee(String nom,double x, double y, int ptsDegats, Environnement environnement) {
+        super(nom,x, y,environnement);
+        this.ptsDegats=ptsDegats;
+    }
+    public abstract int utiliser();
+
+    public int getPtsDegats() {
+        return ptsDegats;
     }
 }

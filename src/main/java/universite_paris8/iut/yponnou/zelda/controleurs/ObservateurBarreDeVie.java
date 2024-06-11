@@ -8,17 +8,18 @@ import universite_paris8.iut.yponnou.zelda.vue.Pv.BarreDeVieVue;
 public class ObservateurBarreDeVie extends ObservateurPv {
 
     private final Ennemi e;
+    private BarreDeVieVue brVie;
 
     // portion de 15 pour des pv max de 120 (apres 240 pour les plus forts puis 360 pour les boss)
-    public ObservateurBarreDeVie(Ennemi ennemi, Pane pane) {
+    public ObservateurBarreDeVie(Ennemi ennemi, Pane pane, BarreDeVieVue brVieVue) {
         super(pane,15);
         e = ennemi;
+        brVie = brVieVue;
     }
 
     @Override
     public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
         int etatBarreDeVie = newValue.intValue()/getPortionPv();
-        BarreDeVieVue brVue = new BarreDeVieVue(e,etatBarreDeVie,getPane());
-        brVue.spritePv();
+        brVie.spritePv(etatBarreDeVie);
     }
 }

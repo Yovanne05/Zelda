@@ -3,11 +3,12 @@ package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.Position;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
-public abstract class Acteur {
+import static universite_paris8.iut.yponnou.zelda.Constante.*;
+
+public class Acteur {
 
     private final String id;
     private static int incremente = 0;
@@ -17,15 +18,29 @@ public abstract class Acteur {
     private final double vitesse;
     private final IntegerProperty pv;
     private final Rectangle hitbox;
+    private int dx;
+    private int dy;
 
-    public Acteur(String nom, double x, double y, int pv, double vitesse, Environnement environnement) {
+    public Acteur(String nom, double x, double y, int pv, double vitesse, Environnement environnement, int dx, int dy) {
         this.nom = nom;
         position = new Position(x,y,environnement);
         this.pv = new SimpleIntegerProperty(pv);
         this.vitesse = vitesse;
         id = "A"+incremente++;
-        hitbox = new Rectangle(x, y, Constante.TAILLECASEX, Constante.TAILLECASEY);
+        hitbox = new Rectangle(x, y, TAILLE50, TAILLE50);
         direction = "down";
+        this.dx=dx;
+        this.dy=dy;
+        hitbox.xProperty().bind(this.getPosition().xProperty());
+        hitbox.yProperty().bind(this.getPosition().yProperty());
+    }
+
+    public int getDx() {
+        return dx;
+    }
+
+    public int getDy() {
+        return dy;
     }
 
     public String getId() {
@@ -39,20 +54,12 @@ public abstract class Acteur {
         return position;
     }
 
-
     public void setX(double x) {
         position.setX(x);
-        hitbox.setX(x);
     }
     public void setY(double y) {
         position.setY(y);
-        hitbox.setY(y);
     }
-    public void setPosition(double x,double y) {
-        setX(x);
-        setY(y);
-    }
-
 
     public int getPv() {
         return pv.getValue();
@@ -79,16 +86,26 @@ public abstract class Acteur {
         this.direction = direction;
     }
 
-    public void deplacement(int dx, int dy){
-        double prochainX = position.getX() + (dx * this.vitesse) * Constante.TAILLECASEX;
-        double prochainY = position.getY() + (dy * this.vitesse) * Constante.TAILLECASEY;
+    public void deplacement() {
+        //System.out.println("deplace");
+        double prochainX = getPosition().getX() + (this.dx * this.vitesse) * TAILLE50;
+        double prochainY = getPosition().getY() + (this.dy * this.vitesse) * TAILLE50;
 
-        Rectangle futureHitbox = new Rectangle(prochainX, prochainY, Constante.TAILLECASEX, Constante.TAILLECASEY);
-
+        // Création de la nouvelle hitbox après déplacement
+        Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE50, TAILLE50);
         if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
             setX(prochainX);
             setY(prochainY);
         }
+    }
+
+
+    public void setDx(int dx) {
+        this.dx = dx;
+    }
+
+    public void setDy(int dy) {
+        this.dy = dy;
     }
 
     public boolean collisionAvecObstacle(Rectangle futurHitbox) {
@@ -99,10 +116,10 @@ public abstract class Acteur {
         double height = futurHitbox.getHeight();
 
         // Coordonnées des coins de la hitbox en termes de cases
-        int tableauXHG = (int) (x / Constante.TAILLECASEX);
-        int tableauYHG = (int) (y / Constante.TAILLECASEY);
-        int tableauXHD = (int) ((x + width - 1) / Constante.TAILLECASEX);
-        int tableauYBG = (int) ((y + height - 1) / Constante.TAILLECASEY);
+        int tableauXHG = (int) (x / TAILLE50);
+        int tableauYHG = (int) (y / TAILLE50);
+        int tableauXHD = (int) ((x + width - 1) / TAILLE50);
+        int tableauYBG = (int) ((y + height - 1) / TAILLE50);
 
         // Vérification des bordures de la carte
         if (tableauXHG < 0 || tableauYHG < 0 || tableauXHD >= position.getEnv().getMap().getLargeur() || tableauYBG >= position.getEnv().getMap().getHauteur())
@@ -129,8 +146,15 @@ public abstract class Acteur {
         return false;
     }
 
-    abstract void parler();
-
+    public void seFaitAttquer(int pts){
+        int nvPv =getPv()-pts;
+        if(nvPv>0){
+            setPv(nvPv);
+        }else {
+            setPv(0);
+            getPosition().getEnv().enleverActeur(this);
+        }
+    }
     @Override
     public String toString() {
         return "Acteur{" +
@@ -144,5 +168,6 @@ public abstract class Acteur {
                 ", hitbox=" + hitbox +
                 '}';
     }
+
 
 }

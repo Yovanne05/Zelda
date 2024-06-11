@@ -3,15 +3,10 @@ package universite_paris8.iut.yponnou.zelda.controleurs;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.Constante;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Nourriture;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Pomme;
+import universite_paris8.iut.yponnou.zelda.modele.Aliments.Pomme;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
-import universite_paris8.iut.yponnou.zelda.vue.NourritureVue;
 import universite_paris8.iut.yponnou.zelda.vue.ObjetVue;
-import universite_paris8.iut.yponnou.zelda.vue.PommeVue;
+import universite_paris8.iut.yponnou.zelda.vue.Nourritures.PommeVue;
 
 public class ObservateurObjets implements ListChangeListener<Objet> {
 
