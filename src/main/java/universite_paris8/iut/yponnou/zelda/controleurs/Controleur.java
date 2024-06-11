@@ -10,7 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
@@ -22,13 +21,8 @@ import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
 
-    private Hero perso;
-    private Garde g;
-
     private Timeline gameLoop;
     private int temps;
-
-    private boolean touche;
 
     @FXML
     private Pane paneMap;
@@ -169,7 +163,7 @@ public class Controleur implements Initializable {
     @FXML
     private void toucheLacher(){
         System.out.println("La touche est lachée");
-        this.touche=false;
+        boolean touche = false;
         v.getHeroVue().upgradeSprite();
     }
 
