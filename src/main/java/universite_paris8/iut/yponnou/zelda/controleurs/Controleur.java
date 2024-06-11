@@ -128,7 +128,6 @@ public class Controleur implements Initializable {
 
                 break;
         }
-        p.estProcheDePaysan(v.paysansQuiParle(), 200);
     }
 
     @FXML

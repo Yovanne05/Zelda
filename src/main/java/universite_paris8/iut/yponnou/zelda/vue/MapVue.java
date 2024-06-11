@@ -63,12 +63,32 @@ public class MapVue {
     private final Image house14;
     private final Image house15;
     private final Image house16;
+    ///////////////////////
+    private final Image mossyBrick1;
+    private final Image mossyBrick2;
+    private final Image mossyCobble;
+    private final Image floor_castle;
+    /////LABURYNTH
+    private final Image wall_LabLB;
+    private final Image wall_LabBR;
+    private final Image wall_LabLeft;
+    private final Image wall_LabLT;
+    private final Image wall_LabRight;
+    private final Image wall_LabS;
+    private final Image wall_LabTR;
+    private final Image wall_LabUp;
+    private final Image wall_LabX;
+    private final Image wall_LabY;
+    private final Image wall_LabM_B;
+    private final Image wall_LabM_T;
+    private final Image wall_LabM_R;
+    private final Image wall_LabM_L;
+
 
     private final int[][] tab;
     private final TilePane tilePane;
+    private int[][] tabNum;
 
-
-    private final List<Rectangle> obstaclesHitboxes;
 
 
     public MapVue(int[][] tab, TilePane tilePane) {
@@ -126,11 +146,36 @@ public class MapVue {
         house14 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison14.png");
         house15 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison15.png");
         house16 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/house/maison16.png");
+        ///BRICKS
+        mossyBrick1 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/mossyBrick.PNG");
+        mossyBrick2 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/mossyBrick2.PNG");
+        mossyCobble = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/mossyCobble.PNG");
+        floor_castle = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/floor_castle.gif");
+/////LABURYNTH
+        wall_LabLB= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/labyrinth/wall_LabLB.gif");
+        wall_LabBR= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/labyrinth/wall_LabBR.gif");
+        wall_LabLeft= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/labyrinth/wall_LabLeft.gif");
+        wall_LabLT= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/labyrinth/wall_LabLT.gif");
+        wall_LabRight= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/labyrinth/wall_LabRight.gif");
+        wall_LabS= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/labyrinth/wall_LabS.gif");
+        wall_LabTR= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/labyrinth/wall_LabTR.gif");
+        wall_LabUp= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/labyrinth/wall_LabUp.gif");
+        wall_LabX= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/labyrinth/wall_LabX.gif");
+        wall_LabY= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/labyrinth/wall_LabY.gif");
 
-        obstaclesHitboxes = new ArrayList<>();
+        wall_LabM_B= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/labyrinth/wall_LabM_B.gif");
+        wall_LabM_T = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/labyrinth/wall_LabM_T.gif");
+        wall_LabM_R= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/labyrinth/wall_LabM_R.gif");
+        wall_LabM_L= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/labyrinth/wall_LabM_L.gif");
+
+    }
+
+    public void setTabNum(int[][] tabNum) {
+        this.tabNum = tabNum;
     }
 
     public void creerSprite() {
+        System.out.println("cree");
         for (int y = 0; y < tab.length; y++) {
             for (int x = 0; x < tab[y].length; x++) {
                 ImageView imageView;
@@ -208,6 +253,16 @@ public class MapVue {
                 }else if (tab[y][x] == 13) {
                     imageView = new ImageView(road12);
                 }
+                /////////////////
+                else if (tab[y][x] == 14) {
+                    imageView = new ImageView(floor_castle);
+                }else if (tab[y][x] == 71) {
+                    imageView = new ImageView(mossyBrick1);
+                }else if (tab[y][x] == 72) {
+                    imageView = new ImageView(mossyBrick2);
+                }else if (tab[y][x] == 73) {
+                    imageView = new ImageView(mossyCobble);
+                }
 //HOUSE
                 else if (tab[y][x] == 51) {
                     imageView = new ImageView(house1);
@@ -242,11 +297,42 @@ public class MapVue {
                 }else if (tab[y][x] == 66) {
                     imageView = new ImageView(house16);
                 }
+                ///////////////
+                else if (tab[y][x] == 100) {
+                    imageView = new ImageView(wall_LabLB);
+                }else if (tab[y][x] == 101) {
+                    imageView = new ImageView(wall_LabBR);
+                } else if (tab[y][x] == 103) {
+                    imageView = new ImageView(wall_LabLeft);
+                }else if (tab[y][x] == 104) {
+                    imageView = new ImageView(wall_LabLT);
+                }else if (tab[y][x] == 105) {
+                    imageView = new ImageView(wall_LabRight);
+                }else if (tab[y][x] == 106) {
+                    imageView = new ImageView(wall_LabS);
+                }else if (tab[y][x] == 107) {
+                    imageView = new ImageView(wall_LabTR);
+                }else if (tab[y][x] == 108) {
+                    imageView = new ImageView(wall_LabUp);
+                }else if (tab[y][x] == 109) {
+                    imageView = new ImageView(wall_LabX);
+                }else if (tab[y][x] == 110) {
+                    imageView = new ImageView(wall_LabY);
+                }
+                else if (tab[y][x] == 111) {
+                    imageView = new ImageView(wall_LabM_B);
+                }else if (tab[y][x] == 112) {
+                    imageView = new ImageView(wall_LabM_T);
+                }else if (tab[y][x] == 113) {
+                    imageView = new ImageView(wall_LabM_R);
+                }else if (tab[y][x] == 114) {
+                    imageView = new ImageView(wall_LabM_L);
+                }
 
                 else {
                     continue; // Ignore other valuesz
                 }
-
+                System.out.println((x+","+y));
                 imageView.setFitWidth(Constante.TAILLECASEX);
                 imageView.setFitHeight(Constante.TAILLECASEY);
                 imageView.setX(x * Constante.TAILLECASEX);
@@ -257,12 +343,7 @@ public class MapVue {
     }
 
 
-
-
-
-
-
-    public List<Rectangle> getObstacleHitboxes() {
-        return obstaclesHitboxes;
+    public void setMap(int[][] newMap) {
+        this.tabNum = newMap;
     }
 }

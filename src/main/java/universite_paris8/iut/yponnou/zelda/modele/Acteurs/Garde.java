@@ -5,11 +5,9 @@ import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 
 public class Garde extends Ennemi{
 
-
     public Garde(double x, double y,Environnement environnement, int dx, int dy, Arme arme) {
         super("Garde", x, y, 120, 0.03, environnement, dx, dy, arme);
     }
-
 
     public void attaquer() {
     }
@@ -18,4 +16,5 @@ public class Garde extends Ennemi{
     public void deplacementEnnemi() {
 
     }
+
 }
