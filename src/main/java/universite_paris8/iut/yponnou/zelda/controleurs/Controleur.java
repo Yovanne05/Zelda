@@ -213,6 +213,7 @@ public class Controleur implements Initializable {
 
 
     private void adjustCamera() {
+        //camera
         double targetScale = 1.0; // Ajustez selon vos besoins
         double mapWidth = mapActuelle.getLargeur() * tilePaneDecors.getTileWidth();
         double mapHeight = mapActuelle.getHauteur() * tilePaneDecors.getTileHeight();
