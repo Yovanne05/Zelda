@@ -3,9 +3,12 @@ package universite_paris8.iut.yponnou.zelda.modele;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysans;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysan;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Projectile;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
@@ -19,11 +22,51 @@ public abstract class Environnement{
     private ObservableList<Objet> objets = FXCollections.observableArrayList();
     private ObservableList<Projectile> projectiles = FXCollections.observableArrayList();
     private Map map;
+    private Paysan paysans;
+    private Pane paneObjets;
+    private Pane paneMap;
+    private Pane paneCoeurs;
+    private HBox hboxInventaire;
+    private TilePane tilePaneDecors;
 
-    public Environnement(Map map) {
+    public Environnement(Map map,TilePane tilePaneDecors, Pane paneObjets, Pane paneMap, Pane paneCoeurs, HBox hboxInventaire) {
         this.map = map;
+        map.initialisationMap();
         this.largeur = this.map.getLargeur()*Constante.TAILLECASEX;
         this.hauteur = this.map.getHauteur()*Constante.TAILLECASEY;
+        this.tilePaneDecors=tilePaneDecors;
+        this.paneObjets=paneObjets;
+        this.paneMap=paneMap;
+        this.paneCoeurs=paneCoeurs;
+        this.hboxInventaire=hboxInventaire;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
+    }
+
+    public void setTilePaneDecors(TilePane tilePaneDecors) {
+        this.tilePaneDecors = tilePaneDecors;
+    }
+
+    public Pane getPaneObjets() {
+        return paneObjets;
+    }
+
+    public Pane getPaneMap() {
+        return paneMap;
+    }
+
+    public Pane getPaneCoeurs() {
+        return paneCoeurs;
+    }
+
+    public HBox getHboxInventaire() {
+        return hboxInventaire;
+    }
+
+    public TilePane getTilePaneDecors() {
+        return tilePaneDecors;
     }
 
     public int getLargeur() {
@@ -81,6 +124,8 @@ public abstract class Environnement{
         return objets;
     }
 
+
+
     public ObservableList<Projectile> getProjectiles() {
         return projectiles;
     }
@@ -93,10 +138,10 @@ public abstract class Environnement{
         return lstA;
     }
 
-    public Paysans paysansQuiParle(){
+    public Paysan paysansQuiParle(){
         for(Acteur a : acteurs){
-            if(a instanceof Paysans){
-                return (Paysans) a;
+            if(a instanceof Paysan){
+                return (Paysan) a;
             }
         }
         return null;

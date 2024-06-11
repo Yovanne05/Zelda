@@ -37,6 +37,8 @@ public class Position {
     public Environnement getEnv() {
         return env;
     }
+
+
     public void setEnv(Environnement env) {
         this.env = env;
     }

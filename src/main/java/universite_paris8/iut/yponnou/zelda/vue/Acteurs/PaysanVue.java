@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysans;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysan;
 
 public class PaysanVue extends ActeurVue{
 
@@ -27,7 +27,7 @@ public class PaysanVue extends ActeurVue{
     @Override
     public void creerSprite() {
         ImageView imageView;
-        if (getActeur() instanceof Paysans)
+        if (getActeur() instanceof Paysan)
             imageView = new ImageView(paysansImage);
         /*else if (acteur instanceof Npc) {
             imageView = new ImageView(NPC);

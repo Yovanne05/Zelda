@@ -23,7 +23,7 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
                 }
                 else if(a instanceof Garde){
                     actVue = new GardeVue(a,pane);
-                } else if (a instanceof Paysans) {
+                } else if (a instanceof Paysan) {
                     actVue = new PaysanVue(a,pane);
                 } else if (a instanceof Chevalier) {
                     actVue = new ChevalierVue(a,pane);

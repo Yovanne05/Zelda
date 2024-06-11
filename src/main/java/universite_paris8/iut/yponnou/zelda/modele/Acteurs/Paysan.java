@@ -3,22 +3,22 @@ package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 
-public class Paysans extends Acteur {
-    public Paysans(double x, double y, int pv, Environnement environnement, int dx, int dy) {
-        super("Paysans", x, y, pv, 0.03, environnement, dx, dy);
+public class Paysan extends Acteur {
+    public Paysan(double x, double y, int pv, Environnement environnement, int dx, int dy) {
+        super("Paysan", x, y, pv, 0.03, environnement, dx, dy);
     }
-
     public void parler() {
         Stage popupStage = new Stage();
         popupStage.initModality(Modality.APPLICATION_MODAL);

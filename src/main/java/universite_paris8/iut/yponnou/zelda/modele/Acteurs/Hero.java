@@ -22,7 +22,7 @@ public class Hero extends Guerrier {
 
     public Hero(double x, double y, Environnement environnement, int dx, int dy, Arme arme) {
         super("Jakub", x, y, 100, 0.2, environnement, dx, dy, arme);
-        capaciteMax=5;
+        capaciteMax = 5;
     }
 
 
@@ -33,50 +33,49 @@ public class Hero extends Guerrier {
 //        return capaciteMax;
 //    }
 
-    public Paysans paysansProches() {
+    public Paysan paysansProches() {
         for (Acteur acteur : getPosition().getEnv().getLstActeurs()) {
-            if (acteur instanceof Paysans && verifPaysansAutour((Paysans) acteur)) {
-                return (Paysans) acteur;
+            if (acteur instanceof Paysan && verifPaysansAutour((Paysan) acteur)) {
+                return (Paysan) acteur;
             }
         }
         return null;
     }
 
-    public void guerison(){
+    public void guerison() {
         Nourriture aliment = possedeNourritures();
         if (aliment != null) {
             if (!pleineSante()) {
-                setPv(getPv()+ aliment.getPv());
+                setPv(getPv() + aliment.getPv());
                 System.out.println(getNom() + " a mangé " + aliment.getNom());
                 inventaire.remove(aliment);
-            }
-            else
+            } else
                 System.out.println("Votre santé déjà complète !");
-        }
-        else
+        } else
             System.out.println("Aucun aliments trouvés");
     }
 
-    public void subitDegats(int degats){
+    public void subitDegats(int degats) {
         super.subitDegats(degats);
-        System.out.println(getNom()+" a perdu "+degats+" pv");
+        System.out.println(getNom() + " a perdu " + degats + " pv");
     }
 
     // méthode qui renvoie un objet Nourriture si l'inventaire du héro en possède.
-    public Nourriture possedeNourritures(){
+    public Nourriture possedeNourritures() {
         for (Objet objet : inventaire) {
             if (objet instanceof Nourriture)
                 return (Nourriture) objet;
         }
         return null;
     }
-    public boolean pleineSante(){
+
+    public boolean pleineSante() {
         return getPv() == 100;
     }
 
     // méthode qui renvoie un objet trouvé autour du hero
-    public Objet objetsProches(){
-        for(Objet obj : getPosition().getEnv().objetsProperty()){
+    public Objet objetsProches() {
+        for (Objet obj : getPosition().getEnv().objetsProperty()) {
             if (verifObjetsAutour(obj))
                 return obj;
         }
@@ -84,7 +83,7 @@ public class Hero extends Guerrier {
     }
 
     // méthode qui récupère un objet de la map
-    public void recuperer(){
+    public void recuperer() {
         Objet ob = objetsProches();
         if (ob != null && inventaire.size() != capaciteMax) {
             inventaire.add(ob);
@@ -101,16 +100,16 @@ public class Hero extends Guerrier {
      * Il genere des coordonnées aléatoire jusqu'a ce qu'elle soit bonne
      * càd qu'elle soit sur la map, qu'elle soit autour du hero et qu'elle ne traverse pas les obstacles
      */
-    public void deposer(Objet objet){
+    public void deposer(Objet objet) {
         int objetX, objetY;
         Rectangle hitbox;
         do {
             do {
-                objetX = (int)Math.abs(Math.random() * (getPosition().getX()+2* Constante.TAILLECASEX +1)) - Constante.TAILLECASEX;
-                objetY = (int)Math.abs(Math.random() * (getPosition().getY()+2*Constante.TAILLECASEY+1)) - Constante.TAILLECASEY;
-            }while (!getPosition().getEnv().dansMap(objetX,objetY));
-            hitbox = depotPossible(objetX,objetY);
-        }while (hitbox == null);
+                objetX = (int) Math.abs(Math.random() * (getPosition().getX() + 2 * Constante.TAILLECASEX + 1)) - Constante.TAILLECASEX;
+                objetY = (int) Math.abs(Math.random() * (getPosition().getY() + 2 * Constante.TAILLECASEY + 1)) - Constante.TAILLECASEY;
+            } while (!getPosition().getEnv().dansMap(objetX, objetY));
+            hitbox = depotPossible(objetX, objetY);
+        } while (hitbox == null);
 
         objet.getPosition().setX(objetX);
         objet.getPosition().setY(objetY);
@@ -119,47 +118,50 @@ public class Hero extends Guerrier {
     }
 
     // méthode qui renvoie vrai si un objet se trouve à portée du hero
-    private boolean verifObjetsAutour(Objet obj){
-        return (this.getPosition().getY()-Constante.TAILLECASEY<= obj.getPosition().getY() && obj.getPosition().getY() <= getPosition().getY()+Constante.TAILLECASEY
-                && this.getPosition().getX()-Constante.TAILLECASEX<= obj.getPosition().getX() && obj.getPosition().getX() <= getPosition().getX()+Constante.TAILLECASEX);
+    private boolean verifObjetsAutour(Objet obj) {
+        return (this.getPosition().getY() - Constante.TAILLECASEY <= obj.getPosition().getY() && obj.getPosition().getY() <= getPosition().getY() + Constante.TAILLECASEY
+                && this.getPosition().getX() - Constante.TAILLECASEX <= obj.getPosition().getX() && obj.getPosition().getX() <= getPosition().getX() + Constante.TAILLECASEX);
     }
 
-    private boolean verifPaysansAutour(Paysans p){
-        return (this.getPosition().getY()-Constante.TAILLECASEY<= p.getPosition().getY() && p.getPosition().getY() <= getPosition().getY()+Constante.TAILLECASEY
-                && this.getPosition().getX()-Constante.TAILLECASEX<= p.getPosition().getX() && p.getPosition().getX() <= getPosition().getX()+Constante.TAILLECASEX);
+    private boolean verifPaysansAutour(Paysan p) {
+        return (this.getPosition().getY() - Constante.TAILLECASEY <= p.getPosition().getY() && p.getPosition().getY() <= getPosition().getY() + Constante.TAILLECASEY
+                && this.getPosition().getX() - Constante.TAILLECASEX <= p.getPosition().getX() && p.getPosition().getX() <= getPosition().getX() + Constante.TAILLECASEX);
     }
 
     // méthode qui prends en paramètre des coordonnées x et y de type double et renvoie un rectangle rect placé autour du hero
-    private Rectangle depotPossible(double x, double y){
+    private Rectangle depotPossible(double x, double y) {
         Rectangle rect = new Rectangle(x, y, Constante.TAILLECASEX, Constante.TAILLECASEY);
-            // verifie qu'il n'y a pas de collision avec des obstacles
-        if(!collisionAvecObstacle(rect)
-           && ( // vérifie que les coordonnées sont autour du hero
-               ((Math.abs(getPosition().getX()-x) == Constante.TAILLECASEX && Math.abs(getPosition().getY()-y) <= Constante.TAILLECASEY)
-               || (Math.abs(getPosition().getY()-y) == Constante.TAILLECASEY) && Math.abs(getPosition().getX()-x) <= Constante.TAILLECASEX))
-               )
-        {
+        // verifie qu'il n'y a pas de collision avec des obstacles
+        if (!collisionAvecObstacle(rect)
+                && ( // vérifie que les coordonnées sont autour du hero
+                ((Math.abs(getPosition().getX() - x) == Constante.TAILLECASEX && Math.abs(getPosition().getY() - y) <= Constante.TAILLECASEY)
+                        || (Math.abs(getPosition().getY() - y) == Constante.TAILLECASEY) && Math.abs(getPosition().getX() - x) <= Constante.TAILLECASEX))
+        ) {
             return rect;
         }
         return null;
     }
 
+    public boolean estProcheDePaysan(Paysan paysan, int distance) {
+        return Math.abs(this.getPosition().getX() - paysan.getPosition().getX()) <= distance &&
+                        Math.abs(this.getPosition().getY() - paysan.getPosition().getY()) <= distance;
+    }
 
     @Override
     public void attaquer() {
         Acteur e = this.verifEnnemiAcoter();
-        if(this.getArme() instanceof ArmeDistance){
-            Fleche f= new Fleche(getPosition().getX(),getPosition().getY(),getPosition().getEnv(), getDx(),getDy());
+        if (this.getArme() instanceof ArmeDistance) {
+            Fleche f = new Fleche(getPosition().getX(), getPosition().getY(), getPosition().getEnv(), getDx(), getDy());
             ((ArmeDistance) this.getArme()).setProjectile(f);
             System.out.println("j'attaque");
             ((ArmeDistance) this.getArme()).utiliser();
 
-        }else if(e!=null){
-            e.seFaitAttquer(((ArmeMelee)this.getArme()).getPtsDegats());
-            if(e.getPv()==0){
-                ArrayList<Acteur> lstA= getPosition().getEnv().getLstActeurs();
-                for(Acteur a : lstA){
-                    if(e.getId().equals(a.getId())){
+        } else if (e != null) {
+            e.seFaitAttquer(((ArmeMelee) this.getArme()).getPtsDegats());
+            if (e.getPv() == 0) {
+                ArrayList<Acteur> lstA = getPosition().getEnv().getLstActeurs();
+                for (Acteur a : lstA) {
+                    if (e.getId().equals(a.getId())) {
                         lstA.remove(a);
                     }
                 }
@@ -169,22 +171,20 @@ public class Hero extends Guerrier {
 
 
     public void selectionObjet(int indexe) {
-        if (indexe < inventaire.size()){
+        if (indexe < inventaire.size()) {
             Objet ob = inventaire.get(indexe);
-            if(ob instanceof Nourriture n) {
+            if (ob instanceof Nourriture n) {
                 if (!pleineSante()) {
                     setPv(getPv() + n.getPv());
                     System.out.println(getNom() + " a mangé " + n.getNom());
                     inventaire.remove(n);
                 } else
                     System.out.println("Votre santé déjà complète !");
-            }
-            else if(ob instanceof Arme ar){
+            } else if (ob instanceof Arme ar) {
                 setArme(ar);
             }
             System.out.println("Objet selectionné !");
-        }
-        else
+        } else
             System.out.println("Vous n'avez pas d'objets à cet emplacement !");
     }
 

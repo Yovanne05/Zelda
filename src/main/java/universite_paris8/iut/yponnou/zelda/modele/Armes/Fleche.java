@@ -27,8 +27,7 @@ public class Fleche extends Projectile {
 
     public void utiliserFleche() {
         double distanceParcourue = Math.sqrt(Math.pow(getPosition().getX() - initialX, 2) + Math.pow(getPosition().getY() - initialY, 2));
-        //Math.pow(a, 2) calcule le carré du nombre a. Ici, on calcule les carrés des distances parcourues en x et y.
-        //Cela est fait pour appliquer le théorème de Pythagore.
+        //théorème de Pythagore
         //Math.sqrt(b) calcule la racine carrée du nombre b. Ici, on prend la racine carrée de la somme des carrés des distances
         //parcourues en x et y, ce qui nous donne la distance euclidienne totale parcourue par la flèche depuis sa position initiale.
         if (distanceParcourue < this.getPortee()) {

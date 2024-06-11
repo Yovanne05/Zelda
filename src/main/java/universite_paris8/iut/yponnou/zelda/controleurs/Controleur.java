@@ -14,6 +14,7 @@ import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 import universite_paris8.iut.yponnou.zelda.modele.Village;
+import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -119,10 +120,15 @@ public class Controleur implements Initializable {
                 p.selectionObjet(4);
                 break;
             case A:
-                v.paysansQuiParle().parler();
+                if(p.estProcheDePaysan(v.paysansQuiParle(),80)){
+                    v.paysansQuiParle().parler();
+                }
                 break;
+            case T:
 
+                break;
         }
+        p.estProcheDePaysan(v.paysansQuiParle(), 200);
     }
 
     @FXML
