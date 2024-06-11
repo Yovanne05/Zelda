@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="900.0" maxWidth="1500.0" minHeight="900.0" minWidth="1500.0" onKeyPressed="#interaction" onKeyReleased="#toucheLacher" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.Controleur">
+<BorderPane maxHeight="900.0" maxWidth="1500.0" minHeight="900.0" minWidth="1500.0" onKeyPressed="#interaction" onKeyReleased="#toucheLacher" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.Controleur">
    <center>
-      <Pane fx:id="paneMap" prefHeight="900.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
+      <Pane fx:id="paneMap" BorderPane.alignment="CENTER">
          <TilePane fx:id="tilePaneDecors" prefHeight="900.0" prefWidth="1500.0" />
          <Pane fx:id="paneObjets" prefHeight="900" prefWidth="1500" />
       </Pane>

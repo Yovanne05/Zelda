@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -55,14 +56,14 @@ public class Controleur implements Initializable {
     private ScaleTransition cameraTransition;
     private Map mapActuelle;
     private MapVue tileMap;
+    private boolean mapActive=true;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initAnimation();
         gameLoop.play();
-
         mapActuelle = new Map(30, 30);
-        mapActuelle.initialisationMap1();
+        mapActuelle.initialisationMap2();
 
         Environnement environnement = new Environnement(mapActuelle);
         tileMap = new MapVue(mapActuelle.getTabNum(), tilePaneDecors);
@@ -108,7 +109,6 @@ public class Controleur implements Initializable {
         Objet ob;
         Nourriture aliment;
         switch (key) {
-            case Z:
             case UP:
                 p.setDirection("up");
                 p.deplacement(0, -1);
@@ -176,9 +176,22 @@ public class Controleur implements Initializable {
                 perso.attaquer();
                 break;
             case T:
+                if(mapActive){
+                    paneMap.getChildren().clear();
+                    mapActuelle.initialisationMap1();
+                    tileMap = new MapVue(mapActuelle.getTabNum(), tilePaneDecors);
+                    tileMap.creerSprite();
+                    mapActive=!mapActive;
+                }else {
+                    mapActuelle.initialisationMap2();
+                    tileMap.setTabNum(mapActuelle.getTabNum());
+                    tileMap.creerSprite();
+                    mapActive=!mapActive;
+
+                }
                 System.out.println("T");
-                mapActuelle.initialisationMap2();
-                tileMap = new MapVue(mapActuelle.getTabNum(), tilePaneDecors);
+                //mapActuelle.
+                //tileMap = new MapVue(mapActuelle.getTabNum(), tilePaneDecors);
                 break;
         }
     }
@@ -222,16 +235,34 @@ public class Controleur implements Initializable {
 
 
     private void adjustCamera() {
-        double targetScale = 1.250; // Ajustez selon vos besoins
+        // dimensions de la carte et du panneau
+        double mapWidth = mapActuelle.getLargeur() * tilePaneDecors.getTileWidth();
+        double mapHeight = mapActuelle.getHauteur() * tilePaneDecors.getTileHeight();
+        double paneWidth = paneMap.getWidth();
+        double paneHeight = paneMap.getHeight();
 
-        // Lie la translation de paneMap à la position cible
-        paneMap.translateXProperty().bind(Bindings.subtract(paneMap.getWidth() / 2, perso.getPosition().xProperty()).multiply(targetScale));
-        paneMap.translateYProperty().bind(Bindings.subtract(paneMap.getHeight() / 2, perso.getPosition().yProperty()).multiply(targetScale));
+        // liaison de la cameta avec le joueur
+        paneMap.translateXProperty().bind(
+                Bindings.createDoubleBinding(() -> {
+                    double playerX = perso.getPosition().getX();
+                    //System.out.println((-playerX + paneHeight / 2));
+                    // centrer le joueur et garder la camera dans les limites
+                    return Math.max(Math.min(-playerX + paneWidth / 2, 0), -mapWidth + paneWidth);
+                }, perso.getPosition().xProperty(), paneMap.widthProperty())
+        );
+        paneMap.translateYProperty().bind(
+                Bindings.createDoubleBinding(() -> {
+                    double playerY = perso.getPosition().getY();
+                    // centrer le joueur et garder la camera dans les limites
+                    System.out.println((-playerY));// + paneHeight / 2));
+                    System.out.println(paneHeight);
+                    return Math.max(Math.min(-playerY + paneHeight / 2,-50), -mapHeight + paneHeight);
 
-        // Définit l'échelle de paneMap
-        paneMap.setScaleX(targetScale);
-        paneMap.setScaleY(targetScale);
+                }, perso.getPosition().yProperty(), paneMap.heightProperty())
+        );
     }
+
+
 
 
 }

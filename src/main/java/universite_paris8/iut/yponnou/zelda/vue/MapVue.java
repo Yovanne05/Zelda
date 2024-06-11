@@ -170,7 +170,12 @@ public class MapVue {
 
     }
 
+    public void setTabNum(int[][] tabNum) {
+        this.tabNum = tabNum;
+    }
+
     public void creerSprite() {
+        System.out.println("cree");
         for (int y = 0; y < tab.length; y++) {
             for (int x = 0; x < tab[y].length; x++) {
                 ImageView imageView;
@@ -327,7 +332,7 @@ public class MapVue {
                 else {
                     continue; // Ignore other valuesz
                 }
-
+                System.out.println((x+","+y));
                 imageView.setFitWidth(Constante.TAILLECASEX);
                 imageView.setFitHeight(Constante.TAILLECASEY);
                 imageView.setX(x * Constante.TAILLECASEX);

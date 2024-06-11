@@ -85,7 +85,7 @@ public abstract class Acteur {
 
         Rectangle futureHitbox = new Rectangle(prochainX, prochainY, Constante.TAILLECASEX, Constante.TAILLECASEY);
 
-        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
+        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox) && getPosition().getEnv().dansMap(prochainX,prochainY)) {
             setX(prochainX);
             setY(prochainY);
         }
@@ -128,9 +128,7 @@ public abstract class Acteur {
         }
         return false;
     }
-
     abstract void parler();
-
     @Override
     public String toString() {
         return "Acteur{" +

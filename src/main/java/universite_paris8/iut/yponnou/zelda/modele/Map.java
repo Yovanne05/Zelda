@@ -29,7 +29,7 @@ public class Map{
         tabNum[y][x] = val;
     }
 
-    public void initialisationMap2() {
+    public void initialisationMap1() {
 
         tabNum = new int[][]{
                 {21, 21, 21, 26,  0, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43},
@@ -65,7 +65,7 @@ public class Map{
         };
     }
 
-    public void initialisationMap1() {
+    public void initialisationMap2() {
 
         tabNum = new int[][]{
                 { 0,  0,  0,  0,  0,101,109,109,111,109,109,109,109,111,109,109,111,109,109,109,111,109,109,109,109,109,111,109,109,100},
