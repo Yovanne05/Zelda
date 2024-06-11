@@ -5,30 +5,31 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysans;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Boss;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Chevalier;
 
-public class PaysansVue extends ActeurVue{
+public class BossVue extends ActeurVue{
 
-    private final Image paysansImage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/acteurs/paysans.gif");
-    public PaysansVue(Acteur actVue, Pane pane) {
+    private final Image bossImage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/acteurs/boss.png");
+    public BossVue(Acteur actVue, Pane pane) {
         super(actVue, pane);
     }
 
-    private Image getPaysansImage(String direction) {
+    private Image getBossImage(String direction) {
         return switch (direction) {
-            case "right" -> paysansImage;
-            case "left" -> paysansImage;
-            case "up" -> paysansImage;
-            default -> paysansImage;// Default image if direction is not set
+            case "right" -> bossImage;
+            case "left" -> bossImage;
+            case "down" -> bossImage;
+            case "up" -> bossImage;
+            default -> bossImage; // Default image if direction is not set
         };
     }
-
     @Override
     public void creerSprite() {
-        ImageView imageView;
-        if (getActeur() instanceof Paysans)
-            imageView = new ImageView(paysansImage);
+        ImageView imageView /* = upgradeSprite(acteur)*/;
+
+        if (getActeur() instanceof Boss)
+            imageView = new ImageView(bossImage);
         /*else if (acteur instanceof Npc) {
             imageView = new ImageView(NPC);
             System.out.println("efzf");
@@ -36,8 +37,8 @@ public class PaysansVue extends ActeurVue{
         else
             throw new IllegalArgumentException("Acteur non supporté");
 
-        imageView.setFitWidth(Constante.TAILLECASEX);
-        imageView.setFitHeight(Constante.TAILLECASEY);
+        imageView.setFitWidth(70);
+        imageView.setFitHeight(70);
 
         imageView.translateXProperty().bind(getActeur().getPosition().xProperty());
         imageView.translateYProperty().bind(getActeur().getPosition().yProperty());
@@ -51,8 +52,8 @@ public class PaysansVue extends ActeurVue{
 
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
 
-        if (getActeur() instanceof Hero)
-            imageView = new ImageView(getPaysansImage(getActeur().getDirection()));
+        if (getActeur() instanceof Boss)
+            imageView = new ImageView(getBossImage(getActeur().getDirection()));
         else
             throw new IllegalArgumentException("Acteur non supporté");
 //        return imageView;

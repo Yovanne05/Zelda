@@ -11,8 +11,6 @@ public abstract class Ennemi extends Guerrier {
     public Ennemi(String nom, double x, double y, int pv, double vitesse, Environnement environnement, int dx, int dy, Arme arme) {
         super(nom, x, y, pv, vitesse, environnement, dx, dy, arme);
     }
-
-
     public Hero verifHeroProx(){
         for (Acteur a : this.getPosition().getEnv().getLstActeurs()) {
             double dist=80;
@@ -24,27 +22,7 @@ public abstract class Ennemi extends Guerrier {
         }
         return null;
     }
-    public void deplacementEnRonde() {
-        int dx = 0;
-        int dy = 0;
-        Hero h =verifHeroProx();
-        if(h==null){
-            if(cpt<500){
-                cpt++;
-                dx=1;
-            }else if(cpt<999){
-                cpt++;
-                dx=-1;
-            }else{
-                cpt=0;
-            }
-        }else{
-            this.attaquer();
-        }
-
-        deplacement();
-
-    }
+    public abstract void deplacementEnnemi();
 
 
 

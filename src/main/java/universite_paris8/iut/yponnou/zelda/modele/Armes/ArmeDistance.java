@@ -14,8 +14,6 @@ public abstract class ArmeDistance extends Arme{
         posx=new SimpleDoubleProperty(posxi);
         posy=new SimpleDoubleProperty(posyi);
     }
-
-
     public Projectile getProjectile() {
         return projectile;
     }

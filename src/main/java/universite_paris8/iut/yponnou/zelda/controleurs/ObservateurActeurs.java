@@ -2,14 +2,8 @@ package universite_paris8.iut.yponnou.zelda.controleurs;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Ennemi;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysans;
-import universite_paris8.iut.yponnou.zelda.vue.Acteurs.ActeurVue;
-import universite_paris8.iut.yponnou.zelda.vue.Acteurs.EnnemiVue;
-import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
-import universite_paris8.iut.yponnou.zelda.vue.Acteurs.PaysansVue;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
+import universite_paris8.iut.yponnou.zelda.vue.Acteurs.*;
 
 public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
@@ -27,10 +21,14 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
                 if (a instanceof Hero){
                     actVue = new HeroVue(a,pane);
                 }
-                else if(a instanceof Ennemi){
-                    actVue = new EnnemiVue(a,pane);
+                else if(a instanceof Garde){
+                    actVue = new GardeVue(a,pane);
                 } else if (a instanceof Paysans) {
-                    actVue = new PaysansVue(a,pane);
+                    actVue = new PaysanVue(a,pane);
+                } else if (a instanceof Chevalier) {
+                    actVue = new ChevalierVue(a,pane);
+                }else if(a instanceof Boss){
+                    actVue = new BossVue(a,pane);
                 }
                 actVue.creerSprite();
             }

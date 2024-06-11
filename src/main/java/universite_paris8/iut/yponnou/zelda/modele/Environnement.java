@@ -5,10 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysans;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Projectile;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 

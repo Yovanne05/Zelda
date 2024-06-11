@@ -4,10 +4,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.yponnou.zelda.controleurs.*;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysans;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
@@ -22,6 +19,8 @@ public class Village extends Environnement{
     private TilePane tilePaneDecors;
     private Hero hero;
     private Garde garde;
+    private Chevalier chevalier;
+    private Boss boss;
     private Paysans paysans;
     private Pane paneObjets;
     private Pane paneMap;
@@ -46,7 +45,7 @@ public class Village extends Environnement{
         Epee e= new Epee(400,500,this);
 
         hero=new Hero(400,400,this,0,0,a);
-        garde=new Garde(400,500,0.03,this,0,1,e);
+        chevalier=new Chevalier(400,500,this,1,0,e);
         paysans = new Paysans(800, 400, 120, this, 0, 1);
 
         Pomme objet1 = new Pomme(605, 500, this);
@@ -63,9 +62,9 @@ public class Village extends Environnement{
 
         hero.pvProperty().addListener(new ObservateurCoeurs(paneCoeurs,new CoeursVue(paneCoeurs)));
         hero.getInventaire().addListener(new ObservateurObjets(hboxInventaire));
-        garde.pvProperty().addListener(new ObservateurBarreDeVie(garde,paneMap, new BarreDeVieVue(garde,paneMap)));
+        chevalier.pvProperty().addListener(new ObservateurBarreDeVie(chevalier,paneMap, new BarreDeVieVue(chevalier,paneMap)));
 
-        this.ajouterActeur(garde);
+        this.ajouterActeur(chevalier);
         this.ajouterObjet(objet1);
         this.ajouterObjet(objet2);
         this.ajouterObjet(objet3);
@@ -85,8 +84,8 @@ public class Village extends Environnement{
     @Override
     public void toutLeMondeBouge() {
         for (Acteur a : this.getActeurs()) {
-            if (a instanceof Garde) {
-                ((Garde) a).deplacementEnRonde();
+            if (a instanceof Ennemi) {
+                ((Ennemi) a).deplacementEnnemi();
             }
         }
         for (int i = 0; i < this.getProjectiles().size(); i++) {

@@ -5,32 +5,32 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Chevalier;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Ennemi;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 
-public class EnnemiVue extends ActeurVue{
+public class ChevalierVue extends ActeurVue{
 
-    private final Image enemyImage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/acteurs/zombie.png");
-
-    public EnnemiVue(Acteur acteur, Pane pane) {
-        super(acteur, pane);
+    private final Image chevalierImage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/acteurs/chevalier.png");
+    public ChevalierVue(Acteur actVue, Pane pane) {
+        super(actVue, pane);
     }
 
-    private Image getEnemyImage(String direction) {
+    private Image getChevalierImage(String direction) {
         return switch (direction) {
-            case "right" -> enemyImage;
-            case "left" -> enemyImage;
-            case "down" -> enemyImage;
-            case "up" -> enemyImage;
-            default -> enemyImage; // Default image if direction is not set
+            case "right" -> chevalierImage;
+            case "left" -> chevalierImage;
+            case "down" -> chevalierImage;
+            case "up" -> chevalierImage;
+            default -> chevalierImage; // Default image if direction is not set
         };
     }
-
-    public void creerSprite(){
+    @Override
+    public void creerSprite() {
         ImageView imageView /* = upgradeSprite(acteur)*/;
 
-        if (getActeur() instanceof Ennemi)
-            imageView = new ImageView(enemyImage);
+        if (getActeur() instanceof Chevalier)
+            imageView = new ImageView(chevalierImage);
         /*else if (acteur instanceof Npc) {
             imageView = new ImageView(NPC);
             System.out.println("efzf");
@@ -38,8 +38,8 @@ public class EnnemiVue extends ActeurVue{
         else
             throw new IllegalArgumentException("Acteur non supporté");
 
-        imageView.setFitWidth(Constante.TAILLECASEX);
-        imageView.setFitHeight(Constante.TAILLECASEY);
+        imageView.setFitWidth(70);
+        imageView.setFitHeight(70);
 
         imageView.translateXProperty().bind(getActeur().getPosition().xProperty());
         imageView.translateYProperty().bind(getActeur().getPosition().yProperty());
@@ -53,8 +53,8 @@ public class EnnemiVue extends ActeurVue{
 
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
 
-        if (getActeur() instanceof Hero)
-            imageView = new ImageView(getEnemyImage(getActeur().getDirection()));
+        if (getActeur() instanceof Chevalier)
+            imageView = new ImageView(getChevalierImage(getActeur().getDirection()));
         else
             throw new IllegalArgumentException("Acteur non supporté");
 //        return imageView;

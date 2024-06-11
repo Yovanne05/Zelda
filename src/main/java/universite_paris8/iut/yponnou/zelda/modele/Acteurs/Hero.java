@@ -8,6 +8,7 @@ import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.*;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeDistance;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeMelee;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Nourriture;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
@@ -151,10 +152,10 @@ public class Hero extends Guerrier {
             Fleche f= new Fleche(getPosition().getX(),getPosition().getY(),getPosition().getEnv(), getDx(),getDy());
             ((ArmeDistance) this.getArme()).setProjectile(f);
             System.out.println("j'attaque");
-            this.getArme().utiliser();
+            ((ArmeDistance) this.getArme()).utiliser();
 
         }else if(e!=null){
-            e.seFaitAttquer(this.getArme().utiliser());
+            e.seFaitAttquer(((ArmeMelee)this.getArme()).getPtsDegats());
             if(e.getPv()==0){
                 ArrayList<Acteur> lstA= getPosition().getEnv().getLstActeurs();
                 for(Acteur a : lstA){
@@ -178,7 +179,7 @@ public class Hero extends Guerrier {
                 } else
                     System.out.println("Votre santé déjà complète !");
             }
-            else if(ob instanceof  Arme ar){
+            else if(ob instanceof Arme ar){
                 setArme(ar);
             }
             System.out.println("Objet selectionné !");

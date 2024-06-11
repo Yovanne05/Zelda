@@ -13,10 +13,4 @@ public class Epee extends ArmeMelee{
         return null;
     }
 
-    @Override
-    public int utiliser() {
-
-        return this.getPtsDegats();
-    }
-
 }
