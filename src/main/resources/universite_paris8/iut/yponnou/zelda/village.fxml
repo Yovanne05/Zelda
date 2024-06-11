@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.TilePane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-<BorderPane onKeyPressed="#interaction" onKeyReleased="#toucheLacher" prefHeight="900.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.Controleur">
+<BorderPane onKeyPressed="#interaction" onKeyReleased="#toucheLacher" prefHeight="900.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.Controleur">
    <center>
       <Pane fx:id="paneMap" prefHeight="900.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
          <TilePane fx:id="tilePaneDecors" prefHeight="900.0" prefWidth="1500.0" />
@@ -16,7 +13,7 @@
                <Insets />
             </opaqueInsets></Pane>
          <HBox fx:id="paneCoeurs" prefHeight="57.0" prefWidth="264.0" />
-         <HBox layoutX="1200.0" layoutY="840.0" opacity="0.48" prefHeight="60.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: black;">
+         <HBox fx:id="hboxVueInventaire" layoutX="1200.0" layoutY="840.0" opacity="0.48" prefHeight="60.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: black;">
             <padding>
                <Insets bottom="5.0" left="5.0" top="5.0" />
             </padding>
