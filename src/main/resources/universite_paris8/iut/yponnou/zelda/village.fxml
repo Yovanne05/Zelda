@@ -13,7 +13,7 @@
          <TilePane fx:id="tilePaneDecors" prefHeight="900.0" prefWidth="1500.0" />
          <Pane fx:id="paneObjets" prefHeight="900" prefWidth="1500" />
          <HBox fx:id="paneCoeurs" prefHeight="57.0" prefWidth="264.0" />
-         <HBox layoutX="1200" layoutY="840" opacity="0.76" prefHeight="60.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: gray;">
+         <HBox fx:id="hboxVueInventaire" layoutX="1200" layoutY="840" opacity="0.76" prefHeight="60.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: gray;">
             <padding>
                <Insets bottom="5.0" left="5.0" top="5.0" />
             </padding>

@@ -33,7 +33,7 @@ public class Village extends Environnement {
 
     public Village(Map map, TilePane tilePaneDecors, Pane paneObjets, Pane paneMap, Pane paneCoeurs, HBox hboxInventaire, HeroVue heroVue) {
         super(map);
-        map.initialisationMap();
+        map.initialisationMap2();
         this.tilePaneDecors=tilePaneDecors;
         this.paneObjets=paneObjets;
         this.paneMap=paneMap;

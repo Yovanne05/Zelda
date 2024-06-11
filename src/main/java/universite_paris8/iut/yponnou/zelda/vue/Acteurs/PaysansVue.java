@@ -47,7 +47,7 @@ public class PaysansVue extends ActeurVue{
     }
 
     @Override
-    public void upgradeSprite() {
+    public void upgradeSprite(Acteur a , boolean touche) {
         ImageView imageView;
 
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));

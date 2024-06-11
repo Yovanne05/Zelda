@@ -2,6 +2,7 @@ package universite_paris8.iut.yponnou.zelda.controleurs;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
@@ -29,6 +30,7 @@ public class Controleur implements Initializable {
     private int temps;
 
     private boolean touche;
+    private Map mapActuelle;
 
     @FXML
     private Pane paneMap;
@@ -40,6 +42,8 @@ public class Controleur implements Initializable {
     private HBox paneCoeurs;
     @FXML
     private HBox hboxInventaire;
+    @FXML
+    private HBox hboxVueInventaire;
 
     private Village v;
 
@@ -50,8 +54,8 @@ public class Controleur implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initAnimation();
         gameLoop.play();
-        Map map = new Map(30, 30);
-        v = new Village(map,tilePaneDecors, paneObjets, paneMap, paneCoeurs, hboxInventaire,heroVue);
+        mapActuelle = new Map(30, 30);
+        v = new Village(mapActuelle,tilePaneDecors, paneObjets, paneMap, paneCoeurs, hboxInventaire,heroVue);
 //        map.initialisationMap();
 //        Environnement environnement = new Environnement(map);
 //        MapVue tileMap = new MapVue(map.getTabNum(), tilePaneDecors);
@@ -99,7 +103,8 @@ public class Controleur implements Initializable {
                 p.setDy(-1);
                 p.deplacement();
                 System.out.println("HAUT - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
-                v.getHeroVue().upgradeSprite();
+                v.getHeroVue().upgradeSprite(v.heroEnv(),touche);
+                adjustCamera();
                 break;
             case S:
             case DOWN:
@@ -108,7 +113,8 @@ public class Controleur implements Initializable {
                 p.setDy(1);
                 p.deplacement();
                 System.out.println("BAS - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
-                v.getHeroVue().upgradeSprite();
+                v.getHeroVue().upgradeSprite(v.heroEnv(),touche);
+                adjustCamera();
                 break;
             case D:
             case RIGHT:
@@ -117,7 +123,8 @@ public class Controleur implements Initializable {
                 p.setDy(0);
                 p.deplacement();
                 System.out.println("DROITE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
-                v.getHeroVue().upgradeSprite();
+                v.getHeroVue().upgradeSprite(v.heroEnv(),touche);
+                adjustCamera();
                 break;
             case Q:
             case LEFT:
@@ -126,7 +133,8 @@ public class Controleur implements Initializable {
                 p.setDy(0);
                 p.deplacement();
                 System.out.println("GAUGHE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
-                v.getHeroVue().upgradeSprite();
+                v.getHeroVue().upgradeSprite(v.heroEnv(),touche);
+                adjustCamera();
                 break;
             case E:
                 p.recuperer();
@@ -170,7 +178,7 @@ public class Controleur implements Initializable {
     private void toucheLacher(){
         System.out.println("La touche est lachée");
         this.touche=false;
-        v.getHeroVue().upgradeSprite();
+        v.getHeroVue().upgradeSprite(v.heroEnv(),touche);
     }
 
     private void initAnimation() {
@@ -202,4 +210,57 @@ public class Controleur implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
+
+
+    private void adjustCamera() {
+        double targetScale = 1.0; // Ajustez selon vos besoins
+        double mapWidth = mapActuelle.getLargeur() * tilePaneDecors.getTileWidth();
+        double mapHeight = mapActuelle.getHauteur() * tilePaneDecors.getTileHeight();
+        double paneWidth = paneMap.getWidth();
+        double paneHeight = paneMap.getHeight();
+
+        // Lie la translation de paneMap à la position cible
+        paneMap.translateXProperty().bind(
+                Bindings.createDoubleBinding(() -> {
+                    double playerX = v.heroEnv().getPosition().getX();
+                    return Math.max(Math.min(-playerX + paneWidth / 2, 0), -mapWidth + paneWidth);
+                }, v.heroEnv().getPosition().xProperty(), paneMap.widthProperty())
+        );
+
+        paneMap.translateYProperty().bind(
+                Bindings.createDoubleBinding(() -> {
+                    double playerY = v.heroEnv().getPosition().getY();
+                    return Math.max(Math.min(-playerY + paneHeight / 2, 0), -mapHeight + paneHeight);
+                }, v.heroEnv().getPosition().yProperty(), paneMap.heightProperty())
+        );
+
+        // Définit l'échelle de paneMap
+        paneMap.setScaleX(targetScale);
+        paneMap.setScaleY(targetScale);
+
+        // Translation de hboxInventaire et paneCoeurs pour qu'ils bougent avec le héros
+        hboxInventaire.translateXProperty().bind(
+                paneMap.translateXProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        );
+        hboxInventaire.translateYProperty().bind(
+                paneMap.translateYProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        );
+        // Translation de hboxInventaire et paneCoeurs pour qu'ils bougent avec le héros
+        hboxVueInventaire.translateXProperty().bind(
+                paneMap.translateXProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        );
+        hboxVueInventaire.translateYProperty().bind(
+                paneMap.translateYProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        );
+
+        paneCoeurs.translateXProperty().bind(
+                paneMap.translateXProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        );
+        paneCoeurs.translateYProperty().bind(
+                paneMap.translateYProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        );
+    }
+
+
+
 }
