@@ -53,15 +53,13 @@ public class HeroVue extends ActeurVue{
     }
 
     @Override
-    public void upgradeSprite() {
+    public void upgradeSprite(Acteur a ,boolean touche) {
         ImageView imageView;
 
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
 
-        if (getActeur() instanceof Hero)
             imageView = new ImageView(getHeroImage(getActeur().getDirection()));
-        else
-            throw new IllegalArgumentException("Acteur non supporté");
+
 //        return imageView;
         imageView.setFitWidth(Constante.TAILLE50);
         imageView.setFitHeight(Constante.TAILLE50);
