@@ -225,6 +225,11 @@ public class Controleur implements Initializable {
         newEnvironnement = new Village(hero);
             switchToEnvironment(newEnvironnement);
                 break;
+           /* case X:
+                paneMap.getChildren().clear();
+                mapActuelle.initialisationMap2();
+                v.setMap(v.getMap());
+                break;*/
         }
 
     }
