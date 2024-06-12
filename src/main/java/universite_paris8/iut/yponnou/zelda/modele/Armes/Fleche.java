@@ -54,7 +54,7 @@ public class Fleche extends Projectile {
             if (a instanceof Ennemi) {
                 Ennemi ennemi = (Ennemi) a;
                 if (this.touche(ennemi)) {
-                    ennemi.seFaitAttquer(this.getPtsDegats());
+                    ennemi.seFaitAttaquer(this.getPtsDegats());
                     getPosition().getEnv().enleverProjectile(this);
                 }
             }

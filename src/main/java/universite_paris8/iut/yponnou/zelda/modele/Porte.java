@@ -11,6 +11,7 @@ public class Porte {
     private final double y;
     private final Environnement environnement;
     private boolean etat;
+    private final Clef clef;
 
     public Porte(double x, double y, Environnement environnement) {
         double clefX, clefY;
@@ -23,7 +24,7 @@ public class Porte {
             clefX = (Math.random()*this.environnement.getLargeur());
             clefY = (Math.random()*this.environnement.getHauteur());
         }while (this.environnement.dansMap(clefX,clefY));
-        new Clef(id,clefX,clefY,environnement);
+        clef = new Clef(id,clefX,clefY,environnement);
     }
 
     public String getId() {
@@ -38,13 +39,15 @@ public class Porte {
     public Environnement getEnvironnement() {
         return environnement;
     }
-
+    public Clef getClef(){
+        return clef;
+    }
     public boolean estOuverte() {
         return etat;
     }
 
     public void ouverture(Clef clef) {
-        if (clef.getId().contains(getId()))
+        if (clef == this.clef)
             etat = true;
     }
 }

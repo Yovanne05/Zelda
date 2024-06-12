@@ -87,9 +87,16 @@ public class Hero extends Guerrier {
 
     // méthode qui renvoie vrai si un objet se trouve à portée du hero
     private boolean verifObjetsAutour(Objet obj){
-        return (this.getPosition().getY()-Constante.TAILLE16 <= obj.getPosition().getY() && obj.getPosition().getY() <= getPosition().getY()+Constante.TAILLE50
-                && this.getPosition().getX()-Constante.TAILLE16 <= obj.getPosition().getX() && obj.getPosition().getX() <= getPosition().getX()+Constante.TAILLE50);
-    }
+        {
+            if (obj instanceof Nourriture) {
+                return (this.getPosition().getY() - Constante.TAILLE16 <= obj.getPosition().getY() && obj.getPosition().getY() <= getPosition().getY() + Constante.TAILLE50
+                        && this.getPosition().getX() - Constante.TAILLE16 <= obj.getPosition().getX() && obj.getPosition().getX() <= getPosition().getX() + Constante.TAILLE50);
+            } else {
+                return (this.getPosition().getY() - Constante.TAILLE32 <= obj.getPosition().getY() && obj.getPosition().getY() <= getPosition().getY() + Constante.TAILLE50
+                        && this.getPosition().getX() - Constante.TAILLE32 <= obj.getPosition().getX() && obj.getPosition().getX() <= getPosition().getX() + Constante.TAILLE50);
+
+            }
+        }    }
 
     /* methode qui depose l'objet de l'inventaire du hero
      * Il genere des coordonnées aléatoire jusqu'a ce qu'elle soit bonne
@@ -99,7 +106,6 @@ public class Hero extends Guerrier {
         int objetX, objetY;
         Rectangle hitbox;
         do {
-
             do {
                 if (objet instanceof Nourriture) {
                     objetX = (int) (Math.random() * getPosition().getX() + Constante.TAILLE50 + Constante.TAILLE16 + 1) - Constante.TAILLE16;
@@ -112,7 +118,6 @@ public class Hero extends Guerrier {
             }while (!getPosition().getEnv().dansMap(objetX,objetY));
             hitbox = depotPossible(objet,objetX,objetY);
         }while (hitbox == null);
-
         objet.getPosition().setX(objetX);
         objet.getPosition().setY(objetY);
         inventaire.remove(objet);
@@ -160,7 +165,7 @@ public class Hero extends Guerrier {
             this.getArme().utiliser();
 
         }else if(e!=null){
-            e.seFaitAttquer(this.getArme().utiliser());
+            e.seFaitAttaquer(this.getArme().utiliser());
             if(e.getPv()==0){
                 getPosition().getEnv().getActeurs().removeIf(a -> e.getId().equals(a.getId()));
             }

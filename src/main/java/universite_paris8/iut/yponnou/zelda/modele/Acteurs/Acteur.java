@@ -38,7 +38,6 @@ public class Acteur {
     public int getDx() {
         return dx;
     }
-
     public int getDy() {
         return dy;
     }
@@ -93,7 +92,7 @@ public class Acteur {
 
         // Création de la nouvelle hitbox après déplacement
         Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE50, TAILLE50);
-        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
+        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox) && getPosition().getEnv().dansMap(prochainX,prochainY)) {
             setX(prochainX);
             setY(prochainY);
         }
@@ -126,7 +125,8 @@ public class Acteur {
             return true; // Collision avec la bordure de la carte
         // Vérification des collisions avec les obstacles
         int[][] map = position.getEnv().getMap().getTabNum();
-        return map[tableauYHG][tableauXHG] > 20 || map[tableauYHG][tableauXHD] > 20 || map[tableauYBG][tableauXHG] > 20 || map[tableauYBG][tableauXHD] > 20; // Collision avec un obstacle
+
+        return map[tableauYHG][tableauXHG] > 20 || map[tableauYHG][tableauXHD] > 20 || map[tableauYBG][tableauXHG] > 20 || map[tableauYBG][tableauXHD] > 20;
     }
 
     public Rectangle getHitbox() {
@@ -146,7 +146,7 @@ public class Acteur {
         return false;
     }
 
-    public void seFaitAttquer(int pts){
+    public void seFaitAttaquer(int pts){
         int nvPv =getPv()-pts;
         if(nvPv>0){
             setPv(nvPv);

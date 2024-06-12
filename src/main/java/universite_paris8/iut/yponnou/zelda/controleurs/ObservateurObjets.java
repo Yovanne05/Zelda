@@ -4,7 +4,11 @@ import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.yponnou.zelda.modele.Aliments.Pomme;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
+import universite_paris8.iut.yponnou.zelda.vue.Armes.ArcVue;
+import universite_paris8.iut.yponnou.zelda.vue.Armes.EpeeVue;
 import universite_paris8.iut.yponnou.zelda.vue.ObjetVue;
 import universite_paris8.iut.yponnou.zelda.vue.Nourritures.PommeVue;
 
@@ -29,9 +33,12 @@ public class ObservateurObjets implements ListChangeListener<Objet> {
                     PommeVue pommeVue = new PommeVue((Pomme) ob,pane);
                     pommeVue.creerSprite();
                 }
-                else {
-                    ObjetVue objVue = new ObjetVue(ob, pane);
+                else if (ob instanceof ArcArme){
+                    ObjetVue objVue = new ArcVue(ob, pane);
                     objVue.creerSprite();
+                } else if (ob instanceof Epee) {
+                    EpeeVue epeeVue = new EpeeVue(ob, pane);
+                    epeeVue.creerSprite();
                 }
             }
             for (Objet ob : change.getRemoved()) {

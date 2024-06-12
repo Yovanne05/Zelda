@@ -4,8 +4,6 @@ import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
 public class Clef extends Objet {
 
-    private boolean etat = true;
-
     public Clef(String id,double x, double y, Environnement environnement) {
         super(x, y, environnement);
         setId("Clef".concat(id));
@@ -13,6 +11,6 @@ public class Clef extends Objet {
 
     @Override
     public String toString() {
-        return "";
+        return "une Clef";
     }
 }

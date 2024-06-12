@@ -18,7 +18,8 @@ public class ObservateurProjectiles implements ListChangeListener<Projectile> {
     public void onChanged(Change<? extends Projectile> change) {
         while (change.next()) {
             for (Projectile a : change.getAddedSubList()) {
-                FlecheVue f=new FlecheVue(pane, (Fleche) a);
+                FlecheVue f = new FlecheVue(pane, (Fleche) a);
+                f.creerSprite();
             }
             for (Projectile a : change.getRemoved()) {
                 for (int i = 0; i < pane.getChildren().size(); i++) {

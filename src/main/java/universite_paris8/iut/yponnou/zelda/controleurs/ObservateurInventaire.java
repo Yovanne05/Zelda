@@ -4,7 +4,11 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 
 import universite_paris8.iut.yponnou.zelda.modele.Aliments.Pomme;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
+import universite_paris8.iut.yponnou.zelda.vue.Armes.ArcVue;
+import universite_paris8.iut.yponnou.zelda.vue.Armes.EpeeVue;
 import universite_paris8.iut.yponnou.zelda.vue.ObjetVue;
 import universite_paris8.iut.yponnou.zelda.vue.Nourritures.PommeVue;
 
@@ -21,13 +25,18 @@ public class ObservateurInventaire extends ObservateurObjets {
             for (Objet ob : change.getAddedSubList()) {
                 if (ob instanceof Pomme) {
                     PommeVue pommeVue = new PommeVue((Pomme) ob, getPane());
-//                    pommeVue.resizeImage();
                     pommeVue.creerSprite();
                     pommeVue.resizeImage();
                 }
-                else {
-                    ObjetVue objVue = new ObjetVue(ob, getPane());
-                    objVue.creerSprite();
+                else if(ob instanceof ArcArme){
+                    ArcVue arcVue = new ArcVue(ob, getPane());
+                    arcVue.creerSprite();
+                    arcVue.resizeImage();
+                }
+                else if (ob instanceof Epee) {
+                    EpeeVue epeeVue = new EpeeVue(ob,getPane());
+                    epeeVue.creerSprite();
+                    epeeVue.resizeImage();
                 }
             }
             for (Objet ob : change.getRemoved()) {

@@ -8,8 +8,6 @@ import universite_paris8.iut.yponnou.zelda.modele.Aliments.Pomme;
 
 public class PommeVue extends NourritureVue {
 
-    private final Pane pane;
-    private final Pomme pomme;
     private final ImageView imageView;
 
     private static final Image pommeImage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/aliments/apple.png");
@@ -17,8 +15,6 @@ public class PommeVue extends NourritureVue {
 
     public PommeVue(Pomme pomme, Pane pane) {
         super(pomme,pane);
-        this.pane = pane;
-        this.pomme = pomme;
         imageView = new ImageView(pommeImage);
     }
 
@@ -26,10 +22,10 @@ public class PommeVue extends NourritureVue {
     public void creerSprite(){
         imageView.setFitWidth(pommeImage.getWidth());
         imageView.setFitHeight(pommeImage.getHeight());
-        imageView.setId(pomme.getId());
-        imageView.setX(pomme.getPosition().getX());
-        imageView.setY(pomme.getPosition().getY());
-        pane.getChildren().add(imageView);
+        imageView.setId(getObjet().getId());
+        imageView.setX(getObjet().getPosition().getX());
+        imageView.setY(getObjet().getPosition().getY());
+        getPane().getChildren().add(imageView);
     }
 
     public void resizeImage(){
@@ -37,10 +33,10 @@ public class PommeVue extends NourritureVue {
             imageView.setFitWidth(Constante.TAILLE50);
             imageView.setFitHeight(Constante.TAILLE50);
         }
-        else {
-            imageView.setFitWidth(pommeImage.getWidth());
-            imageView.setFitHeight(pommeImage.getHeight());
-        }
+//        else {
+//            imageView.setFitWidth(pommeImage.getWidth());
+//            imageView.setFitHeight(pommeImage.getHeight());
+//        }
     }
 
 }
