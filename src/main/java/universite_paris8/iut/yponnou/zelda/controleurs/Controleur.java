@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Village;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
@@ -24,7 +24,7 @@ public class Controleur implements Initializable {
 
     private Timeline gameLoop;
     private int temps;
-
+    private boolean touche;
     @FXML
     private Pane paneMap;
     @FXML
@@ -97,7 +97,7 @@ public class Controleur implements Initializable {
                 p.setDy(-1);
                 p.deplacement();
                 System.out.println("HAUT - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
-                v.getHeroVue().upgradeSprite();
+                v.getHeroVue().upgradeSprite(v.heroEnv(),touche);
                 adjustCamera();
                 break;
             case S:
@@ -107,7 +107,7 @@ public class Controleur implements Initializable {
                 p.setDy(1);
                 p.deplacement();
                 System.out.println("BAS - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
-                v.getHeroVue().upgradeSprite();
+                v.getHeroVue().upgradeSprite(v.heroEnv(),touche);
                 adjustCamera();
                 break;
             case D:
@@ -117,7 +117,7 @@ public class Controleur implements Initializable {
                 p.setDy(0);
                 p.deplacement();
                 System.out.println("DROITE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
-                v.getHeroVue().upgradeSprite();
+                v.getHeroVue().upgradeSprite(v.heroEnv(),touche);
                 adjustCamera();
                 break;
             case Q:
@@ -127,7 +127,7 @@ public class Controleur implements Initializable {
                 p.setDy(0);
                 p.deplacement();
                 System.out.println("GAUGHE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
-                v.getHeroVue().upgradeSprite();
+                v.getHeroVue().upgradeSprite(v.heroEnv(),touche);
                 adjustCamera();
                 break;
             case E:
@@ -172,7 +172,7 @@ public class Controleur implements Initializable {
     private void toucheLacher(){
         System.out.println("La touche est lachée");
         boolean touche = false;
-        v.getHeroVue().upgradeSprite();
+        v.getHeroVue().upgradeSprite(v.heroEnv(),touche);
     }
 
     private void initAnimation() {
@@ -236,6 +236,12 @@ public class Controleur implements Initializable {
                 paneMap.translateXProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
         );
         hboxVueInventaire.translateYProperty().bind(
+                paneMap.translateYProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        );
+        hboxInventaire.translateXProperty().bind(
+                paneMap.translateXProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        );
+        hboxInventaire.translateYProperty().bind(
                 paneMap.translateYProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
         );
 

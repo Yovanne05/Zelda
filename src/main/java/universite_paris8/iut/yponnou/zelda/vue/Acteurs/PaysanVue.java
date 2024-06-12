@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysan;
 
 public class PaysanVue extends ActeurVue{
@@ -47,7 +47,7 @@ public class PaysanVue extends ActeurVue{
     }
 
     @Override
-    public void upgradeSprite() {
+    public void upgradeSprite(Acteur a ,boolean touche) {
         ImageView imageView;
 
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));

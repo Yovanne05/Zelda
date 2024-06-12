@@ -7,7 +7,7 @@ import javafx.scene.layout.TilePane;
 import universite_paris8.iut.yponnou.zelda.controleurs.*;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysan;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
@@ -18,6 +18,7 @@ import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 import universite_paris8.iut.yponnou.zelda.vue.Pv.BarreDeVieVue;
 import universite_paris8.iut.yponnou.zelda.vue.Pv.CoeursVue;
+import universite_paris8.iut.yponnou.zelda.controleurs.*;
 
 public class Village extends Environnement {
 
