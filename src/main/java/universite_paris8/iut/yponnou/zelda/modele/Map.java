@@ -136,7 +136,7 @@ public class Map{
                 { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0},
         };
     }
-
+//test
 
     public int getMapIndex() {
         return  mapIndex ;
