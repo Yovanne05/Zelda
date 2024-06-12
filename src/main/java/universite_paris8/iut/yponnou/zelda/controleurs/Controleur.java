@@ -252,6 +252,7 @@ public class Controleur implements Initializable {
                 paneMap.translateYProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
         );
     }
+    //test
 
 
 
