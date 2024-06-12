@@ -33,6 +33,9 @@ public class Hero extends Guerrier {
 //        return capaciteMax;
 //    }
 
+    public void ajouterObjet(Objet objet) {
+        inventaire.add(objet);
+    }
     public Paysan paysansProches() {
         for (Acteur acteur : getPosition().getEnv().getLstActeurs()) {
             if (acteur instanceof Paysan && verifPaysansAutour((Paysan) acteur)) {
@@ -143,8 +146,16 @@ public class Hero extends Guerrier {
     }
 
     public boolean estProcheDePaysan(Paysan paysan, int distance) {
+        if(paysan==null){
+            return false;
+        }
         return Math.abs(this.getPosition().getX() - paysan.getPosition().getX()) <= distance &&
                         Math.abs(this.getPosition().getY() - paysan.getPosition().getY()) <= distance;
+    }
+
+    public boolean estProcheDeVendeur(Vendeur vendeur, int distance) {
+        return Math.abs(this.getPosition().getX() - vendeur.getPosition().getX()) <= distance &&
+                Math.abs(this.getPosition().getY() - vendeur.getPosition().getY()) <= distance;
     }
 
     @Override

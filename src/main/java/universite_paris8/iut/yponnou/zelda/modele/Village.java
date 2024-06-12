@@ -27,6 +27,7 @@ public class Village extends Environnement{
     private Paysan paysan;
     private Chevalier chevalier;
     private Boss boss;
+    private Vendeur vendeur;
     private ArrayList<Garde> gardes;
 
     private long dernierTempsGeneration; // Variable pour suivre le dernier temps de génération de garde
@@ -47,7 +48,7 @@ public class Village extends Environnement{
 
         hero=new Hero(400,400,this,0,0,a);
         chevalier=new Chevalier(400,500,this,1,0,e);
-        paysan = new Paysan(800, 400, 120, this, 0, 1);
+        vendeur = new Vendeur(800, 400, this, 0, 0);
 
         Pomme objet1 = new Pomme(605, 500, this);
         Pomme objet2 = new Pomme(700, 500, this);
@@ -65,14 +66,14 @@ public class Village extends Environnement{
         hero.getInventaire().addListener(new ObservateurObjets(getHboxInventaire()));
 //        chevalier.pvProperty().addListener(new ObservateurBarreDeVie(chevalier,getPaneMap(), new BarreDeVieVue(chevalier,getPaneMap())));
 
-//        this.ajouterActeur(paysan);
-//        this.ajouterActeur(chevalier);
-//        this.ajouterObjet(objet1);
-//        this.ajouterObjet(objet2);
-//        this.ajouterObjet(objet3);
-//        this.ajouterObjet(objet4);
-//        this.ajouterObjet(objet5);
-//        this.ajouterObjet(objet6);
+        this.ajouterActeur(vendeur);
+        this.ajouterActeur(chevalier);
+        this.ajouterObjet(objet1);
+        this.ajouterObjet(objet2);
+        this.ajouterObjet(objet3);
+        this.ajouterObjet(objet4);
+        this.ajouterObjet(objet5);
+        this.ajouterObjet(objet6);
         this.ajouterActeur(hero);
 
         tileMap.creerSprite();
@@ -110,8 +111,8 @@ public class Village extends Environnement{
     @Override
     public void toutLeMondeBouge() {
         for (Acteur a : this.getActeurs()) {
-            if (a instanceof Garde) {
-                ((Garde) a).deplacementBFSversHero(this.heroEnv());
+            if (a instanceof Ennemi) {
+                ((Ennemi) a).deplacementEnnemi();
             }
         }
         for (int i = 0; i < this.getProjectiles().size(); i++) {
@@ -120,8 +121,8 @@ public class Village extends Environnement{
                 ((Fleche) this.getProjectiles().get(i)).utiliserFleche();
             }
         }
-        if (tempsPourGenerer()) {
-            generationGarde(); // Générer un garde
-        }
+//        if (tempsPourGenerer()) {
+//            generationGarde(); // Générer un garde
+//        }
     }
 }

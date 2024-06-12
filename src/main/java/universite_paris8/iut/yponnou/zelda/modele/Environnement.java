@@ -9,6 +9,7 @@ import javafx.scene.layout.TilePane;
 import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysan;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Vendeur;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Projectile;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
@@ -142,6 +143,14 @@ public abstract class Environnement{
         for(Acteur a : acteurs){
             if(a instanceof Paysan){
                 return (Paysan) a;
+            }
+        }
+        return null;
+    }
+    public Vendeur obtenirVendeur(){
+        for(Acteur a : acteurs){
+            if(a instanceof Vendeur){
+                return (Vendeur) a;
             }
         }
         return null;

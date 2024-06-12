@@ -29,6 +29,8 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
                     actVue = new ChevalierVue(a,pane);
                 }else if(a instanceof Boss){
                     actVue = new BossVue(a,pane);
+                }else if (a instanceof Vendeur){
+                    actVue = new VendeurVue(a,pane);
                 }
                 actVue.creerSprite();
             }

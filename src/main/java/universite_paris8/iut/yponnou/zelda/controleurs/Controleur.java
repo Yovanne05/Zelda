@@ -123,6 +123,9 @@ public class Controleur implements Initializable {
                 if(p.estProcheDePaysan(v.paysansQuiParle(),80)){
                     v.paysansQuiParle().parler();
                 }
+                if(p.estProcheDeVendeur(v.obtenirVendeur(),80)){
+                    v.obtenirVendeur().proposerObjet(p);
+                }
                 break;
             case T:
 
