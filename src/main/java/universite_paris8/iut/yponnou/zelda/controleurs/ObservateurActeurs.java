@@ -2,14 +2,12 @@ package universite_paris8.iut.yponnou.zelda.controleurs;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Ennemi;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysans;
+
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.ActeurVue;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.EnnemiVue;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
-import universite_paris8.iut.yponnou.zelda.vue.Acteurs.PaysansVue;
+import universite_paris8.iut.yponnou.zelda.vue.Acteurs.PaysanVue;
 
 public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
@@ -26,8 +24,8 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
                 ActeurVue actVue;
                 if (a instanceof Hero)
                     actVue = new HeroVue(a,pane);
-                else if (a instanceof Paysans) {
-                    actVue = new PaysansVue(a,pane);
+                else if (a instanceof Paysan) {
+                    actVue = new PaysanVue(a,pane);
                 }
                 else
                     actVue = new EnnemiVue(a,pane);

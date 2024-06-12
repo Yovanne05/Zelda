@@ -13,8 +13,8 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
-public class Paysans extends Acteur {
-    public Paysans(double x, double y, int pv, Environnement environnement, int dx, int dy) {
+public class Paysan extends Acteur {
+    public Paysan(double x, double y, int pv, Environnement environnement, int dx, int dy) {
         super("Paysans", x, y, pv, 0.03, environnement, dx, dy);
     }
 

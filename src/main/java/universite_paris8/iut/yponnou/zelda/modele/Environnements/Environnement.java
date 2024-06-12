@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysans;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysan;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Projectile;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
@@ -90,10 +90,10 @@ public abstract class Environnement{
     }
 
 
-    public Paysans paysansQuiParle(){
+    public Paysan paysansQuiParle(){
         for(Acteur a : acteurs){
-            if(a instanceof Paysans){
-                return (Paysans) a;
+            if(a instanceof Paysan){
+                return (Paysan) a;
             }
         }
         return null;

@@ -42,6 +42,7 @@ public class Porte {
     public boolean estOuverte() {
         return etat;
     }
+
     public void ouverture(Clef clef) {
         if (clef.getId().contains(getId()))
             etat = true;
