@@ -26,6 +26,10 @@ public abstract class Environnement{
         this.hauteur = this.map.getHauteur()*Constante.TAILLE50;
     }
 
+    public void setMap(Map map) {
+        this.map = map;
+    }
+
     public int getLargeur() {
         return largeur;
     }

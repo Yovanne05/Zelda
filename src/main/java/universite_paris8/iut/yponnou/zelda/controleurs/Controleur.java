@@ -172,6 +172,11 @@ public class Controleur implements Initializable {
             case A:
                 v.paysansQuiParle().parler();
                 break;
+           /* case X:
+                paneMap.getChildren().clear();
+                mapActuelle.initialisationMap2();
+                v.setMap(v.getMap());
+                break;*/
         }
     }
     @FXML

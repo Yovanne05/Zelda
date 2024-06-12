@@ -33,7 +33,7 @@ public class Village extends Environnement {
 
     public Village(Map map, TilePane tilePaneDecors, Pane paneObjets, Pane paneMap, Pane paneCoeurs, HBox hboxInventaire, HeroVue heroVue) {
         super(map);
-        map.initialisationMap2();
+        map.initialisationMap3();
         this.tilePaneDecors=tilePaneDecors;
         this.paneObjets=paneObjets;
         this.paneMap=paneMap;
@@ -49,7 +49,7 @@ public class Village extends Environnement {
         ArcArme a =new ArcArme(400, 400,null,this);
         Epee e= new Epee(400,500,this);
 
-        hero=new Hero(400,400,this,0,0,a);
+        hero=new Hero(150,800,this,0,0,a);
         garde=new Garde(400,500,0.03,this,0,1,e);
         paysans = new Paysans(800, 400, 120, this, 0, 1);
 
@@ -109,4 +109,5 @@ public class Village extends Environnement {
             }
         }
     }
+
 }
