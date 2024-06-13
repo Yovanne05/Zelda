@@ -64,7 +64,7 @@ public class Map{
                 {21, 21, 21, 21, 21, 26,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0},
         };
     }
-
+//test
     public void initialisationMap2() {
 //map labirynthe
         tabNum = new int[][]{
