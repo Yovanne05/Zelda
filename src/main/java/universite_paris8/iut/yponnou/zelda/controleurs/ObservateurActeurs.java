@@ -7,7 +7,7 @@ import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.ActeurVue;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.EnnemiVue;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
-import universite_paris8.iut.yponnou.zelda.vue.Acteurs.PaysanVue;
+import universite_paris8.iut.yponnou.zelda.vue.Acteurs.PaysansVue;
 
 public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
@@ -25,7 +25,7 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
                 if (a instanceof Hero)
                     actVue = new HeroVue(a,pane);
                 else if (a instanceof Paysan) {
-                    actVue = new PaysanVue(a,pane);
+                    actVue = new PaysansVue(a,pane);
                 }
                 else
                     actVue = new EnnemiVue(a,pane);
