@@ -7,16 +7,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.yponnou.zelda.Constante;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysan;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Vendeur;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Projectile;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
 import java.util.ArrayList;
 
-public abstract class Environnement{
+public class Environnement{
     private final Label toucheA = new Label("A");
     private final int largeur;
     private final int hauteur;
@@ -28,7 +26,6 @@ public abstract class Environnement{
 
     public Environnement(Map map) {
         this.map = map;
-        map.initialisationMap();
         this.largeur = this.map.getLargeur()*Constante.TAILLECASEX;
         this.hauteur = this.map.getHauteur()*Constante.TAILLECASEY;
 
@@ -91,7 +88,19 @@ public abstract class Environnement{
         return x >= 0 && y >= 0 && x <= largeur-Constante.TAILLECASEX && y <= hauteur-Constante.TAILLECASEX;
     }
 
-    public abstract void toutLeMondeBouge();
+    public void toutLeMondeBouge(){
+        ObservableList<Acteur> lstA= this.getActeurs();
+        for (int i=0;i<lstA.size();i++) {
+            if (lstA.get(i) instanceof Ennemi) {
+                ((Ennemi) lstA.get(i)).deplacementEnnemi();
+            }
+        }
+        for (int i = 0; i < this.getProjectiles().size(); i++) {
+            if (this.getProjectiles().get(i) instanceof Fleche) {
+                ((Fleche) this.getProjectiles().get(i)).utiliserFleche();
+            }
+        }
+    }
 
 
     public ObservableList<Acteur> getActeurs() {

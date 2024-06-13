@@ -9,7 +9,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import universite_paris8.iut.yponnou.zelda.modele.Donjon;
+import universite_paris8.iut.yponnou.zelda.modele.Labyrinthe;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
@@ -37,109 +41,136 @@ public class Controleur implements Initializable {
     private HBox paneCoeurs;
     @FXML
     private HBox hboxInventaire;
-
     private Village v;
+    private Labyrinthe labyrinthe;
+    private Donjon donjon;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initAnimation();
         gameLoop.play();
 
-        v = new Village();
-        v.objetsProperty().addListener(new ObservateurObjets(paneObjets));
-        v.acteursProperty().addListener(new ObservateurActeurs(paneMap));
-        v.getProjectiles().addListener(new ObservateurProjectiles(paneMap));
-        v.creationVillage();
-        v.heroEnv().pvProperty().addListener(new ObservateurCoeurs(paneCoeurs,new CoeursVue(paneCoeurs)));
-        v.heroEnv().getInventaire().addListener(new ObservateurObjets(hboxInventaire));
-        MapVue villageVue = new MapVue(v.getMap().getTabNum(), tilePaneDecors);
-        villageVue.creerSprite();
+        //Village
+
+//        v = new Village();
+//        v.objetsProperty().addListener(new ObservateurObjets(paneObjets));
+//        v.acteursProperty().addListener(new ObservateurActeurs(paneMap));
+//        v.getProjectiles().addListener(new ObservateurProjectiles(paneMap));
+//        v.creationVillage();
+//        v.heroEnv().pvProperty().addListener(new ObservateurCoeurs(paneCoeurs,new CoeursVue(paneCoeurs)));
+//        v.heroEnv().getInventaire().addListener(new ObservateurObjets(hboxInventaire));
+//        MapVue villageVue = new MapVue(v.getMap().getTabNum(), tilePaneDecors);
+//        villageVue.creerSprite();
+
+        // Labyrinthe :
+//        labyrinthe=new Labyrinthe();
+//        labyrinthe.objetsProperty().addListener(new ObservateurObjets(paneObjets));
+//        labyrinthe.acteursProperty().addListener(new ObservateurActeurs(paneMap));
+//        labyrinthe.getProjectiles().addListener(new ObservateurProjectiles(paneMap));
+//        labyrinthe.creationLabyrinthe();
+//        labyrinthe.heroEnv().pvProperty().addListener(new ObservateurCoeurs(paneCoeurs,new CoeursVue(paneCoeurs)));
+//        labyrinthe.heroEnv().getInventaire().addListener(new ObservateurObjets(hboxInventaire));
+//        MapVue labyrintheVue = new MapVue(labyrinthe.getMap().getTabNum(), tilePaneDecors);
+//        labyrintheVue.creerSprite();
+
+        donjon=new Donjon();
+        donjon.objetsProperty().addListener(new ObservateurObjets(paneObjets));
+        donjon.acteursProperty().addListener(new ObservateurActeurs(paneMap));
+        donjon.getProjectiles().addListener(new ObservateurProjectiles(paneMap));
+        donjon.getProjectiles().addListener(new ObservateurProjectiles(paneMap));
+        donjon.creationDonjon();
+        donjon.heroEnv().pvProperty().addListener(new ObservateurCoeurs(paneCoeurs,new CoeursVue(paneCoeurs)));
+        donjon.heroEnv().getInventaire().addListener(new ObservateurObjets(hboxInventaire));
+        MapVue donjonVue = new MapVue(donjon.getMap().getTabNum(), tilePaneDecors);
+        donjonVue.creerSprite();
     }
 
     @FXML
     public void interaction(KeyEvent event) {
         KeyCode key = event.getCode();
-        Hero p = v.heroEnv();
-        System.out.println(p);
+        Hero p = donjon.heroEnv();
         Objet ob;
-        switch (key) {
-            case Z:
-            case UP:
-                p.setDirection("up");
-                p.setDx(0);
-                p.setDy(-1);
-                p.deplacement();
-                System.out.println("HAUT - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
-                break;
-            case S:
-            case DOWN:
-                p.setDirection("down");
-                p.setDx(0);
-                p.setDy(1);
-                p.deplacement();
-                System.out.println("BAS - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
-                break;
-            case D:
-            case RIGHT:
-                p.setDirection("right");
-                p.setDx(1);
-                p.setDy(0);
-                p.deplacement();
-                System.out.println("DROITE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
-                break;
-            case Q:
-            case LEFT:
-                p.setDirection("left");
-                p.setDx(-1);
-                p.setDy(0);
-                p.deplacement();
-                System.out.println("GAUGHE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
-                break;
-            case E:
-                p.recuperer();
-                break;
-            case K:
-                if (!p.getInventaire().isEmpty()) {
-                    ob = p.getInventaire().get(0);
-                    p.deposer(ob);
-                    System.out.println("Objet déposé !");
-                }
-                else
-                    System.out.println("Inventaire vide");
-                break;
-            case M:
-                p.guerison();
-                break;
-            case J:
-                p.attaquer();
-                break;
-            case DIGIT1:
-                p.selectionObjet(0);
-                break;
-            case DIGIT2:
-                p.selectionObjet(1);
-                break;
-            case DIGIT3:
-                p.selectionObjet(2);
-                break;
-            case DIGIT4:
-                p.selectionObjet(3);
-                break;
-            case DIGIT5:
-                p.selectionObjet(4);
-                break;
-            case A:
-                if(p.estProcheDePaysan(v.paysansQuiParle(),80)){
-                    v.paysansQuiParle().parler();
-                }
-                if(p.estProcheDeVendeur(v.obtenirVendeur(),80)){
-                    v.obtenirVendeur().proposerObjet(p);
-                }
-                break;
-            case T:
+        if(p!=null){
+            switch (key) {
+                case Z:
+                case UP:
+                    p.setDirection("up");
+                    p.setDx(0);
+                    p.setDy(-1);
+                    p.deplacement();
+                    System.out.println("HAUT - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
+                    break;
+                case S:
+                case DOWN:
+                    p.setDirection("down");
+                    p.setDx(0);
+                    p.setDy(1);
+                    p.deplacement();
+                    System.out.println("BAS - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
+                    break;
+                case D:
+                case RIGHT:
+                    p.setDirection("right");
+                    p.setDx(1);
+                    p.setDy(0);
+                    p.deplacement();
+                    System.out.println("DROITE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
+                    break;
+                case Q:
+                case LEFT:
+                    p.setDirection("left");
+                    p.setDx(-1);
+                    p.setDy(0);
+                    p.deplacement();
+                    System.out.println("GAUGHE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
+                    break;
+                case E:
+                    p.recuperer();
+                    break;
+                case K:
+                    if (!p.getInventaire().isEmpty()) {
+                        ob = p.getInventaire().get(0);
+                        p.deposer(ob);
+                        System.out.println("Objet déposé !");
+                    }
+                    else
+                        System.out.println("Inventaire vide");
+                    break;
+                case M:
+                    p.guerison();
+                    break;
+                case J:
+                    p.attaquer();
+                    break;
+                case DIGIT1:
+                    p.selectionObjet(0);
+                    break;
+                case DIGIT2:
+                    p.selectionObjet(1);
+                    break;
+                case DIGIT3:
+                    p.selectionObjet(2);
+                    break;
+                case DIGIT4:
+                    p.selectionObjet(3);
+                    break;
+                case DIGIT5:
+                    p.selectionObjet(4);
+                    break;
+                case A:
+                    if(p.estProcheDePaysan(v.paysansQuiParle(),80)){
+                        v.paysansQuiParle().parler();
+                    }
+                    if(p.estProcheDeVendeur(v.obtenirVendeur(),80)){
+                        v.obtenirVendeur().proposerObjet(p);
+                    }
+                    break;
+                case T:
 
-                break;
+                    break;
+            }
         }
+
     }
 
     @FXML
@@ -158,7 +189,7 @@ public class Controleur implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
-                    v.toutLeMondeBouge();
+                    donjon.toutLeMondeBouge();
 //                    if(temps==100){
 //                        System.out.println("fini");
 //                        gameLoop.stop();

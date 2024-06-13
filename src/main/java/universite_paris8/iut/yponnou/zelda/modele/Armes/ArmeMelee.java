@@ -12,5 +12,9 @@ public class ArmeMelee extends Arme{
     public int getPtsDegats() {
         return ptsDegats;
     }
+
+    public void setPtsDegats(int ptsDegats) {
+        this.ptsDegats = ptsDegats;
+    }
 }
 
