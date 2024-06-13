@@ -384,5 +384,5 @@ public class MapVue {
     public void setMap(int[][] newMap) {
         this.tabNum = newMap;
         creerSprite();
-    }
+    }//test
 }
