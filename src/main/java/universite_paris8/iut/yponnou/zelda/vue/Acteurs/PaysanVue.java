@@ -6,13 +6,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysan;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysans;
 
-public class PaysanVue extends ActeurVue{
+public class PaysansVue extends ActeurVue{
 
     private final Image paysansImage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/acteurs/paysans.gif");
-    public PaysanVue(Acteur actVue, Pane pane) {
+    public PaysansVue(Acteur actVue, Pane pane) {
         super(actVue, pane);
     }
 
@@ -28,7 +28,7 @@ public class PaysanVue extends ActeurVue{
     @Override
     public void creerSprite() {
         ImageView imageView;
-        if (getActeur() instanceof Paysan)
+        if (getActeur() instanceof Paysans)
             imageView = new ImageView(paysansImage);
         /*else if (acteur instanceof Npc) {
             imageView = new ImageView(NPC);
@@ -47,7 +47,7 @@ public class PaysanVue extends ActeurVue{
     }
 
     @Override
-    public void upgradeSprite(Acteur a ,boolean touche) {
+    public void upgradeSprite(Acteur a , boolean touche) {
         ImageView imageView;
 
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));

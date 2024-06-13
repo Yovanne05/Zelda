@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 
 
 public class HeroVue extends ActeurVue{
@@ -58,10 +58,8 @@ public class HeroVue extends ActeurVue{
 
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
 
-        if (getActeur() instanceof Hero)
             imageView = new ImageView(getHeroImage(getActeur().getDirection()));
-        else
-            throw new IllegalArgumentException("Acteur non supporté");
+
 //        return imageView;
         imageView.setFitWidth(Constante.TAILLE50);
         imageView.setFitHeight(Constante.TAILLE50);
