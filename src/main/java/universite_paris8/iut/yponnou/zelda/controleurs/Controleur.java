@@ -11,9 +11,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Village;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
@@ -23,15 +23,9 @@ import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
 
-    private Hero perso;
-    private Garde g;
-
     private Timeline gameLoop;
     private int temps;
-
     private boolean touche;
-    private Map mapActuelle;
-
     @FXML
     private Pane paneMap;
     @FXML
@@ -46,9 +40,10 @@ public class Controleur implements Initializable {
     private HBox hboxVueInventaire;
 
     private Village v;
-
+    private Village v2;
     private HeroVue heroVue;
-
+    private Map mapActuelle;
+    private Environnement currentEnvironment;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,6 +51,8 @@ public class Controleur implements Initializable {
         gameLoop.play();
         mapActuelle = new Map(30, 30);
         v = new Village(mapActuelle,tilePaneDecors, paneObjets, paneMap, paneCoeurs, hboxInventaire,heroVue);
+        currentEnvironment=v;
+
 //        map.initialisationMap();
 //        Environnement environnement = new Environnement(map);
 //        MapVue tileMap = new MapVue(map.getTabNum(), tilePaneDecors);
@@ -172,17 +169,17 @@ public class Controleur implements Initializable {
             case A:
                 v.paysansQuiParle().parler();
                 break;
-           /* case X:
-                paneMap.getChildren().clear();
+            case X:
                 mapActuelle.initialisationMap2();
-                v.setMap(v.getMap());
-                break;*/
+                v2=new Village(mapActuelle,tilePaneDecors, paneObjets, paneMap, paneCoeurs, hboxInventaire,heroVue);
+                changeEnvironment(v2);
+                break;
         }
     }
     @FXML
     private void toucheLacher(){
         System.out.println("La touche est lachée");
-        this.touche=false;
+        boolean touche = false;
         v.getHeroVue().upgradeSprite(v.heroEnv(),touche);
     }
 
@@ -216,9 +213,7 @@ public class Controleur implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
-
     private void adjustCamera() {
-        //camera
         double targetScale = 1.0; // Ajustez selon vos besoins
         double mapWidth = mapActuelle.getLargeur() * tilePaneDecors.getTileWidth();
         double mapHeight = mapActuelle.getHauteur() * tilePaneDecors.getTileHeight();
@@ -245,17 +240,16 @@ public class Controleur implements Initializable {
         paneMap.setScaleY(targetScale);
 
         // Translation de hboxInventaire et paneCoeurs pour qu'ils bougent avec le héros
-        hboxInventaire.translateXProperty().bind(
-                paneMap.translateXProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
-        );
-        hboxInventaire.translateYProperty().bind(
-                paneMap.translateYProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
-        );
-        // Translation de hboxInventaire et paneCoeurs pour qu'ils bougent avec le héros
         hboxVueInventaire.translateXProperty().bind(
                 paneMap.translateXProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
         );
         hboxVueInventaire.translateYProperty().bind(
+                paneMap.translateYProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        );
+        hboxInventaire.translateXProperty().bind(
+                paneMap.translateXProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        );
+        hboxInventaire.translateYProperty().bind(
                 paneMap.translateYProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
         );
 
@@ -265,6 +259,26 @@ public class Controleur implements Initializable {
         paneCoeurs.translateYProperty().bind(
                 paneMap.translateYProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
         );
+    }
+    //test
+
+
+    private void changeEnvironment(Environnement newEnv) {
+        // Incrémenter l'index de l'environnement actuel pour passer au suivant
+
+        System.out.println("Changement d'environnement vers : " + currentEnvironment);
+        suprEnvironment();
+        currentEnvironment = newEnv;
+    }
+
+    private void suprEnvironment() {
+        // Effacer l'environnement actuel
+        paneMap.getChildren().clear();
+        paneObjets.getChildren().clear();
+        tilePaneDecors.getChildren().clear();
+
+
+
     }
 
 
