@@ -6,10 +6,11 @@ import javafx.scene.layout.HBox;
 import universite_paris8.iut.yponnou.zelda.modele.Aliments.Pomme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Clef;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 import universite_paris8.iut.yponnou.zelda.vue.Armes.ArcVue;
 import universite_paris8.iut.yponnou.zelda.vue.Armes.EpeeVue;
-import universite_paris8.iut.yponnou.zelda.vue.ObjetVue;
+import universite_paris8.iut.yponnou.zelda.vue.ClefVue;
 import universite_paris8.iut.yponnou.zelda.vue.Nourritures.PommeVue;
 
 public class ObservateurInventaire extends ObservateurObjets {
@@ -23,7 +24,12 @@ public class ObservateurInventaire extends ObservateurObjets {
         Node node;
         while (change.next()) {
             for (Objet ob : change.getAddedSubList()) {
-                if (ob instanceof Pomme) {
+                if (ob instanceof Clef) {
+                    ClefVue clefVue = new ClefVue(ob, getPane());
+                    clefVue.creerSprite();
+                    clefVue.resizeImage();
+                }
+                else if (ob instanceof Pomme) {
                     PommeVue pommeVue = new PommeVue((Pomme) ob, getPane());
                     pommeVue.creerSprite();
                     pommeVue.resizeImage();

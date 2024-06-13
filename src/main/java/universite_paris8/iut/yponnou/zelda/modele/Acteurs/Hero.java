@@ -10,6 +10,7 @@ import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeDistance;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.Aliments.Nourriture;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Clef;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
 public class Hero extends Guerrier {
@@ -56,6 +57,16 @@ public class Hero extends Guerrier {
         return null;
     }
 
+    // méthode qui renvoie un objet Arme si l'inventaire du héro en possède.
+    public Arme possedeArme(){
+        for (Objet objet : inventaire) {
+            if (objet instanceof Arme) {
+                return (Arme) objet;
+            }
+        }
+        return null;
+    }
+
     public boolean pleineSante(){
         return getPv() == 100;
     }
@@ -88,7 +99,7 @@ public class Hero extends Guerrier {
     // méthode qui renvoie vrai si un objet se trouve à portée du hero
     private boolean verifObjetsAutour(Objet obj){
         {
-            if (obj instanceof Nourriture) {
+            if (obj instanceof Nourriture || obj instanceof Clef) {
                 return (this.getPosition().getY() - Constante.TAILLE16 <= obj.getPosition().getY() && obj.getPosition().getY() <= getPosition().getY() + Constante.TAILLE50
                         && this.getPosition().getX() - Constante.TAILLE16 <= obj.getPosition().getX() && obj.getPosition().getX() <= getPosition().getX() + Constante.TAILLE50);
             } else {
@@ -107,7 +118,7 @@ public class Hero extends Guerrier {
         Rectangle hitbox;
         do {
             do {
-                if (objet instanceof Nourriture) {
+                if (objet instanceof Nourriture || objet instanceof Clef) {
                     objetX = (int) (Math.random() * getPosition().getX() + Constante.TAILLE50 + Constante.TAILLE16 + 1) - Constante.TAILLE16;
                     objetY = (int) (Math.random() * getPosition().getY() + Constante.TAILLE50 + Constante.TAILLE16 + 1) - Constante.TAILLE16;
                 }
@@ -122,7 +133,10 @@ public class Hero extends Guerrier {
         objet.getPosition().setY(objetY);
         inventaire.remove(objet);
         if (objet instanceof Arme){
-            setArme(null);
+            if (this.possedeArme() == null)
+                setArme(null);
+            else
+                setArme(this.possedeArme());
         }
         objet.getPosition().getEnv().ajouterObjet(objet);
     }
@@ -133,7 +147,7 @@ public class Hero extends Guerrier {
         int longueurMin;
         int longueurMax = Constante.TAILLE32;
 
-        if (objet instanceof Nourriture)
+        if (objet instanceof Nourriture || objet instanceof Clef)
             longueurMin = Constante.TAILLE16;
         else // l'objet est une arme
             longueurMin = Constante.TAILLE32;
@@ -163,15 +177,17 @@ public class Hero extends Guerrier {
             ((ArmeDistance) this.getArme()).setProjectile(f);
             System.out.println("j'attaque");
             this.getArme().utiliser();
-
-        }else if(e!=null){
-            e.seFaitAttaquer(this.getArme().utiliser());
-            if(e.getPv()==0){
-                getPosition().getEnv().getActeurs().removeIf(a -> e.getId().equals(a.getId()));
-            }
         }
-        else
-            System.out.println("Vous n'avez plus d'arme");
+        if(e!=null){
+            if (getArme() != null){
+                e.seFaitAttaquer(this.getArme().utiliser());
+                if(e.getPv()==0){
+                    getPosition().getEnv().getActeurs().removeIf(a -> e.getId().equals(a.getId()));
+                }
+            }
+            else
+                System.out.println("Vous n'avez pas d'arme !");
+        }
     }
 
 

@@ -14,6 +14,7 @@ import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.Aliments.Pomme;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Clef;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 import universite_paris8.iut.yponnou.zelda.vue.Pv.BarreDeVieVue;
@@ -48,6 +49,7 @@ public class Village extends Environnement {
 
         ArcArme a =new ArcArme(400, 400,null,this);
         Epee e= new Epee(400,500,this);
+        Clef c = new Clef("Porte1",500,1000,this);
 
         hero=new Hero(400,400,this,0,0,a);
         garde=new Garde(400,500,0.03,this,0,1,e);
@@ -80,6 +82,7 @@ public class Village extends Environnement {
         this.ajouterObjet(objet4);
         this.ajouterObjet(objet5);
         this.ajouterObjet(objet6);
+        this.ajouterObjet(c);
         this.ajouterActeur(hero);
         this.ajouterActeur(paysans);
 

@@ -237,8 +237,12 @@ public class Controleur implements Initializable {
         );
         hboxVueInventaire.translateYProperty().bind(
                 paneMap.translateYProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        ); hboxInventaire.translateXProperty().bind(
+                paneMap.translateXProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
         );
-
+        hboxInventaire.translateYProperty().bind(
+                paneMap.translateYProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        );
         paneCoeurs.translateXProperty().bind(
                 paneMap.translateXProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
         );

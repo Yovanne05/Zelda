@@ -6,7 +6,7 @@ public class Clef extends Objet {
 
     public Clef(String id,double x, double y, Environnement environnement) {
         super(x, y, environnement);
-        setId("Clef".concat(id));
+        setId("Clef-".concat(id));
     }
 
     @Override
