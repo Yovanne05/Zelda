@@ -8,7 +8,7 @@ import universite_paris8.iut.yponnou.zelda.controleurs.*;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysans;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysan;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
@@ -24,7 +24,7 @@ public class Village extends Environnement {
     private TilePane tilePaneDecors;
     private Hero hero;
     private Garde garde;
-    private Paysans paysans;
+    private Paysan paysans;
     private Pane paneObjets;
     private Pane paneMap;
     private Pane paneCoeurs;
@@ -49,9 +49,9 @@ public class Village extends Environnement {
         ArcArme a =new ArcArme(400, 400,null,this);
         Epee e= new Epee(400,500,this);
 
-        hero=new Hero(150,800,this,0,0,a);
+        hero=new Hero(300,500,this,0,0,a);
         garde=new Garde(400,500,0.03,this,0,1,e);
-        paysans = new Paysans(800, 400, 120, this, 0, 1);
+        paysans = new Paysan(800, 400, 120, this, 0, 1);
 
 
 

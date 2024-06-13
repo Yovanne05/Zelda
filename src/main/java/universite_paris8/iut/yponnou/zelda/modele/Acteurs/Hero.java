@@ -134,7 +134,7 @@ public class Hero extends Guerrier {
         return null;
     }
 
-    private boolean verifPaysansAutour(Paysans p){
+    private boolean verifPaysansAutour(Paysan p){
         return (this.getPosition().getY()-Constante.TAILLE50<= p.getPosition().getY() && p.getPosition().getY() <= getPosition().getY()+Constante.TAILLE50
                 && this.getPosition().getX()-Constante.TAILLE50<= p.getPosition().getX() && p.getPosition().getX() <= getPosition().getX()+Constante.TAILLE50);
     }
