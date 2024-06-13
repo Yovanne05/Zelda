@@ -12,15 +12,15 @@ import static universite_paris8.iut.yponnou.zelda.Constante.TAILLECASEY;
 
 public abstract class Ennemi extends Guerrier {
 
-    private int cpt = 0;
+    private long derniereAttaque;
 
     public Ennemi(String nom, double x, double y, int pv, double vitesse, Environnement environnement, int dx, int dy, Arme arme) {
         super(nom, x, y, pv, vitesse, environnement, dx, dy, arme);
+        this.derniereAttaque = 0;
     }
 
-    public Hero verifHeroProx() {
+    public Hero verifHeroProx(double dist) {
         for (Acteur a : this.getPosition().getEnv().getLstActeurs()) {
-            double dist = 80;
             if ((Math.abs(getPosition().getX() - a.getPosition().getX()) <= dist && Math.abs(getPosition().getY() - a.getPosition().getY()) <= dist)) {
                 if (a instanceof Hero) {
                     return (Hero) a;
@@ -28,6 +28,14 @@ public abstract class Ennemi extends Guerrier {
             }
         }
         return null;
+    }
+
+    public long getDerniereAttaque() {
+        return derniereAttaque;
+    }
+
+    public void setDerniereAttaque(long derniereAttaque) {
+        this.derniereAttaque = derniereAttaque;
     }
 
     public abstract void deplacementEnnemi();

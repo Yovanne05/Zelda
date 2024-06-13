@@ -37,6 +37,7 @@ public class Acteur {
         hitbox.yProperty().bind(this.getPosition().yProperty());
     }
 
+
     public int getDx() {
         return dx;
     }
@@ -101,6 +102,32 @@ public class Acteur {
         }
     }
 
+    public void deplacerVers(double cibleX, double cibleY) {
+        // diff X et Y entre pos actuelle acteur et pos cible
+        double diffX = cibleX - this.getPosition().getX();
+        double diffY = cibleY - this.getPosition().getY();
+
+        //Pythagore pour la distance
+        double distance = Math.sqrt(diffX * diffX + diffY * diffY);
+
+        if (distance > 0) {
+            // vecteur directionnel (directionX, directionY) de longueur 1
+            double directionX = diffX / distance;
+            double directionY = diffY / distance;
+
+            // Nouvelle pos
+            double prochainX = this.getPosition().getX() + directionX * this.getVitesse() * Constante.TAILLECASEX;
+            double prochainY = this.getPosition().getY() + directionY * this.getVitesse() * Constante.TAILLECASEY;
+
+            Rectangle futureHitbox = new Rectangle(prochainX, prochainY, Constante.TAILLECASEX, Constante.TAILLECASEY);
+
+            if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
+                this.setX(prochainX);
+                this.setY(prochainY);
+            }
+        }
+    }
+
 
     public void setDx(int dx) {
         this.dx = dx;
@@ -136,7 +163,7 @@ public class Acteur {
     }
 
 
-    private boolean collisionAvecActeur(Rectangle futureHitbox) {
+    public boolean collisionAvecActeur(Rectangle futureHitbox) {
         for (Acteur acteur : getPosition().getEnv().acteursProperty()) {
             Rectangle ennemiHitbox = acteur.getHitbox();
             //getBoundsInParent  retourne un objet de type Bounds représentant les coordonnées du rectangle

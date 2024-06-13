@@ -1,5 +1,6 @@
 package universite_paris8.iut.yponnou.zelda.modele;
 
+import javafx.collections.ObservableList;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
@@ -41,14 +42,11 @@ public class Village extends Environnement{
         hero=new Hero(830,510,this,0,0,null);
         vendeur = new Vendeur(1400, 500, this, 0, 0);
         paysan = new Paysan(310,320,this,0,0);
+
         this.ajouterActeur(vendeur);
         this.ajouterActeur(paysan);
         this.ajouterActeur(hero);
     }
-
-//    public Hero heroEnv(){
-//        return hero;
-//    }
 
     // Méthode pour vérifier si le temps écoulé dépasse l'intervalle de génération
     private boolean tempsPourGenerer() {
@@ -77,9 +75,10 @@ public class Village extends Environnement{
 
     @Override
     public void toutLeMondeBouge() {
-        for (Acteur a : this.getActeurs()) {
-            if (a instanceof Ennemi) {
-                ((Ennemi) a).deplacementEnnemi();
+        ObservableList<Acteur> lsta= this.getActeurs();
+        for (int i=0;i<lsta.size();i++) {
+            if (lsta.get(i) instanceof Ennemi) {
+                ((Ennemi) lsta.get(i)).deplacementEnnemi();
             }
         }
         for (int i = 0; i < this.getProjectiles().size(); i++) {

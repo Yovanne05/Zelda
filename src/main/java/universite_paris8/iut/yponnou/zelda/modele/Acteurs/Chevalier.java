@@ -5,31 +5,38 @@ import universite_paris8.iut.yponnou.zelda.modele.Environnement;
 
 public class Chevalier extends Ennemi{
 
-    private int stepCounter = 0;
-    private int maxSteps = 300; // Nombre de pas avant de changer de direction
+    private int cptPas = 0;
+    private int maxPas = 300; // Nombre de pas avant de changer de direction
+
     public Chevalier(double x, double y, Environnement environnement, int dx, int dy, ArmeMelee arme) {
         super("Chevalier", x, y, 250, 0.03, environnement, dx, dy, arme);
     }
     @Override
     public void attaquer() {
-        Hero hero = verifHeroProx();
-        hero.seFaitAttquer(((ArmeMelee)this.getArme()).getPtsDegats());
+        long tempsActuel = System.currentTimeMillis();
+        if (tempsActuel - this.getDerniereAttaque() >= 250) {
+            Hero hero = verifHeroProx(80);
+            if (hero != null) {
+                hero.seFaitAttquer(((ArmeMelee) this.getArme()).getPtsDegats());
+                this.setDerniereAttaque(tempsActuel);
+            }
+        }
     }
     @Override
     public void deplacementEnnemi() {
-        Hero hero = verifHeroProx();
+        Hero hero = verifHeroProx(80);
         if (hero != null) {
             attaquer();
             return;
         }
 
         // Déplacement en allers-retours
-        stepCounter++;
-        if (stepCounter >= maxSteps) {
+        cptPas++;
+        if (cptPas >= maxPas) {
             // Change direction
             setDx(-getDx());
             setDy(-getDy());
-            stepCounter = 0;
+            cptPas = 0;
         }
 
         // Effectuer le déplacement
