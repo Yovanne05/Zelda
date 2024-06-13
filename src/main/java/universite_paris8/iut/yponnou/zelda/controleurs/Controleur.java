@@ -15,6 +15,7 @@ import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 import universite_paris8.iut.yponnou.zelda.modele.Village;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
+import universite_paris8.iut.yponnou.zelda.vue.Pv.CoeursVue;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,8 +44,16 @@ public class Controleur implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initAnimation();
         gameLoop.play();
-        Map map = new Map(30, 30);
-        v = new Village(map,tilePaneDecors, paneObjets, paneMap, paneCoeurs, hboxInventaire);
+
+        v = new Village();
+        v.objetsProperty().addListener(new ObservateurObjets(paneObjets));
+        v.acteursProperty().addListener(new ObservateurActeurs(paneMap));
+        v.getProjectiles().addListener(new ObservateurProjectiles(paneMap));
+        v.creationVillage();
+        v.heroEnv().pvProperty().addListener(new ObservateurCoeurs(paneCoeurs,new CoeursVue(paneCoeurs)));
+        v.heroEnv().getInventaire().addListener(new ObservateurObjets(hboxInventaire));
+        MapVue villageVue = new MapVue(v.getMap().getTabNum(), tilePaneDecors);
+        villageVue.creerSprite();
     }
 
     @FXML

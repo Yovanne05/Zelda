@@ -23,65 +23,32 @@ import java.util.Queue;
 public class Village extends Environnement{
     private static int cpt=0;
     private Hero hero;
-    private Garde garde;
     private Paysan paysan;
-    private Chevalier chevalier;
-    private Boss boss;
     private Vendeur vendeur;
     private ArrayList<Garde> gardes;
 
     private long dernierTempsGeneration; // Variable pour suivre le dernier temps de génération de garde
     private final long intervalleGeneration = 10 * 1000; // Intervalle de génération en millisecondes
 
-    public Village(Map map, TilePane tilePaneDecors, Pane paneObjets, Pane paneMap, Pane paneCoeurs, HBox hboxInventaire) {
-        super(map, tilePaneDecors, paneObjets, paneMap, paneCoeurs, hboxInventaire);
-        this.creationVillage();
+    public Village() {
+        super(new Map(30, 30));
         gardes=new ArrayList<>();
         this.dernierTempsGeneration = System.currentTimeMillis();
     }
 
     public void creationVillage(){
-        MapVue tileMap = new MapVue(getMap().getTabNum(), getTilePaneDecors());
 
-        ArcArme a =new ArcArme(400, 400,null,this);
-        Epee e= new Epee(400,500,this);
-
-        hero=new Hero(400,400,this,0,0,a);
-        chevalier=new Chevalier(400,500,this,1,0,e);
-        vendeur = new Vendeur(800, 400, this, 0, 0);
-
-        Pomme objet1 = new Pomme(605, 500, this);
-        Pomme objet2 = new Pomme(700, 500, this);
-        Pomme objet3 = new Pomme(700, 400, this);
-        Pomme objet4 = new Pomme(750, 400, this);
-        Pomme objet5 = new Pomme(820, 400, this);
-        Pomme objet6 = new Pomme(820, 400, this);
-
-        ObservateurActeurs obsActeurs = new ObservateurActeurs(getPaneMap());
-        this.objetsProperty().addListener(new ObservateurObjets(getPaneObjets()));
-        this.acteursProperty().addListener(obsActeurs);
-        this.getProjectiles().addListener(new ObservateurProjectiles(getPaneMap()));
-
-        hero.pvProperty().addListener(new ObservateurCoeurs(getPaneCoeurs(),new CoeursVue(getPaneCoeurs())));
-        hero.getInventaire().addListener(new ObservateurObjets(getHboxInventaire()));
-//        chevalier.pvProperty().addListener(new ObservateurBarreDeVie(chevalier,getPaneMap(), new BarreDeVieVue(chevalier,getPaneMap())));
-
+        hero=new Hero(830,510,this,0,0,null);
+        vendeur = new Vendeur(1400, 500, this, 0, 0);
+        paysan = new Paysan(310,320,this,0,0);
         this.ajouterActeur(vendeur);
-        this.ajouterActeur(chevalier);
-        this.ajouterObjet(objet1);
-        this.ajouterObjet(objet2);
-        this.ajouterObjet(objet3);
-        this.ajouterObjet(objet4);
-        this.ajouterObjet(objet5);
-        this.ajouterObjet(objet6);
+        this.ajouterActeur(paysan);
         this.ajouterActeur(hero);
-
-        tileMap.creerSprite();
     }
 
-    public Hero heroEnv(){
-        return hero;
-    }
+//    public Hero heroEnv(){
+//        return hero;
+//    }
 
     // Méthode pour vérifier si le temps écoulé dépasse l'intervalle de génération
     private boolean tempsPourGenerer() {
