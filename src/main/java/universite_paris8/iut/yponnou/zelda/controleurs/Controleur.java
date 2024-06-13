@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
@@ -39,10 +40,10 @@ public class Controleur implements Initializable {
     private HBox hboxVueInventaire;
 
     private Village v;
-
+    private Village v2;
     private HeroVue heroVue;
     private Map mapActuelle;
-
+    private Environnement currentEnvironment;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,6 +51,8 @@ public class Controleur implements Initializable {
         gameLoop.play();
         mapActuelle = new Map(30, 30);
         v = new Village(mapActuelle,tilePaneDecors, paneObjets, paneMap, paneCoeurs, hboxInventaire,heroVue);
+        currentEnvironment=v;
+
 //        map.initialisationMap();
 //        Environnement environnement = new Environnement(map);
 //        MapVue tileMap = new MapVue(map.getTabNum(), tilePaneDecors);
@@ -166,6 +169,11 @@ public class Controleur implements Initializable {
             case A:
                 v.paysansQuiParle().parler();
                 break;
+            case X:
+                mapActuelle.initialisationMap2();
+                v2=new Village(mapActuelle,tilePaneDecors, paneObjets, paneMap, paneCoeurs, hboxInventaire,heroVue);
+                changeEnvironment(v2);
+                break;
         }
     }
     @FXML
@@ -253,6 +261,25 @@ public class Controleur implements Initializable {
         );
     }
     //test
+
+
+    private void changeEnvironment(Environnement newEnv) {
+        // Incrémenter l'index de l'environnement actuel pour passer au suivant
+
+        System.out.println("Changement d'environnement vers : " + currentEnvironment);
+        suprEnvironment();
+        currentEnvironment = newEnv;
+    }
+
+    private void suprEnvironment() {
+        // Effacer l'environnement actuel
+        paneMap.getChildren().clear();
+        paneObjets.getChildren().clear();
+        tilePaneDecors.getChildren().clear();
+
+
+
+    }
 
 
 

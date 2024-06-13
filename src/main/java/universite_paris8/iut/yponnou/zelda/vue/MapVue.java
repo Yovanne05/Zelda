@@ -68,6 +68,16 @@ public class MapVue {
     private final Image mossyBrick2;
     private final Image mossyCobble;
     private final Image floor_castle;
+    private final Image cube_brick;
+    private final Image cobblestone;
+    private final Image dungeonDoor00;
+    private final Image dungeonDoor01;
+    private final Image dungeonDoor02;
+    private final Image dungeonDoor03;
+    private final Image dungeonDoor04;
+    private final Image brick_stairs;
+    private final Image brick_stairsL;
+    private final Image brick_stairsR;
     /////LABURYNTH
     private final Image wall_LabLB;
     private final Image wall_LabBR;
@@ -149,8 +159,21 @@ public class MapVue {
         ///BRICKS
         mossyBrick1 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/mossyBrick.PNG");
         mossyBrick2 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/mossyBrick2.PNG");
+
         mossyCobble = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/mossyCobble.PNG");
         floor_castle = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/floor_castle.gif");
+        cube_brick= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/cube_brick.png");
+        cobblestone =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/cobblestone.png");
+        dungeonDoor00 =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/dungeonDoor00.jpg");
+        dungeonDoor01 =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/dungeonDoor01.jpg");
+        dungeonDoor02 =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/dungeonDoor02.jpg");
+        dungeonDoor03 =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/dungeonDoor03.jpg");
+        dungeonDoor04 =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/dungeonDoor04.jpg");
+        brick_stairs = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/staires.PNG");
+        brick_stairsL =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/stairesL.PNG");
+        brick_stairsR =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/bricks/stairesR.PNG");
+
+
 /////LABURYNTH
         wall_LabLB= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/labyrinth/wall_LabLB.gif");
         wall_LabBR= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/textures/labyrinth/wall_LabBR.gif");
@@ -257,6 +280,26 @@ public class MapVue {
                     imageView = new ImageView(mossyBrick2);
                 }else if (tab[y][x] == 73) {
                     imageView = new ImageView(mossyCobble);
+                }else if (tab[y][x] == 74) {
+                    imageView = new ImageView(cube_brick);
+                }else if (tab[y][x] == 15) {
+                    imageView = new ImageView(brick_stairs);
+                }else if (tab[y][x] == 16) {
+                    imageView = new ImageView(cobblestone);
+                }else if (tab[y][x] == 17) {
+                    imageView = new ImageView(brick_stairsL);
+                }else if (tab[y][x] == 18) {
+                    imageView = new ImageView(brick_stairsR);
+                }else if (tab[y][x] == 75) {
+                    imageView = new ImageView(dungeonDoor00);
+                }else if (tab[y][x] == 76) {
+                    imageView = new ImageView(dungeonDoor01);
+                }else if (tab[y][x] == 77) {
+                    imageView = new ImageView(dungeonDoor02);
+                }else if (tab[y][x] == 78) {
+                    imageView = new ImageView(dungeonDoor03);
+                }else if (tab[y][x] == 79) {
+                    imageView = new ImageView(dungeonDoor04);
                 }
 //HOUSE
                 else if (tab[y][x] == 51) {
@@ -292,7 +335,8 @@ public class MapVue {
                 }else if (tab[y][x] == 66) {
                     imageView = new ImageView(house16);
                 }
-                ///////////////
+                ///////////////Labirynth
+
                 else if (tab[y][x] == 100) {
                     imageView = new ImageView(wall_LabLB);
                 }else if (tab[y][x] == 101) {
@@ -323,7 +367,6 @@ public class MapVue {
                 }else if (tab[y][x] == 114) {
                     imageView = new ImageView(wall_LabM_L);
                 }
-
                 else {
                     continue; // Ignore other valuesz
                 }
@@ -340,5 +383,6 @@ public class MapVue {
 
     public void setMap(int[][] newMap) {
         this.tabNum = newMap;
+        creerSprite();
     }
 }

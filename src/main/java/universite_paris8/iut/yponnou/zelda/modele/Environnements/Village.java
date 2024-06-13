@@ -31,10 +31,11 @@ public class Village extends Environnement {
     private Pane paneCoeurs;
     private HBox hboxInventaire;
     private HeroVue heroVue;
+    private int environmentIndex;
 
     public Village(Map map, TilePane tilePaneDecors, Pane paneObjets, Pane paneMap, Pane paneCoeurs, HBox hboxInventaire, HeroVue heroVue) {
         super(map);
-        map.initialisationMap1();
+        map.initialisationMap3();
         this.tilePaneDecors=tilePaneDecors;
         this.paneObjets=paneObjets;
         this.paneMap=paneMap;
@@ -42,6 +43,14 @@ public class Village extends Environnement {
         this.hboxInventaire=hboxInventaire;
         this.heroVue=heroVue;
         this.creationVillage();
+        this.environmentIndex=0;
+    }
+
+    public int getEnvironmentIndex() {
+        return environmentIndex;
+    }
+    public void setEnvironmentIndex(int index) {
+        this.environmentIndex=index;
     }
 
     public void creationVillage(){
@@ -50,7 +59,7 @@ public class Village extends Environnement {
         ArcArme a =new ArcArme(400, 400,null,this);
         Epee e= new Epee(400,500,this);
 
-        hero=new Hero(400,400,this,0,0,a);
+        hero=new Hero(150,650,this,0,0,a);
         garde=new Garde(400,500,0.03,this,0,1,e);
         paysans = new Paysan(800, 400, 120, this, 0, 1);
 
