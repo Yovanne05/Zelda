@@ -228,7 +228,7 @@ public class Controleur implements Initializable {
         }
 
     }
-
+    //test
     @FXML
     private void toucheLacher() {
         boolean touche = false;
