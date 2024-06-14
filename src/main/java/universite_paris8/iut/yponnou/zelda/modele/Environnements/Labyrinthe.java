@@ -1,10 +1,12 @@
 package universite_paris8.iut.yponnou.zelda.modele.Environnements;
 
 
+import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie.ObservateurBarreDeVie;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
+import universite_paris8.iut.yponnou.zelda.vue.Pv.BarreDeVieVue;
 
 
 public class Labyrinthe extends Environnement{
@@ -16,6 +18,7 @@ public class Labyrinthe extends Environnement{
 
     @Override
     public void creationEnvironnement(){
+        System.out.println("Labyrinthe");
         getHero().getPosition().setX(200);
         getHero().getPosition().setY(510);
         getHero().getPosition().setEnv(this);
@@ -43,5 +46,4 @@ public class Labyrinthe extends Environnement{
         this.ajouterActeur(g7);
         this.ajouterActeur(g8);
     }
-
 }

@@ -2,10 +2,12 @@ package universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
+import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie.ObservateurBarreDeVie;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.*;
 import universite_paris8.iut.yponnou.zelda.vue.Armes.FlecheVue;
+import universite_paris8.iut.yponnou.zelda.vue.Pv.BarreDeVieVue;
 
 public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
@@ -23,22 +25,29 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
                 if (a instanceof Hero){
                     actVue = new HeroVue(a,pane);
                 }
-                else if(a instanceof Garde){
-                    actVue = new GardeVue(a,pane);
-                } else if (a instanceof Paysan) {
+                else if (a instanceof Ennemi){
+                    if(a instanceof Garde){
+                        actVue = new GardeVue(a,pane);
+                    } else if (a instanceof Chevalier) {
+                        actVue = new ChevalierVue(a,pane);
+                    }else if(a instanceof Boss){
+                        actVue = new BossVue(a,pane);
+                    }
+                    a.pvProperty().addListener(new ObservateurBarreDeVie((Ennemi)a,pane,new BarreDeVieVue((Ennemi)a,pane)));
+                }
+                else if (a instanceof Paysan) {
                     actVue = new PaysanVue(a,pane);
-                } else if (a instanceof Chevalier) {
-                    actVue = new ChevalierVue(a,pane);
-                }else if(a instanceof Boss){
-                    actVue = new BossVue(a,pane);
-                }else if (a instanceof Vendeur){
+                }
+                else if (a instanceof Vendeur){
                     actVue = new VendeurVue(a,pane);
                 }
                 else if (a instanceof Fleche){
                     actVue = new FlecheVue((Fleche)a,pane);
                 }
+                assert actVue != null;
                 actVue.creerSprite();
-            }
+
+                }
             for (Acteur a : change.getRemoved()) {
                 for (int i = 0; i < pane.getChildren().size(); i++) {
                     System.out.println(this.pane.lookup("#"+a.getId()));

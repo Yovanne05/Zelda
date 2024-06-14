@@ -26,6 +26,7 @@ public class GardeVue extends ActeurVue{
         };
     }
 
+    @Override
     public void creerSprite(){
         ImageView imageView /* = upgradeSprite(acteur)*/;
 

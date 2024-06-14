@@ -34,6 +34,8 @@ public class FlecheVue extends ActeurVue {
         getPane().getChildren().add(imageView);
     }
 
+
+
     @Override
     public void upgradeSprite() {
 

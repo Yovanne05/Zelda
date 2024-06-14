@@ -1,7 +1,9 @@
+
 package universite_paris8.iut.yponnou.zelda.modele.Environnements;
 
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
+import universite_paris8.iut.yponnou.zelda.modele.Aliments.Pomme;
 
 
 public class Village extends Environnement{
@@ -24,8 +26,15 @@ public class Village extends Environnement{
         vendeur = new Vendeur(1400, 500, this, 0, 0);
         paysan = new Paysan(310,320,this,0,0);
 
+        Pomme p1=new Pomme(400,400,this);
+        Pomme p2=new Pomme(800,200,this);
+        Pomme p3=new Pomme(1200,450,this);
+
         this.ajouterActeur(vendeur);
         this.ajouterActeur(paysan);
+        this.ajouterObjet(p1);
+        this.ajouterObjet(p2);
+        this.ajouterObjet(p3);
         this.ajouterActeur(getHero());
     }
 }
