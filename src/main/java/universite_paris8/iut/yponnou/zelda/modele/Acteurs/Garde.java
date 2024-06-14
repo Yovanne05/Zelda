@@ -1,8 +1,9 @@
+
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeMelee;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
 public class Garde extends Ennemi{
 
@@ -15,7 +16,7 @@ public class Garde extends Ennemi{
         if (tempsActuel - this.getDerniereAttaque() >= 250) {
             Hero hero = verifHeroProx(60);
             if (hero != null) {
-                hero.seFaitAttquer(((ArmeMelee) this.getArme()).getPtsDegats());
+                hero.seFaitAttaquer(((ArmeMelee) this.getArme()).getPtsDegats());
                 this.setDerniereAttaque(tempsActuel);
             }
         }

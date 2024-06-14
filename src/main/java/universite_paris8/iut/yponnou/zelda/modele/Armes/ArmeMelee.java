@@ -1,6 +1,7 @@
+
 package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
 public class ArmeMelee extends Arme{
     private int ptsDegats;
@@ -12,9 +13,7 @@ public class ArmeMelee extends Arme{
     public int getPtsDegats() {
         return ptsDegats;
     }
-
     public void setPtsDegats(int ptsDegats) {
         this.ptsDegats = ptsDegats;
     }
 }
-

@@ -1,3 +1,4 @@
+
 package universite_paris8.iut.yponnou.zelda.vue.Acteurs;
 
 import javafx.scene.image.Image;
@@ -37,8 +38,8 @@ public class GardeVue extends ActeurVue{
         else
             throw new IllegalArgumentException("Acteur non supporté");
 
-        imageView.setFitWidth(Constante.TAILLECASEX);
-        imageView.setFitHeight(Constante.TAILLECASEY);
+        imageView.setFitWidth(Constante.TAILLE50);
+        imageView.setFitHeight(Constante.TAILLE50);
 
         imageView.translateXProperty().bind(getActeur().getPosition().xProperty());
         imageView.translateYProperty().bind(getActeur().getPosition().yProperty());
@@ -57,8 +58,8 @@ public class GardeVue extends ActeurVue{
         else
             throw new IllegalArgumentException("Acteur non supporté");
 //        return imageView;
-        imageView.setFitWidth(Constante.TAILLECASEX);
-        imageView.setFitHeight(Constante.TAILLECASEY);
+        imageView.setFitWidth(Constante.TAILLE50);
+        imageView.setFitHeight(Constante.TAILLE50);
 
         imageView.translateXProperty().bind(getActeur().getPosition().xProperty());
         imageView.translateYProperty().bind(getActeur().getPosition().yProperty());

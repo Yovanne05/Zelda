@@ -1,7 +1,8 @@
+
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
 public abstract class Guerrier extends Acteur {
     private Arme arme;

@@ -1,7 +1,8 @@
+
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeMelee;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
 public class Chevalier extends Ennemi{
 
@@ -9,7 +10,7 @@ public class Chevalier extends Ennemi{
     private int maxPas = 300; // Nombre de pas avant de changer de direction
 
     public Chevalier(double x, double y, Environnement environnement, int dx, int dy, ArmeMelee arme) {
-        super("Chevalier", x, y, 250, 0.03, environnement, dx, dy, arme);
+        super("Chevalier", x, y, 240, 0.03, environnement, dx, dy, arme);
     }
     @Override
     public void attaquer() {
@@ -17,7 +18,7 @@ public class Chevalier extends Ennemi{
         if (tempsActuel - this.getDerniereAttaque() >= 250) {
             Hero hero = verifHeroProx(80);
             if (hero != null) {
-                hero.seFaitAttquer(((ArmeMelee) this.getArme()).getPtsDegats());
+                hero.seFaitAttaquer(((ArmeMelee) this.getArme()).getPtsDegats());
                 this.setDerniereAttaque(tempsActuel);
             }
         }

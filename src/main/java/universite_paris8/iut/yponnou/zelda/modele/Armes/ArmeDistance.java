@@ -2,7 +2,7 @@ package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
 public abstract class ArmeDistance extends Arme{
     private DoubleProperty posx;
@@ -14,6 +14,8 @@ public abstract class ArmeDistance extends Arme{
         posx=new SimpleDoubleProperty(posxi);
         posy=new SimpleDoubleProperty(posyi);
     }
+
+
     public Projectile getProjectile() {
         return projectile;
     }

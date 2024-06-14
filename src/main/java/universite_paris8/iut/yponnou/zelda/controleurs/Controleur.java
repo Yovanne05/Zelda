@@ -2,6 +2,7 @@ package universite_paris8.iut.yponnou.zelda.controleurs;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
@@ -9,18 +10,23 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.util.Duration;
-import universite_paris8.iut.yponnou.zelda.modele.Donjon;
-import universite_paris8.iut.yponnou.zelda.modele.Labyrinthe;
+import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.ObservateurInventaire;
+import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.ObservateurObjets;
+import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs.ObservateurActeurs;
+import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie.ObservateurCoeurs;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Donjon;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
-import universite_paris8.iut.yponnou.zelda.modele.Village;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Village;
+import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 import universite_paris8.iut.yponnou.zelda.vue.Pv.CoeursVue;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -41,56 +47,67 @@ public class Controleur implements Initializable {
     private HBox paneCoeurs;
     @FXML
     private HBox hboxInventaire;
-    private Village v;
-    private Labyrinthe labyrinthe;
-    private Donjon donjon;
+    @FXML
+    private HBox hboxVueInventaire;
+
+//    private Village village;
+//    private Labyrinthe labyrinthe;
+//    private Donjon donjon;
+    private Environnement environnement;
+
+    private Hero hero;
+    private HeroVue heroVue;
+    private Map mapActuelle;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initAnimation();
         gameLoop.play();
+        mapActuelle = new Map(30, 30);
+
+        hero = new Hero(0,0,null,0,0,new Epee(0,0,null));
+        hero.inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
+        heroVue = new HeroVue(hero,paneMap);
+
 
         //Village
 
-//        v = new Village();
-//        v.objetsProperty().addListener(new ObservateurObjets(paneObjets));
-//        v.acteursProperty().addListener(new ObservateurActeurs(paneMap));
-//        v.getProjectiles().addListener(new ObservateurProjectiles(paneMap));
-//        v.creationVillage();
-//        v.heroEnv().pvProperty().addListener(new ObservateurCoeurs(paneCoeurs,new CoeursVue(paneCoeurs)));
-//        v.heroEnv().getInventaire().addListener(new ObservateurObjets(hboxInventaire));
-//        MapVue villageVue = new MapVue(v.getMap().getTabNum(), tilePaneDecors);
-//        villageVue.creerSprite();
+        environnement = new Donjon(hero);
+        environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
+        environnement.acteursProperty().addListener(new ObservateurActeurs(paneMap));
+        environnement.creationEnvironnement();
+        environnement.heroEnv().pvProperty().addListener(new ObservateurCoeurs(paneCoeurs,new CoeursVue(paneCoeurs)));
+//        environnement.heroEnv().inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
+        MapVue villageVue = new MapVue(environnement.getMap().getTabNum(), tilePaneDecors);
+        villageVue.creerSprite();
 
         // Labyrinthe :
-//        labyrinthe=new Labyrinthe();
-//        labyrinthe.objetsProperty().addListener(new ObservateurObjets(paneObjets));
-//        labyrinthe.acteursProperty().addListener(new ObservateurActeurs(paneMap));
-//        labyrinthe.getProjectiles().addListener(new ObservateurProjectiles(paneMap));
-//        labyrinthe.creationLabyrinthe();
-//        labyrinthe.heroEnv().pvProperty().addListener(new ObservateurCoeurs(paneCoeurs,new CoeursVue(paneCoeurs)));
-//        labyrinthe.heroEnv().getInventaire().addListener(new ObservateurObjets(hboxInventaire));
-//        MapVue labyrintheVue = new MapVue(labyrinthe.getMap().getTabNum(), tilePaneDecors);
+//        environnement=new Labyrinthe(hero);
+//        environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
+//        environnement.acteursProperty().addListener(new ObservateurActeurs(paneMap));
+//        environnement.creationEnvironnement();
+//        environnement.heroEnv().pvProperty().addListener(new ObservateurCoeurs(paneCoeurs,new CoeursVue(paneCoeurs)));
+////        environnement.heroEnv().getInventaire().addListener(new ObservateurObjets(hboxInventaire));
+//        MapVue labyrintheVue = new MapVue(environnement.getMap().getTabNum(), tilePaneDecors);
 //        labyrintheVue.creerSprite();
 
-        donjon=new Donjon();
-        donjon.objetsProperty().addListener(new ObservateurObjets(paneObjets));
-        donjon.acteursProperty().addListener(new ObservateurActeurs(paneMap));
-        donjon.getProjectiles().addListener(new ObservateurProjectiles(paneMap));
-        donjon.getProjectiles().addListener(new ObservateurProjectiles(paneMap));
-        donjon.creationDonjon();
-        donjon.heroEnv().pvProperty().addListener(new ObservateurCoeurs(paneCoeurs,new CoeursVue(paneCoeurs)));
-        donjon.heroEnv().getInventaire().addListener(new ObservateurObjets(hboxInventaire));
-        MapVue donjonVue = new MapVue(donjon.getMap().getTabNum(), tilePaneDecors);
-        donjonVue.creerSprite();
+//        environnement=new Donjon(hero);
+//        environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
+//        environnement.acteursProperty().addListener(new ObservateurActeurs(paneMap));
+//        environnement.creationEnvironnement();
+//        environnement.heroEnv().pvProperty().addListener(new ObservateurCoeurs(paneCoeurs,new CoeursVue(paneCoeurs)));
+////        environnement.heroEnv().getInventaire().addListener(new ObservateurObjets(hboxInventaire));
+//        MapVue donjonVue = new MapVue(environnement.getMap().getTabNum(), tilePaneDecors);
+//        donjonVue.creerSprite();
     }
 
     @FXML
-    public void interaction(KeyEvent event) {
+    public void interaction(KeyEvent event) throws IOException {
         KeyCode key = event.getCode();
-        Hero p = donjon.heroEnv();
+        Hero p = environnement.heroEnv();
         Objet ob;
-        if(p!=null){
+        if (p!=null){
             switch (key) {
                 case Z:
                 case UP:
@@ -99,6 +116,8 @@ public class Controleur implements Initializable {
                     p.setDy(-1);
                     p.deplacement();
                     System.out.println("HAUT - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
+                    heroVue.upgradeSprite();
+                    adjustCamera();
                     break;
                 case S:
                 case DOWN:
@@ -107,6 +126,8 @@ public class Controleur implements Initializable {
                     p.setDy(1);
                     p.deplacement();
                     System.out.println("BAS - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
+                    heroVue.upgradeSprite();
+                    adjustCamera();
                     break;
                 case D:
                 case RIGHT:
@@ -115,6 +136,8 @@ public class Controleur implements Initializable {
                     p.setDy(0);
                     p.deplacement();
                     System.out.println("DROITE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
+                    heroVue.upgradeSprite();
+                    adjustCamera();
                     break;
                 case Q:
                 case LEFT:
@@ -123,13 +146,15 @@ public class Controleur implements Initializable {
                     p.setDy(0);
                     p.deplacement();
                     System.out.println("GAUGHE - x:"+p.getPosition().getX()+" y:"+p.getPosition().getY());
+                    heroVue.upgradeSprite();
+                    adjustCamera();
                     break;
                 case E:
                     p.recuperer();
                     break;
                 case K:
-                    if (!p.getInventaire().isEmpty()) {
-                        ob = p.getInventaire().get(0);
+                    if (!p.inventaireProperty().isEmpty()) {
+                        ob = p.inventaireProperty().get(0);
                         p.deposer(ob);
                         System.out.println("Objet déposé !");
                     }
@@ -158,24 +183,44 @@ public class Controleur implements Initializable {
                     p.selectionObjet(4);
                     break;
                 case A:
-                    if(p.estProcheDePaysan(v.paysansQuiParle(),80)){
-                        v.paysansQuiParle().parler();
+                    if(p.estProcheDePaysan(environnement.paysansQuiParle(),80)){
+                        environnement.paysansQuiParle().parler();
                     }
-                    if(p.estProcheDeVendeur(v.obtenirVendeur(),80)){
-                        v.obtenirVendeur().proposerObjet(p);
+                    if(p.estProcheDeVendeur(environnement.obtenirVendeur(),80)){
+                        environnement.obtenirVendeur().proposerObjet(p);
                     }
                     break;
-                case T:
-
-                    break;
+                case I:
+                    if (hboxInventaire.isVisible() && hboxVueInventaire.isVisible()) {
+                        hboxInventaire.setVisible(false);
+                        hboxVueInventaire.setVisible(false);
+                    }
+                    else {
+                        hboxInventaire.setVisible(true);
+                        hboxVueInventaire.setVisible(true);
+                    }
+//                Stage newStage;
+//                InventaireControleur inventaireControleur;
+//                newStage = new Stage();
+//
+//                FXMLLoader fxmlLoader = new FXMLLoader(Lanceur.class.getResource("inventaire.fxml"));
+//                Scene scene = new Scene(fxmlLoader.load());
+//                inventaireControleur = fxmlLoader.getController();
+//                inventaireControleur.setInventaire(p.getInventaire());
+//                AnchorPane root = (AnchorPane) scene.getRoot();
+//                root.requestFocus();
+//                newStage.setScene(scene);
+//                newStage.show();
+//                break;
             }
         }
-
     }
 
     @FXML
     private void toucheLacher(){
-        this.touche=false;
+        System.out.println("La touche est lachée");
+        boolean touche = false;
+        heroVue.upgradeSprite();
     }
 
     private void initAnimation() {
@@ -189,7 +234,8 @@ public class Controleur implements Initializable {
                 // on définit ce qui se passe à chaque frame
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
-                    donjon.toutLeMondeBouge();
+                    environnement.toutLeMondeBouge();
+//                    g.deplacementEnRonde();
 //                    if(temps==100){
 //                        System.out.println("fini");
 //                        gameLoop.stop();
@@ -206,4 +252,53 @@ public class Controleur implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
+
+    private void adjustCamera() {
+        double targetScale = 1.0; // Ajustez selon vos besoins
+        double mapWidth = mapActuelle.getLargeur() * tilePaneDecors.getTileWidth();
+        double mapHeight = mapActuelle.getHauteur() * tilePaneDecors.getTileHeight();
+        double paneWidth = paneMap.getWidth();
+        double paneHeight = paneMap.getHeight();
+
+        // Lie la translation de paneMap à la position cible
+        paneMap.translateXProperty().bind(
+                Bindings.createDoubleBinding(() -> {
+                    double playerX = environnement.heroEnv().getPosition().getX();
+                    return Math.max(Math.min(-playerX + paneWidth / 2, 0), -mapWidth + paneWidth);
+                }, environnement.heroEnv().getPosition().xProperty(), paneMap.widthProperty())
+        );
+
+        paneMap.translateYProperty().bind(
+                Bindings.createDoubleBinding(() -> {
+                    double playerY = environnement.heroEnv().getPosition().getY();
+                    return Math.max(Math.min(-playerY + paneHeight / 2, 0), -mapHeight + paneHeight);
+                }, environnement.heroEnv().getPosition().yProperty(), paneMap.heightProperty())
+        );
+
+        // Définit l'échelle de paneMap
+        paneMap.setScaleX(targetScale);
+        paneMap.setScaleY(targetScale);
+
+        // Translation de hboxInventaire et paneCoeurs pour qu'ils bougent avec le héros
+        hboxVueInventaire.translateXProperty().bind(
+                paneMap.translateXProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        );
+        hboxVueInventaire.translateYProperty().bind(
+                paneMap.translateYProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        ); hboxInventaire.translateXProperty().bind(
+                paneMap.translateXProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        );
+        hboxInventaire.translateYProperty().bind(
+                paneMap.translateYProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        );
+        paneCoeurs.translateXProperty().bind(
+                paneMap.translateXProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        );
+        paneCoeurs.translateYProperty().bind(
+                paneMap.translateYProperty().multiply(-1) // Inverse de la translation de paneMap pour les fixer
+        );
+    }
+
+
+
 }

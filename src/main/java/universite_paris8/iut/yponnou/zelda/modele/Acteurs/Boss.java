@@ -3,12 +3,12 @@ import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeDistance;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeMelee;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
 public class Boss extends Ennemi {
 
     public Boss(double x, double y, Environnement environnement, int dx, int dy, Arme arme) {
-        super("Boss", x, y, 300, 0.04, environnement, dx, dy, arme);
+        super("Boss", x, y, 360, 0.04, environnement, dx, dy, arme);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Boss extends Ennemi {
             if (tempsActuel - this.getDerniereAttaque() >= 250) {
                 Hero hero = verifHeroProx(100);
                 if (hero != null) {
-                    hero.seFaitAttquer(((ArmeMelee) this.getArme()).getPtsDegats());
+                    hero.seFaitAttaquer(((ArmeMelee) this.getArme()).getPtsDegats());
                     this.setDerniereAttaque(tempsActuel);
                 }
             }
@@ -38,8 +38,6 @@ public class Boss extends Ennemi {
         if (hero != null) {
             foncerSurHero(hero);
             attaquer();
-        } else {
-
         }
     }
 

@@ -3,14 +3,9 @@ package universite_paris8.iut.yponnou.zelda.vue;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
-import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.Constante;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLECASEX;
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLECASEY;
+import static universite_paris8.iut.yponnou.zelda.Constante.*;
 
 public class MapVue {
 
@@ -92,7 +87,7 @@ public class MapVue {
     private final Image dungeon_brick_background;
     private final Image dungeon_brick_mur;
 
-    /////LABURYNTH
+    /////LABYRINTHE
     private final Image wall_LabLB;
     private final Image wall_LabBR;
     private final Image wall_LabLeft;
@@ -196,21 +191,21 @@ public class MapVue {
         dungeon_brick_background =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/dangeon_bricks_background.gif");
         dungeon_brick_mur=new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/dangeon_bricks_mur.gif");
 /////LABURYNTH
-        wall_LabLB= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/labyrinth/wall_LabLB.gif");
-        wall_LabBR= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/labyrinth/wall_LabBR.gif");
-        wall_LabLeft= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/labyrinth/wall_LabLeft.gif");
-        wall_LabLT= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/labyrinth/wall_LabLT.gif");
-        wall_LabRight= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/labyrinth/wall_LabRight.gif");
-        wall_LabS= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/labyrinth/wall_LabS.gif");
-        wall_LabTR= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/labyrinth/wall_LabTR.gif");
-        wall_LabUp= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/labyrinth/wall_LabUp.gif");
-        wall_LabX= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/labyrinth/wall_LabX.gif");
-        wall_LabY= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/labyrinth/wall_LabY.gif");
+        wall_LabLB   = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/labyrinth/wall_LabLB.gif");
+        wall_LabBR   = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/labyrinth/wall_LabBR.gif");
+        wall_LabLeft = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/labyrinth/wall_LabLeft.gif");
+        wall_LabLT   = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/labyrinth/wall_LabLT.gif");
+        wall_LabRight= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/labyrinth/wall_LabRight.gif");
+        wall_LabS    = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/labyrinth/wall_LabS.gif");
+        wall_LabTR   = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/labyrinth/wall_LabTR.gif");
+        wall_LabUp   = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/labyrinth/wall_LabUp.gif");
+        wall_LabX    = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/labyrinth/wall_LabX.gif");
+        wall_LabY    = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/labyrinth/wall_LabY.gif");
 
-        wall_LabM_B= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/labyrinth/wall_LabM_B.gif");
-        wall_LabM_T = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/labyrinth/wall_LabM_T.gif");
-        wall_LabM_R= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/labyrinth/wall_LabM_R.gif");
-        wall_LabM_L= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/labyrinth/wall_LabM_L.gif");
+        wall_LabM_B = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/labyrinth/wall_LabM_B.gif");
+        wall_LabM_T = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/labyrinth/wall_LabM_T.gif");
+        wall_LabM_R = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/labyrinth/wall_LabM_R.gif");
+        wall_LabM_L = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/labyrinth/wall_LabM_L.gif");
 
     }
 
@@ -494,16 +489,14 @@ public class MapVue {
                 }
 
                 // Set size and position of the image view
-                imageView.setFitWidth(TAILLECASEX);
-                imageView.setFitHeight(TAILLECASEY);
-                imageView.setX(x * TAILLECASEX);
-                imageView.setY(y * TAILLECASEY);
+                imageView.setFitWidth(TAILLE50);
+                imageView.setFitHeight(TAILLE50);
+                imageView.setX(x * TAILLE50);
+                imageView.setY(y * TAILLE50);
                 tilePane.getChildren().add(imageView);
             }
         }
     }
-
-
 
     public void setMap(int[][] newMap) {
         this.tabNum = newMap;

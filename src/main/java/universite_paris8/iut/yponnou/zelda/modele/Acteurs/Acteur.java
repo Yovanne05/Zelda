@@ -5,10 +5,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.Position;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLECASEX;
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLECASEY;
+import static universite_paris8.iut.yponnou.zelda.Constante.*;
 
 public class Acteur {
 
@@ -29,21 +28,12 @@ public class Acteur {
         this.pv = new SimpleIntegerProperty(pv);
         this.vitesse = vitesse;
         id = "A"+incremente++;
-        hitbox = new Rectangle(x, y, TAILLECASEX, TAILLECASEY);
+        hitbox = new Rectangle(x, y, TAILLE50, TAILLE50);
         direction = "down";
         this.dx=dx;
         this.dy=dy;
         hitbox.xProperty().bind(this.getPosition().xProperty());
         hitbox.yProperty().bind(this.getPosition().yProperty());
-    }
-
-
-    public int getDx() {
-        return dx;
-    }
-
-    public int getDy() {
-        return dy;
     }
 
     public String getId() {
@@ -53,33 +43,32 @@ public class Acteur {
         return nom;
     }
 
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setX(double x) {
-        position.setX(x);
-    }
-    public void setY(double y) {
-        position.setY(y);
-    }
-
     public int getPv() {
         return pv.getValue();
     }
     public void setPv(int pv) {
         this.pv.setValue(pv);
     }
+
     public IntegerProperty pvProperty() {
         return pv;
     }
 
-    public final double getVitesse(){
-        return vitesse;
+    public Position getPosition() {
+        return position;
     }
 
-    public void subitDegats(int degats){
-        setPv(getPv()-degats);
+    public int getDx() {
+        return dx;
+    }
+    public int getDy() {
+        return dy;
+    }
+    public void setDx(int dx) {
+        this.dx = dx;
+    }
+    public void setDy(int dy) {
+        this.dy = dy;
     }
 
     public String getDirection() {
@@ -89,16 +78,25 @@ public class Acteur {
         this.direction = direction;
     }
 
+    public final double getVitesse(){
+        return vitesse;
+    }
+
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
+
+
     public void deplacement() {
         //System.out.println("deplace");
-        double prochainX = getPosition().getX() + (this.dx * this.vitesse) * TAILLECASEX;
-        double prochainY = getPosition().getY() + (this.dy * this.vitesse) * TAILLECASEY;
+        double prochainX = getPosition().getX() + (this.dx * this.vitesse) * TAILLE50;
+        double prochainY = getPosition().getY() + (this.dy * this.vitesse) * TAILLE50;
 
         // Création de la nouvelle hitbox après déplacement
-        Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLECASEX, TAILLECASEY);
+        Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE50, TAILLE50);
         if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
-            setX(prochainX);
-            setY(prochainY);
+            position.setX(prochainX);
+            position.setY(prochainY);
         }
     }
 
@@ -116,26 +114,18 @@ public class Acteur {
             double directionY = diffY / distance;
 
             // Nouvelle pos
-            double prochainX = this.getPosition().getX() + directionX * this.getVitesse() * Constante.TAILLECASEX;
-            double prochainY = this.getPosition().getY() + directionY * this.getVitesse() * Constante.TAILLECASEY;
+            double prochainX = this.getPosition().getX() + directionX * this.getVitesse() * TAILLE50;
+            double prochainY = this.getPosition().getY() + directionY * this.getVitesse() * TAILLE50;
 
-            Rectangle futureHitbox = new Rectangle(prochainX, prochainY, Constante.TAILLECASEX, Constante.TAILLECASEY);
+            Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE50, TAILLE50);
 
             if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
-                this.setX(prochainX);
-                this.setY(prochainY);
+                position.setX(prochainX);
+                position.setY(prochainY);
             }
         }
     }
 
-
-    public void setDx(int dx) {
-        this.dx = dx;
-    }
-
-    public void setDy(int dy) {
-        this.dy = dy;
-    }
 
     public boolean collisionAvecObstacle(Rectangle futurHitbox) {
         // Calcul des positions des quatre coins de la hitbox
@@ -145,25 +135,21 @@ public class Acteur {
         double height = futurHitbox.getHeight();
 
         // Coordonnées des coins de la hitbox en termes de cases
-        int tableauXHG = (int) (x / TAILLECASEX);
-        int tableauYHG = (int) (y / TAILLECASEY);
-        int tableauXHD = (int) ((x + width - 1) / TAILLECASEX);
-        int tableauYBG = (int) ((y + height - 1) / TAILLECASEY);
+        int tableauXHG = (int) (x / TAILLE50);
+        int tableauYHG = (int) (y / TAILLE50);
+        int tableauXHD = (int) ((x + width - 1) / TAILLE50);
+        int tableauYBG = (int) ((y + height - 1) / TAILLE50);
 
         // Vérification des bordures de la carte
         if (tableauXHG < 0 || tableauYHG < 0 || tableauXHD >= position.getEnv().getMap().getLargeur() || tableauYBG >= position.getEnv().getMap().getHauteur())
             return true; // Collision avec la bordure de la carte
         // Vérification des collisions avec les obstacles
         int[][] map = position.getEnv().getMap().getTabNum();
-        return map[tableauYHG][tableauXHG] > 20 || map[tableauYHG][tableauXHD] > 20 || map[tableauYBG][tableauXHG] > 20 || map[tableauYBG][tableauXHD] > 20; // Collision avec un obstacle
+
+        return map[tableauYHG][tableauXHG] > 20 || map[tableauYHG][tableauXHD] > 20 || map[tableauYBG][tableauXHG] > 20 || map[tableauYBG][tableauXHD] > 20;
     }
 
-    public Rectangle getHitbox() {
-        return hitbox;
-    }
-
-
-    public boolean collisionAvecActeur(Rectangle futureHitbox) {
+    private boolean collisionAvecActeur(Rectangle futureHitbox) {
         for (Acteur acteur : getPosition().getEnv().acteursProperty()) {
             Rectangle ennemiHitbox = acteur.getHitbox();
             //getBoundsInParent  retourne un objet de type Bounds représentant les coordonnées du rectangle
@@ -175,7 +161,7 @@ public class Acteur {
         return false;
     }
 
-    public void seFaitAttquer(int pts){
+    public void seFaitAttaquer(int pts){
         int nvPv =getPv()-pts;
         if(nvPv>0){
             setPv(nvPv);
@@ -184,6 +170,11 @@ public class Acteur {
             getPosition().getEnv().enleverActeur(this);
         }
     }
+
+    public void subitDegats(int degats){
+        setPv(getPv()-degats);
+    }
+
     @Override
     public String toString() {
         return "Acteur{" +
@@ -197,6 +188,5 @@ public class Acteur {
                 ", hitbox=" + hitbox +
                 '}';
     }
-
 
 }

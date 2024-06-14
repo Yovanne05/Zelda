@@ -1,3 +1,4 @@
+
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
 import javafx.geometry.Insets;
@@ -13,7 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 
@@ -49,7 +50,7 @@ public class Vendeur extends Acteur {
         Button buttonArc = new Button("Arc");
         buttonArc.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 2px;");
         buttonArc.setOnAction(e -> {
-            hero.ajouterObjet(new ArcArme(this.getPosition().getX(), this.getPosition().getY(),null,this.getPosition().getEnv()));
+            hero.inventaireProperty().add(new ArcArme(this.getPosition().getX(), this.getPosition().getY(),null,this.getPosition().getEnv()));
             dialog.setResult(ButtonType.OK); //Pour fermer le pop up
             dialog.close();
         });
@@ -57,7 +58,7 @@ public class Vendeur extends Acteur {
         Button buttonEpee = new Button("Épée");
         buttonEpee.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: #ffffff; -fx-border-width: 2px;");
         buttonEpee.setOnAction(e -> {
-            hero.ajouterObjet(new Epee(this.getPosition().getX(),this.getPosition().getY(),this.getPosition().getEnv()));
+            hero.inventaireProperty().add(new Epee(this.getPosition().getX(),this.getPosition().getY(),this.getPosition().getEnv()));
             dialog.setResult(ButtonType.OK);
             dialog.close();
         });

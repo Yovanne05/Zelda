@@ -1,3 +1,4 @@
+
 package universite_paris8.iut.yponnou.zelda.vue.Acteurs;
 
 import javafx.scene.image.Image;
@@ -6,7 +7,7 @@ import javafx.scene.layout.Pane;
 import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Boss;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Chevalier;
+
 
 public class BossVue extends ActeurVue{
 
@@ -57,8 +58,8 @@ public class BossVue extends ActeurVue{
         else
             throw new IllegalArgumentException("Acteur non supporté");
 //        return imageView;
-        imageView.setFitWidth(Constante.TAILLECASEX);
-        imageView.setFitHeight(Constante.TAILLECASEY);
+        imageView.setFitWidth(Constante.TAILLE70);
+        imageView.setFitHeight(Constante.TAILLE70);
 
         imageView.translateXProperty().bind(getActeur().getPosition().xProperty());
         imageView.translateYProperty().bind(getActeur().getPosition().yProperty());

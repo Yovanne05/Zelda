@@ -1,15 +1,13 @@
+
 package universite_paris8.iut.yponnou.zelda.vue.Acteurs;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Boss;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Vendeur;
 
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLECASEX;
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLECASEY;
+import static universite_paris8.iut.yponnou.zelda.Constante.TAILLE50;
 
 public class VendeurVue extends ActeurVue {
 
@@ -62,8 +60,8 @@ public class VendeurVue extends ActeurVue {
         else
             throw new IllegalArgumentException("Acteur non supporté");
 //        return imageView;
-        imageView.setFitWidth(TAILLECASEX);
-        imageView.setFitHeight(TAILLECASEY);
+        imageView.setFitWidth(TAILLE50);
+        imageView.setFitHeight(TAILLE50);
 
         imageView.translateXProperty().bind(getActeur().getPosition().xProperty());
         imageView.translateYProperty().bind(getActeur().getPosition().yProperty());

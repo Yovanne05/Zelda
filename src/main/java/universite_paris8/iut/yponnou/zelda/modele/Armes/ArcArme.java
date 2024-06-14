@@ -1,7 +1,6 @@
 package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
-import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
 public class ArcArme extends ArmeDistance {
 
@@ -13,7 +12,7 @@ public class ArcArme extends ArmeDistance {
     @Override
     public int utiliser() {
         Fleche f = (Fleche) this.getProjectile();
-        this.getPosition().getEnv().ajouterProjectile(f);
+        this.getPosition().getEnv().ajouterActeur(f);
         f.utiliserFleche();
         return this.getProjectile().getPtsDegats();
     }

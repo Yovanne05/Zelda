@@ -1,13 +1,10 @@
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
 import java.util.LinkedList;
 import java.util.Queue;
-
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLECASEX;
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLECASEY;
 
 
 public abstract class Ennemi extends Guerrier {
@@ -20,7 +17,7 @@ public abstract class Ennemi extends Guerrier {
     }
 
     public Hero verifHeroProx(double dist) {
-        for (Acteur a : this.getPosition().getEnv().getLstActeurs()) {
+        for (Acteur a : this.getPosition().getEnv().acteursProperty()) {
             if ((Math.abs(getPosition().getX() - a.getPosition().getX()) <= dist && Math.abs(getPosition().getY() - a.getPosition().getY()) <= dist)) {
                 if (a instanceof Hero) {
                     return (Hero) a;

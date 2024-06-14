@@ -1,13 +1,12 @@
+
 package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLECASEX;
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLECASEY;
+import static universite_paris8.iut.yponnou.zelda.Constante.TAILLE50;
 
 public class Projectile extends Acteur {
     private int ptsDegats;
@@ -29,13 +28,13 @@ public class Projectile extends Acteur {
     }
 
     public void deplacement(){
-        double prochainX = getPosition().getX() + (this.getDx() * this.getVitesse()) * TAILLECASEX;
-        double prochainY = getPosition().getY() + (this.getDy() * this.getVitesse()) * TAILLECASEY;
-        Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLECASEX, TAILLECASEY);
+        double prochainX = getPosition().getX() + (this.getDx() * this.getVitesse()) * TAILLE50;
+        double prochainY = getPosition().getY() + (this.getDy() * this.getVitesse()) * TAILLE50;
+        Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE50, TAILLE50);
 
         if (!collisionAvecObstacle(futureHitbox)) {
-            setX(prochainX);
-            setY(prochainY);
+            getPosition().setX(prochainX);
+            getPosition().setY(prochainY);
         }
     }
 

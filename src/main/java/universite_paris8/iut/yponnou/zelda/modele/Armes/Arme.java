@@ -1,6 +1,7 @@
+
 package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
 public class Arme extends Objet {
@@ -11,11 +12,9 @@ public class Arme extends Objet {
         this.nom=nom;
     }
 
-
     public String getNom() {
         return nom;
     }
-
     @Override
     public String toString() {
         return null;

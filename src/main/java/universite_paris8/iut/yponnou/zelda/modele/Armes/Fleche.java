@@ -1,13 +1,12 @@
+
 package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Ennemi;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
-import java.util.ArrayList;
 
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLECASEX;
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLECASEY;
+import static universite_paris8.iut.yponnou.zelda.Constante.TAILLE50;
 
 public class Fleche extends Projectile {
 
@@ -17,7 +16,7 @@ public class Fleche extends Projectile {
     private final double initialY;
 
     public Fleche(double x, double y, Environnement environnement, int dx, int dy) {
-        super("Fleche", x, y, 0, 5, environnement, dx, dy, 300, 50);
+        super("Fleche", x, y, 0, 5, environnement, dx, dy, 300, 10);
         this.x = x;
         this.y = y;
         this.initialX = x;
@@ -27,14 +26,15 @@ public class Fleche extends Projectile {
 
     public void utiliserFleche() {
         double distanceParcourue = Math.sqrt(Math.pow(getPosition().getX() - initialX, 2) + Math.pow(getPosition().getY() - initialY, 2));
-        //théorème de Pythagore
+        //Math.pow(a, 2) calcule le carré du nombre a. Ici, on calcule les carrés des distances parcourues en x et y.
+        //Cela est fait pour appliquer le théorème de Pythagore.
         //Math.sqrt(b) calcule la racine carrée du nombre b. Ici, on prend la racine carrée de la somme des carrés des distances
         //parcourues en x et y, ce qui nous donne la distance euclidienne totale parcourue par la flèche depuis sa position initiale.
         if (distanceParcourue < this.getPortee()) {
             this.deplacement();
             this.collisionAvecEnnemi();
         } else {
-            this.getPosition().getEnv().enleverProjectile(this);
+            this.getPosition().getEnv().enleverActeur(this);
         }
     }
 
@@ -44,19 +44,18 @@ public class Fleche extends Projectile {
         this.x += this.getDx() * this.getVitesse();
         this.y += this.getDy() * this.getVitesse();
         // Mettez à jour les coordonnées de l'objet parent
-        this.setX(this.x);
-        this.setY(this.y);
+        this.getPosition().setX(this.x);
+        this.getPosition().setY(this.y);
     }
 
     public void collisionAvecEnnemi() {
-        ArrayList<Acteur> lstA = getPosition().getEnv().getLstActeurs();
 
-        for (Acteur a : lstA) {
+        for (Acteur a : getPosition().getEnv().acteursProperty()) {
             if (a instanceof Ennemi) {
                 Ennemi ennemi = (Ennemi) a;
                 if (this.touche(ennemi)) {
-                    ennemi.seFaitAttquer(this.getPtsDegats());
-                    getPosition().getEnv().enleverProjectile(this);
+                    ennemi.seFaitAttaquer(this.getPtsDegats());
+                    getPosition().getEnv().enleverActeur(this);
                 }
             }
         }
@@ -68,6 +67,6 @@ public class Fleche extends Projectile {
         double ennemiY = ennemi.getPosition().getY();
 
         // Vérifiez si la flèche est à l'intérieur des limites de l'ennemi
-        return (this.x >= ennemiX && this.x <= ennemiX + TAILLECASEX) && (this.y >= ennemiY && this.y <= ennemiY + TAILLECASEY);
+        return (this.x >= ennemiX && this.x <= ennemiX + TAILLE50) && (this.y >= ennemiY && this.y <= ennemiY + TAILLE50);
     }
 }

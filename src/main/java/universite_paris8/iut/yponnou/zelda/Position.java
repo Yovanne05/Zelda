@@ -2,7 +2,7 @@ package universite_paris8.iut.yponnou.zelda;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
 public class Position {
 
@@ -37,8 +37,6 @@ public class Position {
     public Environnement getEnv() {
         return env;
     }
-
-
     public void setEnv(Environnement env) {
         this.env = env;
     }
