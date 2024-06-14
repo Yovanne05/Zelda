@@ -1,6 +1,7 @@
 
 package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
+import javafx.collections.ObservableList;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Ennemi;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
@@ -26,11 +27,8 @@ public class Fleche extends Projectile {
 
     public void utiliserFleche() {
         double distanceParcourue = Math.sqrt(Math.pow(getPosition().getX() - initialX, 2) + Math.pow(getPosition().getY() - initialY, 2));
-        //Math.pow(a, 2) calcule le carré du nombre a. Ici, on calcule les carrés des distances parcourues en x et y.
-        //Cela est fait pour appliquer le théorème de Pythagore.
-        //Math.sqrt(b) calcule la racine carrée du nombre b. Ici, on prend la racine carrée de la somme des carrés des distances
-        //parcourues en x et y, ce qui nous donne la distance euclidienne totale parcourue par la flèche depuis sa position initiale.
-        if (distanceParcourue < this.getPortee()) {
+        //Pythgaore pr la distance
+        if (distanceParcourue < this.getPortee() && !collisionAvecObstacle(this.getHitbox())) {
             this.deplacement();
             this.collisionAvecEnnemi();
         } else {
@@ -49,10 +47,10 @@ public class Fleche extends Projectile {
     }
 
     public void collisionAvecEnnemi() {
-
-        for (Acteur a : getPosition().getEnv().acteursProperty()) {
-            if (a instanceof Ennemi) {
-                Ennemi ennemi = (Ennemi) a;
+        ObservableList<Acteur> lstA=getPosition().getEnv().acteursProperty();
+        for (int i=0;i<lstA.size();i++) {
+            if (lstA.get(i) instanceof Ennemi) {
+                Ennemi ennemi = (Ennemi) lstA.get(i);
                 if (this.touche(ennemi)) {
                     ennemi.seFaitAttaquer(this.getPtsDegats());
                     getPosition().getEnv().enleverActeur(this);
