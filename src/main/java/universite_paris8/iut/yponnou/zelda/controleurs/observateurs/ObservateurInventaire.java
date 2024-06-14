@@ -1,4 +1,4 @@
-package universite_paris8.iut.yponnou.zelda.controleurs;
+package universite_paris8.iut.yponnou.zelda.controleurs.observateurs;
 
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;

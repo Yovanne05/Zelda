@@ -16,12 +16,12 @@ public class FlecheVue extends ActeurVue {
     private final Image flecheBasImage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/armes/fleche-bas.png");
 
 
-    public FlecheVue(Pane pane, Fleche f) {
+    public FlecheVue(Fleche f, Pane pane) {
         super(f,pane);
         if (f.getDx() == 1 && f.getDy() == 0)
-            imageView = new ImageView(flecheGaucheImage);
-        else if (f.getDx() == -1 && f.getDy() == 0)
             imageView = new ImageView(flecheDroiteImage);
+        else if (f.getDx() == -1 && f.getDy() == 0)
+            imageView = new ImageView(flecheGaucheImage);
         else if (f.getDx() == 0 && f.getDy() == -1)
             imageView = new ImageView(flecheHautImage);
         else

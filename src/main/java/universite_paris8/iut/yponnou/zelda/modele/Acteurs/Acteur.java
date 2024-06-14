@@ -3,6 +3,7 @@ package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.shape.Rectangle;
+import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.Position;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
@@ -35,29 +36,11 @@ public class Acteur {
         hitbox.yProperty().bind(this.getPosition().yProperty());
     }
 
-    public int getDx() {
-        return dx;
-    }
-    public int getDy() {
-        return dy;
-    }
-
     public String getId() {
         return id;
     }
     public String getNom() {
         return nom;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setX(double x) {
-        position.setX(x);
-    }
-    public void setY(double y) {
-        position.setY(y);
     }
 
     public int getPv() {
@@ -66,16 +49,26 @@ public class Acteur {
     public void setPv(int pv) {
         this.pv.setValue(pv);
     }
+
     public IntegerProperty pvProperty() {
         return pv;
     }
 
-    public final double getVitesse(){
-        return vitesse;
+    public Position getPosition() {
+        return position;
     }
 
-    public void subitDegats(int degats){
-        setPv(getPv()-degats);
+    public int getDx() {
+        return dx;
+    }
+    public int getDy() {
+        return dy;
+    }
+    public void setDx(int dx) {
+        this.dx = dx;
+    }
+    public void setDy(int dy) {
+        this.dy = dy;
     }
 
     public String getDirection() {
@@ -85,6 +78,15 @@ public class Acteur {
         this.direction = direction;
     }
 
+    public final double getVitesse(){
+        return vitesse;
+    }
+
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
+
+
     public void deplacement() {
         //System.out.println("deplace");
         double prochainX = getPosition().getX() + (this.dx * this.vitesse) * TAILLE50;
@@ -92,20 +94,38 @@ public class Acteur {
 
         // Création de la nouvelle hitbox après déplacement
         Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE50, TAILLE50);
-        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox) && getPosition().getEnv().dansMap(prochainX,prochainY)) {
-            setX(prochainX);
-            setY(prochainY);
+        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
+            position.setX(prochainX);
+            position.setY(prochainY);
         }
     }
 
+    public void deplacerVers(double cibleX, double cibleY) {
+        // diff X et Y entre pos actuelle acteur et pos cible
+        double diffX = cibleX - this.getPosition().getX();
+        double diffY = cibleY - this.getPosition().getY();
 
-    public void setDx(int dx) {
-        this.dx = dx;
+        //Pythagore pour la distance
+        double distance = Math.sqrt(diffX * diffX + diffY * diffY);
+
+        if (distance > 0) {
+            // vecteur directionnel (directionX, directionY) de longueur 1
+            double directionX = diffX / distance;
+            double directionY = diffY / distance;
+
+            // Nouvelle pos
+            double prochainX = this.getPosition().getX() + directionX * this.getVitesse() * TAILLE50;
+            double prochainY = this.getPosition().getY() + directionY * this.getVitesse() * TAILLE50;
+
+            Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE50, TAILLE50);
+
+            if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
+                position.setX(prochainX);
+                position.setY(prochainY);
+            }
+        }
     }
 
-    public void setDy(int dy) {
-        this.dy = dy;
-    }
 
     public boolean collisionAvecObstacle(Rectangle futurHitbox) {
         // Calcul des positions des quatre coins de la hitbox
@@ -129,11 +149,6 @@ public class Acteur {
         return map[tableauYHG][tableauXHG] > 20 || map[tableauYHG][tableauXHD] > 20 || map[tableauYBG][tableauXHG] > 20 || map[tableauYBG][tableauXHD] > 20;
     }
 
-    public Rectangle getHitbox() {
-        return hitbox;
-    }
-
-
     private boolean collisionAvecActeur(Rectangle futureHitbox) {
         for (Acteur acteur : getPosition().getEnv().acteursProperty()) {
             Rectangle ennemiHitbox = acteur.getHitbox();
@@ -155,6 +170,11 @@ public class Acteur {
             getPosition().getEnv().enleverActeur(this);
         }
     }
+
+    public void subitDegats(int degats){
+        setPv(getPv()-degats);
+    }
+
     @Override
     public String toString() {
         return "Acteur{" +
@@ -168,6 +188,5 @@ public class Acteur {
                 ", hitbox=" + hitbox +
                 '}';
     }
-
 
 }

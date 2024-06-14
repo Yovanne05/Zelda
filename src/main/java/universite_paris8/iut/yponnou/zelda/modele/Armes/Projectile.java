@@ -33,8 +33,8 @@ public class Projectile extends Acteur {
         Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE50, TAILLE50);
 
         if (!collisionAvecObstacle(futureHitbox)) {
-            setX(prochainX);
-            setY(prochainY);
+            getPosition().setX(prochainX);
+            getPosition().setY(prochainY);
         }
     }
 

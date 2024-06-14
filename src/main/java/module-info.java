@@ -29,4 +29,10 @@ module universite_paris8.iut.yponnou.zelda {
     opens universite_paris8.iut.yponnou.zelda.vue.Nourritures to javafx.fxml;
     exports universite_paris8.iut.yponnou.zelda.modele.Environnements;
     opens universite_paris8.iut.yponnou.zelda.modele.Environnements to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.controleurs.observateurs;
+    opens universite_paris8.iut.yponnou.zelda.controleurs.observateurs to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie;
+    opens universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs;
+    opens universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs to javafx.fxml;
 }

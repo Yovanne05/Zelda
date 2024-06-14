@@ -1,4 +1,4 @@
-package universite_paris8.iut.yponnou.zelda.controleurs;
+package universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

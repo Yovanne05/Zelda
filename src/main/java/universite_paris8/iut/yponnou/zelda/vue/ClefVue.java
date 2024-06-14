@@ -9,8 +9,8 @@ public class ClefVue extends ObjetVue{
 
     private final ImageView imageView;
 
-    private Image clefImage16x16 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/clef-16x16.gif");
-    private Image clefImage50x50 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/clef-50x50.png");
+    private Image clefImage16x16 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/clefs/clef-16x16.gif");
+    private Image clefImage50x50 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/clefs/clef-50x50.png");
 
     public ClefVue(Objet objet, Pane pane) {
         super(objet, pane);

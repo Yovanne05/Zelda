@@ -1,15 +1,11 @@
-package universite_paris8.iut.yponnou.zelda.controleurs;
+package universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Ennemi;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysan;
-import universite_paris8.iut.yponnou.zelda.vue.Acteurs.ActeurVue;
-import universite_paris8.iut.yponnou.zelda.vue.Acteurs.EnnemiVue;
-import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
-import universite_paris8.iut.yponnou.zelda.vue.Acteurs.PaysanVue;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
+import universite_paris8.iut.yponnou.zelda.vue.Acteurs.*;
+import universite_paris8.iut.yponnou.zelda.vue.Armes.FlecheVue;
 
 public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
@@ -23,14 +19,24 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
     public void onChanged(Change<? extends Acteur> change) {
         while (change.next()) {
             for (Acteur a : change.getAddedSubList()) {
-                ActeurVue actVue;
-                if (a instanceof Hero)
+                ActeurVue actVue=null;
+                if (a instanceof Hero){
                     actVue = new HeroVue(a,pane);
-                else if (a instanceof Paysan) {
-                    actVue = new PaysanVue(a,pane);
                 }
-                else
-                    actVue = new EnnemiVue(a,pane);
+                else if(a instanceof Garde){
+                    actVue = new GardeVue(a,pane);
+                } else if (a instanceof Paysan) {
+                    actVue = new PaysanVue(a,pane);
+                } else if (a instanceof Chevalier) {
+                    actVue = new ChevalierVue(a,pane);
+                }else if(a instanceof Boss){
+                    actVue = new BossVue(a,pane);
+                }else if (a instanceof Vendeur){
+                    actVue = new VendeurVue(a,pane);
+                }
+                else if (a instanceof Fleche){
+                    actVue = new FlecheVue((Fleche)a,pane);
+                }
                 actVue.creerSprite();
             }
             for (Acteur a : change.getRemoved()) {

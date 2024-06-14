@@ -1,3 +1,4 @@
+
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
 import javafx.animation.PauseTransition;
@@ -14,10 +15,9 @@ import javafx.util.Duration;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
 public class Paysan extends Acteur {
-    public Paysan(double x, double y, int pv, Environnement environnement, int dx, int dy) {
-        super("Paysans", x, y, pv, 0.03, environnement, dx, dy);
+    public Paysan(double x, double y, Environnement environnement, int dx, int dy) {
+        super("Paysan", x, y, 20, 0.03, environnement, dx, dy);
     }
-
     public void parler() {
         Stage popupStage = new Stage();
         popupStage.initModality(Modality.APPLICATION_MODAL);

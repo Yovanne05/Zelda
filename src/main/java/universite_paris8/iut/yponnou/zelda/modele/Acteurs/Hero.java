@@ -1,12 +1,12 @@
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeDistance;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeMelee;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.Aliments.Nourriture;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
@@ -21,10 +21,10 @@ public class Hero extends Guerrier {
     public Hero(int x, int y, Environnement environnement, int dx, int dy, Arme arme) {
         super("Joseph", x, y, 100, 0.2, environnement, dx, dy, arme);
         capaciteMax = 5;
-        inventaire.add(arme);
+//        inventaire.add(arme);
     }
 
-    public ObservableList<Objet> getInventaire() {
+    public ObservableList<Objet> inventaireProperty() {
         return inventaire;
     }
 
@@ -48,25 +48,6 @@ public class Hero extends Guerrier {
         System.out.println(getNom()+" a perdu "+degats+" pv");
     }
 
-    // méthode qui renvoie un objet Nourriture si l'inventaire du héro en possède.
-    public Nourriture possedeNourritures(){
-        for (Objet objet : inventaire) {
-            if (objet instanceof Nourriture)
-                return (Nourriture) objet;
-        }
-        return null;
-    }
-
-    // méthode qui renvoie un objet Arme si l'inventaire du héro en possède.
-    public Arme possedeArme(){
-        for (Objet objet : inventaire) {
-            if (objet instanceof Arme) {
-                return (Arme) objet;
-            }
-        }
-        return null;
-    }
-
     public boolean pleineSante(){
         return getPv() == 100;
     }
@@ -80,34 +61,12 @@ public class Hero extends Guerrier {
             inventaire.add(ob);
             ob.getPosition().getEnv().enleverObjet(ob);
             System.out.println("Objet récupéré !");
-        } else if (ob != null) {
+        }
+        else if (inventaire.size() == capaciteMax)
             System.out.println("Inventaire complet !");
-        } else {
+        else
             System.out.println("Aucun objets trouvés !");
-        }
     }
-
-    // méthode qui renvoie un objet trouvé autour du hero
-    public Objet objetsProches(){
-        for(Objet obj : getPosition().getEnv().objetsProperty()){
-            if (verifObjetsAutour(obj))
-                return obj;
-        }
-        return null;
-    }
-
-    // méthode qui renvoie vrai si un objet se trouve à portée du hero
-    private boolean verifObjetsAutour(Objet obj){
-        {
-            if (obj instanceof Nourriture || obj instanceof Clef) {
-                return (this.getPosition().getY() - Constante.TAILLE16 <= obj.getPosition().getY() && obj.getPosition().getY() <= getPosition().getY() + Constante.TAILLE50
-                        && this.getPosition().getX() - Constante.TAILLE16 <= obj.getPosition().getX() && obj.getPosition().getX() <= getPosition().getX() + Constante.TAILLE50);
-            } else {
-                return (this.getPosition().getY() - Constante.TAILLE32 <= obj.getPosition().getY() && obj.getPosition().getY() <= getPosition().getY() + Constante.TAILLE50
-                        && this.getPosition().getX() - Constante.TAILLE32 <= obj.getPosition().getX() && obj.getPosition().getX() <= getPosition().getX() + Constante.TAILLE50);
-
-            }
-        }    }
 
     /* methode qui depose l'objet de l'inventaire du hero
      * Il genere des coordonnées aléatoire jusqu'a ce qu'elle soit bonne
@@ -141,27 +100,61 @@ public class Hero extends Guerrier {
         objet.getPosition().getEnv().ajouterObjet(objet);
     }
 
-    // méthode qui prends en paramètre des coordonnées x et y de type double et renvoie un rectangle rect placé autour du hero
-    private Rectangle depotPossible(Objet objet, double x, double y){
-        Rectangle rect;
-        int longueurMin;
-        int longueurMax = Constante.TAILLE32;
-
-        if (objet instanceof Nourriture || objet instanceof Clef)
-            longueurMin = Constante.TAILLE16;
-        else // l'objet est une arme
-            longueurMin = Constante.TAILLE32;
-
-        rect = new Rectangle(x, y, longueurMin, longueurMin);
-        // verifie qu'il n'y a pas de collision avec des obstacles et qu'il est au pied du hero
-        if (!collisionAvecObstacle(rect) && auPied(x, y, longueurMin,longueurMax))
-            return rect;
+    // méthode qui renvoie un objet trouvé autour du hero
+    public Objet objetsProches(){
+        for(Objet obj : getPosition().getEnv().objetsProperty()){
+            if (verifObjetsAutour(obj))
+                return obj;
+        }
         return null;
     }
 
-    // vérifie que les coordonnées de l'objet sont autour du hero
-    private boolean auPied(double x, double y, int longueurMin, int longueurMax){
-        return (x == getPosition().getX()-longueurMin && y == getPosition().getY()+ longueurMax) || (x == getPosition().getX()+longueurMax+10 && y == getPosition().getY()+ longueurMax);
+    // méthode qui renvoie un objet Nourriture si l'inventaire du héro en possède.
+    public Nourriture possedeNourritures(){
+        for (Objet objet : inventaire) {
+            if (objet instanceof Nourriture)
+                return (Nourriture) objet;
+        }
+        return null;
+    }
+
+
+    // méthode qui renvoie un objet Arme si l'inventaire du héro en possède.
+    public Arme possedeArme(){
+        for (Objet objet : inventaire) {
+            if (objet instanceof Arme) {
+                return (Arme) objet;
+            }
+        }
+        return null;
+    }
+
+    // méthode qui prends en paramètre des coordonnées x et y de type double de l'objet et renvoie un rectangle rect placé autour du hero
+    private Rectangle depotPossible(Objet objet, double x, double y){
+        Rectangle hitbox;
+        int dimension;
+
+        if (objet instanceof Nourriture || objet instanceof Clef)
+            dimension = Constante.TAILLE16;
+        else // l'objet est une arme
+            dimension = Constante.TAILLE32;
+
+        hitbox = new Rectangle(x,y,dimension,dimension);
+        // verifie qu'il n'y a pas de collision avec des obstacles et qu'il est au pied du hero
+        if (!collisionAvecObstacle(hitbox) && depotAutour(objet,x,y))
+            return hitbox;
+        return null;
+    }
+
+    // méthode qui renvoie vrai si un objet se trouve à portée du hero
+    private boolean verifObjetsAutour(Objet obj){
+        if (obj instanceof Nourriture || obj instanceof Clef) {
+            return (this.getPosition().getY() - Constante.TAILLE16 <= obj.getPosition().getY() && obj.getPosition().getY() <= getPosition().getY() + Constante.TAILLE50
+                    && this.getPosition().getX() - Constante.TAILLE16 <= obj.getPosition().getX() && obj.getPosition().getX() <= getPosition().getX() + Constante.TAILLE50);
+        } else {
+            return (this.getPosition().getY() - Constante.TAILLE32 <= obj.getPosition().getY() && obj.getPosition().getY() <= getPosition().getY() + Constante.TAILLE50
+                    && this.getPosition().getX() - Constante.TAILLE32 <= obj.getPosition().getX() && obj.getPosition().getX() <= getPosition().getX() + Constante.TAILLE50);
+        }
     }
 
     private boolean verifPaysansAutour(Paysan p){
@@ -169,27 +162,51 @@ public class Hero extends Guerrier {
                 && this.getPosition().getX()-Constante.TAILLE50<= p.getPosition().getX() && p.getPosition().getX() <= getPosition().getX()+Constante.TAILLE50);
     }
 
+    // vérifie que les coordonnées de l'objet déposé sont autour du hero
+    private boolean depotAutour(Objet objet, double x, double y){
+        if (objet instanceof Nourriture || objet instanceof Clef) {
+            return (this.getPosition().getY() - Constante.TAILLE16 <= y && y <= getPosition().getY() + Constante.TAILLE50
+                    && this.getPosition().getX() - Constante.TAILLE16 <= x && x <= getPosition().getX() + Constante.TAILLE50);
+        } else {
+            return (this.getPosition().getY() - Constante.TAILLE32 <= y && y <= getPosition().getY() + Constante.TAILLE50
+                    && this.getPosition().getX() - Constante.TAILLE32 <= x && x <= getPosition().getX() + Constante.TAILLE50);
+        }
+    }
+
+    public boolean estProcheDePaysan(Paysan paysan, int distance) {
+        if(paysan==null){
+            return false;
+        }
+        return Math.abs(this.getPosition().getX() - paysan.getPosition().getX()) <= distance &&
+                Math.abs(this.getPosition().getY() - paysan.getPosition().getY()) <= distance;
+    }
+
+    public boolean estProcheDeVendeur(Vendeur vendeur, int distance) {
+        return Math.abs(this.getPosition().getX() - vendeur.getPosition().getX()) <= distance &&
+                Math.abs(this.getPosition().getY() - vendeur.getPosition().getY()) <= distance;
+    }
+
+
     @Override
     public void attaquer() {
         Acteur e = this.verifEnnemiAcoter();
         if(this.getArme() instanceof ArmeDistance){
             Fleche f= new Fleche(getPosition().getX(),getPosition().getY(),getPosition().getEnv(), getDx(),getDy());
             ((ArmeDistance) this.getArme()).setProjectile(f);
-            System.out.println("j'attaque");
-            this.getArme().utiliser();
+            System.out.println("j'ai tiré une flèche !!!");
+            ((ArmeDistance)this.getArme()).utiliser();
         }
         if(e!=null){
             if (getArme() != null){
-                e.seFaitAttaquer(this.getArme().utiliser());
-                if(e.getPv()==0){
-                    getPosition().getEnv().getActeurs().removeIf(a -> e.getId().equals(a.getId()));
+                e.seFaitAttaquer(((ArmeMelee) this.getArme()).getPtsDegats());
+                if (e.getPv() == 0) {
+                    getPosition().getEnv().acteursProperty().removeIf(a -> e.getId().equals(a.getId()));
                 }
             }
             else
                 System.out.println("Vous n'avez pas d'arme !");
         }
     }
-
 
     public void selectionObjet(int indexe) {
         if (indexe < inventaire.size()){

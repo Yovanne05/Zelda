@@ -34,7 +34,7 @@ public class Fleche extends Projectile {
             this.deplacement();
             this.collisionAvecEnnemi();
         } else {
-            this.getPosition().getEnv().enleverProjectile(this);
+            this.getPosition().getEnv().enleverActeur(this);
         }
     }
 
@@ -44,8 +44,8 @@ public class Fleche extends Projectile {
         this.x += this.getDx() * this.getVitesse();
         this.y += this.getDy() * this.getVitesse();
         // Mettez à jour les coordonnées de l'objet parent
-        this.setX(this.x);
-        this.setY(this.y);
+        this.getPosition().setX(this.x);
+        this.getPosition().setY(this.y);
     }
 
     public void collisionAvecEnnemi() {
@@ -55,7 +55,7 @@ public class Fleche extends Projectile {
                 Ennemi ennemi = (Ennemi) a;
                 if (this.touche(ennemi)) {
                     ennemi.seFaitAttaquer(this.getPtsDegats());
-                    getPosition().getEnv().enleverProjectile(this);
+                    getPosition().getEnv().enleverActeur(this);
                 }
             }
         }

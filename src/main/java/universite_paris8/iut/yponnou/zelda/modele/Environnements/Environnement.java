@@ -4,9 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import universite_paris8.iut.yponnou.zelda.Constante;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysan;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Projectile;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
@@ -17,15 +16,25 @@ public abstract class Environnement{
     private final int hauteur;
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
     private ObservableList<Objet> objets = FXCollections.observableArrayList();
-    private ObservableList<Projectile> projectiles = FXCollections.observableArrayList();
     private Map map;
+    private Hero hero;
 
-    public Environnement(Map map) {
+    public Environnement(Map map, Hero hero) {
         this.map = map;
+        this.hero = hero;
         this.largeur = this.map.getLargeur()*Constante.TAILLE50;
         this.hauteur = this.map.getHauteur()*Constante.TAILLE50;
     }
 
+    public Map getMap(){
+        return map;
+    }
+    public void setMap(Map map) {
+        this.map = map;
+    }
+    public Hero getHero() {
+        return hero;
+    }
     public int getLargeur() {
         return largeur;
     }
@@ -39,53 +48,44 @@ public abstract class Environnement{
     public void ajouterActeur(Acteur acteur) {
         acteurs.add(acteur);
     }
+
     public void enleverActeur(Acteur acteur) {
         acteurs.removeIf(a -> acteur.getId().equals(a.getId()));
-        acteurs.removeIf(a -> acteur.getId().equals(a.getId()+"BarreVie"));
+        acteurs.removeIf(a -> acteur.getId().equals(a.getId()+"BarreVie"));// pour les ennemis
     }
-
     public ObservableList<Objet> objetsProperty() {
         return objets;
     }
     public void ajouterObjet(Objet objet) {
         objets.add(objet);
     }
-
-
     public void enleverObjet(Objet objet) {
         objets.remove(objet);
     }
-    public void ajouterProjectile(Projectile p) {
-        projectiles.add(p);
-    }
-    public void enleverProjectile(Projectile p) {
-        projectiles.remove(p);
-    }
 
-    public Map getMap(){
-        return map;
+    public Hero heroEnv(){
+        for(Acteur a :acteurs){
+            if(a instanceof Hero){
+                return (Hero) a;
+            }
+        }
+        return null;
     }
 
     public boolean dansMap(double x, double y) {
         return x >= 0 && y >= 0 && x <= largeur-Constante.TAILLE50 && y <= hauteur-Constante.TAILLE50;
     }
 
-    public abstract void toutLeMondeBouge();
-
-
-    public ObservableList<Acteur> getActeurs() {
-        return acteurs;
+    public void toutLeMondeBouge(){
+        for (int i=0; i<acteurs.size(); i++) {
+            if (acteurs.get(i) instanceof Ennemi) {
+                ((Ennemi) acteurs.get(i)).deplacementEnnemi();
+            }
+            else if (acteurs.get(i) instanceof Fleche) {
+                ((Fleche) acteurs.get(i)).utiliserFleche();
+            }
+        }
     }
-
-    public ObservableList<Objet> getObjets() {
-        return objets;
-    }
-
-    public ObservableList<Projectile> getProjectiles() {
-        return projectiles;
-    }
-
-
     public Paysan paysansQuiParle(){
         for(Acteur a : acteurs){
             if(a instanceof Paysan){
@@ -94,5 +94,16 @@ public abstract class Environnement{
         }
         return null;
     }
+
+    public Vendeur obtenirVendeur(){
+        for(Acteur a : acteurs){
+            if(a instanceof Vendeur){
+                return (Vendeur) a;
+            }
+        }
+        return null;
+    }
+
+    public abstract void creationEnvironnement();
 
 }
