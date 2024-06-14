@@ -20,7 +20,6 @@ public class Hero extends Guerrier {
         capaciteMax = 5;
 //        inventaire.add(arme);
     }
-
     public ObservableList<Objet> inventaireProperty() {
         return inventaire;
     }

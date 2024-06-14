@@ -79,6 +79,7 @@ public class Controleur implements Initializable {
         hero.changeEnvArc(environnement);
         MapVue mapVue = new MapVue(environnement.getMap().getTabNum(), tilePaneDecors);
         mapVue.creerSprite();
+        System.out.println(environnement);
     }
 
     @FXML
@@ -174,38 +175,66 @@ public class Controleur implements Initializable {
                     }
                     break;
                 case T:
-                    changeMap();
+                    System.out.println("888");
+
+                    changeMap(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
+                    System.out.println("999");
                     break;
             }
             System.out.println(key);
         }
     }
 
-    private void changeMap() {
-        tilePaneDecors.getChildren().clear();
+    private void changeMap(int mapID) {
+        System.out.println("eeeee");
         Environnement newEnvironnement;
-        for(Acteur a : environnement.acteursProperty()){
-            paneMap.getChildren().remove(paneMap.lookup("#"+a.getId()));
-        }
-        for(Objet o : environnement.objetsProperty()){
-            paneObjets.getChildren().remove(paneObjets.lookup("#"+o.getId()));
-        }
-        if (environnement instanceof Village) {
+        switch (mapID){
+        case -1:
+            System.out.println("111");
+            tilePaneDecors.getChildren().clear();
+            for (Acteur a : environnement.acteursProperty()) {
+                paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
+            }
+            for (Objet o : environnement.objetsProperty()) {
+                paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
+            }
             newEnvironnement = new Labyrinthe(hero);
-        } else if (environnement instanceof Labyrinthe) {
-            newEnvironnement = new Donjon(hero);
-        } else {
-            newEnvironnement = new Village(hero);
+            switchToEnvironment(newEnvironnement);
+            break;
+        case -2:
+            tilePaneDecors.getChildren().clear();
+            for (Acteur a : environnement.acteursProperty()) {
+                paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
+            }
+            for (Objet o : environnement.objetsProperty()) {
+                paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
+            }
+
+        newEnvironnement = new Donjon(hero);
+            switchToEnvironment(newEnvironnement);
+            break;
+            case -3:
+            tilePaneDecors.getChildren().clear();
+            for (Acteur a : environnement.acteursProperty()) {
+                paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
+            }
+            for (Objet o : environnement.objetsProperty()) {
+                paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
+            }
+
+        newEnvironnement = new Village(hero);
+            switchToEnvironment(newEnvironnement);
+                break;
         }
-        switchToEnvironment(newEnvironnement);
+
     }
 
     @FXML
     private void toucheLacher() {
         boolean touche = false;
         heroVue.upgradeSprite();
+        System.out.println(environnement.getMap().getTabNum()[(int) (hero.getPosition().getY()/50)][(int) hero.getPosition().getX()/50]);
     }
-
     private void initAnimation() {
         gameLoop = new Timeline();
         temps = 0;

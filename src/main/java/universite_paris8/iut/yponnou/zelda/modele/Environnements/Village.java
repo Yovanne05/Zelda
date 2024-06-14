@@ -22,7 +22,7 @@ public class Village extends Environnement{
         getHero().getPosition().setEnv(this);
         getHero().setDx(0);
         getHero().setDy(0);
-        vendeur = new Vendeur(1400, 500, this, 0, 0);
+        vendeur = new Vendeur(500, 500, this, 0, 0);
         paysan = new Paysan(310,320,this,0,0);
 
         Pomme p1=new Pomme(400,400,this);
