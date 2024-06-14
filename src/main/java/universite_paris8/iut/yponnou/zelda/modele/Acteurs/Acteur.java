@@ -105,11 +105,10 @@ public class Acteur {
         double diffX = cibleX - this.getPosition().getX();
         double diffY = cibleY - this.getPosition().getY();
 
-        //Pythagore pour la distance
+        //Pythagore pour la distance : entre la position actuelle de l'acteur et la position cible
         double distance = Math.sqrt(diffX * diffX + diffY * diffY);
 
         if (distance > 0) {
-            // vecteur directionnel (directionX, directionY) de longueur 1
             double directionX = diffX / distance;
             double directionY = diffY / distance;
 

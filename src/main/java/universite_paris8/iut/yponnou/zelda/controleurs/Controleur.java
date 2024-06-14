@@ -76,7 +76,6 @@ public class Controleur implements Initializable {
         environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
         environnement.acteursProperty().addListener(new ObservateurActeurs(paneMap));
         environnement.creationEnvironnement();
-        hero.changeEnvArc(environnement);
         MapVue mapVue = new MapVue(environnement.getMap().getTabNum(), tilePaneDecors);
         mapVue.creerSprite();
     }
@@ -177,7 +176,7 @@ public class Controleur implements Initializable {
                     changeMap();
                     break;
             }
-            System.out.println(key);
+            System.out.println(p.getPosition().getX() + " " + p.getPosition().getY());
         }
     }
 

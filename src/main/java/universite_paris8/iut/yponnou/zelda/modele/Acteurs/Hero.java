@@ -192,7 +192,7 @@ public class Hero extends Guerrier {
             ((ArmeDistance) this.getArme()).setProjectile(f);
             ((ArmeDistance)this.getArme()).utiliser();
         }
-        if(e!=null){
+        else if(e!=null){
             if (getArme() != null){
                 e.seFaitAttaquer(((ArmeMelee) this.getArme()).getPtsDegats());
                 if (e.getPv() == 0) {
