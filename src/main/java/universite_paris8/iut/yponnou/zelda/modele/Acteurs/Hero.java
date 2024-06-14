@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.Constante;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeDistance;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeMelee;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.*;
 import universite_paris8.iut.yponnou.zelda.modele.Aliments.Nourriture;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Clef;
@@ -193,7 +190,6 @@ public class Hero extends Guerrier {
         if(this.getArme() instanceof ArmeDistance){
             Fleche f= new Fleche(getPosition().getX(),getPosition().getY(),getPosition().getEnv(), getDx(),getDy());
             ((ArmeDistance) this.getArme()).setProjectile(f);
-            System.out.println("j'ai tiré une flèche !!!");
             ((ArmeDistance)this.getArme()).utiliser();
         }
         if(e!=null){
@@ -207,6 +203,17 @@ public class Hero extends Guerrier {
                 System.out.println("Vous n'avez pas d'arme !");
         }
     }
+
+    public void changeEnvArc(Environnement env){
+        for(Objet o : inventaire){
+            if (o instanceof ArcArme){
+                o.getPosition().setEnv(env);
+            }
+        }
+
+    }
+
+
 
     public void selectionObjet(int indexe) {
         if (indexe < inventaire.size()){

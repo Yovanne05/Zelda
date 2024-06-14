@@ -4,7 +4,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.Constante;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Aliments.Nourriture;
+import universite_paris8.iut.yponnou.zelda.modele.Aliments.Nourriture;
+
+import static universite_paris8.iut.yponnou.zelda.Constante.TAILLE50;
 
 
 public class NourritureVue extends ObjetVue{
@@ -15,7 +17,7 @@ public class NourritureVue extends ObjetVue{
 
     @Override
     public void creerSprite(){
-        Rectangle r = new Rectangle(Constante.TAILLECASEX,Constante.TAILLECASEY);
+        Rectangle r = new Rectangle(TAILLE50,TAILLE50);
         r.setFill(Color.ORANGE);
         r.setId(getObjet().getId());
         r.setX(getObjet().getPosition().getX());

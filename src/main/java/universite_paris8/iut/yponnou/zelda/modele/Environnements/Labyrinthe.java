@@ -16,6 +16,7 @@ public class Labyrinthe extends Environnement{
 
     @Override
     public void creationEnvironnement(){
+        System.out.println("Labyrinthe");
         getHero().getPosition().setX(200);
         getHero().getPosition().setY(510);
         getHero().getPosition().setEnv(this);
