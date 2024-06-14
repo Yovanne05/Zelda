@@ -1,4 +1,4 @@
-package universite_paris8.iut.yponnou.zelda.controleurs.observateurs;
+package universite_paris8.iut.yponnou.zelda.controleurs.observateurs.objets;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
