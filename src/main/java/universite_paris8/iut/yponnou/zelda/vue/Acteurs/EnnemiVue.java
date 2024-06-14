@@ -49,7 +49,7 @@ public class EnnemiVue extends ActeurVue{
 
 
     @Override
-    public void upgradeSprite(Acteur a ,boolean touche) {
+    public void upgradeSprite() {
         ImageView imageView;
 
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));

@@ -81,7 +81,7 @@ public class Controleur implements Initializable {
         mapVue.creerSprite();
         System.out.println(environnement);
     }
-
+//test
     @FXML
     public void interaction(KeyEvent event) throws IOException {
         KeyCode key = event.getCode();
