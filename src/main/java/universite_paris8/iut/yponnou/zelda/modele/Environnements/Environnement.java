@@ -11,7 +11,6 @@ import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
 
 public abstract class Environnement{
-    private final Label toucheA = new Label("A");
     private final int largeur;
     private final int hauteur;
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();

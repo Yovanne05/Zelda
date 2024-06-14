@@ -17,13 +17,10 @@ import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs.Obse
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie.ObservateurCoeurs;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Donjon;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Labyrinthe;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.*;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Village;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 import universite_paris8.iut.yponnou.zelda.vue.Pv.CoeursVue;
@@ -189,11 +186,14 @@ public class Controleur implements Initializable {
         for(Objet o : environnement.objetsProperty()){
             paneObjets.getChildren().remove(paneObjets.lookup("#"+o.getId()));
         }
+
         if (environnement instanceof Village) {
             newEnvironnement = new Labyrinthe(hero);
         } else if (environnement instanceof Labyrinthe) {
+            newEnvironnement = new EntreeDonjon(hero);
+        } else if(environnement instanceof EntreeDonjon){
             newEnvironnement = new Donjon(hero);
-        } else {
+        }else {
             newEnvironnement = new Village(hero);
         }
         switchToEnvironment(newEnvironnement);
