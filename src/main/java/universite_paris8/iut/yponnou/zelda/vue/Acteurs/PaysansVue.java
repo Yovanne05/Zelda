@@ -9,10 +9,10 @@ import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Paysan;
 
-public class PaysanVue extends ActeurVue{
+public class PaysansVue extends ActeurVue{
 
     private final Image paysansImage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/acteurs/paysans.gif");
-    public PaysanVue(Acteur actVue, Pane pane) {
+    public PaysansVue(Acteur actVue, Pane pane) {
         super(actVue, pane);
     }
 
@@ -47,7 +47,7 @@ public class PaysanVue extends ActeurVue{
     }
 
     @Override
-    public void upgradeSprite() {
+    public void upgradeSprite(Acteur a , boolean touche) {
         ImageView imageView;
 
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
