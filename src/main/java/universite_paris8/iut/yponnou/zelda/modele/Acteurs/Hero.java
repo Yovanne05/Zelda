@@ -213,6 +213,9 @@ public class Hero extends Guerrier {
     }
 
 
+    public void ajouterObjet(Objet o){
+        inventaire.add(o);
+    }
 
     public void selectionObjet(int indexe) {
         if (indexe < inventaire.size()){

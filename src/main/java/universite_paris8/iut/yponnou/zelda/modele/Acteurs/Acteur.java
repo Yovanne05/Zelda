@@ -148,7 +148,7 @@ public class Acteur {
         return map[tableauYHG][tableauXHG] > 20 || map[tableauYHG][tableauXHD] > 20 || map[tableauYBG][tableauXHG] > 20 || map[tableauYBG][tableauXHD] > 20;
     }
 
-    private boolean collisionAvecActeur(Rectangle futureHitbox) {
+    public boolean collisionAvecActeur(Rectangle futureHitbox) {
         for (Acteur acteur : getPosition().getEnv().acteursProperty()) {
             Rectangle ennemiHitbox = acteur.getHitbox();
             //getBoundsInParent  retourne un objet de type Bounds représentant les coordonnées du rectangle
