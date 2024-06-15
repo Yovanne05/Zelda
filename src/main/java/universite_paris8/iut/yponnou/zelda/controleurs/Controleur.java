@@ -5,13 +5,15 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import universite_paris8.iut.yponnou.zelda.Lanceur;
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.objets.ObservateurInventaire;
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.objets.ObservateurObjets;
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs.ObservateurActeurs;
@@ -224,6 +226,14 @@ public class Controleur implements Initializable {
                 Duration.seconds(0.017),
                 ev -> {
                     environnement.toutLeMondeBouge();
+                    if (hero.estMort()) {
+                        try {
+                            this.gameOver();
+                            gameLoop.stop();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                     temps++;
                 }
         );
@@ -272,5 +282,21 @@ public class Controleur implements Initializable {
         paneCoeurs.translateYProperty().bind(
                 paneMap.translateYProperty().multiply(-1)
         );
+    }
+
+
+    public void gameOver() throws IOException {
+        Stage oldStage, newStage;
+
+        oldStage = (Stage) paneMap.getScene().getWindow();
+        oldStage.close();
+        newStage = new Stage();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(Lanceur.class.getResource("gameOver.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        StackPane root = (StackPane) scene.getRoot();
+        root.requestFocus();
+        newStage.setScene(scene);
+        newStage.show();
     }
 }

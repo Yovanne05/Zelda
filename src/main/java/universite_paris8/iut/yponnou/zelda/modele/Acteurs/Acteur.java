@@ -114,10 +114,10 @@ public class Acteur {
             double directionY = diffY / distance;
 
             // Nouvelle pos
-            double prochainX = this.getPosition().getX() + directionX * this.getVitesse() * TAILLE50;
-            double prochainY = this.getPosition().getY() + directionY * this.getVitesse() * TAILLE50;
+            double prochainX = this.getPosition().getX() + directionX * this.getVitesse() * TAILLE70;
+            double prochainY = this.getPosition().getY() + directionY * this.getVitesse() * TAILLE70;
 
-            Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE50, TAILLE50);
+            Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE70, TAILLE70);
 
             if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
                 position.setX(prochainX);

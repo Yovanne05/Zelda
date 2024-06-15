@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Pos?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<StackPane xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.GameOverControleur"  stylesheets="@style.css">
+<StackPane xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.HistoireControleur" stylesheets="@style.css">
     <!-- Background Image -->
     <children>
         <ImageView fitHeight="900" fitWidth="1500">
@@ -24,10 +24,9 @@
             <padding>
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
-            <Text text="Game Over" style="-fx-font-size: 200px;" styleClass="text-title"/>
-            <Button text="Rejouer" fx:id="boutonRejouer" onAction="#lancementRejouer" style="-fx-font-size: 34px;" styleClass="button"/>
-            <Button text="Retour au Menu" fx:id="boutonRetour" onAction="#lancementRetourMenu" style="-fx-font-size: 34px;" styleClass="button"/>
-            <Button text="Quitter" fx:id="boutonQuitter" onAction="#quitterLeJeu" style="-fx-font-size: 34px;" styleClass="button"/>
+            <Text styleClass="text-title" text="Histoire du jeu"/>
+            <Text fx:id="texteHistoire" wrappingWidth="1000" styleClass="text-story"/>
+            <Button text="Retour au Menu" fx:id="boutonRetour" onAction="#lancementRetourMenu" styleClass="button"/>
         </VBox>
     </children>
 </StackPane>

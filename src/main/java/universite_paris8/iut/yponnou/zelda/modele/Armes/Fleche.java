@@ -1,7 +1,6 @@
 
 package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Ennemi;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
@@ -50,9 +49,8 @@ public class Fleche extends Projectile {
 
     public void collisionAvecEnnemi() {
 
-        for (Acteur a : getPosition().getEnv().acteursProperty()) {
-            if (a instanceof Ennemi) {
-                Ennemi ennemi = (Ennemi) a;
+        for (int i=0 ; i < getPosition().getEnv().acteursProperty().size() ; i++) {
+            if (getPosition().getEnv().acteursProperty().get(i) instanceof Ennemi ennemi) {
                 if (this.touche(ennemi)) {
                     ennemi.seFaitAttaquer(this.getPtsDegats());
                     getPosition().getEnv().enleverActeur(this);

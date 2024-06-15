@@ -8,10 +8,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.MenuControleur">
+<StackPane xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.MenuControleur" stylesheets="@style.css">
    <!-- Background Image -->
    <children>
-      <ImageView>
+      <ImageView fitHeight="900" fitWidth="1500">
          <image>
             <Image url="@Images/medieval_background.jpg"/>
          </image>
@@ -23,9 +23,10 @@
          <padding>
             <Insets top="20" right="20" bottom="20" left="20"/>
          </padding>
-         <Text text="La quête du Paysan" style="-fx-font-family: 'MedievalSharp'; -fx-font-size: 36px;" fill="saddlebrown"/>
-         <Button text="Lancer le Jeu" fx:id="boutonLancer" onAction="#lancementJeu" style="-fx-font-family: 'MedievalSharp'; -fx-font-size: 18px; -fx-background-color: saddlebrown; -fx-text-fill: white; -fx-background-radius: 10;" />
-         <Button text="Histoire" onAction="#lancementHistoire" style="-fx-font-family: 'MedievalSharp'; -fx-font-size: 18px; -fx-background-color: saddlebrown; -fx-text-fill: white; -fx-background-radius: 10;" />
+         <Text text="La Quête Du Paysan" styleClass="text-title"/>
+         <Button text="Lancer le Jeu" fx:id="boutonLancer" onAction="#lancementJeu" styleClass="button" />
+         <Button text="Histoire" fx:id="boutonHistoire" onAction="#lancementHistoire" styleClass="button" />
+         <Button text="Commandes" fx:id="boutonCommandes" onAction="#lancementCommandes" styleClass="button" />
       </VBox>
    </children>
 </StackPane>
