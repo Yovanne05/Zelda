@@ -4,6 +4,7 @@ module universite_paris8.iut.yponnou.zelda {
 
     requires org.controlsfx.controls;
     requires java.desktop;
+    requires javafx.graphics;
 
     opens universite_paris8.iut.yponnou.zelda to javafx.fxml;
     exports universite_paris8.iut.yponnou.zelda;

@@ -65,7 +65,6 @@ public class MapVue {
     private final Image mossyBrick1;
     private final Image mossyBrick2;
     private final Image mossyCobble;
-    private final Image floor_castle;
     private final Image cube_brick;
     private final Image cobblestone;
     private final Image dungeonDoor1;
@@ -73,8 +72,7 @@ public class MapVue {
     private final Image dungeonDoor3;
     private final Image dungeonDoor4;
     private final Image dungeonDoor6;
-    private final Image doorInDungeon;
-    private final Image doorOutDungeon;
+    private final Image doorInOutDungeon;
     private final Image dungeonDoor1D;
     private final Image dungeonDoor2D;
     private final Image dungeonDoor3D;
@@ -169,7 +167,6 @@ public class MapVue {
         mossyBrick1 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/mossyBrick.PNG");
         mossyBrick2 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/mossyBrick2.PNG");
         mossyCobble = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/mossyCobble.PNG");
-        floor_castle = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/floor_castle.gif");
         cube_brick= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/cube_block_brick.PNG");
         cobblestone =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/Cobblestone.jpg");
         dungeonDoor1 =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/dungeondoor1.png");
@@ -177,8 +174,7 @@ public class MapVue {
         dungeonDoor3 =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/dungeondoor3.png");
         dungeonDoor4 =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/dungeondoor4.png");
         dungeonDoor6=new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/dungeondoor6.png");
-        doorInDungeon =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/dungeondoor5.png");
-        doorOutDungeon=new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/dungeondoor5.png");
+        doorInOutDungeon =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/dungeondoor5.png");
         dungeonDoor1D =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/dungeondoor1D.png");
         dungeonDoor2D =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/dungeondoor2D.png");
         dungeonDoor3D =new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/dungeondoor3D.png");
@@ -214,6 +210,25 @@ public class MapVue {
             for (int x = 0; x < tab[y].length; x++) {
                 ImageView imageView;
                 switch (tab[y][x]) {
+                    case -1:
+                        imageView = new ImageView(grass);
+                        break;
+                    case -2:
+                        imageView = new ImageView(grass);
+                        break;
+                    case -3:
+                        imageView = new ImageView(grass);
+                        break;
+                    case -4:
+                        imageView = new ImageView(grass);
+                        break;
+                    case -5:
+                        imageView = new ImageView(doorInOutDungeon);
+                        break;
+                    case -6:
+                        imageView = new ImageView(doorInOutDungeon);
+                        break;
+
                     // GRASS
                     case 0:
                         imageView = new ImageView(grass);
@@ -353,12 +368,6 @@ public class MapVue {
                         break;
                     case 78:
                         imageView = new ImageView(dungeonDoor4);
-                        break;
-                    case -1:
-                        imageView = new ImageView(doorInDungeon);
-                        break;
-                    case -2:
-                        imageView = new ImageView(doorOutDungeon);
                         break;
                     case 80:
                         imageView = new ImageView(dungeonDoor6);

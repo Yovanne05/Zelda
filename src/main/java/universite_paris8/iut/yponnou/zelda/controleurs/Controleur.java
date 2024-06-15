@@ -17,13 +17,10 @@ import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs.Obse
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie.ObservateurCoeurs;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Donjon;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Labyrinthe;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.*;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Village;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 import universite_paris8.iut.yponnou.zelda.vue.Pv.CoeursVue;
@@ -96,6 +93,7 @@ public class Controleur implements Initializable {
                     p.setDy(-1);
                     p.deplacement();
                     heroVue.upgradeSprite();
+                    changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
                     adjustCamera();
                     break;
                 case S:
@@ -105,6 +103,7 @@ public class Controleur implements Initializable {
                     p.setDy(1);
                     p.deplacement();
                     heroVue.upgradeSprite();
+                    changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
                     adjustCamera();
                     break;
                 case D:
@@ -114,6 +113,7 @@ public class Controleur implements Initializable {
                     p.setDy(0);
                     p.deplacement();
                     heroVue.upgradeSprite();
+                    changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
                     adjustCamera();
                     break;
                 case Q:
@@ -123,6 +123,7 @@ public class Controleur implements Initializable {
                     p.setDy(0);
                     p.deplacement();
                     heroVue.upgradeSprite();
+                    changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
                     adjustCamera();
                     break;
                 case E:
@@ -185,6 +186,16 @@ public class Controleur implements Initializable {
         }
     }
 
+    public boolean changementPossible(int caseHero){
+        return caseHero<0;
+    }
+
+    public void changementMapPossible(int caseHero){
+        if(changementPossible(caseHero)){
+            changeMap(caseHero);
+        }
+    }
+
     private void changeMap(int mapID) {
         System.out.println("eeeee");
         Environnement newEnvironnement;
@@ -200,6 +211,8 @@ public class Controleur implements Initializable {
             }
             newEnvironnement = new Labyrinthe(hero);
             switchToEnvironment(newEnvironnement);
+            hero.getPosition().setX(50);
+            hero.getPosition().setY(800);
             break;
         case -2:
             tilePaneDecors.getChildren().clear();
@@ -210,8 +223,10 @@ public class Controleur implements Initializable {
                 paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
             }
 
-        newEnvironnement = new Donjon(hero);
+        newEnvironnement = new Village(hero);
             switchToEnvironment(newEnvironnement);
+            hero.getPosition().setX(1400);
+            hero.getPosition().setY(500);
             break;
             case -3:
             tilePaneDecors.getChildren().clear();
@@ -222,23 +237,63 @@ public class Controleur implements Initializable {
                 paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
             }
 
-        newEnvironnement = new Village(hero);
+        newEnvironnement = new EntreeDonjon(hero);
             switchToEnvironment(newEnvironnement);
+                hero.getPosition().setX(50);
+                hero.getPosition().setY(1225);
                 break;
-           /* case X:
-                paneMap.getChildren().clear();
-                mapActuelle.initialisationMap2();
-                v.setMap(v.getMap());
-                break;*/
-        }
+            case -4:
+                tilePaneDecors.getChildren().clear();
+                for (Acteur a : environnement.acteursProperty()) {
+                    paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
+                }
+                for (Objet o : environnement.objetsProperty()) {
+                    paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
+                }
 
+                newEnvironnement = new Labyrinthe(hero);
+                switchToEnvironment(newEnvironnement);
+                hero.getPosition().setX(1400);
+                hero.getPosition().setY(850);
+                break;
+            case -5:
+                tilePaneDecors.getChildren().clear();
+                for (Acteur a : environnement.acteursProperty()) {
+                    paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
+                }
+                for (Objet o : environnement.objetsProperty()) {
+                    paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
+                }
+
+                newEnvironnement = new Donjon(hero);
+                switchToEnvironment(newEnvironnement);
+                hero.getPosition().setX(725);
+                hero.getPosition().setY(550);
+                break;
+            case -6:
+                tilePaneDecors.getChildren().clear();
+                for (Acteur a : environnement.acteursProperty()) {
+                    paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
+                }
+                for (Objet o : environnement.objetsProperty()) {
+                    paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
+                }
+
+                newEnvironnement = new EntreeDonjon(hero);
+                switchToEnvironment(newEnvironnement);
+                hero.getPosition().setX(725);
+                hero.getPosition().setY(700);
+                break;
+        }
     }
     //TEST
     @FXML
     private void toucheLacher() {
         boolean touche = false;
-        heroVue.upgradeSprite();
+        heroVue.upgradeSpriteStatic();
         System.out.println(environnement.getMap().getTabNum()[(int) (hero.getPosition().getY()/50)][(int) hero.getPosition().getX()/50]);
+        System.out.println(hero.getPosition().getY());
+        System.out.println(hero.getPosition().getX());
     }
     private void initAnimation() {
         gameLoop = new Timeline();

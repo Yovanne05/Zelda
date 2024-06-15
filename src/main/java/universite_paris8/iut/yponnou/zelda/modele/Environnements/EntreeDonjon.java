@@ -12,9 +12,8 @@ public class EntreeDonjon extends Environnement{
     @Override
     public void creationEnvironnement() {
         getHero().changeEnvArc(this);
-        getHero().getPosition().setX(20);
-        getHero().getPosition().setY(1260);
         getHero().getPosition().setEnv(this);
+
         getHero().setDx(0);
         getHero().setDy(0);
         this.ajouterActeur(getHero());

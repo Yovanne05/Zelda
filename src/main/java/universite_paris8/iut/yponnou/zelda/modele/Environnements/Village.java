@@ -18,13 +18,13 @@ public class Village extends Environnement{
     @Override
     public void creationEnvironnement(){
         getHero().changeEnvArc(this);
-        getHero().getPosition().setX(830);
-        getHero().getPosition().setY(510);
+        getHero().getPosition().setX(300);
+        getHero().getPosition().setY(500);
         getHero().getPosition().setEnv(this);
         getHero().setDx(0);
         getHero().setDy(0);
         vendeur = new Vendeur(500, 500, this, 0, 0);
-        paysan = new Paysan(310,320,this,0,0);
+        paysan = new Paysan(330,300,this,0,0);
 
         Pomme p1=new Pomme(400,400,this);
         Pomme p2=new Pomme(800,200,this);
