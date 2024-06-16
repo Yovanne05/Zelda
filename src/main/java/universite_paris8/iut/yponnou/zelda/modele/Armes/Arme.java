@@ -1,23 +1,23 @@
+
 package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
-public class Arme{
-    private String nom;
-    private double ptsDegats;
-    private int portee;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
-    public Arme(String nom, double ptsDegats, int portee) {
-        this.nom = nom;
-        this.ptsDegats = ptsDegats;
-        this.portee = portee;
+public class Arme extends Objet {
+    private String nom;
+
+    public Arme(String nom, double x, double y, Environnement environnement) {
+        super(x, y, environnement);
+        this.nom=nom;
     }
 
     public String getNom() {
         return nom;
     }
-    public double getPtsDegats() {
-        return ptsDegats;
+    @Override
+    public String toString() {
+        return null;
     }
-    public int getPortee() {
-        return portee;
-    }
+
 }

@@ -1,17 +1,25 @@
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
-import universite_paris8.iut.yponnou.zelda.modele.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
 
 public abstract class Ennemi extends Guerrier {
 
-    public Ennemi(String nom, double coeurs, int x, int y, double vitesse, Environnement environnement, Arme arme) {
-        super(nom, coeurs, x, y, vitesse, environnement, arme);
+    private long derniereAttaque;
+
+    public Ennemi(String nom, double x, double y, int pv, double vitesse, Environnement environnement, int dx, int dy, Arme arme) {
+        super(nom, x, y, pv, vitesse, environnement, dx, dy, arme);
+        this.derniereAttaque = 0;
     }
-    public Hero verifHeroProx(){
-        for (Acteur a : getEnvironnement().getActeurs()) {
-            if (((getX() + 1) == a.getX()) || (getX() - 1 == a.getX()) || getY() + 1 == a.getY() || getY() - 1 == a.getY()) {
-                if(a instanceof Hero){
+
+    public Hero verifHeroProx(double dist) {
+        for (Acteur a : this.getPosition().getEnv().acteursProperty()) {
+            if ((Math.abs(getPosition().getX() - a.getPosition().getX()) <= dist && Math.abs(getPosition().getY() - a.getPosition().getY()) <= dist)) {
+                if (a instanceof Hero) {
                     return (Hero) a;
                 }
             }
@@ -19,4 +27,13 @@ public abstract class Ennemi extends Guerrier {
         return null;
     }
 
+    public long getDerniereAttaque() {
+        return derniereAttaque;
+    }
+
+    public void setDerniereAttaque(long derniereAttaque) {
+        this.derniereAttaque = derniereAttaque;
+    }
+
+    public abstract void deplacementEnnemi();
 }
