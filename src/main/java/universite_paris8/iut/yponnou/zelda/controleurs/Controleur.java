@@ -200,7 +200,7 @@ public class Controleur implements Initializable {
         System.out.println("eeeee");
         Environnement newEnvironnement;
         switch (mapID){
-        case -1:
+        case -8:
             System.out.println("111");
             tilePaneDecors.getChildren().clear();
             for (Acteur a : environnement.acteursProperty()) {
@@ -256,8 +256,8 @@ public class Controleur implements Initializable {
                 hero.getPosition().setX(1400);
                 hero.getPosition().setY(850);
                 break;
-            case -5:
-                if (hero.possedeClef()){
+            case -1:
+               // if (hero.possedeClef()){
                 tilePaneDecors.getChildren().clear();
                 for (Acteur a : environnement.acteursProperty()) {
                     paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
@@ -269,10 +269,10 @@ public class Controleur implements Initializable {
                 newEnvironnement = new Donjon(hero);
                 switchToEnvironment(newEnvironnement);
                 hero.getPosition().setX(725);
-                hero.getPosition().setY(550);}
-                else{
-                    environnement.entree();
-                }
+                hero.getPosition().setY(550);//}
+//                else{
+//                    environnement.entree();
+//                }
                 break;
             case -6:
                 tilePaneDecors.getChildren().clear();
