@@ -40,7 +40,6 @@ public class Controleur implements Initializable {
     private Timeline gameLoop;
     private int temps;
 
-    private boolean touche;
 
     @FXML
     private Pane paneMap;
@@ -425,6 +424,7 @@ public class Controleur implements Initializable {
         root.requestFocus();
         newStage.setScene(scene);
         newStage.show();
+        musiqueJeu.stop();
     }
 
     public void victoire() throws IOException {
@@ -440,5 +440,6 @@ public class Controleur implements Initializable {
         root.requestFocus();
         newStage.setScene(scene);
         newStage.show();
+        musiqueJeu.stop();
     }
 }
