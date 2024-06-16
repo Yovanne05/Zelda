@@ -47,4 +47,5 @@ public class Labyrinthe extends Environnement{
         this.ajouterActeur(g8);
     }
 
+
 }

@@ -27,7 +27,7 @@ public class Paysan extends Acteur {
         root.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 20px;");
 
         Label label = new Label("Bonjour, je suis un paysan de ce village. J'ai appris que votre frère a été capturé et que la clé se trouverait peut-être dans un royaume." +
-                "\n Le gardien qui garde votre frère s'appelle M. Homps il me semble. Il aurait cacher une cle dans un labyrinthe.");
+                "\n La personne qui garde votre frère s'appelle M. Homps il me semble. Il aurait cacher une cle dans un labyrinthe.");
         label.setTextFill(Color.WHITE);
         label.setFont(new Font(20));
         label.setMaxWidth(400); // Ajustez la largeur maximale selon vos besoins
