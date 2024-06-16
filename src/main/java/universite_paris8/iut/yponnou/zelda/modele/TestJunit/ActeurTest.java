@@ -23,17 +23,17 @@ public class ActeurTest {
     @Test
     public void testCreationActeur() {
         assertEquals("TestActeur", acteur.getNom());
-        assertEquals(400.0, acteur.getPosition().getX(), 0.0001); // Ajout du delta pour comparaison des flottants
-        assertEquals(400.0, acteur.getPosition().getY(), 0.0001); // Ajout du delta pour comparaison des flottants
+        assertEquals(400.0, acteur.getPosition().getX(), 0.0001);
+        assertEquals(400.0, acteur.getPosition().getY(), 0.0001);
         assertEquals(100, acteur.getPv());
-        assertEquals(1.0, acteur.getVitesse(), 0.0001); // Ajout du delta pour comparaison des flottants
+        assertEquals(1.0, acteur.getVitesse(), 0.0001);
     }
 
     @Test
     public void testDeplacement() {
         acteur.deplacement();
-        assertEquals(450, acteur.getPosition().getX(), 0.0001); // Ajout du delta pour comparaison des flottants
-        assertEquals(400, acteur.getPosition().getY(), 0.0001); // Ajout du delta pour comparaison des flottants
+        assertEquals(450, acteur.getPosition().getX(), 0.0001);
+        assertEquals(400, acteur.getPosition().getY(), 0.0001);
     }
 
     @Test
@@ -86,21 +86,17 @@ public class ActeurTest {
 
     @Test
     public void testDeplacerVersAvecObstacle() {
-        // Créer un autre acteur à la position cible
         Acteur a1 = new Acteur("a1", 500, 400, 100, 1.0, environnement, 1, 0);
         environnement.ajouterActeur(a1);
 
         double cibleX = 500;
         double cibleY = 400;
 
-        // Enregistrer la position actuelle de l'acteur avant de tenter le déplacement
         double positionXInitiale = acteur.getPosition().getX();
         double positionYInitiale = acteur.getPosition().getY();
 
-        // Appeler la méthode deplacerVers()
         acteur.deplacerVers(cibleX, cibleY);
 
-        // Vérifier que l'acteur n'a pas bougé car il y a un obstacle (un autre acteur)
         assertEquals(positionXInitiale, acteur.getPosition().getX(), 0.0001);
         assertEquals(positionYInitiale, acteur.getPosition().getY(), 0.0001);
     }
