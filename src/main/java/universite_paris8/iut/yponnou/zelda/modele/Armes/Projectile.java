@@ -5,17 +5,22 @@ package universite_paris8.iut.yponnou.zelda.modele.Armes;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
+import universite_paris8.iut.yponnou.zelda.utilitaire.Son;
 
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLE50;
+import static universite_paris8.iut.yponnou.zelda.utilitaire.Constante.TAILLE50;
 
 public class Projectile extends Acteur {
     private int ptsDegats;
     private double portee;
 
+    private final Son sonFleche = new Son("/universite_paris8/iut/yponnou/zelda/Sons/bruits/sonFleche.wav");
+
     public Projectile(String nom, double x, double y, int pv, double vitesse, Environnement environnement, int dx, int dy, double portee, int ptsDegats) {
         super(nom, x, y, pv, vitesse, environnement, dx, dy);
         this.portee=portee;
         this.ptsDegats=ptsDegats;
+
+        sonFleche.jouer(1,0);
     }
 
 
@@ -36,6 +41,7 @@ public class Projectile extends Acteur {
             getPosition().setX(prochainX);
             getPosition().setY(prochainY);
         }
+        sonFleche.run();
     }
 
 }

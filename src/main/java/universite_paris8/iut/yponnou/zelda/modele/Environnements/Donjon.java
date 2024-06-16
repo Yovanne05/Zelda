@@ -37,7 +37,6 @@ public class Donjon extends Environnement{
         this.ajouterActeur(chevalier);
         this.ajouterActeur(chevalier2);
     }
-
     public boolean verifEnnemiMort(){
         for (int i=0;i<acteursProperty().size();i++){
             if(acteursProperty().get(i) instanceof Ennemi){
@@ -48,4 +47,5 @@ public class Donjon extends Environnement{
         }
         return true;
     }
+
 }

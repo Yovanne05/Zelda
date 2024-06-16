@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<StackPane xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.GameOverControleur"  stylesheets="@style.css">
+<StackPane xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.yponnou.zelda.controleurs.VictoireControleur"  stylesheets="@style.css">
     <!-- Background Image -->
     <children>
         <ImageView fitHeight="900" fitWidth="1500">

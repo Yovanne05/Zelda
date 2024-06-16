@@ -42,4 +42,5 @@ public class Village extends Environnement{
         this.ajouterObjet(p5);
         this.ajouterActeur(getHero());
     }
+
 }

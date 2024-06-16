@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Vendeur;
 
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLE50;
+import static universite_paris8.iut.yponnou.zelda.utilitaire.Constante.TAILLE50;
 
 public class VendeurVue extends ActeurVue {
 

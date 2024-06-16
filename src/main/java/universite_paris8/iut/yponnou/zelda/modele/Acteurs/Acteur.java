@@ -4,11 +4,10 @@ package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.Constante;
-import universite_paris8.iut.yponnou.zelda.Position;
+import universite_paris8.iut.yponnou.zelda.utilitaire.Position;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
-import static universite_paris8.iut.yponnou.zelda.Constante.*;
+import static universite_paris8.iut.yponnou.zelda.utilitaire.Constante.*;
 
 public class Acteur {
 
@@ -89,7 +88,6 @@ public class Acteur {
 
 
     public void deplacement() {
-        //System.out.println("deplace");
         double prochainX = getPosition().getX() + (this.dx * this.vitesse) * TAILLE50;
         double prochainY = getPosition().getY() + (this.dy * this.vitesse) * TAILLE50;
 
