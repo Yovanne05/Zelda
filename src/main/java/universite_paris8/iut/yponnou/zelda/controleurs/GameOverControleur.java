@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import universite_paris8.iut.yponnou.zelda.Lanceur;
+import universite_paris8.iut.yponnou.zelda.utilitaire.Son;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,12 +17,11 @@ import java.util.ResourceBundle;
 
 public class GameOverControleur implements Initializable {
 
-//    private static final Son musiqueDefaite = new Son();
+    private static final Son musiqueDefaite = new Son("/universite_paris8/iut/yponnou/zelda/Sons/musique/Lose.wav");
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        if (!musiqueDefaite.estOuvert())
-//            musiqueDefaite.jouer(0.05f,-1);
+        musiqueDefaite.jouer(0.05f,-1);
     }
 
     @FXML
@@ -46,6 +46,7 @@ public class GameOverControleur implements Initializable {
         root.requestFocus();
         newStage.setScene(scene);
         newStage.show();
+        musiqueDefaite.stop();
     }
 
     @FXML
@@ -60,6 +61,7 @@ public class GameOverControleur implements Initializable {
         StackPane root = (StackPane) stage.getScene().getRoot();
         root.requestFocus();
         stage.show();
+        musiqueDefaite.stop();
     }
 
     @FXML

@@ -70,7 +70,7 @@ public class Controleur implements Initializable {
         gameLoop.play();
         mapActuelle = new Map(30, 30);
 
-        hero = new Hero(0, 0, null, 0, 0, new Epee(0, 0, null));
+        hero = new Hero(0, 0, null, 0, 0, null);
         hero.pvProperty().addListener(new ObservateurCoeurs(paneCoeurs, new CoeursVue(paneCoeurs)));
         hero.inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
         heroVue = new HeroVue(hero, paneMap);
@@ -327,7 +327,7 @@ public class Controleur implements Initializable {
         System.out.println(environnement.getMap().getTabNum()[(int) (hero.getPosition().getY()/50)][(int) hero.getPosition().getX()/50]);
         System.out.println(hero.getPosition().getY());
         System.out.println(hero.getPosition().getX());
-        bruitPas.makeBreak();
+        bruitPas.stop();
     }
 
     private void adjustCamera() {
