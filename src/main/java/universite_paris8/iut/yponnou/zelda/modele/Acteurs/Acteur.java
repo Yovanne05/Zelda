@@ -1,3 +1,4 @@
+
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
 import javafx.beans.property.IntegerProperty;
@@ -105,19 +106,18 @@ public class Acteur {
         double diffX = cibleX - this.getPosition().getX();
         double diffY = cibleY - this.getPosition().getY();
 
-        //Pythagore pour la distance
+        //Pythagore pour la distance : entre la position actuelle de l'acteur et la position cible
         double distance = Math.sqrt(diffX * diffX + diffY * diffY);
 
         if (distance > 0) {
-            // vecteur directionnel (directionX, directionY) de longueur 1
             double directionX = diffX / distance;
             double directionY = diffY / distance;
 
             // Nouvelle pos
-            double prochainX = this.getPosition().getX() + directionX * this.getVitesse() * TAILLE70;
-            double prochainY = this.getPosition().getY() + directionY * this.getVitesse() * TAILLE70;
+            double prochainX = this.getPosition().getX() + directionX * this.getVitesse() * TAILLE50;
+            double prochainY = this.getPosition().getY() + directionY * this.getVitesse() * TAILLE50;
 
-            Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE70, TAILLE70);
+            Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE50, TAILLE50);
 
             if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
                 position.setX(prochainX);
@@ -149,7 +149,7 @@ public class Acteur {
         return map[tableauYHG][tableauXHG] > 20 || map[tableauYHG][tableauXHD] > 20 || map[tableauYBG][tableauXHG] > 20 || map[tableauYBG][tableauXHD] > 20;
     }
 
-    private boolean collisionAvecActeur(Rectangle futureHitbox) {
+    public boolean collisionAvecActeur(Rectangle futureHitbox) {
         for (Acteur acteur : getPosition().getEnv().acteursProperty()) {
             Rectangle ennemiHitbox = acteur.getHitbox();
             //getBoundsInParent  retourne un objet de type Bounds représentant les coordonnées du rectangle

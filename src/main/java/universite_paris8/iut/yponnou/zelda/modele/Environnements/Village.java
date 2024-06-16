@@ -18,23 +18,28 @@ public class Village extends Environnement{
 
     @Override
     public void creationEnvironnement(){
-        getHero().getPosition().setX(830);
-        getHero().getPosition().setY(510);
+        getHero().changeEnvObjets(this);
+        getHero().getPosition().setX(300);
+        getHero().getPosition().setY(500);
         getHero().getPosition().setEnv(this);
         getHero().setDx(0);
         getHero().setDy(0);
-        vendeur = new Vendeur(1400, 500, this, 0, 0);
-        paysan = new Paysan(310,320,this,0,0);
+        vendeur = new Vendeur(500, 500, this, 0, 0);
+        paysan = new Paysan(330,300,this,0,0);
 
         Pomme p1=new Pomme(400,400,this);
         Pomme p2=new Pomme(800,200,this);
         Pomme p3=new Pomme(1200,450,this);
+        Pomme p4=new Pomme(900,550,this);
+        Pomme p5=new Pomme(1100,550,this);
 
         this.ajouterActeur(vendeur);
         this.ajouterActeur(paysan);
         this.ajouterObjet(p1);
         this.ajouterObjet(p2);
         this.ajouterObjet(p3);
+        this.ajouterObjet(p4);
+        this.ajouterObjet(p5);
         this.ajouterActeur(getHero());
     }
 }

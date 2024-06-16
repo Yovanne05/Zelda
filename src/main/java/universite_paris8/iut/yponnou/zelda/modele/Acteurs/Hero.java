@@ -1,3 +1,4 @@
+
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
 import javafx.collections.FXCollections;
@@ -20,7 +21,6 @@ public class Hero extends Guerrier {
         capaciteMax = 5;
 //        inventaire.add(arme);
     }
-
     public ObservableList<Objet> inventaireProperty() {
         return inventaire;
     }
@@ -190,10 +190,9 @@ public class Hero extends Guerrier {
         if(this.getArme() instanceof ArmeDistance){
             Fleche f= new Fleche(getPosition().getX(),getPosition().getY(),getPosition().getEnv(), getDx(),getDy());
             ((ArmeDistance) this.getArme()).setProjectile(f);
-            System.out.println("j'ai tiré une flèche !!!");
             ((ArmeDistance)this.getArme()).utiliser();
         }
-        if(e!=null){
+        else if(e!=null){
             if (getArme() != null){
                 e.seFaitAttaquer(((ArmeMelee) this.getArme()).getPtsDegats());
                 if (e.getPv() == 0) {
@@ -211,6 +210,16 @@ public class Hero extends Guerrier {
                 o.getPosition().setEnv(env);
             }
         }
+    }
+
+    public void changeEnvObjets(Environnement env){
+        for(Objet o : inventaire){
+            o.getPosition().setEnv(env);
+        }
+    }
+
+    public void ajouterObjet(Objet o){
+        inventaire.add(o);
     }
 
     public void selectionObjet(int indexe) {

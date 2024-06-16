@@ -10,23 +10,22 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import universite_paris8.iut.yponnou.zelda.Lanceur;
-import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.objets.ObservateurInventaire;
-import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.objets.ObservateurObjets;
+import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.objets.*;
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs.ObservateurActeurs;
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie.ObservateurCoeurs;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Donjon;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Labyrinthe;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.*;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Village;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 import universite_paris8.iut.yponnou.zelda.vue.Pv.CoeursVue;
@@ -79,13 +78,15 @@ public class Controleur implements Initializable {
         environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
         environnement.acteursProperty().addListener(new ObservateurActeurs(paneMap));
         environnement.creationEnvironnement();
-        hero.changeEnvArc(environnement);
+        hero.changeEnvObjets(environnement);
+        hero.getPosition().setEnv(environnement);
         MapVue mapVue = new MapVue(environnement.getMap().getTabNum(), tilePaneDecors);
         mapVue.creerSprite();
+        System.out.println(environnement);
     }
-
+    //test
     @FXML
-    public void interaction(KeyEvent event) throws IOException {
+    public void interaction(KeyEvent event) {
         KeyCode key = event.getCode();
         Hero p = environnement.heroEnv();
         Objet ob;
@@ -98,6 +99,7 @@ public class Controleur implements Initializable {
                     p.setDy(-1);
                     p.deplacement();
                     heroVue.upgradeSprite();
+                    changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
                     adjustCamera();
                     break;
                 case S:
@@ -107,6 +109,7 @@ public class Controleur implements Initializable {
                     p.setDy(1);
                     p.deplacement();
                     heroVue.upgradeSprite();
+                    changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
                     adjustCamera();
                     break;
                 case D:
@@ -116,6 +119,7 @@ public class Controleur implements Initializable {
                     p.setDy(0);
                     p.deplacement();
                     heroVue.upgradeSprite();
+                    changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
                     adjustCamera();
                     break;
                 case Q:
@@ -125,6 +129,7 @@ public class Controleur implements Initializable {
                     p.setDy(0);
                     p.deplacement();
                     heroVue.upgradeSprite();
+                    changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
                     adjustCamera();
                     break;
                 case E:
@@ -182,62 +187,86 @@ public class Controleur implements Initializable {
                     }
                     break;
                 case T:
-                    changeMap();
+                    System.out.println("888");
+                    changeMap(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
+                    System.out.println("999");
                     break;
             }
             System.out.println(key);
         }
     }
 
-    private void changeMap() {
-        tilePaneDecors.getChildren().clear();
-        Environnement newEnvironnement;
-
-
-        for(Acteur a : environnement.acteursProperty()){
-            paneMap.getChildren().remove(paneMap.lookup("#"+a.getId()));
-            paneMap.getChildren().remove(paneMap.lookup("#"+a.getId()+"BarreVie"));
-        }
-        for(Objet o : environnement.objetsProperty()){
-            paneObjets.getChildren().remove(paneObjets.lookup("#"+o.getId()));
-        }
-        if (environnement instanceof Village) {
-            newEnvironnement = new Labyrinthe(hero);
-        } else if (environnement instanceof Labyrinthe) {
-            newEnvironnement = new Donjon(hero);
-        } else {
-            newEnvironnement = new Village(hero);
-        }
-        switchToEnvironment(newEnvironnement);
+    public boolean changementPossible(int caseHero){
+        return caseHero<0;
     }
 
+    public void changementMapPossible(int caseHero){
+        if(changementPossible(caseHero)){
+            changeMap(caseHero);
+        }
+    }
+
+    private void changeMap(int mapID) {
+        System.out.println("eeeee");
+        Environnement newEnvironnement;
+
+        tilePaneDecors.getChildren().clear();
+        for (Acteur a : environnement.acteursProperty()) {
+            paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
+            paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()+"BarreVie"));
+        }
+        for (Objet o : environnement.objetsProperty()) {
+            paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
+        }
+
+        switch (mapID){
+            case -1:
+                System.out.println("111");
+                newEnvironnement = new Labyrinthe(hero);
+                switchToEnvironment(newEnvironnement);
+                hero.getPosition().setX(50);
+                hero.getPosition().setY(800);
+                break;
+            case -2:
+                newEnvironnement = new Village(hero);
+                switchToEnvironment(newEnvironnement);
+                hero.getPosition().setX(1400);
+                hero.getPosition().setY(500);
+                break;
+            case -3:
+                newEnvironnement = new EntreeDonjon(hero);
+                switchToEnvironment(newEnvironnement);
+                hero.getPosition().setX(50);
+                hero.getPosition().setY(1225);
+                break;
+            case -4:
+                newEnvironnement = new Labyrinthe(hero);
+                switchToEnvironment(newEnvironnement);
+                hero.getPosition().setX(1400);
+                hero.getPosition().setY(850);
+                break;
+            case -5:
+                newEnvironnement = new Donjon(hero);
+                switchToEnvironment(newEnvironnement);
+                hero.getPosition().setX(725);
+                hero.getPosition().setY(550);
+                break;
+            case -6:
+                newEnvironnement = new EntreeDonjon(hero);
+                switchToEnvironment(newEnvironnement);
+                hero.getPosition().setX(725);
+                hero.getPosition().setY(700);
+                break;
+        }
+    }
+    //TEST
     @FXML
     private void toucheLacher() {
         boolean touche = false;
-        heroVue.upgradeSprite();
-    }
-
-    private void initAnimation() {
-        gameLoop = new Timeline();
-        temps = 0;
-        gameLoop.setCycleCount(Timeline.INDEFINITE);
-
-        KeyFrame kf = new KeyFrame(
-                Duration.seconds(0.017),
-                ev -> {
-                    environnement.toutLeMondeBouge();
-                    if (hero.estMort()) {
-                        try {
-                            this.gameOver();
-                            gameLoop.stop();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    temps++;
-                }
-        );
-        gameLoop.getKeyFrames().add(kf);
+        heroVue.upgradeSpriteStatic();
+        System.out.println(environnement.getMap().getTabNum()[(int) (hero.getPosition().getY()/50)][(int) hero.getPosition().getX()/50]);
+        System.out.println(hero.getPosition().getY());
+        System.out.println(hero.getPosition().getX());
     }
 
     private void adjustCamera() {
@@ -282,6 +311,29 @@ public class Controleur implements Initializable {
         paneCoeurs.translateYProperty().bind(
                 paneMap.translateYProperty().multiply(-1)
         );
+    }
+
+    private void initAnimation() {
+        gameLoop = new Timeline();
+        temps = 0;
+        gameLoop.setCycleCount(Timeline.INDEFINITE);
+
+        KeyFrame kf = new KeyFrame(
+                Duration.seconds(0.017),
+                ev -> {
+                    environnement.toutLeMondeBouge();
+                    if (hero.estMort()) {
+                        try {
+                            this.gameOver();
+                            gameLoop.stop();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    temps++;
+                }
+        );
+        gameLoop.getKeyFrames().add(kf);
     }
 
 
