@@ -204,14 +204,6 @@ public class Hero extends Guerrier {
         }
     }
 
-    public void changeEnvArc(Environnement env){
-        for(Objet o : inventaire){
-            if (o instanceof ArcArme){
-                o.getPosition().setEnv(env);
-            }
-        }
-    }
-
     public void changeEnvObjets(Environnement env){
         for(Objet o : inventaire){
             o.getPosition().setEnv(env);
