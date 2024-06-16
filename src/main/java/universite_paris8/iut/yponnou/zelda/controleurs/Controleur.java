@@ -257,6 +257,7 @@ public class Controleur implements Initializable {
                 hero.getPosition().setY(850);
                 break;
             case -5:
+                if (hero.possedeClef()){
                 tilePaneDecors.getChildren().clear();
                 for (Acteur a : environnement.acteursProperty()) {
                     paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
@@ -268,7 +269,10 @@ public class Controleur implements Initializable {
                 newEnvironnement = new Donjon(hero);
                 switchToEnvironment(newEnvironnement);
                 hero.getPosition().setX(725);
-                hero.getPosition().setY(550);
+                hero.getPosition().setY(550);}
+                else{
+                    environnement.entree();
+                }
                 break;
             case -6:
                 tilePaneDecors.getChildren().clear();

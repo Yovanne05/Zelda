@@ -36,4 +36,9 @@ public class Donjon extends Environnement{
         this.ajouterActeur(chevalier);
         this.ajouterActeur(chevalier2);
     }
+
+    @Override
+    public void entree() {
+
+    }
 }

@@ -105,6 +105,15 @@ public class Hero extends Guerrier {
         return null;
     }
 
+    // méthode qui renvoie un objet Clef si l'inventaire du héro en possède.
+    public boolean possedeClef(){
+        for (Objet objet : inventaire) {
+            if (objet instanceof Clef)
+                return true;
+        }
+        return false;
+    }
+
     // méthode qui renvoie un objet Nourriture si l'inventaire du héro en possède.
     public Nourriture possedeNourritures(){
         for (Objet objet : inventaire) {

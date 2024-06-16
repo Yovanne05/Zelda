@@ -117,4 +117,8 @@ public abstract class Environnement{
                 ", map=" + map.getTabNum() +
                 '}';
     }
+
+    public abstract void entree();
+
+
 }
