@@ -31,8 +31,7 @@ public class MenuControleur implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (!musiqueMenu.estOuvert())
-            musiqueMenu.jouer(0.05f,-1);
+        musiqueMenu.jouer(0.05f,-1);
     }
 
     @FXML

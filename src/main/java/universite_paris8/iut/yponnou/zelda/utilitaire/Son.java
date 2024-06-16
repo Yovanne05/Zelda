@@ -69,11 +69,9 @@ public class Son {
             clip.start();
         }
     }
-    public void makeBreak(){
-        clip.stop();
-    }
+
     public void stop(){
-        clip.close();
+        clip.stop();
     }
     public boolean estOuvert(){
         return clip.isOpen();

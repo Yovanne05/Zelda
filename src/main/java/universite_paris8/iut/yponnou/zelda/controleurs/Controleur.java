@@ -281,7 +281,7 @@ public class Controleur implements Initializable {
         System.out.println(environnement.getMap().getTabNum()[(int) (hero.getPosition().getY()/50)][(int) hero.getPosition().getX()/50]);
         System.out.println(hero.getPosition().getY());
         System.out.println(hero.getPosition().getX());
-        bruitPas.makeBreak();
+        bruitPas.stop();
     }
 
     private void adjustCamera() {
@@ -345,6 +345,17 @@ public class Controleur implements Initializable {
                             throw new RuntimeException(e);
                         }
                     }
+                    if(environnement instanceof Donjon){
+                        if (((Donjon)environnement).verifEnnemiMort()){
+                            try {
+                                this.victoire();
+                                gameLoop.stop();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+
+                    }
                     temps++;
                 }
         );
@@ -365,5 +376,24 @@ public class Controleur implements Initializable {
         root.requestFocus();
         newStage.setScene(scene);
         newStage.show();
+        musiqueJeu.stop();
     }
+
+    public void victoire() throws IOException {
+        Stage oldStage, newStage;
+
+        oldStage = (Stage) paneMap.getScene().getWindow();
+        oldStage.close();
+        newStage = new Stage();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(Lanceur.class.getResource("victoire.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        StackPane root = (StackPane) scene.getRoot();
+        root.requestFocus();
+        newStage.setScene(scene);
+        newStage.show();
+        musiqueJeu.stop();
+    }
+
+
 }

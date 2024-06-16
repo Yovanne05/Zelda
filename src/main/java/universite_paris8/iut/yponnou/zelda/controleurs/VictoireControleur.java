@@ -2,16 +2,25 @@ package universite_paris8.iut.yponnou.zelda.controleurs;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import universite_paris8.iut.yponnou.zelda.Lanceur;
+import universite_paris8.iut.yponnou.zelda.utilitaire.Son;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class VictoireControleur {
+public class VictoireControleur implements Initializable {
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        musiqueVictoire.jouer(0.5f,-1);
+    }
 
     @FXML
     private Button boutonRejouerV;
@@ -19,6 +28,9 @@ public class VictoireControleur {
     private Button boutonRetourV;
     @FXML
     private Button boutonQuitterV;
+
+    private static final Son musiqueVictoire = new Son("/universite_paris8/iut/yponnou/zelda/Sons/musique/Win.wav");
+
 
     @FXML
     private void lancementRejouer() throws IOException {
@@ -35,6 +47,7 @@ public class VictoireControleur {
         root.requestFocus();
         newStage.setScene(scene);
         newStage.show();
+        musiqueVictoire.stop();
     }
 
     @FXML
@@ -49,6 +62,7 @@ public class VictoireControleur {
         StackPane root = (StackPane) stage.getScene().getRoot();
         root.requestFocus();
         stage.show();
+        musiqueVictoire.stop();
     }
 
     @FXML

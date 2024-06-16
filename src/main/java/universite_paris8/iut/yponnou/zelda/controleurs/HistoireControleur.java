@@ -32,8 +32,8 @@ public class HistoireControleur {
                 car lui et Joseph n'avait payé à temps leur impôts mensuel.\
 
 
-                \tEn rentrant, Joseph apprit la nouvelle par les villageois. Fou de rage, il prit sa fourche\
-                 et partit en quête de récupérer son grand frère par la force de sa FOURCHE !!!\n""";
+                \tEn rentrant, Joseph apprit la nouvelle par les villageois. Fou de rage, il prit l'épée de son défunt père\
+                 et partit en quête de récupérer son grand frère par la force de sa VOLONTÉ !!!\n""";
 
         texteHistoire.setText(story);
         texteHistoire.setOpacity(0);

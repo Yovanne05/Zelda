@@ -3,6 +3,7 @@ package universite_paris8.iut.yponnou.zelda.modele.Environnements;
 
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Boss;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Chevalier;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Ennemi;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
@@ -36,4 +37,14 @@ public class Donjon extends Environnement{
         this.ajouterActeur(chevalier);
         this.ajouterActeur(chevalier2);
     }
-}
+
+    public boolean verifEnnemiMort(){
+        for (int i=0;i<acteursProperty().size();i++){
+            if(acteursProperty().get(i) instanceof Ennemi   ){
+                if(acteursProperty().get(i).getPv()>0){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }}
