@@ -11,7 +11,6 @@ import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
 
 public abstract class Environnement{
-    private final Label toucheA = new Label("A");
     private final int largeur;
     private final int hauteur;
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
@@ -106,4 +105,16 @@ public abstract class Environnement{
 
     public abstract void creationEnvironnement();
 
+    @Override
+    public String toString() {
+        for(int i=0;i<map.getTabNum().length;i++){
+            for(int j=0;j<map.getTabNum()[0].length;j++){
+                System.out.print(map.getTabNum()[i][j]+" ");
+            }
+            System.out.println("");
+        }
+        return "Environnement{" +
+                ", map=" + map.getTabNum() +
+                '}';
+    }
 }
