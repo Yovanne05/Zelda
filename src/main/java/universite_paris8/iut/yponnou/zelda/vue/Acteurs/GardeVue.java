@@ -10,7 +10,7 @@ import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Garde;
 
 public class GardeVue extends ActeurVue{
 
-    private final Image enemyImage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/acteurs/zombie.png");
+    private final Image enemyImage = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/acteurs/garde.png");
 
     public GardeVue(Acteur acteur, Pane pane) {
         super(acteur, pane);
