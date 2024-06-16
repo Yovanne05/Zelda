@@ -26,6 +26,7 @@ import universite_paris8.iut.yponnou.zelda.modele.Environnements.*;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
+import universite_paris8.iut.yponnou.zelda.utilitaire.Son;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 import universite_paris8.iut.yponnou.zelda.vue.Pv.CoeursVue;
@@ -59,6 +60,10 @@ public class Controleur implements Initializable {
     private HeroVue heroVue;
     private Map mapActuelle;
 
+    private static final Son musiqueJeu = new Son("/universite_paris8/iut/yponnou/zelda/Sons/musique/Fishing_village.wav");
+    private static final Son bruitPas = new Son("/universite_paris8/iut/yponnou/zelda/Sons/bruits/bruitsPas/stepdirt_1.wav");
+    private final Son sonEpee = new Son("/universite_paris8/iut/yponnou/zelda/Sons/bruits/sword.wav");
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initAnimation();
@@ -71,6 +76,10 @@ public class Controleur implements Initializable {
         heroVue = new HeroVue(hero, paneMap);
 
         switchToEnvironment(new Village(hero));
+
+        musiqueJeu.jouer(1,-1);
+        bruitPas.jouer(0.05f,0);
+        sonEpee.jouer(0.1f,0);
     }
 
     private void switchToEnvironment(Environnement newEnvironnement) {
@@ -86,7 +95,7 @@ public class Controleur implements Initializable {
     }
     //test
     @FXML
-    public void interaction(KeyEvent event) {
+    public void interaction(KeyEvent event) throws InterruptedException {
         KeyCode key = event.getCode();
         Hero p = environnement.heroEnv();
         Objet ob;
@@ -101,6 +110,7 @@ public class Controleur implements Initializable {
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
                     adjustCamera();
+                    bruitPas.run();
                     break;
                 case S:
                 case DOWN:
@@ -111,6 +121,7 @@ public class Controleur implements Initializable {
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
                     adjustCamera();
+                    bruitPas.run();
                     break;
                 case D:
                 case RIGHT:
@@ -121,6 +132,7 @@ public class Controleur implements Initializable {
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
                     adjustCamera();
+                    bruitPas.run();
                     break;
                 case Q:
                 case LEFT:
@@ -131,6 +143,7 @@ public class Controleur implements Initializable {
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
                     adjustCamera();
+                    bruitPas.run();
                     break;
                 case E:
                     p.recuperer();
@@ -148,6 +161,8 @@ public class Controleur implements Initializable {
                     break;
                 case J:
                     p.attaquer();
+                    if (p.getArme() instanceof Epee)
+                        sonEpee.run();
                     break;
                 case AMPERSAND:
                 case DIGIT1:
@@ -262,11 +277,11 @@ public class Controleur implements Initializable {
     //TEST
     @FXML
     private void toucheLacher() {
-        boolean touche = false;
         heroVue.upgradeSpriteStatic();
         System.out.println(environnement.getMap().getTabNum()[(int) (hero.getPosition().getY()/50)][(int) hero.getPosition().getX()/50]);
         System.out.println(hero.getPosition().getY());
         System.out.println(hero.getPosition().getX());
+        bruitPas.makeBreak();
     }
 
     private void adjustCamera() {

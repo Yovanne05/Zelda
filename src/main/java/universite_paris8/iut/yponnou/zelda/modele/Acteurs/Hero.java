@@ -4,12 +4,13 @@ package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.Constante;
+import universite_paris8.iut.yponnou.zelda.utilitaire.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.*;
 import universite_paris8.iut.yponnou.zelda.modele.Aliments.Nourriture;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Clef;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
+import universite_paris8.iut.yponnou.zelda.utilitaire.Son;
 
 public class Hero extends Guerrier {
 
@@ -19,7 +20,6 @@ public class Hero extends Guerrier {
     public Hero(int x, int y, Environnement environnement, int dx, int dy, Arme arme) {
         super("Joseph", x, y, 100, 0.2, environnement, dx, dy, arme);
         capaciteMax = 5;
-//        inventaire.add(arme);
     }
     public ObservableList<Objet> inventaireProperty() {
         return inventaire;
@@ -193,6 +193,7 @@ public class Hero extends Guerrier {
             ((ArmeDistance)this.getArme()).utiliser();
         }
         else if(e!=null){
+
             if (getArme() != null){
                 e.seFaitAttaquer(((ArmeMelee) this.getArme()).getPtsDegats());
                 if (e.getPv() == 0) {

@@ -1,4 +1,4 @@
-package universite_paris8.iut.yponnou.zelda;
+package universite_paris8.iut.yponnou.zelda.utilitaire;
 
 public class Constante {
 

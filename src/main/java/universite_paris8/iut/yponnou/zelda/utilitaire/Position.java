@@ -1,4 +1,4 @@
-package universite_paris8.iut.yponnou.zelda;
+package universite_paris8.iut.yponnou.zelda.utilitaire;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;

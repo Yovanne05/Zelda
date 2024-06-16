@@ -3,10 +3,9 @@ package universite_paris8.iut.yponnou.zelda.vue;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Aliments.Nourriture;
 
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLE50;
+import static universite_paris8.iut.yponnou.zelda.utilitaire.Constante.TAILLE50;
 
 
 public class NourritureVue extends ObjetVue{

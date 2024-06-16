@@ -2,6 +2,7 @@ package universite_paris8.iut.yponnou.zelda.controleurs;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -10,8 +11,18 @@ import javafx.stage.Stage;
 import universite_paris8.iut.yponnou.zelda.Lanceur;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class GameOverControleur {
+public class GameOverControleur implements Initializable {
+
+//    private static final Son musiqueDefaite = new Son();
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+//        if (!musiqueDefaite.estOuvert())
+//            musiqueDefaite.jouer(0.05f,-1);
+    }
 
     @FXML
     private Button boutonRejouer;
