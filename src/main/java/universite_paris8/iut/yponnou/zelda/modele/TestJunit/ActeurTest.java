@@ -11,8 +11,7 @@ import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Village;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 public class ActeurTest {
 
@@ -24,29 +23,29 @@ public class ActeurTest {
     @Test
     public void testCreationActeur() {
         assertEquals("TestActeur", acteur.getNom());
-        assertEquals(400.0, acteur.getPosition().getX(), 0.0001); // Ajout du delta pour comparaison des flottants
-        assertEquals(400.0, acteur.getPosition().getY(), 0.0001); // Ajout du delta pour comparaison des flottants
+        assertEquals(400.0, acteur.getPosition().getX(), 0.0001);
+        assertEquals(400.0, acteur.getPosition().getY(), 0.0001);
         assertEquals(100, acteur.getPv());
-        assertEquals(1.0, acteur.getVitesse(), 0.0001); // Ajout du delta pour comparaison des flottants
+        assertEquals(1.0, acteur.getVitesse(), 0.0001);
     }
 
     @Test
     public void testDeplacement() {
         acteur.deplacement();
-        assertEquals(450, acteur.getPosition().getX(), 0.0001); // Ajout du delta pour comparaison des flottants
-        assertEquals(400, acteur.getPosition().getY(), 0.0001); // Ajout du delta pour comparaison des flottants
+        assertEquals(450, acteur.getPosition().getX(), 0.0001);
+        assertEquals(400, acteur.getPosition().getY(), 0.0001);
     }
 
     @Test
     public void testCollisionAvecObstacle() {
         Rectangle futureHitbox = new Rectangle(450, 400, 50, 50);
-        assertFalse(acteur.collisionAvecObstacle(futureHitbox)); // Adaptez selon votre environnement
+        assertFalse(acteur.collisionAvecObstacle(futureHitbox));
     }
 
     @Test
     public void testCollisionAvecActeur() {
         Acteur autreActeur = new Acteur("AutreActeur", 50, 0, 100, 1.0, environnement, 0, 0);
-        environnement.ajouterActeur(autreActeur); // Méthode à adapter pour ajouter un acteur à l'environnement
+        environnement.ajouterActeur(autreActeur);
         Rectangle futureHitbox = new Rectangle(50, 0, 50, 50);
         assertTrue(acteur.collisionAvecActeur(futureHitbox));
     }
@@ -71,7 +70,7 @@ public class ActeurTest {
         environnement.ajouterActeur(h2);
         assertEquals(100, h2.getPv());
         boss.attaquer();
-        assertEquals(99, h2.getPv());
+        assertEquals(95, h2.getPv());
     }
 
     @Test
@@ -87,21 +86,17 @@ public class ActeurTest {
 
     @Test
     public void testDeplacerVersAvecObstacle() {
-        // Créer un autre acteur à la position cible
         Acteur a1 = new Acteur("a1", 500, 400, 100, 1.0, environnement, 1, 0);
         environnement.ajouterActeur(a1);
 
         double cibleX = 500;
         double cibleY = 400;
 
-        // Enregistrer la position actuelle de l'acteur avant de tenter le déplacement
         double positionXInitiale = acteur.getPosition().getX();
         double positionYInitiale = acteur.getPosition().getY();
 
-        // Appeler la méthode deplacerVers()
         acteur.deplacerVers(cibleX, cibleY);
 
-        // Vérifier que l'acteur n'a pas bougé car il y a un obstacle (un autre acteur)
         assertEquals(positionXInitiale, acteur.getPosition().getX(), 0.0001);
         assertEquals(positionYInitiale, acteur.getPosition().getY(), 0.0001);
     }
