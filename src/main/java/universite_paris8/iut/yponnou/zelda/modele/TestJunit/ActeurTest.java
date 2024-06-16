@@ -39,13 +39,13 @@ public class ActeurTest {
     @Test
     public void testCollisionAvecObstacle() {
         Rectangle futureHitbox = new Rectangle(450, 400, 50, 50);
-        assertFalse(acteur.collisionAvecObstacle(futureHitbox)); // Adaptez selon votre environnement
+        assertFalse(acteur.collisionAvecObstacle(futureHitbox));
     }
 
     @Test
     public void testCollisionAvecActeur() {
         Acteur autreActeur = new Acteur("AutreActeur", 50, 0, 100, 1.0, environnement, 0, 0);
-        environnement.ajouterActeur(autreActeur); // Méthode à adapter pour ajouter un acteur à l'environnement
+        environnement.ajouterActeur(autreActeur);
         Rectangle futureHitbox = new Rectangle(50, 0, 50, 50);
         assertTrue(acteur.collisionAvecActeur(futureHitbox));
     }
