@@ -185,11 +185,13 @@ public class Controleur implements Initializable {
                     p.selectionObjet(4);
                     break;
                 case A:
-                    if (p.estProcheDePaysan(environnement.paysansQuiParle(), 80)) {
-                        environnement.paysansQuiParle().parler();
-                    }
-                    if (p.estProcheDeVendeur(environnement.obtenirVendeur(), 80)) {
-                        environnement.obtenirVendeur().proposerObjet(p);
+                    if(environnement.paysansQuiParle()!=null){
+                        if (p.estProcheDePaysan(environnement.paysansQuiParle(), 80)) {
+                            environnement.paysansQuiParle().parler();
+                        }
+                        if (p.estProcheDeVendeur(environnement.obtenirVendeur(), 80)) {
+                            environnement.obtenirVendeur().proposerObjet(p);
+                        }
                     }
                     break;
                 case I:

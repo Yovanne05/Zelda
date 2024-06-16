@@ -43,6 +43,8 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
                 }
                 else if (a instanceof Fleche){
                     actVue = new FlecheVue((Fleche)a,pane);
+                }else if(a instanceof Frere){
+                    actVue= new FrereVue(a,pane);
                 }
                 assert actVue != null;
                 actVue.creerSprite();
