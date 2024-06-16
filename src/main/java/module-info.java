@@ -5,8 +5,8 @@ module universite_paris8.iut.yponnou.zelda {
     requires org.controlsfx.controls;
     requires java.desktop;
     requires junit;
-    requires org.junit.jupiter.api;
-    requires org.testng;
+//    requires org.junit.jupiter.api;
+//    requires org.testng;
     opens universite_paris8.iut.yponnou.zelda.modele.TestJunit to junit;
 
     opens universite_paris8.iut.yponnou.zelda to javafx.fxml;

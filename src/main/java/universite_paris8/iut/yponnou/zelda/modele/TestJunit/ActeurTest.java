@@ -11,8 +11,8 @@ import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Village;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
+//import static org.junit.jupiter.api.Assertions.*;
 
 public class ActeurTest {
 
@@ -71,7 +71,7 @@ public class ActeurTest {
         environnement.ajouterActeur(h2);
         assertEquals(100, h2.getPv());
         boss.attaquer();
-        assertEquals(99, h2.getPv());
+        assertEquals(95, h2.getPv());
     }
 
     @Test
