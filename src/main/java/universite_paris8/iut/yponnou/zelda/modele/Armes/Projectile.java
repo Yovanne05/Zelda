@@ -4,6 +4,7 @@ package universite_paris8.iut.yponnou.zelda.modele.Armes;
 
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hitbox;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.utilitaire.Son;
 
@@ -35,7 +36,7 @@ public class Projectile extends Acteur {
     public void deplacement(){
         double prochainX = getPosition().getX() + (this.getDx() * this.getVitesse()) * TAILLE50;
         double prochainY = getPosition().getY() + (this.getDy() * this.getVitesse()) * TAILLE50;
-        Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE50, TAILLE50);
+        Hitbox futureHitbox = new Hitbox(prochainX, prochainY, TAILLE50, TAILLE50);
 
         if (!collisionAvecObstacle(futureHitbox)) {
             getPosition().setX(prochainX);

@@ -6,6 +6,7 @@ import org.junit.Test;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Boss;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hitbox;
 import universite_paris8.iut.yponnou.zelda.modele.Aliments.Pomme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
@@ -39,7 +40,7 @@ public class ActeurTest {
 
     @Test
     public void testCollisionAvecObstacle() {
-        Rectangle futureHitbox = new Rectangle(450, 400, 50, 50);
+        Hitbox futureHitbox = new Hitbox(450, 400, 50, 50);
         assertFalse(acteur.collisionAvecObstacle(futureHitbox)); // Adaptez selon votre environnement
     }
 
@@ -47,7 +48,7 @@ public class ActeurTest {
     public void testCollisionAvecActeur() {
         Acteur autreActeur = new Acteur("AutreActeur", 50, 0, 100, 1.0, environnement, 0, 0);
         environnement.ajouterActeur(autreActeur); // Méthode à adapter pour ajouter un acteur à l'environnement
-        Rectangle futureHitbox = new Rectangle(50, 0, 50, 50);
+        Hitbox futureHitbox = new Hitbox(50, 0, 50, 50);
         assertTrue(acteur.collisionAvecActeur(futureHitbox));
     }
 

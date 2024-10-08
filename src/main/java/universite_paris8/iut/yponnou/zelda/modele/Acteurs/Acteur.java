@@ -18,7 +18,7 @@ public class Acteur {
     private String direction;
     private final double vitesse;
     private final IntegerProperty pv;
-    private final Rectangle hitbox;
+    private final Hitbox hitbox;
     private int dx;
     private int dy;
 
@@ -28,7 +28,7 @@ public class Acteur {
         this.pv = new SimpleIntegerProperty(pv);
         this.vitesse = vitesse;
         id = "A"+incremente++;
-        hitbox = new Rectangle(x, y, TAILLE50, TAILLE50);
+        hitbox = new Hitbox(x,y,TAILLE50,TAILLE50);
         direction = "down";
         this.dx=dx;
         this.dy=dy;
@@ -82,7 +82,7 @@ public class Acteur {
         return vitesse;
     }
 
-    public Rectangle getHitbox() {
+    public Hitbox getHitbox() {
         return hitbox;
     }
 
@@ -92,7 +92,7 @@ public class Acteur {
         double prochainY = getPosition().getY() + (this.dy * this.vitesse) * TAILLE50;
 
         // Création de la nouvelle hitbox après déplacement
-        Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE50, TAILLE50);
+        Hitbox futureHitbox = new Hitbox(prochainX, prochainY, TAILLE50, TAILLE50);
         if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
             position.setX(prochainX);
             position.setY(prochainY);
@@ -115,7 +115,7 @@ public class Acteur {
             double prochainX = this.getPosition().getX() + directionX * this.getVitesse() * TAILLE50;
             double prochainY = this.getPosition().getY() + directionY * this.getVitesse() * TAILLE50;
 
-            Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE50, TAILLE50);
+            Hitbox futureHitbox = new Hitbox(prochainX, prochainY, TAILLE50, TAILLE50);
 
             if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
                 position.setX(prochainX);
@@ -125,12 +125,12 @@ public class Acteur {
     }
 
 
-    public boolean collisionAvecObstacle(Rectangle futurHitbox) {
+    public boolean collisionAvecObstacle(Hitbox futurHitbox) {
         // Calcul des positions des quatre coins de la hitbox
-        double x = futurHitbox.getX();
-        double y = futurHitbox.getY();
-        double width = futurHitbox.getWidth();
-        double height = futurHitbox.getHeight();
+        double x = futurHitbox.hitboxX();
+        double y = futurHitbox.hitboxY();
+        double width = futurHitbox.width();
+        double height = futurHitbox.height();
 
         // Coordonnées des coins de la hitbox en termes de cases
         int tableauXHG = (int) (x / TAILLE50);
@@ -147,12 +147,12 @@ public class Acteur {
         return map[tableauYHG][tableauXHG] > 20 || map[tableauYHG][tableauXHD] > 20 || map[tableauYBG][tableauXHG] > 20 || map[tableauYBG][tableauXHD] > 20;
     }
 
-    public boolean collisionAvecActeur(Rectangle futureHitbox) {
+    public boolean collisionAvecActeur(Hitbox futureHitbox) {
         for (Acteur acteur : getPosition().getEnv().acteursProperty()) {
-            Rectangle ennemiHitbox = acteur.getHitbox();
+            Hitbox ennemiHitbox = acteur.getHitbox();
             //getBoundsInParent  retourne un objet de type Bounds représentant les coordonnées du rectangle
             //intersects elle vérifie si les deux ensembles de limites (bounds) se chevauchent
-            if (futureHitbox.getBoundsInParent().intersects(ennemiHitbox.getBoundsInParent()) && !this.getId().equals(acteur.getId())) {
+            if (futureHitbox.getHitbox().getBoundsInParent().intersects(ennemiHitbox.getHitbox().getBoundsInParent()) && !this.getId().equals(acteur.getId())) {
                 return true;
             }
         }

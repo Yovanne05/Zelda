@@ -71,7 +71,7 @@ public class Hero extends Guerrier {
      */
     public void deposer(Objet objet){
         int objetX, objetY;
-        Rectangle hitbox;
+        Hitbox hitbox;
         do {
             do {
                 if (objet instanceof Nourriture || objet instanceof Clef) {
@@ -135,8 +135,8 @@ public class Hero extends Guerrier {
     }
 
     // méthode qui prends en paramètre des coordonnées x et y de type double de l'objet et renvoie un rectangle rect placé autour du hero
-    private Rectangle depotPossible(Objet objet, double x, double y){
-        Rectangle hitbox;
+    private Hitbox depotPossible(Objet objet, double x, double y){
+        Hitbox hitbox;
         int dimension;
 
         if (objet instanceof Nourriture || objet instanceof Clef)
@@ -144,7 +144,7 @@ public class Hero extends Guerrier {
         else // l'objet est une arme
             dimension = Constante.TAILLE32;
 
-        hitbox = new Rectangle(x,y,dimension,dimension);
+        hitbox = new Hitbox(x,y,dimension,dimension);
         // verifie qu'il n'y a pas de collision avec des obstacles et qu'il est au pied du hero
         if (!collisionAvecObstacle(hitbox) && depotAutour(objet,x,y))
             return hitbox;
