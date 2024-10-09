@@ -20,21 +20,23 @@ public abstract class Ennemi extends Guerrier {
 
     public void attaquerHero() {
         long tempsActuel = System.currentTimeMillis();
-        Hero hero = verifHeroProx(15);
+        Hero hero = verifHeroProx(100);
         if (hero != null) {
             double distance = distance(hero.getPosition());
-            if (distance >= 30) {
-                attaquerAvecArmeDistance();
+            if (distance >= 30 && getArme() instanceof ArmeDistance) {
+                attaquerAvecArmeDistance(tempsActuel);
             } else {
                 attaquerAvecArmeMelee(tempsActuel, hero);
             }
         }
     }
 
-    private void attaquerAvecArmeDistance() {
-        Fleche f = new Fleche(getPosition().getX(), getPosition().getY(), getPosition().getEnv(), getDirection());
-        ((ArmeDistance) this.getArme()).setProjectile(f);
-        ((ArmeDistance) this.getArme()).utiliser();
+    private void attaquerAvecArmeDistance(long tempsActuel) {
+        if (tempsActuel - this.getDerniereAttaque() >= 250) {
+            Fleche f = new Fleche(getPosition().getX(), getPosition().getY(), getPosition().getEnv(), getDirection());
+            ((ArmeDistance) this.getArme()).setProjectile(f);
+            ((ArmeDistance) this.getArme()).utiliser();
+        }
     }
 
     private void attaquerAvecArmeMelee(long tempsActuel, Hero hero) {

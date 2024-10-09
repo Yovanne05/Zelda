@@ -26,6 +26,7 @@ import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.*;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Clef;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 import universite_paris8.iut.yponnou.zelda.utilitaire.Son;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
@@ -77,7 +78,9 @@ public class Controleur implements Initializable {
         hero.inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
         heroVue = new HeroVue(hero, paneMap);
 
-        switchToEnvironment(new Village(hero));
+        switchToEnvironment(new Donjon(hero));
+        hero.ajouterObjet(new Clef("clef",0,0,hero.getPosition().getEnv()));
+
 
         musiqueJeu.jouer(1,-1);
         bruitPas.jouer(0.05f,0);
