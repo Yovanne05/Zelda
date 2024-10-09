@@ -80,9 +80,9 @@ public class Controleur implements Initializable {
 
         switchToEnvironment(new Village(hero));
 
-//        musiqueJeu.jouer(1,-1);
-//        bruitPas.jouer(0.05f,0);
-//        sonEpee.jouer(0.1f,0);
+        musiqueJeu.jouer(1,-1);
+        bruitPas.jouer(0.05f,0);
+        sonEpee.jouer(0.1f,0);
     }
 
     private void switchToEnvironment(Environnement newEnvironnement) {
@@ -113,7 +113,7 @@ public class Controleur implements Initializable {
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
                     adjustCamera();
-                    bruitPas.jouer(0.05f,0);
+                    bruitPas.run();
                     break;
                 case S:
                 case DOWN:
@@ -124,7 +124,7 @@ public class Controleur implements Initializable {
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
                     adjustCamera();
-                    bruitPas.jouer(0.05f,0);
+                    bruitPas.run();
                     break;
                 case D:
                 case RIGHT:
@@ -135,7 +135,7 @@ public class Controleur implements Initializable {
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
                     adjustCamera();
-                    bruitPas.jouer(0.05f,0);
+                    bruitPas.run();
                     break;
                 case Q:
                 case LEFT:
@@ -146,7 +146,7 @@ public class Controleur implements Initializable {
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
                     adjustCamera();
-                    bruitPas.jouer(0.05f,0);
+                    bruitPas.run();
                     break;
                 case E:
                     p.recuperer();
@@ -165,7 +165,7 @@ public class Controleur implements Initializable {
                 case J:
                     p.attaquer();
                     if (p.getArme() instanceof Epee)
-                        sonEpee.jouer(0.05f,0);
+                        sonEpee.run();
                     break;
                 case AMPERSAND:
                 case DIGIT1:
