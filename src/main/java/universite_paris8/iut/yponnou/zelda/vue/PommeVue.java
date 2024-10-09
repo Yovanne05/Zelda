@@ -24,8 +24,8 @@ public class PommeVue extends NourritureVue{
         mainImage.setFitWidth(pommeImage.getWidth());
         mainImage.setFitHeight(pommeImage.getHeight());
         mainImage.setId(pomme.getId());
-        mainImage.setX(pomme.getPosition().getX());
-        mainImage.setY(pomme.getPosition().getY());
+        mainImage.setX(pomme.getPositionEnv().getX());
+        mainImage.setY(pomme.getPositionEnv().getY());
         pane.getChildren().add(mainImage);
     }
 

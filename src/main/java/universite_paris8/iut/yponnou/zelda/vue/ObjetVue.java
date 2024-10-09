@@ -27,8 +27,8 @@ public class ObjetVue {
         Rectangle r = new Rectangle(Constante.TAILLE50,Constante.TAILLE50);
         r.setFill(Color.GREEN);
         r.setId(objet.getId());
-        r.setX(objet.getPosition().getX());
-        r.setY(objet.getPosition().getY());
+        r.setX(objet.getPositionEnv().getX());
+        r.setY(objet.getPositionEnv().getY());
         pane.getChildren().add(r);
     }
 }

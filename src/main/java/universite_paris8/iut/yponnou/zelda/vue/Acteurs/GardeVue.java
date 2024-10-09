@@ -55,7 +55,7 @@ public class GardeVue extends ActeurVue{
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
 
         if (getActeur() instanceof Garde)
-            imageView = new ImageView(getEnemyImage(getActeur().getDirection()));
+            imageView = new ImageView(getEnemyImage(getActeur().getDirectionString()));
         else
             throw new IllegalArgumentException("Acteur non supporté");
 //        return imageView;

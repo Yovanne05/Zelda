@@ -56,7 +56,7 @@ public class VendeurVue extends ActeurVue {
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
 
         if (getActeur() instanceof Vendeur)
-            imageView = new ImageView(getVendeurVue(getActeur().getDirection()));
+            imageView = new ImageView(getVendeurVue(getActeur().getDirectionString()));
         else
             throw new IllegalArgumentException("Acteur non supporté");
 //        return imageView;

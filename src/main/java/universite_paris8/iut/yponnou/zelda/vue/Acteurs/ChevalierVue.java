@@ -53,7 +53,7 @@ public class ChevalierVue extends ActeurVue{
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
 
         if (getActeur() instanceof Chevalier)
-            imageView = new ImageView(getChevalierImage(getActeur().getDirection()));
+            imageView = new ImageView(getChevalierImage(getActeur().getDirectionString()));
         else
             throw new IllegalArgumentException("Acteur non supporté");
 //        return imageView;

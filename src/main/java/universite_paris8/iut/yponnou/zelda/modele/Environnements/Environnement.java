@@ -2,7 +2,7 @@ package universite_paris8.iut.yponnou.zelda.modele.Environnements;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import universite_paris8.iut.yponnou.zelda.utilitaire.Constante;
+import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.Map;

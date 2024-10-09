@@ -7,7 +7,6 @@ module universite_paris8.iut.yponnou.zelda {
     requires junit;
     requires org.junit.jupiter.api;
     requires org.testng;
-    opens universite_paris8.iut.yponnou.zelda.modele.TestJunit to junit;
 
     opens universite_paris8.iut.yponnou.zelda to javafx.fxml;
     exports universite_paris8.iut.yponnou.zelda;

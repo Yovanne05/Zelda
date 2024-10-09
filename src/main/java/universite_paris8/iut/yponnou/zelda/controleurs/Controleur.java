@@ -21,6 +21,7 @@ import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.objets.*;
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs.ObservateurActeurs;
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie.ObservateurCoeurs;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.*;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
@@ -69,7 +70,7 @@ public class Controleur implements Initializable {
         gameLoop.play();
         mapActuelle = new Map(30, 30);
 
-        hero = new Hero(0, 0, null, 0, 0, null);
+        hero = new Hero(0, 0, null, new Direction(0.0,0.0), null);
         hero.pvProperty().addListener(new ObservateurCoeurs(paneCoeurs, new CoeursVue(paneCoeurs)));
         hero.inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
         heroVue = new HeroVue(hero, paneMap);
@@ -102,9 +103,9 @@ public class Controleur implements Initializable {
             switch (key) {
                 case Z:
                 case UP:
-                    p.setDirection("up");
-                    p.setDx(0);
-                    p.setDy(-1);
+                    p.setDirectionString("up");
+                    p.getDirection().setDx(0.0);
+                    p.getDirection().setDy(-1.0);
                     p.deplacement();
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
@@ -113,9 +114,9 @@ public class Controleur implements Initializable {
                     break;
                 case S:
                 case DOWN:
-                    p.setDirection("down");
-                    p.setDx(0);
-                    p.setDy(1);
+                    p.setDirectionString("down");
+                    p.getDirection().setDx(0.0);
+                    p.getDirection().setDy(1.0);
                     p.deplacement();
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
@@ -124,9 +125,9 @@ public class Controleur implements Initializable {
                     break;
                 case D:
                 case RIGHT:
-                    p.setDirection("right");
-                    p.setDx(1);
-                    p.setDy(0);
+                    p.setDirectionString("right");
+                    p.getDirection().setDx(1.0);
+                    p.getDirection().setDy(0.0);
                     p.deplacement();
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
@@ -135,9 +136,9 @@ public class Controleur implements Initializable {
                     break;
                 case Q:
                 case LEFT:
-                    p.setDirection("left");
-                    p.setDx(-1);
-                    p.setDy(0);
+                    p.setDirectionString("left");
+                    p.getDirection().setDx(-1.0);
+                    p.getDirection().setDy(0.0);
                     p.deplacement();
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
@@ -189,7 +190,7 @@ public class Controleur implements Initializable {
                             environnement.paysansQuiParle().parler();
                         }
                         if (p.estProcheDeVendeur(environnement.obtenirVendeur(), 80)) {
-                            environnement.obtenirVendeur().proposerObjet(p);
+                            environnement.obtenirVendeur().proposerObjet(p, new Epee(0,0,environnement));
                         }
                     }
                     break;

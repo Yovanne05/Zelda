@@ -3,41 +3,57 @@ package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.utilitaire.Constante;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.*;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Informaion.Hitbox;
 import universite_paris8.iut.yponnou.zelda.modele.Aliments.Nourriture;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeDistance;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeMelee;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Clef;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
-import universite_paris8.iut.yponnou.zelda.utilitaire.Son;
+import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante;
+import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
+
 
 public class Hero extends Guerrier {
 
     private final ObservableList<Objet> inventaire = FXCollections.observableArrayList();
     private final int capaciteMax;
 
-    public Hero(int x, int y, Environnement environnement, int dx, int dy, Arme arme) {
-        super("Joseph", x, y, 100, 0.2, environnement, dx, dy, arme);
+    public Hero(int x, int y, Environnement environnement, Direction direction, Arme arme) {
+        super("Joseph", x, y, 100, 0.2, environnement, direction, arme);
         capaciteMax = 5;
     }
     public ObservableList<Objet> inventaireProperty() {
         return inventaire;
     }
 
-    public void guerison(){
-        Nourriture aliment = possedeNourritures();
-        if (aliment != null) {
-            if (!pleineSante()) {
-                setPv(getPv()+ aliment.getPv());
-                System.out.println(getNom() + " a mangé " + aliment.getNom());
-                inventaire.remove(aliment);
+    public Ennemi verifEnnemiAcoter(double distanceSeuil) {
+        for (Acteur acteur : this.getPosition().getEnv().acteursProperty()) {
+            if (acteur instanceof Ennemi) {
+                Ennemi ennemi = (Ennemi) acteur;
+                if (estProcheDeActeur(ennemi, distanceSeuil)) {
+                    return ennemi;
+                }
             }
-            else
-                System.out.println("Votre santé déjà complète !");
         }
-        else
-            System.out.println("Aucun aliments trouvés");
+        return null;
+    }
+
+    public boolean guerison() {
+        Nourriture aliment = possedeNourritures();
+        if (aliment == null) {
+            System.out.println("Aucun aliment trouvé");
+            return false;
+        }
+        if (!pleineSante()) {
+            consommerNourriture(aliment);
+            return true;
+        }
+        System.out.println("Votre santé est déjà complète !");
+        return false;
     }
 
     public void subitDegats(int degats){
@@ -49,52 +65,85 @@ public class Hero extends Guerrier {
         return getPv() == 100;
     }
 
-    // méthode qui récupère un objet de la map
-    public void recuperer(){
+    public void recuperer() {
         Objet ob = objetsProches();
-        if (ob != null && inventaire.size() != capaciteMax) {
-            if (ob instanceof Arme)
-                setArme((Arme)ob);
-            inventaire.add(ob);
-            ob.getPosition().getEnv().enleverObjet(ob);
-            System.out.println("Objet récupéré !");
+        if (ob != null) {
+            if (inventaire.size() < capaciteMax) {
+                if (estObjetProche(ob)) {
+                    ajouterObjet(ob);
+                } else {
+                    System.out.println("L'objet n'est pas à portée !");
+                }
+            } else {
+                System.out.println("Inventaire complet !");
+            }
+        } else {
+            System.out.println("Aucun objet trouvé !");
         }
-        else if (inventaire.size() == capaciteMax)
-            System.out.println("Inventaire complet !");
-        else
-            System.out.println("Aucun objets trouvés !");
+    }
+
+    private boolean estObjetProche(Objet ob) {
+        double distance = distance(ob.getPositionEnv());
+        return distance <= 5;
     }
 
     /* methode qui depose l'objet de l'inventaire du hero
      * Il genere des coordonnées aléatoire jusqu'a ce qu'elle soit bonne
      * càd qu'elle soit sur la map, qu'elle soit autour du hero et qu'elle ne traverse pas les obstacles
      */
-    public void deposer(Objet objet){
-        int objetX, objetY;
-        Hitbox hitbox;
-        do {
-            do {
-                if (objet instanceof Nourriture || objet instanceof Clef) {
-                    objetX = (int) (Math.random() * getPosition().getX() + Constante.TAILLE50 + Constante.TAILLE16 + 1) - Constante.TAILLE16;
-                    objetY = (int) (Math.random() * getPosition().getY() + Constante.TAILLE50 + Constante.TAILLE16 + 1) - Constante.TAILLE16;
-                }
-                else {
-                    objetX = (int) (Math.random() * getPosition().getX() + Constante.TAILLE50 + Constante.TAILLE32 + 1) - Constante.TAILLE32;
-                    objetY = (int) (Math.random() * getPosition().getY() + Constante.TAILLE50 + Constante.TAILLE32 + 1) - Constante.TAILLE32;
-                }
-            }while (!getPosition().getEnv().dansMap(objetX,objetY));
-            hitbox = depotPossible(objet,objetX,objetY);
-        }while (hitbox == null);
-        objet.getPosition().setX(objetX);
-        objet.getPosition().setY(objetY);
-        inventaire.remove(objet);
-        if (objet instanceof Arme){
-            if (this.possedeArme() == null)
-                setArme(null);
-            else
-                setArme(this.possedeArme());
+    public void deposer(Objet objet) {
+        Position posAleatoire = genererPositionAleatoire(objet);
+
+        while (!estPositionValide(posAleatoire)) {
+            posAleatoire = genererPositionAleatoire(objet);
         }
-        objet.getPosition().getEnv().ajouterObjet(objet);
+
+        Hitbox hitbox = depotPossible(objet, posAleatoire);
+        while (hitbox == null) {
+            posAleatoire = genererPositionAleatoire(objet);
+            hitbox = depotPossible(objet, posAleatoire);
+        }
+
+        placerObjet(objet, posAleatoire.getX(), posAleatoire.getY());
+    }
+
+    public int choixTaille(Objet objet){
+        return (objet instanceof Nourriture || objet instanceof Clef) ? Constante.TAILLE16 : Constante.TAILLE32;
+    }
+
+    public Position genererPositionAleatoire(Objet objet) {
+        int taille = choixTaille(objet);
+        Position posAleatoire;
+        int objetX, objetY;
+        do {
+            objetX = (int) (Math.random() * (900 - taille)); //900 = limite taille définis
+            objetY = (int) (Math.random() * (900 - taille));
+            posAleatoire = new Position(objetX, objetY);
+        } while (!estPositionValide(posAleatoire));
+
+        return posAleatoire;
+    }
+
+    public boolean estPositionValide(Position p) {
+        return getPosition().getEnv().dansMap(p.getX(), p.getY());
+    }
+
+    private void placerObjet(Objet objet, double x, double y) {
+        objet.getPositionEnv().setX(x);
+        objet.getPositionEnv().setY(y);
+        inventaire.remove(objet);
+        if (objet instanceof Arme) {
+            mettreAJourArme();
+        }
+        objet.getPositionEnv().getEnv().ajouterObjet(objet);
+    }
+
+    private void mettreAJourArme() {
+        if (this.possedeArme() == null) {
+            setArme(null);
+        } else {
+            setArme(this.possedeArme());
+        }
     }
 
     // méthode qui renvoie un objet trouvé autour du hero
@@ -114,7 +163,6 @@ public class Hero extends Guerrier {
         return false;
     }
 
-    // méthode qui renvoie un objet Nourriture si l'inventaire du héro en possède.
     public Nourriture possedeNourritures(){
         for (Objet objet : inventaire) {
             if (objet instanceof Nourriture)
@@ -124,7 +172,6 @@ public class Hero extends Guerrier {
     }
 
 
-    // méthode qui renvoie un objet Arme si l'inventaire du héro en possède.
     public Arme possedeArme(){
         for (Objet objet : inventaire) {
             if (objet instanceof Arme) {
@@ -134,112 +181,110 @@ public class Hero extends Guerrier {
         return null;
     }
 
-    // méthode qui prends en paramètre des coordonnées x et y de type double de l'objet et renvoie un rectangle rect placé autour du hero
-    private Hitbox depotPossible(Objet objet, double x, double y){
-        Hitbox hitbox;
-        int dimension;
 
-        if (objet instanceof Nourriture || objet instanceof Clef)
-            dimension = Constante.TAILLE16;
-        else // l'objet est une arme
-            dimension = Constante.TAILLE32;
+    private Hitbox creerHitboxObjet(Objet objet, double x, double y) {
+        int taille = choixTaille(objet);
+        return new Hitbox(x, y, taille, taille);
+    }
 
-        hitbox = new Hitbox(x,y,dimension,dimension);
-        // verifie qu'il n'y a pas de collision avec des obstacles et qu'il est au pied du hero
-        if (!collisionAvecObstacle(hitbox) && depotAutour(objet,x,y))
+    private Hitbox depotPossible(Objet objet, Position position) {
+        Hitbox hitbox = creerHitboxObjet(objet, position.getX(), position.getY());
+        if (!collisionAvecObstacle(hitbox) && depotAutour(objet, position)) {
             return hitbox;
+        }
         return null;
     }
 
-    // méthode qui renvoie vrai si un objet se trouve à portée du hero
-    private boolean verifObjetsAutour(Objet obj){
-        if (obj instanceof Nourriture || obj instanceof Clef) {
-            return (this.getPosition().getY() - Constante.TAILLE16 <= obj.getPosition().getY() && obj.getPosition().getY() <= getPosition().getY() + Constante.TAILLE50
-                    && this.getPosition().getX() - Constante.TAILLE16 <= obj.getPosition().getX() && obj.getPosition().getX() <= getPosition().getX() + Constante.TAILLE50);
-        } else {
-            return (this.getPosition().getY() - Constante.TAILLE32 <= obj.getPosition().getY() && obj.getPosition().getY() <= getPosition().getY() + Constante.TAILLE50
-                    && this.getPosition().getX() - Constante.TAILLE32 <= obj.getPosition().getX() && obj.getPosition().getX() <= getPosition().getX() + Constante.TAILLE50);
-        }
+    private boolean estDansRayon(Position pos, int distanceSeuil) {
+        return Math.abs(this.getPosition().getX() - pos.getX()) <= distanceSeuil &&
+                Math.abs(this.getPosition().getY() - pos.getY()) <= distanceSeuil;
     }
 
-    private boolean verifPaysansAutour(Paysan p){
-        return (this.getPosition().getY()-Constante.TAILLE50<= p.getPosition().getY() && p.getPosition().getY() <= getPosition().getY()+Constante.TAILLE50
-                && this.getPosition().getX()-Constante.TAILLE50<= p.getPosition().getX() && p.getPosition().getX() <= getPosition().getX()+Constante.TAILLE50);
+
+    private boolean verifObjetsAutour(Objet obj) {
+        int taille = choixTaille(obj);
+        return estDansRayon(obj.getPositionEnv(), taille);
     }
 
-    // vérifie que les coordonnées de l'objet déposé sont autour du hero
-    private boolean depotAutour(Objet objet, double x, double y){
-        if (objet instanceof Nourriture || objet instanceof Clef) {
-            return (this.getPosition().getY() - Constante.TAILLE16 <= y && y <= getPosition().getY() + Constante.TAILLE50
-                    && this.getPosition().getX() - Constante.TAILLE16 <= x && x <= getPosition().getX() + Constante.TAILLE50);
-        } else {
-            return (this.getPosition().getY() - Constante.TAILLE32 <= y && y <= getPosition().getY() + Constante.TAILLE50
-                    && this.getPosition().getX() - Constante.TAILLE32 <= x && x <= getPosition().getX() + Constante.TAILLE50);
+    private boolean verifPaysansAutour(Paysan p) {
+        return estDansRayon(p.getPosition(), Constante.TAILLE50);
+    }
+
+    private boolean depotAutour(Objet objet, Position position) {
+        int taille = choixTaille(objet);
+        return estDansRayon(position, taille);
+    }
+
+    public boolean estProcheDePersonnage(Acteur personnage, int distance) {
+        if (personnage == null) {
+            return false;
         }
+        return estDansRayon(personnage.getPosition(),distance);
     }
 
     public boolean estProcheDePaysan(Paysan paysan, int distance) {
-        if(paysan==null){
-            return false;
-        }
-        return Math.abs(this.getPosition().getX() - paysan.getPosition().getX()) <= distance &&
-                Math.abs(this.getPosition().getY() - paysan.getPosition().getY()) <= distance;
+        return estProcheDePersonnage(paysan,distance);
     }
 
     public boolean estProcheDeVendeur(Vendeur vendeur, int distance) {
-        return Math.abs(this.getPosition().getX() - vendeur.getPosition().getX()) <= distance &&
-                Math.abs(this.getPosition().getY() - vendeur.getPosition().getY()) <= distance;
+        return estProcheDePersonnage(vendeur,distance);
     }
 
 
-    @Override
     public void attaquer() {
-        Acteur e = this.verifEnnemiAcoter();
-        if(this.getArme() instanceof ArmeDistance){
-            Fleche f= new Fleche(getPosition().getX(),getPosition().getY(),getPosition().getEnv(), getDx(),getDy());
-            ((ArmeDistance) this.getArme()).setProjectile(f);
-            ((ArmeDistance)this.getArme()).utiliser();
-        }
-        else if(e!=null){
+        Acteur ennemiProche = verifEnnemiAcoter(100);
 
-            if (getArme() != null){
-                e.seFaitAttaquer(((ArmeMelee) this.getArme()).getPtsDegats());
-                if (e.getPv() == 0) {
-                    getPosition().getEnv().acteursProperty().removeIf(a -> e.getId().equals(a.getId()));
-                }
-            }
-            else
-                System.out.println("Vous n'avez pas d'arme !");
+        if (getArme() instanceof ArmeDistance) {
+            attaquerDistance();
+        } else if (ennemiProche != null) {
+            attaquerMelee(ennemiProche);
+        }
+    }
+
+    private void attaquerDistance() {
+        ArmeDistance armeDistance = (ArmeDistance) getArme();
+        Fleche fleche = new Fleche(getPosition().getX(), getPosition().getY(), getPosition().getEnv(), getDirection());
+        armeDistance.setProjectile(fleche);
+        armeDistance.utiliser();
+    }
+
+    private void attaquerMelee(Acteur ennemi) {
+        ArmeMelee armeMelee = (ArmeMelee) getArme();
+        ennemi.seFaitAttaquer(armeMelee.getPtsDegats());
+        if (ennemi.estMort()) {
+            getPosition().getEnv().acteursProperty().removeIf(a -> ennemi.getId().equals(a.getId()));
         }
     }
 
     public void changeEnvObjets(Environnement env){
         for(Objet o : inventaire){
-            o.getPosition().setEnv(env);
+            o.getPositionEnv().setEnv(env);
         }
     }
 
     public void ajouterObjet(Objet o){
         inventaire.add(o);
+        o.getPositionEnv().getEnv().enleverObjet(o);
     }
 
-    public void selectionObjet(int indexe) {
-        if (indexe < inventaire.size()){
-            Objet ob = inventaire.get(indexe);
-            if(ob instanceof Nourriture n) {
-                if (!pleineSante()) {
-                    setPv(getPv() + n.getPv());
-                    System.out.println(getNom() + " a mangé " + n.getNom());
-                    inventaire.remove(n);
-                } else
-                    System.out.println("Votre santé déjà complète !");
+    public void selectionObjet(int index) {
+        if (index < inventaire.size()) {
+            Objet objet = inventaire.get(index);
+            if (objet instanceof Nourriture) {
+                consommerNourriture((Nourriture) objet);
+            } else if (objet instanceof Arme) {
+                equiperArme((Arme) objet);
             }
-            else if(ob instanceof Arme ar){
-                setArme(ar);
-            }
-            System.out.println("Objet selectionné !");
         }
-        else
-            System.out.println("Vous n'avez pas d'objets à cet emplacement !");
+    }
+
+    private void consommerNourriture(Nourriture nourriture) {
+        if (!pleineSante()) {
+            setPv(getPv() + nourriture.getPv());
+            inventaire.remove(nourriture);
+        }
+    }
+    private void equiperArme(Arme arme) {
+        setArme(arme);
     }
 }
