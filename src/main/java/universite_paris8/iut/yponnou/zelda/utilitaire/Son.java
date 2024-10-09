@@ -45,22 +45,29 @@ public class Son {
             if (!clip.isOpen()) {
                 clip.open(decodedAudioStream);
             }
-            if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)){
+
+            clip.setFramePosition(0);
+
+            if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
                 FloatControl volumeControleur = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                 volumeControleur.setValue(volume);
             }
+
             if (repetitions == -1) {
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
-            }
-            else if (repetitions != 0)
+            } else if (repetitions > 0) {
                 clip.loop(repetitions);
-            else
+            } else {
                 clip.loop(0);
+            }
 
-        }catch (IOException | LineUnavailableException e) {
-            e.printStackTrace();
+            clip.start();
+
+        } catch (IOException | LineUnavailableException e) {
+            System.out.println("Erreur lors de la lecture du son");
         }
     }
+
 
     public void run(){
         if(!clip.isRunning()){

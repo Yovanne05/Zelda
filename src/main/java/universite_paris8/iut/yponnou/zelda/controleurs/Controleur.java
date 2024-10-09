@@ -78,9 +78,7 @@ public class Controleur implements Initializable {
         hero.inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
         heroVue = new HeroVue(hero, paneMap);
 
-        switchToEnvironment(new Donjon(hero));
-        hero.ajouterObjet(new Clef("clef",0,0,hero.getPosition().getEnv()));
-
+        switchToEnvironment(new Village(hero));
 
         musiqueJeu.jouer(1,-1);
         bruitPas.jouer(0.05f,0);
