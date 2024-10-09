@@ -29,6 +29,7 @@ import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 import universite_paris8.iut.yponnou.zelda.utilitaire.Son;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
+import universite_paris8.iut.yponnou.zelda.vue.Acteurs.PaysanVue;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 import universite_paris8.iut.yponnou.zelda.vue.Pv.CoeursVue;
 
@@ -187,7 +188,8 @@ public class Controleur implements Initializable {
                 case A:
                     if(environnement.paysansQuiParle()!=null){
                         if (p.estProcheDePaysan(environnement.paysansQuiParle(), 80)) {
-                            environnement.paysansQuiParle().parler();
+                            PaysanVue paysanVue = new PaysanVue(p,paneMap);
+                            paysanVue.parler();
                         }
                         if (p.estProcheDeVendeur(environnement.obtenirVendeur(), 80)) {
                             environnement.obtenirVendeur().proposerObjet(p, new Epee(0,0,environnement));

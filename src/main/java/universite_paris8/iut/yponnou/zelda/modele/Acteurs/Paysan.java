@@ -19,9 +19,4 @@ public class Paysan extends Acteur {
     public Paysan(double x, double y, Environnement environnement, Direction direction) {
         super("Paysan", x, y, 20, 0.03, environnement, direction);
     }
-
-    public String parler() {
-        return "Bonjour, je suis un paysan de ce village. J'ai appris que votre frère a été capturé et que la clé se trouverait peut-être dans un royaume." +
-                "\n La personne qui garde votre frère s'appelle M. Homps il me semble. Il aurait caché une clé dans un labyrinthe.";
-    }
 }
