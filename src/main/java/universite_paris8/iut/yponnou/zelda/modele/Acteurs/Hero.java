@@ -84,7 +84,7 @@ public class Hero extends Guerrier {
 
     private boolean estObjetProche(Objet ob) {
         double distance = distance(ob.getPositionEnv());
-        return distance <= 5;
+        return distance <= 500;
     }
 
     /* methode qui depose l'objet de l'inventaire du hero
@@ -107,12 +107,12 @@ public class Hero extends Guerrier {
         placerObjet(objet, posAleatoire.getX(), posAleatoire.getY());
     }
 
-    public int choixTaille(Objet objet){
-        return (objet instanceof Nourriture || objet instanceof Clef) ? Constante.TAILLE16 : Constante.TAILLE32;
+    public int distanceMaxPossibe(){
+        return 30;
     }
 
     public Position genererPositionAleatoire(Objet objet) {
-        int taille = choixTaille(objet);
+        int taille = distanceMaxPossibe();
         Position posAleatoire;
         int objetX, objetY;
         do {
@@ -183,7 +183,7 @@ public class Hero extends Guerrier {
 
 
     private Hitbox creerHitboxObjet(Objet objet, double x, double y) {
-        int taille = choixTaille(objet);
+        int taille = distanceMaxPossibe();
         return new Hitbox(x, y, taille, taille);
     }
 
@@ -202,8 +202,8 @@ public class Hero extends Guerrier {
 
 
     private boolean verifObjetsAutour(Objet obj) {
-        int taille = choixTaille(obj);
-        return estDansRayon(obj.getPositionEnv(), taille);
+        int distance = distanceMaxPossibe();
+        return estDansRayon(obj.getPositionEnv(), distance);
     }
 
     private boolean verifPaysansAutour(Paysan p) {
@@ -211,7 +211,7 @@ public class Hero extends Guerrier {
     }
 
     private boolean depotAutour(Objet objet, Position position) {
-        int taille = choixTaille(objet);
+        int taille = distanceMaxPossibe();
         return estDansRayon(position, taille);
     }
 

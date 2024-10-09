@@ -23,7 +23,7 @@ public abstract class Ennemi extends Guerrier {
         Hero hero = verifHeroProx(15);
         if (hero != null) {
             double distance = distance(hero.getPosition());
-            if (distance >= 15) {
+            if (distance >= 30) {
                 attaquerAvecArmeDistance();
             } else {
                 attaquerAvecArmeMelee(tempsActuel, hero);
