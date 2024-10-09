@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 
 
-import static universite_paris8.iut.yponnou.zelda.utilitaire.Constante.TAILLE50;
+import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TAILLE50;
 
 public class MapVue {
 

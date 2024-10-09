@@ -19,7 +19,7 @@ import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
-import static universite_paris8.iut.yponnou.zelda.utilitaire.Constante.TAILLE50;
+import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TAILLE50;
 
 public class VendeurVue extends ActeurVue {
 

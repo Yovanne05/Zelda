@@ -22,13 +22,14 @@ import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs.Obse
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie.ObservateurCoeurs;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeDistance;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.*;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Clef;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
-import universite_paris8.iut.yponnou.zelda.utilitaire.Son;
+import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Son;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.PaysanVue;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.VendeurVue;
@@ -72,6 +73,7 @@ public class Controleur implements Initializable {
         initAnimation();
         gameLoop.play();
         mapActuelle = new Map(30, 30);
+
 
         hero = new Hero(0, 0, null, new Direction(0.0,0.0), null);
         hero.pvProperty().addListener(new ObservateurCoeurs(paneCoeurs, new CoeursVue(paneCoeurs)));

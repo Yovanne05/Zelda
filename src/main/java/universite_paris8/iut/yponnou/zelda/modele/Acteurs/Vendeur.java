@@ -27,17 +27,4 @@ public class Vendeur extends Acteur {
         super("Vendeur", x, y, 20, 0.03, environnement, direction);
     }
 
-    public void proposerObjet(Hero hero, Arme armeChoisi) {
-        switch (armeChoisi.toString()) {
-            case "ArcArme":
-                hero.inventaireProperty().add(new ArcArme(this.getPosition().getX(), this.getPosition().getY(), null, this.getPosition().getEnv()));
-                break;
-            case "Epee":
-                hero.inventaireProperty().add(new Epee(this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getEnv()));
-                break;
-            default:
-                System.out.println("Objet non reconnu : " + armeChoisi);
-                break;
-        }
-    }
 }

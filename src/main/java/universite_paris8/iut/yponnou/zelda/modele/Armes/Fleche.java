@@ -28,8 +28,7 @@ public class Fleche extends Projectile {
 
 
     public void utiliserFleche() {
-        double distanceParcourue = Math.sqrt(Math.pow(getPosition().getX() - initialX, 2) + Math.pow(getPosition().getY() - initialY, 2));
-        //Pythgaore pr la distance
+        double distanceParcourue = Math.sqrt(Math.pow(getPosition().getX() - initialX, 2) + Math.pow(getPosition().getY() - initialY, 2)); //pyhagore
         if (distanceParcourue < this.getPortee() && !collisionAvecObstacle(this.getHitbox())) {
             this.deplacement();
             this.collisionAvecEnnemi();
@@ -40,10 +39,9 @@ public class Fleche extends Projectile {
 
     @Override
     public void deplacement() {
-        // Mettez à jour les coordonnées en fonction de la vitesse et de la direction
+        System.out.println(this.getDirection().getDx() + " " + this.getDirection().getDy());
         this.x += this.getDirection().getDx() * this.getVitesse();
         this.y += this.getDirection().getDy() * this.getVitesse();
-        // Mettez à jour les coordonnées de l'objet parent
         this.getPosition().setX(this.x);
         this.getPosition().setY(this.y);
     }
@@ -62,11 +60,11 @@ public class Fleche extends Projectile {
     }
 
     private boolean touche(Ennemi ennemi) {
-        // Supposons que chaque acteur a des coordonnées (x, y) et une largeur/hauteur (w, h)
         double ennemiX = ennemi.getPosition().getX();
         double ennemiY = ennemi.getPosition().getY();
 
-        // Vérifiez si la flèche est à l'intérieur des limites de l'ennemi
         return (this.x >= ennemiX && this.x <= ennemiX + TAILLE50) && (this.y >= ennemiY && this.y <= ennemiY + TAILLE50);
     }
+
+
 }

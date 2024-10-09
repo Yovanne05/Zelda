@@ -51,4 +51,6 @@ public abstract class ArmeDistance extends Arme{
     public void setProjectile(Projectile projectile) {
         this.projectile = projectile;
     }
+
+
 }

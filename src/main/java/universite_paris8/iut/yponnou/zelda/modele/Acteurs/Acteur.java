@@ -83,7 +83,7 @@ public class Acteur {
         return hitbox;
     }
 
-    private double[] calculerProchainePosition(Position p, Direction d, Double vitessev) {
+    public double[] calculerProchainePosition(Position p, Direction d, Double vitessev) {
         double prochainX = p.getX() + d.getDx() * vitessev * TAILLE50;
         double prochainY = p.getY() + d.getDy() * vitessev * TAILLE50;
         return new double[] { prochainX, prochainY };

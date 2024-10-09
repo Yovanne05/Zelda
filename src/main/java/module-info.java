@@ -38,6 +38,5 @@ module universite_paris8.iut.yponnou.zelda {
     opens universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs to javafx.fxml;
     exports universite_paris8.iut.yponnou.zelda.controleurs.observateurs.objets;
     opens universite_paris8.iut.yponnou.zelda.controleurs.observateurs.objets to javafx.fxml;
-    exports universite_paris8.iut.yponnou.zelda.utilitaire;
-    opens universite_paris8.iut.yponnou.zelda.utilitaire to javafx.fxml;
+
 }

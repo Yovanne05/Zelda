@@ -241,14 +241,14 @@ public class Hero extends Guerrier {
         }
     }
 
-    private void attaquerDistance() {
+    public void attaquerDistance() {
         ArmeDistance armeDistance = (ArmeDistance) getArme();
         Fleche fleche = new Fleche(getPosition().getX(), getPosition().getY(), getPosition().getEnv(), getDirection());
         armeDistance.setProjectile(fleche);
         armeDistance.utiliser();
     }
 
-    private void attaquerMelee(Acteur ennemi) {
+    public void attaquerMelee(Acteur ennemi) {
         ArmeMelee armeMelee = (ArmeMelee) getArme();
         ennemi.seFaitAttaquer(armeMelee.getPtsDegats());
         if (ennemi.estMort()) {

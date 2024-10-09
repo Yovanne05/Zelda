@@ -3,7 +3,7 @@ package universite_paris8.iut.yponnou.zelda.vue;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.utilitaire.Constante;
+import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
 public class ObjetVue {
