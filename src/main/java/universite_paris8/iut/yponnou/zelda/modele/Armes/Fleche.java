@@ -5,10 +5,11 @@ package universite_paris8.iut.yponnou.zelda.modele.Armes;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Ennemi;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
+import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TAILLE50;
 
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLE50;
 
 public class Fleche extends Projectile {
 
@@ -17,8 +18,8 @@ public class Fleche extends Projectile {
     private final double initialX;
     private final double initialY;
 
-    public Fleche(double x, double y, Environnement environnement, int dx, int dy) {
-        super("Fleche", x, y, 0, 5, environnement, dx, dy, 300, 10);
+    public Fleche(double x, double y, Environnement environnement, Direction direction) {
+        super("Fleche", x, y, 0, 5, environnement, direction, 300, 10);
         this.x = x;
         this.y = y;
         this.initialX = x;
@@ -40,8 +41,8 @@ public class Fleche extends Projectile {
     @Override
     public void deplacement() {
         // Mettez à jour les coordonnées en fonction de la vitesse et de la direction
-        this.x += this.getDx() * this.getVitesse();
-        this.y += this.getDy() * this.getVitesse();
+        this.x += this.getDirection().getDx() * this.getVitesse();
+        this.y += this.getDirection().getDy() * this.getVitesse();
         // Mettez à jour les coordonnées de l'objet parent
         this.getPosition().setX(this.x);
         this.getPosition().setY(this.y);

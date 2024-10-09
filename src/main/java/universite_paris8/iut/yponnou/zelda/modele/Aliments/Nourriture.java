@@ -1,5 +1,6 @@
 package universite_paris8.iut.yponnou.zelda.modele.Aliments;
 
+
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 

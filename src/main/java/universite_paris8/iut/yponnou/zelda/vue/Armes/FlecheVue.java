@@ -18,11 +18,11 @@ public class FlecheVue extends ActeurVue {
 
     public FlecheVue(Fleche f, Pane pane) {
         super(f,pane);
-        if (f.getDx() == 1 && f.getDy() == 0)
+        if (f.getDirection().getDx() == 1 && f.getDirection().getDy() == 0)
             imageView = new ImageView(flecheDroiteImage);
-        else if (f.getDx() == -1 && f.getDy() == 0)
+        else if (f.getDirection().getDx() == -1 && f.getDirection().getDy() == 0)
             imageView = new ImageView(flecheGaucheImage);
-        else if (f.getDx() == 0 && f.getDy() == -1)
+        else if (f.getDirection().getDx() == 0 && f.getDirection().getDy() == -1)
             imageView = new ImageView(flecheHautImage);
         else
             imageView = new ImageView(flecheBasImage);

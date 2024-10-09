@@ -3,7 +3,7 @@ package universite_paris8.iut.yponnou.zelda.vue.Nourritures;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.yponnou.zelda.Constante;
+import universite_paris8.iut.yponnou.zelda.utilitaire.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Aliments.Pomme;
 
 public class PommeVue extends NourritureVue {
@@ -23,8 +23,8 @@ public class PommeVue extends NourritureVue {
         imageView.setFitWidth(pommeImage.getWidth());
         imageView.setFitHeight(pommeImage.getHeight());
         imageView.setId(getObjet().getId());
-        imageView.setX(getObjet().getPosition().getX());
-        imageView.setY(getObjet().getPosition().getY());
+        imageView.setX(getObjet().getPositionEnv().getX());
+        imageView.setY(getObjet().getPositionEnv().getY());
         getPane().getChildren().add(imageView);
     }
 

@@ -22,8 +22,8 @@ public class ClefVue extends ObjetVue{
         imageView.setFitWidth(clefImage16x16.getWidth());
         imageView.setFitHeight(clefImage16x16.getHeight());
         imageView.setId(getObjet().getId());
-        imageView.setX(getObjet().getPosition().getX());
-        imageView.setY(getObjet().getPosition().getY());
+        imageView.setX(getObjet().getPositionEnv().getX());
+        imageView.setY(getObjet().getPositionEnv().getY());
         getPane().getChildren().add(imageView);
     }
 

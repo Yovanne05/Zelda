@@ -3,20 +3,22 @@ package universite_paris8.iut.yponnou.zelda.controleurs;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
 import universite_paris8.iut.yponnou.zelda.Lanceur;
+import universite_paris8.iut.yponnou.zelda.utilitaire.Son;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MenuControleur {
+public class MenuControleur implements Initializable {
 
     @FXML
     public Button boutonLancer;
@@ -24,6 +26,13 @@ public class MenuControleur {
     public Button boutonHistoire;
     @FXML
     public Button boutonCommandes;
+
+    private static final Son musiqueMenu  = new Son("/universite_paris8/iut/yponnou/zelda/Sons/musique/Loop_Minstrel_Dance.wav");
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        musiqueMenu.jouer(0.05f,-1);
+    }
 
     @FXML
     private void lancementJeu() throws IOException {
@@ -39,6 +48,7 @@ public class MenuControleur {
         root.requestFocus();
         newStage.setScene(scene);
         newStage.show();
+        musiqueMenu.stop();
     }
 
     @FXML
@@ -51,7 +61,6 @@ public class MenuControleur {
         root.requestFocus();
         stage.show();
         System.out.println("Affichage Histoire");
-
     }
 
     @FXML

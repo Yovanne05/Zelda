@@ -1,4 +1,3 @@
-
 package universite_paris8.iut.yponnou.zelda.vue;
 
 import javafx.scene.image.Image;
@@ -6,7 +5,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 
 
-import static universite_paris8.iut.yponnou.zelda.Constante.*;
+import static universite_paris8.iut.yponnou.zelda.utilitaire.Constante.TAILLE50;
 
 public class MapVue {
 
@@ -101,6 +100,9 @@ public class MapVue {
     private final Image wall_LabM_T;
     private final Image wall_LabM_R;
     private final Image wall_LabM_L;
+    private final Image prisonX;
+    private final Image prisonY;
+    private final Image prisonXY;
 
 
     private final int[][] tab;
@@ -204,6 +206,9 @@ public class MapVue {
         wall_LabM_R = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/labyrinth/wall_LabM_R.gif");
         wall_LabM_L = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/labyrinth/wall_LabM_L.gif");
 
+        prisonX = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/prison3.png");
+        prisonY= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/prison1.png");
+        prisonXY= new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/textures/bricks/prison2.png");
     }
 
     public void creerSprite() {
@@ -491,6 +496,15 @@ public class MapVue {
                         break;
                     case 114:
                         imageView = new ImageView(wall_LabM_L);
+                        break;
+                    case 89:
+                        imageView = new ImageView(prisonX);
+                        break;
+                    case 90:
+                        imageView = new ImageView(prisonY);
+                        break;
+                    case 91:
+                        imageView = new ImageView(prisonXY);
                         break;
 
                     // DEFAULT: Skip unknown values

@@ -2,8 +2,7 @@ package universite_paris8.iut.yponnou.zelda.modele.Environnements;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
-import universite_paris8.iut.yponnou.zelda.Constante;
+import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.Map;
@@ -117,4 +116,5 @@ public abstract class Environnement{
                 ", map=" + map.getTabNum() +
                 '}';
     }
+
 }

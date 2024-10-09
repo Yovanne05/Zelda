@@ -4,7 +4,7 @@ package universite_paris8.iut.yponnou.zelda.vue.Acteurs;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.yponnou.zelda.Constante;
+import universite_paris8.iut.yponnou.zelda.utilitaire.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Chevalier;
 
@@ -53,7 +53,7 @@ public class ChevalierVue extends ActeurVue{
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
 
         if (getActeur() instanceof Chevalier)
-            imageView = new ImageView(getChevalierImage(getActeur().getDirection()));
+            imageView = new ImageView(getChevalierImage(getActeur().getDirectionString()));
         else
             throw new IllegalArgumentException("Acteur non supporté");
 //        return imageView;

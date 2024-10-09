@@ -1,13 +1,25 @@
 
 package universite_paris8.iut.yponnou.zelda.vue.Acteurs;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
+import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Vendeur;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
-import static universite_paris8.iut.yponnou.zelda.Constante.TAILLE50;
+import static universite_paris8.iut.yponnou.zelda.utilitaire.Constante.TAILLE50;
 
 public class VendeurVue extends ActeurVue {
 
@@ -56,7 +68,7 @@ public class VendeurVue extends ActeurVue {
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
 
         if (getActeur() instanceof Vendeur)
-            imageView = new ImageView(getVendeurVue(getActeur().getDirection()));
+            imageView = new ImageView(getVendeurVue(getActeur().getDirectionString()));
         else
             throw new IllegalArgumentException("Acteur non supporté");
 //        return imageView;
@@ -67,5 +79,65 @@ public class VendeurVue extends ActeurVue {
         imageView.translateYProperty().bind(getActeur().getPosition().yProperty());
         imageView.setId(getActeur().getId());
         getPane().getChildren().add(imageView);
+    }
+
+    public void proposerObjet(Hero hero) {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        VBox vbox = new VBox();
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
+        vbox.setPadding(new Insets(20));
+
+        BackgroundFill backgroundFill = new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY);
+        vbox.setBackground(new Background(backgroundFill));
+
+        Label titre = new Label("Le vendeur vous propose un objet gratuitement");
+        titre.setTextFill(Color.WHITE);
+
+        Label contenu = new Label("Choisissez votre objet : ");
+        contenu.setTextFill(Color.WHITE);
+
+        vbox.getChildren().add(titre);
+        vbox.getChildren().add(contenu);
+
+        HBox buttonBox = new HBox();
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.setSpacing(10);
+
+        Button buttonArc = new Button("Arc");
+        buttonArc.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 2px;");
+        buttonArc.setOnAction(e -> {
+            hero.ajouterObjet(new ArcArme(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(),null,this.getActeur().getPosition().getEnv()));
+            dialog.setResult(ButtonType.OK); // Fermer la fenêtre de dialogue
+            dialog.close();
+        });
+
+        Button buttonEpee = new Button("Épée");
+        buttonEpee.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: #ffffff; -fx-border-width: 2px;");
+        buttonEpee.setOnAction(e -> {
+            hero.ajouterObjet(new Epee(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(),this.getActeur().getPosition().getEnv()));
+            dialog.setResult(ButtonType.OK); // Fermer la fenêtre de dialogue
+            dialog.close();
+        });
+
+        Button buttonAnnuler = new Button("Annuler");
+        buttonAnnuler.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 2px;");
+        buttonAnnuler.setOnAction(e -> {
+            dialog.setResult(ButtonType.CANCEL); // Annuler l'action
+            dialog.close();
+        });
+
+        buttonBox.getChildren().addAll(buttonArc, buttonEpee, buttonAnnuler);
+
+        vbox.getChildren().add(buttonBox);
+
+        dialog.getDialogPane().setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        dialog.getDialogPane().setContent(vbox);
+
+        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        stage.setAlwaysOnTop(true);
+
+        dialog.showAndWait();
     }
 }

@@ -5,7 +5,7 @@ package universite_paris8.iut.yponnou.zelda.vue.Acteurs;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.yponnou.zelda.Constante;
+import universite_paris8.iut.yponnou.zelda.utilitaire.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 
 
@@ -66,7 +66,7 @@ public class HeroVue extends ActeurVue{
 
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
 
-        imageView = new ImageView(getHeroImage(getActeur().getDirection()));
+        imageView = new ImageView(getHeroImage(getActeur().getDirectionString()));
 
 //        return imageView;
         imageView.setFitWidth(Constante.TAILLE50);
@@ -81,11 +81,11 @@ public class HeroVue extends ActeurVue{
     public void upgradeSpriteStatic() {
         ImageView imageView ;
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
-        switch (getActeur().getDirection()) {
-            case "up" -> imageView = new ImageView(getHeroImageStatic(getActeur().getDirection()));
-            case "left" -> imageView = new ImageView(getHeroImageStatic(getActeur().getDirection()));
-            case "right" -> imageView = new ImageView(getHeroImageStatic(getActeur().getDirection()));
-            default-> imageView = new ImageView(getHeroImageStatic(getActeur().getDirection()));
+        switch (getActeur().getDirectionString()) {
+            case "up" -> imageView = new ImageView(getHeroImageStatic(getActeur().getDirectionString()));
+            case "left" -> imageView = new ImageView(getHeroImageStatic(getActeur().getDirectionString()));
+            case "right" -> imageView = new ImageView(getHeroImageStatic(getActeur().getDirectionString()));
+            default-> imageView = new ImageView(getHeroImageStatic(getActeur().getDirectionString()));
         }
 
         imageView.setFitWidth(Constante.TAILLE50);
