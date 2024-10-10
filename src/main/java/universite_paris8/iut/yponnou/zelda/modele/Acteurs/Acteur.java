@@ -14,6 +14,7 @@ public abstract class Acteur extends Objet {
 
     private static int incremente = 0;
     private final String id;
+
     private final double vitesse;
     private Direction direction;
     private final Hitbox hitbox;
@@ -51,7 +52,7 @@ public abstract class Acteur extends Objet {
         return hitbox;
     }
 
-    private double[] calculerProchainePosition() {
+    public double[] calculerProchainePosition() {
         double prochainX = getPosition().getX() + getDirection().getDx() * vitesse * TAILLE50;
         double prochainY = getPosition().getY() + getDirection().getDy() * vitesse * TAILLE50;
         return new double[] { prochainX, prochainY };

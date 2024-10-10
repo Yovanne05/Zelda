@@ -52,7 +52,6 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
                 }
             for (Acteur a : change.getRemoved()) {
                 for (int i = 0; i < pane.getChildren().size(); i++) {
-                    System.out.println(this.pane.lookup("#"+a.getId()));
                     this.pane.getChildren().remove(this.pane.lookup("#"+a.getId()));
                     if (a instanceof Ennemi)
                         this.pane.getChildren().remove(this.pane.lookup("#"+a.getId()+"BarreVie"));

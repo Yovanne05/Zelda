@@ -9,12 +9,10 @@ import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TA
 public class Hitbox {
 
     private Rectangle hitbox;
-    private Position position;
     private int tailleX;
     private int tailleY;
 
     public Hitbox(double x, double y, int tailleX, int tailleY) {
-        position=new Position(x, y);
         this.tailleX = tailleX;
         this.tailleY = tailleY;
         this.hitbox = new Rectangle(x, y, tailleX, tailleY);
@@ -50,20 +48,12 @@ public class Hitbox {
         return hitbox.yProperty();
     }
 
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
     public double hitboxX(){
-        return position.getX();
+        return hitbox.getX();
     }
 
     public double hitboxY(){
-        return position.getY();
+        return hitbox.getY();
     }
 
     public int width(){

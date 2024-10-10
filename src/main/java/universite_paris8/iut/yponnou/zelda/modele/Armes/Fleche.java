@@ -41,6 +41,9 @@ public class Fleche extends Projectile {
         double prochainX = this.getPosition().getX() + (this.getDirection().getDx() * this.getVitesse());
         double prochainY = this.getPosition().getY() + (this.getDirection().getDy() * this.getVitesse());
 
+        this.x = prochainX;
+        this.y = prochainY;
+
         this.getPosition().setX(prochainX);
         this.getPosition().setY(prochainY);
     }
@@ -58,6 +61,13 @@ public class Fleche extends Projectile {
         }
     }
 
+//    double ennemiX = ennemi.getPosition().getX();
+//    double ennemiY = ennemi.getPosition().getY();
+//    double flecheX = this.getPosition().getX();
+//    double flecheY = this.getPosition().getY();
+//
+//    return (flecheX >= ennemiX && flecheX <= ennemiX + TAILLE50) &&
+//            (flecheY >= ennemiY && flecheY <= ennemiY + TAILLE50);
     private boolean touche(Ennemi ennemi) {
         double ennemiX = ennemi.getPosition().getX();
         double ennemiY = ennemi.getPosition().getY();

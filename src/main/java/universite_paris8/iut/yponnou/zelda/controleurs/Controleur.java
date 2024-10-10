@@ -1,6 +1,7 @@
 
 package universite_paris8.iut.yponnou.zelda.controleurs;
 
+import com.beust.ah.A;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
@@ -22,6 +23,7 @@ import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs.Obse
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie.ObservateurCoeurs;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeDistance;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.*;
@@ -35,6 +37,7 @@ import universite_paris8.iut.yponnou.zelda.vue.Acteurs.PaysanVue;
 import universite_paris8.iut.yponnou.zelda.vue.Acteurs.VendeurVue;
 import universite_paris8.iut.yponnou.zelda.vue.MapVue;
 import universite_paris8.iut.yponnou.zelda.vue.Pv.CoeursVue;
+import universite_paris8.iut.yponnou.zelda.vue.environnements.EntreeDonjonVue;
 
 import java.io.IOException;
 import java.net.URL;
@@ -75,12 +78,14 @@ public class Controleur implements Initializable {
         mapActuelle = new Map(30, 30);
 
 
-        hero = new Hero(0, 0, null, new Direction(0,0), null);
+        hero = new Hero(650, 360, null, new Direction(0,0), null);
         hero.pvProperty().addListener(new ObservateurCoeurs(paneCoeurs, new CoeursVue(paneCoeurs)));
         hero.inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
         heroVue = new HeroVue(hero, paneMap);
 
-        switchToEnvironment(new Village(hero));
+        switchToEnvironment(new Labyrinthe(hero));
+        Objet a =new ArcArme(hero.getPosition().getX(),hero.getPosition().getY(), null, environnement);
+        hero.ajouterObjet(a);
         try {
             musiqueJeu.jouer(1,-1);
             bruitPas.jouer(0.05f,0);
@@ -298,7 +303,8 @@ public class Controleur implements Initializable {
                     hero.getPosition().setX(725);
                     hero.getPosition().setY(550);}
                 else{
-                    ((EntreeDonjon)environnement).entree();
+                    EntreeDonjonVue entreeDonjonVue=new EntreeDonjonVue();
+                    entreeDonjonVue.entree();
                 }
                 break;
             case -6:
