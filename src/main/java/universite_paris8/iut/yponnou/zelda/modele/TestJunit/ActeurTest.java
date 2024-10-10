@@ -109,7 +109,7 @@ public class ActeurTest {
     @Test
     public void guerisonActeur() {
         Pomme p=new Pomme(50,50,environnement);
-        h.ajouterObjet(p);
+        h.getInventaire().ajouterObjet(p);
         assertEquals(100, h.getPv(), 0.0001);
         h.subitDegats(30);
         h.guerison();

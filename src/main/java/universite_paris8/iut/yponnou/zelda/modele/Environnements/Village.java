@@ -18,7 +18,7 @@ public class Village extends Environnement{
 
     @Override
     public void creationEnvironnement(){
-        getHero().changeEnvObjets(this);
+        getHero().getInventaire().changeEnvObjets(this);
         getHero().getPosition().setX(300);
         getHero().getPosition().setY(500);
         getHero().getPosition().setEnv(this);

@@ -50,7 +50,7 @@ public class Vendeur extends Acteur {
         Button buttonArc = new Button("Arc");
         buttonArc.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 2px;");
         buttonArc.setOnAction(e -> {
-            hero.inventaireProperty().add(new ArcArme(this.getPosition().getX(), this.getPosition().getY(),null,this.getPosition().getEnv()));
+            hero.getInventaire().inventaireProperty().add(new ArcArme(this.getPosition().getX(), this.getPosition().getY(),null,this.getPosition().getEnv()));
             dialog.setResult(ButtonType.OK); //Pour fermer le pop up
             dialog.close();
         });
@@ -58,7 +58,7 @@ public class Vendeur extends Acteur {
         Button buttonEpee = new Button("Épée");
         buttonEpee.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: #ffffff; -fx-border-width: 2px;");
         buttonEpee.setOnAction(e -> {
-            hero.inventaireProperty().add(new Epee(this.getPosition().getX(),this.getPosition().getY(),this.getPosition().getEnv()));
+            hero.getInventaire().inventaireProperty().add(new Epee(this.getPosition().getX(),this.getPosition().getY(),this.getPosition().getEnv()));
             dialog.setResult(ButtonType.OK);
             dialog.close();
         });

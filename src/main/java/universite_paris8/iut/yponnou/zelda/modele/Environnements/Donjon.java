@@ -14,7 +14,7 @@ public class Donjon extends Environnement{
 
     @Override
     public void creationEnvironnement(){
-        getHero().changeEnvObjets(this);
+        getHero().getInventaire().changeEnvObjets(this);
         getHero().getPosition().setX(720);
         getHero().getPosition().setY(530);
         getHero().getPosition().setEnv(this);

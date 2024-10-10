@@ -4,6 +4,7 @@ package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.shape.Rectangle;
+import universite_paris8.iut.yponnou.zelda.modele.Inventaire;
 import universite_paris8.iut.yponnou.zelda.utilitaire.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.*;
 import universite_paris8.iut.yponnou.zelda.modele.Aliments.Nourriture;
@@ -14,24 +15,22 @@ import universite_paris8.iut.yponnou.zelda.utilitaire.Son;
 
 public class Hero extends Guerrier {
 
-    private final ObservableList<Objet> inventaire = FXCollections.observableArrayList();
+    private Inventaire inventaire;
     private final int capaciteMax;
 
     public Hero(int x, int y, Environnement environnement, int dx, int dy, Arme arme) {
         super("Joseph", x, y, 100, 0.2, environnement, dx, dy, arme);
         capaciteMax = 5;
-    }
-    public ObservableList<Objet> inventaireProperty() {
-        return inventaire;
+        this.inventaire = new Inventaire();
     }
 
     public void guerison(){
-        Nourriture aliment = possedeNourritures();
+        Nourriture aliment = inventaire.possedeNourritures();
         if (aliment != null) {
             if (!pleineSante()) {
                 setPv(getPv()+ aliment.getPv());
                 System.out.println(getNom() + " a mangé " + aliment.getNom());
-                inventaire.remove(aliment);
+                inventaire.supp(aliment);
             }
             else
                 System.out.println("Votre santé déjà complète !");
@@ -52,14 +51,14 @@ public class Hero extends Guerrier {
     // méthode qui récupère un objet de la map
     public void recuperer(){
         Objet ob = objetsProches();
-        if (ob != null && inventaire.size() != capaciteMax) {
+        if (ob != null && inventaire.getInventaire().size() != capaciteMax) {
             if (ob instanceof Arme)
                 setArme((Arme)ob);
-            inventaire.add(ob);
+            inventaire.getInventaire().add(ob);
             ob.getPosition().getEnv().enleverObjet(ob);
             System.out.println("Objet récupéré !");
         }
-        else if (inventaire.size() == capaciteMax)
+        else if (inventaire.getInventaire().size() == capaciteMax)
             System.out.println("Inventaire complet !");
         else
             System.out.println("Aucun objets trouvés !");
@@ -87,12 +86,12 @@ public class Hero extends Guerrier {
         }while (hitbox == null);
         objet.getPosition().setX(objetX);
         objet.getPosition().setY(objetY);
-        inventaire.remove(objet);
+        inventaire.supp(objet);
         if (objet instanceof Arme){
-            if (this.possedeArme() == null)
+            if (this.inventaire.possedeArme() == null)
                 setArme(null);
             else
-                setArme(this.possedeArme());
+                setArme(this.inventaire.possedeArme());
         }
         objet.getPosition().getEnv().ajouterObjet(objet);
     }
@@ -102,34 +101,6 @@ public class Hero extends Guerrier {
         for(Objet obj : getPosition().getEnv().objetsProperty()){
             if (verifObjetsAutour(obj))
                 return obj;
-        }
-        return null;
-    }
-
-    public boolean possedeClef(){
-        for (Objet objet : inventaire) {
-            if (objet instanceof Clef)
-                return true;
-        }
-        return false;
-    }
-
-    // méthode qui renvoie un objet Nourriture si l'inventaire du héro en possède.
-    public Nourriture possedeNourritures(){
-        for (Objet objet : inventaire) {
-            if (objet instanceof Nourriture)
-                return (Nourriture) objet;
-        }
-        return null;
-    }
-
-
-    // méthode qui renvoie un objet Arme si l'inventaire du héro en possède.
-    public Arme possedeArme(){
-        for (Objet objet : inventaire) {
-            if (objet instanceof Arme) {
-                return (Arme) objet;
-            }
         }
         return null;
     }
@@ -213,24 +184,14 @@ public class Hero extends Guerrier {
         }
     }
 
-    public void changeEnvObjets(Environnement env){
-        for(Objet o : inventaire){
-            o.getPosition().setEnv(env);
-        }
-    }
-
-    public void ajouterObjet(Objet o){
-        inventaire.add(o);
-    }
-
-    public void selectionObjet(int indexe) {
-        if (indexe < inventaire.size()){
-            Objet ob = inventaire.get(indexe);
+    public void selectionObjet(int index) { // dans Inventaire
+        if (index < inventaire.getInventaire().size()){
+            Objet ob = inventaire.getInventaire().get(index);
             if(ob instanceof Nourriture n) {
                 if (!pleineSante()) {
                     setPv(getPv() + n.getPv());
                     System.out.println(getNom() + " a mangé " + n.getNom());
-                    inventaire.remove(n);
+                    inventaire.supp(n);
                 } else
                     System.out.println("Votre santé déjà complète !");
             }
@@ -241,5 +202,9 @@ public class Hero extends Guerrier {
         }
         else
             System.out.println("Vous n'avez pas d'objets à cet emplacement !");
+    }
+
+    public Inventaire getInventaire() {
+        return inventaire;
     }
 }

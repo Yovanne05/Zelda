@@ -71,7 +71,7 @@ public class Controleur implements Initializable {
 
         hero = new Hero(0, 0, null, 0, 0, null);
         hero.pvProperty().addListener(new ObservateurCoeurs(paneCoeurs, new CoeursVue(paneCoeurs)));
-        hero.inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
+        hero.getInventaire().inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
         heroVue = new HeroVue(hero, paneMap);
 
         switchToEnvironment(new Village(hero));
@@ -86,7 +86,7 @@ public class Controleur implements Initializable {
         environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
         environnement.acteursProperty().addListener(new ObservateurActeurs(paneMap));
         environnement.creationEnvironnement();
-        hero.changeEnvObjets(environnement);
+        hero.getInventaire().changeEnvObjets(environnement);
         hero.getPosition().setEnv(environnement);
         MapVue mapVue = new MapVue(environnement.getMap().getTabNum(), tilePaneDecors);
         mapVue.creerSprite();
@@ -148,8 +148,8 @@ public class Controleur implements Initializable {
                     p.recuperer();
                     break;
                 case K:
-                    if (!p.inventaireProperty().isEmpty()) {
-                        ob = p.inventaireProperty().get(0);
+                    if (!p.getInventaire().inventaireProperty().isEmpty()) {
+                        ob = p.getInventaire().inventaireProperty().get(0);
                         p.deposer(ob);
                     } else {
                         System.out.println("Inventaire vide");
@@ -287,7 +287,7 @@ public class Controleur implements Initializable {
                 hero.getPosition().setY(850);
                 break;
             case -5:
-                if (hero.possedeClef()){
+                if (hero.getInventaire().possedeClef()){
                     tilePaneDecors.getChildren().clear();
                     for (Acteur a : environnement.acteursProperty()) {
                         paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
