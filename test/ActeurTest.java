@@ -1,14 +1,14 @@
 import org.junit.jupiter.api.Test;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.Informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Boss;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Informaion.Hitbox;
-import universite_paris8.iut.yponnou.zelda.modele.Aliments.Pomme;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Village;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.Acteur;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.Boss;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.Hero;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.Informaion.Hitbox;
+import universite_paris8.iut.yponnou.zelda.modele.aliments.Pomme;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Epee;
+import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.environnements.Village;
 
 import static org.junit.jupiter.api.Assertions.*;
 

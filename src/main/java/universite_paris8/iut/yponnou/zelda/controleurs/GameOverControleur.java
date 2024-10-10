@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import universite_paris8.iut.yponnou.zelda.Lanceur;
-import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Son;
+import universite_paris8.iut.yponnou.zelda.vue.son_vue.Son;
 
 import java.io.IOException;
 import java.net.URL;

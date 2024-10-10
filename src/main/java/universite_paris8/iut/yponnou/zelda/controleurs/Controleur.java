@@ -1,7 +1,6 @@
 
 package universite_paris8.iut.yponnou.zelda.controleurs;
 
-import com.beust.ah.A;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
@@ -21,23 +20,20 @@ import universite_paris8.iut.yponnou.zelda.Lanceur;
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.objets.*;
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs.ObservateurActeurs;
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie.ObservateurCoeurs;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Informaion.Direction;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeDistance;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.*;
-import universite_paris8.iut.yponnou.zelda.modele.Map;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Clef;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
-import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Son;
-import universite_paris8.iut.yponnou.zelda.vue.Acteurs.HeroVue;
-import universite_paris8.iut.yponnou.zelda.vue.Acteurs.PaysanVue;
-import universite_paris8.iut.yponnou.zelda.vue.Acteurs.VendeurVue;
-import universite_paris8.iut.yponnou.zelda.vue.MapVue;
-import universite_paris8.iut.yponnou.zelda.vue.Pv.CoeursVue;
-import universite_paris8.iut.yponnou.zelda.vue.environnements.EntreeDonjonVue;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.Acteur;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.Informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Epee;
+import universite_paris8.iut.yponnou.zelda.modele.environnements.*;
+import universite_paris8.iut.yponnou.zelda.modele.environnements.Map;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.Hero;
+import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
+import universite_paris8.iut.yponnou.zelda.vue.son_vue.Son;
+import universite_paris8.iut.yponnou.zelda.vue.acteurs_vue.HeroVue;
+import universite_paris8.iut.yponnou.zelda.vue.acteurs_vue.PaysanVue;
+import universite_paris8.iut.yponnou.zelda.vue.acteurs_vue.VendeurVue;
+import universite_paris8.iut.yponnou.zelda.vue.maps_vue.MapVue;
+import universite_paris8.iut.yponnou.zelda.vue.pv_vue.CoeursVue;
+import universite_paris8.iut.yponnou.zelda.vue.environnement_vue.EntreeDonjonVue;
 
 import java.io.IOException;
 import java.net.URL;

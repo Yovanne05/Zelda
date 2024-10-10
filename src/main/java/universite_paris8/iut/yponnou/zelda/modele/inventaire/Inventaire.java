@@ -2,12 +2,12 @@ package universite_paris8.iut.yponnou.zelda.modele.inventaire;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.Aliments.Nourriture;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Clef;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.Hero;
+import universite_paris8.iut.yponnou.zelda.modele.aliments.Nourriture;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
+import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.objets.Clef;
+import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
 
 public class Inventaire {

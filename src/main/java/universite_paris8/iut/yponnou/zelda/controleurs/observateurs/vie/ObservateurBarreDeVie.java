@@ -2,8 +2,8 @@ package universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie;
 
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Ennemi;
-import universite_paris8.iut.yponnou.zelda.vue.Pv.BarreDeVieVue;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.Ennemi;
+import universite_paris8.iut.yponnou.zelda.vue.pv_vue.BarreDeVieVue;
 
 public class ObservateurBarreDeVie extends ObservateurPv {
 

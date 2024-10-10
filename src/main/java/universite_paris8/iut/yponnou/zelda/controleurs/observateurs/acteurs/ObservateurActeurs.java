@@ -3,11 +3,11 @@ package universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie.ObservateurBarreDeVie;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
-import universite_paris8.iut.yponnou.zelda.vue.Acteurs.*;
-import universite_paris8.iut.yponnou.zelda.vue.Armes.FlecheVue;
-import universite_paris8.iut.yponnou.zelda.vue.Pv.BarreDeVieVue;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.*;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Fleche;
+import universite_paris8.iut.yponnou.zelda.vue.acteurs_vue.*;
+import universite_paris8.iut.yponnou.zelda.vue.armes_vue.FlecheVue;
+import universite_paris8.iut.yponnou.zelda.vue.pv_vue.BarreDeVieVue;
 
 public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
