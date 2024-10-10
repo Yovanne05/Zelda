@@ -97,7 +97,7 @@ public class Controleur implements Initializable {
         environnement.acteursProperty().addListener(new ObservateurActeurs(paneMap));
         environnement.creationEnvironnement();
         hero.changeEnvObjets(environnement);
-        hero.getPosition().setEnv(environnement);
+        hero.setEnvironnement(environnement);
         MapVue mapVue = new MapVue(environnement.getMap().getTabNum(), tilePaneDecors);
         mapVue.creerSprite();
         System.out.println(environnement);

@@ -13,7 +13,7 @@ public class ArcArme extends ArmeDistance {
     @Override
     public int utiliser() {
         Fleche f = (Fleche) this.getProjectile();
-        this.getPositionEnv().getEnv().ajouterActeur(f);
+        this.getEnvironnement().ajouterActeur(f);
         f.utiliserFleche();
         return this.getProjectile().getPtsDegats();
     }

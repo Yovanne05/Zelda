@@ -7,17 +7,19 @@ import universite_paris8.iut.yponnou.zelda.modele.utilitaire.PositionEnv;
 public abstract class Objet {
 
     private String nom;
-
-
-
     private String id;
     private static int incremente = 0;
-
-    private final PositionEnv position;
+    private Position position;
+    private Environnement environnement;
 
     public Objet(double x, double y, Environnement environnement) {
-        position = new PositionEnv(x,y,environnement);
+        position = new Position(x,y);
+        this.environnement=environnement;
         id = "Ob"+incremente++;
+    }
+
+    public Environnement getEnvironnement() {
+        return environnement;
     }
 
     public String getNom() {
@@ -32,8 +34,16 @@ public abstract class Objet {
     public void setId(String id) {
         this.id = id;
     }
-    public PositionEnv getPositionEnv() {
+    public Position getPosition() {
         return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public void setEnvironnement(Environnement environnement) {
+        this.environnement = environnement;
     }
 
     public abstract String toString();

@@ -23,8 +23,8 @@ public class EpeeVue extends ObjetVue {
         imageView.setFitWidth(sword32x32.getWidth());
         imageView.setFitHeight(sword32x32.getHeight());
         imageView.setId(getObjet().getId());
-        imageView.setX(getObjet().getPositionEnv().getX());
-        imageView.setY(getObjet().getPositionEnv().getY());
+        imageView.setX(getObjet().getPosition().getX());
+        imageView.setY(getObjet().getPosition().getY());
         getPane().getChildren().add(imageView);
     }
 

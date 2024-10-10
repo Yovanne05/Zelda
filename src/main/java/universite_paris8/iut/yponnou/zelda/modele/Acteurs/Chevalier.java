@@ -10,11 +10,13 @@ import universite_paris8.iut.yponnou.zelda.modele.utilitaire.PositionEnv;
 
 public class Chevalier extends Ennemi{
 
-    private int cptPas = 0;
-    private int maxPas = 300; // Nombre de pas avant de changer de direction
+    private int cptPas;
+    private int maxPas; // Nombre de pas avant de changer de direction
 
-    public Chevalier(double x, double y, Environnement environnement, PositionEnv position, Direction direction, Arme arme) {
-        super(x, y, environnement, "Chevalier", position, 0.04, direction, arme, 240, 0);
+    public Chevalier(double x, double y, Environnement environnement, Direction direction, Arme arme) {
+        super(x, y, environnement, 0.03, direction, arme, 240);
+        this.cptPas = 0;
+        this.maxPas = 300;
     }
 
     public void deplacementEnnemi() {

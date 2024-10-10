@@ -22,7 +22,7 @@ public class Village extends Environnement{
         getHero().changeEnvObjets(this);
         getHero().getPosition().setX(300);
         getHero().getPosition().setY(500);
-        getHero().getPosition().setEnv(this);
+        getHero().setEnvironnement(this);
         getHero().getDirection().setDx(0);
         getHero().getDirection().setDy(0);
         Direction directionV = new Direction(0,0);

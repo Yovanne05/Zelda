@@ -20,7 +20,7 @@ public class Labyrinthe extends Environnement{
     public void creationEnvironnement(){
         getHero().changeEnvObjets(this);
         System.out.println("Labyrinthe");
-        getHero().getPosition().setEnv(this);
+        getHero().setEnvironnement(this);
         getHero().getDirection().setDx(0);
         getHero().getDirection().setDy(0);
         Epee e=new Epee(0,0,this);

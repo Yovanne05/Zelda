@@ -11,8 +11,8 @@ import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
 
 public class Boss extends Ennemi {
 
-    public Boss(double x, double y, Environnement environnement, Direction direcion, Arme arme) {
-        super("Boss", x, y, 360, 0.04, environnement, direcion, arme);
+    public Boss(double x, double y, Environnement environnement, Direction direction, Arme arme) {
+        super(x, y, environnement, 0.04, direction, arme, 360);
     }
 
     @Override

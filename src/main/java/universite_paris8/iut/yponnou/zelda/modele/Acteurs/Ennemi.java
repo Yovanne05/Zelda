@@ -14,8 +14,8 @@ public abstract class Ennemi extends Guerrier {
 
     private long derniereAttaque;
 
-    public Ennemi(double x, double y, Environnement environnement, String nom, PositionEnv position, double vitesse, Direction direction, Arme arme, int pv, long derniereAttaque) {
-        super(x, y, environnement, nom, position, vitesse, direction, arme, pv);
+    public Ennemi(double x, double y, Environnement environnement, double vitesse, Direction direction, Arme arme, int pv) {
+        super(x, y, environnement, vitesse, direction, arme, pv);
         this.derniereAttaque = 0;
     }
 
@@ -34,7 +34,7 @@ public abstract class Ennemi extends Guerrier {
 
     private void attaquerAvecArmeDistance(long tempsActuel) {
         if (tempsActuel - this.getDerniereAttaque() >= 250) {
-            Fleche f = new Fleche(getPosition().getX(), getPosition().getY(), getPosition().getEnv(), getDirection());
+            Fleche f = new Fleche(getPosition().getX(), getPosition().getY(), getEnvironnement(), getDirection());
             ((ArmeDistance) this.getArme()).setProjectile(f);
             ((ArmeDistance) this.getArme()).utiliser();
         }
@@ -55,7 +55,7 @@ public abstract class Ennemi extends Guerrier {
     }
 
     public Hero verifHeroProx(double distanceSeuil) {
-        for (Acteur acteur : this.getPosition().getEnv().acteursProperty()) {
+        for (Acteur acteur : this.getEnvironnement().acteursProperty()) {
             if (acteur instanceof Hero hero) {
                 if (estProcheDeActeur(hero, distanceSeuil)) {
                     return hero;

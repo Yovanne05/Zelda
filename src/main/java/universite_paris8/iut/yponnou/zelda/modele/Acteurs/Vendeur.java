@@ -19,12 +19,11 @@ import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
+import universite_paris8.iut.yponnou.zelda.modele.utilitaire.PositionEnv;
 
 
 public class Vendeur extends Acteur {
-
     public Vendeur(double x, double y, Environnement environnement, Direction direction) {
-        super("Vendeur", x, y, 20, 0.03, environnement, direction);
+        super(x, y, environnement, 0.03, direction);
     }
-
 }

@@ -23,8 +23,8 @@ public class ArcVue extends ObjetVue {
         imageView.setFitWidth(arcImage32x32.getWidth());
         imageView.setFitHeight(arcImage32x32.getHeight());
         imageView.setId(getObjet().getId());
-        imageView.setX(getObjet().getPositionEnv().getX());
-        imageView.setY(getObjet().getPositionEnv().getY());
+        imageView.setX(getObjet().getPosition().getX());
+        imageView.setY(getObjet().getPosition().getY());
         getPane().getChildren().add(imageView);
     }
 

@@ -17,8 +17,8 @@ public class Projectile extends Acteur {
 
     private final Son sonFleche = new Son("/universite_paris8/iut/yponnou/zelda/Sons/bruits/sonFleche.wav");
 
-    public Projectile(String nom, double x, double y, int pv, double vitesse, Environnement environnement, Direction direction, double portee, int ptsDegats) {
-        super(nom, x, y, pv, vitesse, environnement, direction);
+    public Projectile(double x, double y, Environnement environnement, double vitesse, Direction direction, int ptsDegats, double portee) {
+        super(x, y, environnement, vitesse, direction);
         this.portee=portee;
         this.ptsDegats=ptsDegats;
         try {
@@ -27,7 +27,6 @@ public class Projectile extends Acteur {
             System.out.println("Son incompatible");
         }
     }
-
 
     public double getPortee() {
         return portee;

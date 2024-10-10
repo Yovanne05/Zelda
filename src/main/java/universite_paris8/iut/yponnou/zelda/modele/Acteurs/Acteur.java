@@ -15,21 +15,14 @@ import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TA
 
 public class Acteur extends Objet {
 
-
-    private final String nom; //TODO  apriori ne devrait pas exister car géré par le sous-typage
-
-
     private static int incremente = 0;
     private final String id;
-
-    private final PositionEnv position;
     private final double vitesse;
     private Direction direction;
     private final Hitbox hitbox;
 
-    public Acteur(double x, double y, Environnement environnement, String nom, PositionEnv position, double vitesse, Direction direction) {
+    public Acteur(double x, double y, Environnement environnement, double vitesse, Direction direction) {
         super(x, y, environnement);
-        this.nom = nom;
         this.vitesse = vitesse;
         id = "A"+incremente++;
         hitbox = new Hitbox(x,y,TAILLE50,TAILLE50);
@@ -42,11 +35,7 @@ public class Acteur extends Objet {
         return id;
     }
     public String getNom() {
-        return nom;
-    }
-
-    public PositionEnv getPosition() {
-        return position;
+        return "Acteur";
     }
 
     public Direction getDirection() {
@@ -65,9 +54,9 @@ public class Acteur extends Objet {
         return hitbox;
     }
 
-    private double[] calculerProchainePosition(Position p, Direction d, Double vitessev) {
-        double prochainX = p.getX() + d.getDx() * vitessev * TAILLE50;
-        double prochainY = p.getY() + d.getDy() * vitessev * TAILLE50;
+    private double[] calculerProchainePosition() {
+        double prochainX = getPosition().getX() + getDirection().getDx() * vitesse * TAILLE50;
+        double prochainY = getPosition().getY() + getDirection().getDy() * vitesse * TAILLE50;
         return new double[] { prochainX, prochainY };
     }
 
@@ -85,15 +74,15 @@ public class Acteur extends Objet {
     }
 
     public void deplacement() {
-        double[] prochainePosition = calculerProchainePosition(position, direction, vitesse);
+        double[] prochainePosition = calculerProchainePosition();
         double prochainX = prochainePosition[0];
         double prochainY = prochainePosition[1];
 
         // Création de la nouvelle hitbox après déplacement
         Hitbox futureHitbox = new Hitbox(prochainX, prochainY, TAILLE50, TAILLE50);
         if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
-            position.setX(prochainX);
-            position.setY(prochainY);
+            getPosition().setX(prochainX);
+            getPosition().setY(prochainY);
         }
     }
 
@@ -115,21 +104,21 @@ public class Acteur extends Objet {
         Direction newDirection = new Direction(directionX,directionY);
 
         // Nouvelle pos
-        double[] prochainePosition = calculerProchainePosition(position, newDirection, vitesse);
+        double[] prochainePosition = calculerProchainePosition();
         double prochainX = prochainePosition[0];
         double prochainY = prochainePosition[1];
 
         Hitbox futureHitbox = new Hitbox(prochainX, prochainY, TAILLE50, TAILLE50);
 
         if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
-            position.setX(prochainX);
-            position.setY(prochainY);
+            getPosition().setX(prochainX);
+            getPosition().setY(prochainY);
         }
     }
 
     public boolean estEnDehorsDeLaCarte(int xHG, int yHG, int xHD, int yBG) {
-        int largeurMap = position.getEnv().getMap().getLargeur();
-        int hauteurMap = position.getEnv().getMap().getHauteur();
+        int largeurMap = getEnvironnement().getMap().getLargeur();
+        int hauteurMap = getEnvironnement().getMap().getHauteur();
         return xHG < 0 || yHG < 0 || xHD >= largeurMap || yBG >= hauteurMap;
     }
 
@@ -138,7 +127,7 @@ public class Acteur extends Objet {
     }
 
     public boolean collisionAvecObstacleDansCarte(int xHG, int yHG, int xHD, int yBG) {
-        int[][] map = position.getEnv().getMap().getTabNum();
+        int[][] map = getEnvironnement().getMap().getTabNum();
         return estObstacle(map, xHG, yHG) || estObstacle(map, xHD, yHG) || estObstacle(map, xHG, yBG) || estObstacle(map, xHD, yBG);
     }
 
@@ -164,7 +153,7 @@ public class Acteur extends Objet {
     }
 
     public boolean collisionAvecActeur(Hitbox futureHitbox) {
-        for (Acteur acteur : getPosition().getEnv().acteursProperty()) {
+        for (Acteur acteur : getEnvironnement().acteursProperty()) {
             if (acteurEstEnCollision(futureHitbox, acteur)) {
                 return true;
             }
@@ -172,18 +161,13 @@ public class Acteur extends Objet {
         return false;
     }
 
-
     @Override
     public String toString() {
         return "Acteur{" +
-                "idActeur='" + id + '\'' +
-                ", nom='" + nom + '\'' +
-                ", v=" + vitesse +
-                ", env=" + position.getEnv() +
-                ", x=" + position.getX() +
-                ", y=" + position.getY() +
+                "id='" + id + '\'' +
+                ", vitesse=" + vitesse +
+                ", direction=" + direction +
                 ", hitbox=" + hitbox +
                 '}';
     }
-
 }

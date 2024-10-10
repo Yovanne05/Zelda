@@ -12,9 +12,8 @@ public abstract class Guerrier extends Acteur {
     private Arme arme;
     private IntegerProperty pv;
 
-
-    public Guerrier(double x, double y, Environnement environnement, String nom, PositionEnv position, double vitesse, Direction direction, Arme arme, int pv) {
-        super(x, y, environnement, nom, position, vitesse, direction);
+    public Guerrier(double x, double y, Environnement environnement, double vitesse, Direction direction, Arme arme, int pv) {
+        super(x, y, environnement, vitesse, direction);
         this.arme = arme;
         this.pv = new SimpleIntegerProperty(pv);
     }
@@ -57,7 +56,7 @@ public abstract class Guerrier extends Acteur {
 
     public void mourir() {
         setPv(0);
-        getPosition().getEnv().enleverActeur(this);
+        getEnvironnement().enleverActeur(this);
     }
 
     public boolean estProcheDeActeur(Acteur acteur, double distanceSeuil) {

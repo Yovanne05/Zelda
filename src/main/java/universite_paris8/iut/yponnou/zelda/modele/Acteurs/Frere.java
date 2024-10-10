@@ -6,6 +6,6 @@ import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
 public class Frere extends Acteur{
     public Frere(double x, double y, Environnement environnement, Direction direction) {
-        super("Frere", x, y, 20, 0.03, environnement, direction);
+        super(x, y, environnement, 0.03, direction);
     }
 }

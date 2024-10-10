@@ -33,7 +33,7 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
                     }else if(a instanceof Boss){
                         actVue = new BossVue(a,pane);
                     }
-                    a.pvProperty().addListener(new ObservateurBarreDeVie((Ennemi)a,pane,new BarreDeVieVue((Ennemi)a,pane)));
+                    ((Ennemi) a).pvProperty().addListener(new ObservateurBarreDeVie((Ennemi)a,pane,new BarreDeVieVue((Ennemi)a,pane)));
                 }
                 else if (a instanceof Paysan) {
                     actVue = new PaysanVue(a,pane);

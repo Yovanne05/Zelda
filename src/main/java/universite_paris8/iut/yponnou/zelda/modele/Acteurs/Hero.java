@@ -25,8 +25,8 @@ public class Hero extends Guerrier {
     private final ObservableList<Objet> inventaire = FXCollections.observableArrayList();
     private final int capaciteMax;
 
-    public Hero(double x, double y, Environnement environnement, String nom, PositionEnv position, double vitesse, Direction direction, Arme arme) {
-        super(x, y, environnement, nom, position, vitesse, direction, arme, 100);
+    public Hero(double x, double y, Environnement environnement, Direction direction, Arme arme) {
+        super(x, y, environnement, 0.2, direction, arme, 100);
         this.capaciteMax = 5;
     }
 
@@ -35,7 +35,7 @@ public class Hero extends Guerrier {
     }
 
     public Ennemi verifEnnemiAcoter(double distanceSeuil) {
-        for (Acteur acteur : this.getPosition().getEnv().acteursProperty()) {
+        for (Acteur acteur : this.getEnvironnement().acteursProperty()) {
             if (acteur instanceof Ennemi) {
                 Ennemi ennemi = (Ennemi) acteur;
                 if (estProcheDeActeur(ennemi, distanceSeuil)) {
@@ -87,7 +87,7 @@ public class Hero extends Guerrier {
     }
 
     private boolean estObjetProche(Objet ob) {
-        double distance = distance(ob.getPositionEnv());
+        double distance = distance(ob.getPosition());
         return distance <= 500;
     }
 
@@ -129,17 +129,17 @@ public class Hero extends Guerrier {
     }
 
     public boolean estPositionValide(Position p) {
-        return getPosition().getEnv().dansMap(p.getX(), p.getY());
+        return getEnvironnement().dansMap(p.getX(), p.getY());
     }
 
     private void placerObjet(Objet objet, double x, double y) {
-        objet.getPositionEnv().setX(x);
-        objet.getPositionEnv().setY(y);
+        objet.getPosition().setX(x);
+        objet.getPosition().setY(y);
         inventaire.remove(objet);
         if (objet instanceof Arme) {
             mettreAJourArme();
         }
-        objet.getPositionEnv().getEnv().ajouterObjet(objet);
+        objet.getEnvironnement().ajouterObjet(objet);
     }
 
     private void mettreAJourArme() {
@@ -152,7 +152,7 @@ public class Hero extends Guerrier {
 
     // méthode qui renvoie un objet trouvé autour du hero
     public Objet objetsProches(){
-        for(Objet obj : getPosition().getEnv().objetsProperty()){
+        for(Objet obj : getEnvironnement().objetsProperty()){
             if (verifObjetsAutour(obj))
                 return obj;
         }
@@ -207,7 +207,7 @@ public class Hero extends Guerrier {
 
     private boolean verifObjetsAutour(Objet obj) {
         int distance = distanceMaxPossibe();
-        return estDansRayon(obj.getPositionEnv(), distance);
+        return estDansRayon(obj.getPosition(), distance);
     }
 
     private boolean verifPaysansAutour(Paysan p) {
@@ -250,7 +250,7 @@ public class Hero extends Guerrier {
         int dx = getDirection().getDx();
         int dy = getDirection().getDy();
         Direction d = new Direction(dx,dy); //Direction différente pour ne pas que la direction soit la même que celle de l'héro (sinon gros bug)
-        Fleche fleche = new Fleche(getPosition().getX(), getPosition().getY(), getPosition().getEnv(),d);
+        Fleche fleche = new Fleche(getPosition().getX(), getPosition().getY(), getEnvironnement(),d);
         armeDistance.setProjectile(fleche);
         armeDistance.utiliser();
     }
@@ -259,19 +259,19 @@ public class Hero extends Guerrier {
         ArmeMelee armeMelee = (ArmeMelee) getArme();
         ennemi.seFaitAttaquer(armeMelee.getPtsDegats());
         if (ennemi.estMort()) {
-            getPosition().getEnv().acteursProperty().removeIf(a -> ennemi.getId().equals(a.getId()));
+            getEnvironnement().acteursProperty().removeIf(a -> ennemi.getId().equals(a.getId()));
         }
     }
 
     public void changeEnvObjets(Environnement env){
         for(Objet o : inventaire){
-            o.getPositionEnv().setEnv(env);
+            o.setEnvironnement(env);
         }
     }
 
     public void ajouterObjet(Objet o){
         inventaire.add(o);
-        o.getPositionEnv().getEnv().enleverObjet(o);
+        o.getEnvironnement().enleverObjet(o);
     }
 
     public void selectionObjet(int index) {

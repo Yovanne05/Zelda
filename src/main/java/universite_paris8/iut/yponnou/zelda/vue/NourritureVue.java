@@ -19,8 +19,8 @@ public class NourritureVue extends ObjetVue{
         Rectangle r = new Rectangle(TAILLE50,TAILLE50);
         r.setFill(Color.ORANGE);
         r.setId(getObjet().getId());
-        r.setX(getObjet().getPositionEnv().getX());
-        r.setY(getObjet().getPositionEnv().getY());
+        r.setX(getObjet().getPosition().getX());
+        r.setY(getObjet().getPosition().getY());
         getPane().getChildren().add(r);
     }
 }

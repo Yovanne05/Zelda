@@ -19,13 +19,12 @@ public class Fleche extends Projectile {
     private final double initialY;
 
     public Fleche(double x, double y, Environnement environnement, Direction direction) {
-        super("Fleche", x, y, 0, 5, environnement, direction, 300, 10);
+        super(x, y, environnement, 0.03, direction, 5, 30);
         this.x = x;
         this.y = y;
         this.initialX = x;
         this.initialY = y;
     }
-
 
     public void utiliserFleche() {
         double distanceParcourue = Math.sqrt(Math.pow(getPosition().getX() - initialX, 2) + Math.pow(getPosition().getY() - initialY, 2)); //pyhagore
@@ -33,7 +32,7 @@ public class Fleche extends Projectile {
             this.deplacement();
             this.collisionAvecEnnemi();
         } else {
-            this.getPosition().getEnv().enleverActeur(this);
+            this.getEnvironnement().enleverActeur(this);
         }
     }
 
@@ -47,13 +46,13 @@ public class Fleche extends Projectile {
     }
 
     public void collisionAvecEnnemi() {
-        ObservableList<Acteur> lstA = getPosition().getEnv().acteursProperty();
+        ObservableList<Acteur> lstA = getEnvironnement().acteursProperty();
         for (int i=0;i<lstA.size();i++) {
             if (lstA.get(i) instanceof Ennemi) {
                 Ennemi ennemi = (Ennemi) lstA.get(i);
                 if (this.touche(ennemi)) {
                     ennemi.seFaitAttaquer(this.getPtsDegats());
-                    getPosition().getEnv().enleverActeur(this);
+                    getEnvironnement().enleverActeur(this);
                 }
             }
         }

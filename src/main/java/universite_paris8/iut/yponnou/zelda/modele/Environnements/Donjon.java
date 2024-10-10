@@ -19,7 +19,7 @@ public class Donjon extends Environnement{
         getHero().changeEnvObjets(this);
         getHero().getPosition().setX(720);
         getHero().getPosition().setY(530);
-        getHero().getPosition().setEnv(this);
+        getHero().setEnvironnement(this);
         getHero().getDirection().setDx(0);
         getHero().getDirection().setDy(0);
         Epee e=new Epee(800,580,this);
