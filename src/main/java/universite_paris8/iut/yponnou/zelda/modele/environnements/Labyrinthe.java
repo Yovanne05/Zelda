@@ -3,7 +3,7 @@ package universite_paris8.iut.yponnou.zelda.modele.environnements;
 
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Garde;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Hero;
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.Informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Clef;
 

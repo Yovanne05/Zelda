@@ -8,10 +8,10 @@ import universite_paris8.iut.yponnou.zelda.modele.armes.ArcArme;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Clef;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
-import universite_paris8.iut.yponnou.zelda.vue.armes_vue.ArcVue;
-import universite_paris8.iut.yponnou.zelda.vue.armes_vue.EpeeVue;
-import universite_paris8.iut.yponnou.zelda.vue.objets_vue.ClefVue;
-import universite_paris8.iut.yponnou.zelda.vue.nourritures_vue.PommeVue;
+import universite_paris8.iut.yponnou.zelda.vue.armes.ArcVue;
+import universite_paris8.iut.yponnou.zelda.vue.armes.EpeeVue;
+import universite_paris8.iut.yponnou.zelda.vue.objets.ClefVue;
+import universite_paris8.iut.yponnou.zelda.vue.nourritures.PommeVue;
 
 public class ObservateurInventaire extends ObservateurObjets {
 

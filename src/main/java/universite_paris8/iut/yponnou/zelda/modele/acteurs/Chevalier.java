@@ -2,7 +2,8 @@
 package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
 
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.Informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Hitbox;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
@@ -17,6 +18,7 @@ public class Chevalier extends Ennemi{
         this.maxPas = 300;
     }
 
+    @Override
     public void deplacementEnnemi() {
         verifierEtAttaquer(80);
         changementDirectionSiPossible();
@@ -26,8 +28,7 @@ public class Chevalier extends Ennemi{
     public void changementDirectionSiPossible() {
         cptPas++;
         if (cptPas >= maxPas) {
-            getDirection().setDx(-getDirection().getDx());
-            getDirection().setDy(-getDirection().getDy());
+            this.getDirection().changementDirection(-this.getDirection().getDx(), -this.getDirection().getDy());
             cptPas = 0;
         }
     }

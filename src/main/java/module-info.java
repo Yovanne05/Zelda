@@ -19,14 +19,14 @@ module universite_paris8.iut.yponnou.zelda {
     opens universite_paris8.iut.yponnou.zelda.modele.objets to javafx.fxml;
     exports universite_paris8.iut.yponnou.zelda.modele.aliments;
     opens universite_paris8.iut.yponnou.zelda.modele.aliments to javafx.fxml;
-    exports universite_paris8.iut.yponnou.zelda.vue.acteurs_vue;
-    opens universite_paris8.iut.yponnou.zelda.vue.acteurs_vue to javafx.fxml;
-    exports universite_paris8.iut.yponnou.zelda.vue.pv_vue;
-    opens universite_paris8.iut.yponnou.zelda.vue.pv_vue to javafx.fxml;
-    exports universite_paris8.iut.yponnou.zelda.vue.armes_vue;
-    opens universite_paris8.iut.yponnou.zelda.vue.armes_vue to javafx.fxml;
-    exports universite_paris8.iut.yponnou.zelda.vue.nourritures_vue;
-    opens universite_paris8.iut.yponnou.zelda.vue.nourritures_vue to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.vue.acteurs;
+    opens universite_paris8.iut.yponnou.zelda.vue.acteurs to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.vue.pv;
+    opens universite_paris8.iut.yponnou.zelda.vue.pv to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.vue.armes;
+    opens universite_paris8.iut.yponnou.zelda.vue.armes to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.vue.nourritures;
+    opens universite_paris8.iut.yponnou.zelda.vue.nourritures to javafx.fxml;
     exports universite_paris8.iut.yponnou.zelda.modele.environnements;
     opens universite_paris8.iut.yponnou.zelda.modele.environnements to javafx.fxml;
     exports universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie;
@@ -35,9 +35,9 @@ module universite_paris8.iut.yponnou.zelda {
     opens universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs to javafx.fxml;
     exports universite_paris8.iut.yponnou.zelda.controleurs.observateurs.objets;
     opens universite_paris8.iut.yponnou.zelda.controleurs.observateurs.objets to javafx.fxml;
-    exports universite_paris8.iut.yponnou.zelda.vue.objets_vue;
-    opens universite_paris8.iut.yponnou.zelda.vue.objets_vue to javafx.fxml;
-    exports universite_paris8.iut.yponnou.zelda.vue.maps_vue;
-    opens universite_paris8.iut.yponnou.zelda.vue.maps_vue to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.vue.objets;
+    opens universite_paris8.iut.yponnou.zelda.vue.objets to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.vue.maps;
+    opens universite_paris8.iut.yponnou.zelda.vue.maps to javafx.fxml;
 
 }

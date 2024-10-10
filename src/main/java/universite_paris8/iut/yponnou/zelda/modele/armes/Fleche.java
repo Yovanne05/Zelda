@@ -5,7 +5,7 @@ package universite_paris8.iut.yponnou.zelda.modele.armes;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Ennemi;
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.Informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
 import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TAILLE50;

@@ -21,19 +21,19 @@ import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.objets.*;
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs.ObservateurActeurs;
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie.ObservateurCoeurs;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Acteur;
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.Informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.*;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Map;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
-import universite_paris8.iut.yponnou.zelda.vue.son_vue.Son;
-import universite_paris8.iut.yponnou.zelda.vue.acteurs_vue.HeroVue;
-import universite_paris8.iut.yponnou.zelda.vue.acteurs_vue.PaysanVue;
-import universite_paris8.iut.yponnou.zelda.vue.acteurs_vue.VendeurVue;
-import universite_paris8.iut.yponnou.zelda.vue.maps_vue.MapVue;
-import universite_paris8.iut.yponnou.zelda.vue.pv_vue.CoeursVue;
-import universite_paris8.iut.yponnou.zelda.vue.environnement_vue.EntreeDonjonVue;
+import universite_paris8.iut.yponnou.zelda.vue.son.Son;
+import universite_paris8.iut.yponnou.zelda.vue.acteurs.HeroVue;
+import universite_paris8.iut.yponnou.zelda.vue.acteurs.PaysanVue;
+import universite_paris8.iut.yponnou.zelda.vue.acteurs.VendeurVue;
+import universite_paris8.iut.yponnou.zelda.vue.maps.MapVue;
+import universite_paris8.iut.yponnou.zelda.vue.pv.CoeursVue;
+import universite_paris8.iut.yponnou.zelda.vue.environnement.EntreeDonjonVue;
 
 import java.io.IOException;
 import java.net.URL;
@@ -79,7 +79,7 @@ public class Controleur implements Initializable {
         hero.getInventaire().inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
         heroVue = new HeroVue(hero, paneMap);
 
-        switchToEnvironment(new Village(hero));
+        switchToEnvironment(new Donjon(hero));
         try {
             musiqueJeu.jouer(1,-1);
             bruitPas.jouer(0.05f,0);

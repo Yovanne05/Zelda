@@ -1,8 +1,8 @@
 
 package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.Informaion.Direction;
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.Informaion.Hitbox;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Hitbox;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
@@ -72,16 +72,22 @@ public abstract class Acteur extends Objet {
     }
 
     public void deplacement() {
+        Hitbox futureHitbox = futureHitbox();
+
+        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
+            getPosition().setX(futureHitbox.getHitbox().getX());
+            getPosition().setY(futureHitbox.getHitbox().getY());
+        }
+    }
+
+    public Hitbox futureHitbox(){
         double[] prochainePosition = calculerProchainePosition();
         double prochainX = prochainePosition[0];
         double prochainY = prochainePosition[1];
 
         // Création de la nouvelle hitbox après déplacement
         Hitbox futureHitbox = new Hitbox(prochainX, prochainY, TAILLE50, TAILLE50);
-        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
-            getPosition().setX(prochainX);
-            getPosition().setY(prochainY);
-        }
+        return futureHitbox;
     }
 
 
@@ -100,6 +106,7 @@ public abstract class Acteur extends Objet {
         int directionX = (int) (diffX / distance);
         int directionY = (int) (diffY / distance);
         Direction newDirection = new Direction(directionX,directionY);
+
 
         // Nouvelle pos
         double[] prochainePosition = calculerProchainePosition();

@@ -1,7 +1,7 @@
 
 package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.Informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
 public class Paysan extends Acteur {

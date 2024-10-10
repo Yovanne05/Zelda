@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 
 import universite_paris8.iut.yponnou.zelda.Lanceur;
-import universite_paris8.iut.yponnou.zelda.vue.son_vue.Son;
+import universite_paris8.iut.yponnou.zelda.vue.son.Son;
 
 import java.io.IOException;
 import java.net.URL;
