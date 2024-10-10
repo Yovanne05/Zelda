@@ -24,6 +24,10 @@ public class Boss extends Ennemi {
         }
     }
 
+    public String nom() {
+        return "Boss";
+    }
+
     private void foncerSurHero(Hero hero) {
         this.deplacerVers(hero.getPosition());
     }

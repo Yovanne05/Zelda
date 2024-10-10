@@ -112,8 +112,7 @@ public class Controleur implements Initializable {
             switch (key) {
                 case Z:
                 case UP:
-                    p.getDirection().setDx(0);
-                    p.getDirection().setDy(-1);
+                    p.getDirection().changementDirection(0,-1);
                     p.deplacement();
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
@@ -122,8 +121,7 @@ public class Controleur implements Initializable {
                     break;
                 case S:
                 case DOWN:
-                    p.getDirection().setDx(0);
-                    p.getDirection().setDy(1);
+                    p.getDirection().changementDirection(0,1);
                     p.deplacement();
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
@@ -132,8 +130,7 @@ public class Controleur implements Initializable {
                     break;
                 case D:
                 case RIGHT:
-                    p.getDirection().setDx(1);
-                    p.getDirection().setDy(0);
+                    p.getDirection().changementDirection(1,0);
                     p.deplacement();
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
@@ -142,8 +139,7 @@ public class Controleur implements Initializable {
                     break;
                 case Q:
                 case LEFT:
-                    p.getDirection().setDx(-1);
-                    p.getDirection().setDy(0);
+                    p.getDirection().changementDirection(-1,0);
                     p.deplacement();
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
