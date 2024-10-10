@@ -66,7 +66,7 @@ public class HeroVue extends ActeurVue{
 
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
 
-        imageView = new ImageView(getHeroImage(getActeur().getDirectionString()));
+        imageView = new ImageView(getHeroImage(getActeur().getDirection().directionString()));
 
 //        return imageView;
         imageView.setFitWidth(Constante.TAILLE50);
@@ -81,11 +81,11 @@ public class HeroVue extends ActeurVue{
     public void upgradeSpriteStatic() {
         ImageView imageView ;
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
-        switch (getActeur().getDirectionString()) {
-            case "up" -> imageView = new ImageView(getHeroImageStatic(getActeur().getDirectionString()));
-            case "left" -> imageView = new ImageView(getHeroImageStatic(getActeur().getDirectionString()));
-            case "right" -> imageView = new ImageView(getHeroImageStatic(getActeur().getDirectionString()));
-            default-> imageView = new ImageView(getHeroImageStatic(getActeur().getDirectionString()));
+        switch (getActeur().getDirection().directionString()) {
+            case "up" -> imageView = new ImageView(getHeroImageStatic(getActeur().getDirection().directionString()));
+            case "left" -> imageView = new ImageView(getHeroImageStatic(getActeur().getDirection().directionString()));
+            case "right" -> imageView = new ImageView(getHeroImageStatic(getActeur().getDirection().directionString()));
+            default-> imageView = new ImageView(getHeroImageStatic(getActeur().getDirection().directionString()));
         }
 
         imageView.setFitWidth(Constante.TAILLE50);

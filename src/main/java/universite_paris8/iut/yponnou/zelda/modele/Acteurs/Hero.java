@@ -243,8 +243,8 @@ public class Hero extends Guerrier {
 
     public void attaquerDistance() {
         ArmeDistance armeDistance = (ArmeDistance) getArme();
-        double dx = getDirection().getDx();
-        double dy = getDirection().getDy();
+        int dx = getDirection().getDx();
+        int dy = getDirection().getDy();
         Direction d = new Direction(dx,dy); //Direction différente pour ne pas que la direction soit la même que celle de l'héro (sinon gros bug)
         Fleche fleche = new Fleche(getPosition().getX(), getPosition().getY(), getPosition().getEnv(),d);
         armeDistance.setProjectile(fleche);

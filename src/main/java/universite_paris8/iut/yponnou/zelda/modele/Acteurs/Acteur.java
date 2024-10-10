@@ -23,8 +23,7 @@ public class Acteur {
 
     private final PositionEnv position;
     private final double vitesse;
-    private Direction direction; //TODO redondance entre direction et directionString
-    private String directionString;
+    private Direction direction;
     private final Hitbox hitbox;
 
     private final IntegerProperty pv;
@@ -37,18 +36,10 @@ public class Acteur {
         id = "A"+incremente++;
         hitbox = new Hitbox(x,y,TAILLE50,TAILLE50);
         this.direction=direction;
-        this.directionString="down";
         hitbox.xProperty().bind(this.getPosition().xProperty());
         hitbox.yProperty().bind(this.getPosition().yProperty());
     }
 
-    public String getDirectionString() {
-        return directionString;
-    }
-
-    public void setDirectionString(String directionString) {
-        this.directionString = directionString;
-    }
 
     public String getId() {
         return id;
@@ -94,16 +85,16 @@ public class Acteur {
         return new double[] { prochainX, prochainY };
     }
 
-    public double[] calculerDiffEntreMoiEtCible(Position cible) {
-        double diffX = cible.getX() - getPosition().getX();
-        double diffY = cible.getY() - getPosition().getY();
-        return new double[] { diffX, diffY };
+    public int[] calculerDiffEntreMoiEtCible(Position cible) {
+        int diffX = (int) (cible.getX() - getPosition().getX());
+        int diffY = (int) (cible.getY() - getPosition().getY());
+        return new int[] { diffX, diffY };
     }
 
     public double distance(Position cible) {
-        double[] diff = calculerDiffEntreMoiEtCible(cible);
-        double diffX = diff[0];
-        double diffY = diff[1];
+        int[] diff = calculerDiffEntreMoiEtCible(cible);
+        int diffX = diff[0];
+        int diffY = diff[1];
         return Math.sqrt(diffX * diffX + diffY * diffY);
     }
 
@@ -133,12 +124,12 @@ public class Acteur {
     }
 
     public void effectuerDeplacement(Position cible, double distance){
-        double[] diff = calculerDiffEntreMoiEtCible(cible);
-        double diffX = diff[0];
-        double diffY = diff[1];
+        int[] diff = calculerDiffEntreMoiEtCible(cible);
+        int diffX = diff[0];
+        int diffY = diff[1];
 
-        double directionX = diffX / distance;
-        double directionY = diffY / distance;
+        int directionX = (int) (diffX / distance);
+        int directionY = (int) (diffY / distance);
         Direction newDirection = new Direction(directionX,directionY);
 
         // Nouvelle pos

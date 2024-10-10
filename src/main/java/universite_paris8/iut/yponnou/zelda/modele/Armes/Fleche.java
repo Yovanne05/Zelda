@@ -39,7 +39,6 @@ public class Fleche extends Projectile {
 
     @Override
     public void deplacement() {
-        System.out.println(this.getDirection().getDx() + " " + this.getDirection().getDy());
         double prochainX = this.getPosition().getX() + (this.getDirection().getDx() * this.getVitesse());
         double prochainY = this.getPosition().getY() + (this.getDirection().getDy() * this.getVitesse());
 

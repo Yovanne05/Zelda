@@ -23,10 +23,10 @@ public class Village extends Environnement{
         getHero().getPosition().setX(300);
         getHero().getPosition().setY(500);
         getHero().getPosition().setEnv(this);
-        getHero().getDirection().setDx(0.0);
-        getHero().getDirection().setDy(0.0);
-        Direction directionV = new Direction(0.0,0.0);
-        Direction directionP = new Direction(0.0,0.0);
+        getHero().getDirection().setDx(0);
+        getHero().getDirection().setDy(0);
+        Direction directionV = new Direction(0,0);
+        Direction directionP = new Direction(0,0);
         vendeur = new Vendeur(500, 500, this, directionV);
         paysan = new Paysan(330,300,this,directionP);
 

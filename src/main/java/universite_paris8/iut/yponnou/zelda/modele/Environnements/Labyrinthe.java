@@ -21,11 +21,11 @@ public class Labyrinthe extends Environnement{
         getHero().changeEnvObjets(this);
         System.out.println("Labyrinthe");
         getHero().getPosition().setEnv(this);
-        getHero().getDirection().setDx(0.0);
-        getHero().getDirection().setDy(0.0);
+        getHero().getDirection().setDx(0);
+        getHero().getDirection().setDy(0);
         Epee e=new Epee(0,0,this);
 
-        Direction d = new Direction(0.0,0.0);
+        Direction d = new Direction(0,0);
 
         Garde g1 = new Garde(500,350,this,d,e);
         Garde g2 = new Garde(750,50,this,d,e);

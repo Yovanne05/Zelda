@@ -54,7 +54,7 @@ public class BossVue extends ActeurVue{
         getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
 
         if (getActeur() instanceof Boss)
-            imageView = new ImageView(getBossImage(getActeur().getDirectionString()));
+            imageView = new ImageView(getBossImage(getActeur().getDirection().directionString()));
         else
             throw new IllegalArgumentException("Acteur non supporté");
 //        return imageView;

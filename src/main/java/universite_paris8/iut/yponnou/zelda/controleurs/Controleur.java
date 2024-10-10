@@ -75,7 +75,7 @@ public class Controleur implements Initializable {
         mapActuelle = new Map(30, 30);
 
 
-        hero = new Hero(0, 0, null, new Direction(0.0,0.0), null);
+        hero = new Hero(0, 0, null, new Direction(0,0), null);
         hero.pvProperty().addListener(new ObservateurCoeurs(paneCoeurs, new CoeursVue(paneCoeurs)));
         hero.inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
         heroVue = new HeroVue(hero, paneMap);
@@ -112,9 +112,8 @@ public class Controleur implements Initializable {
             switch (key) {
                 case Z:
                 case UP:
-                    p.setDirectionString("up");
-                    p.getDirection().setDx(0.0);
-                    p.getDirection().setDy(-1.0);
+                    p.getDirection().setDx(0);
+                    p.getDirection().setDy(-1);
                     p.deplacement();
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
@@ -123,9 +122,8 @@ public class Controleur implements Initializable {
                     break;
                 case S:
                 case DOWN:
-                    p.setDirectionString("down");
-                    p.getDirection().setDx(0.0);
-                    p.getDirection().setDy(1.0);
+                    p.getDirection().setDx(0);
+                    p.getDirection().setDy(1);
                     p.deplacement();
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
@@ -134,9 +132,8 @@ public class Controleur implements Initializable {
                     break;
                 case D:
                 case RIGHT:
-                    p.setDirectionString("right");
-                    p.getDirection().setDx(1.0);
-                    p.getDirection().setDy(0.0);
+                    p.getDirection().setDx(1);
+                    p.getDirection().setDy(0);
                     p.deplacement();
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
@@ -145,9 +142,8 @@ public class Controleur implements Initializable {
                     break;
                 case Q:
                 case LEFT:
-                    p.setDirectionString("left");
-                    p.getDirection().setDx(-1.0);
-                    p.getDirection().setDy(0.0);
+                    p.getDirection().setDx(-1);
+                    p.getDirection().setDy(0);
                     p.deplacement();
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);

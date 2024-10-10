@@ -26,8 +26,8 @@ public class EntreeDonjon extends Environnement{
         getHero().changeEnvObjets(this);
         getHero().getPosition().setEnv(this);
 
-        getHero().getDirection().setDx(0.0);
-        getHero().getDirection().setDy(0.0);
+        getHero().getDirection().setDx(0);
+        getHero().getDirection().setDy(0);
         this.ajouterActeur(getHero());
 
     }
