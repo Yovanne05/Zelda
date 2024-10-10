@@ -1,8 +1,6 @@
 
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Informaion.Direction;
@@ -17,7 +15,6 @@ import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
-import universite_paris8.iut.yponnou.zelda.modele.utilitaire.PositionEnv;
 
 
 public class Hero extends Guerrier {
@@ -49,20 +46,17 @@ public class Hero extends Guerrier {
     public boolean guerison() {
         Nourriture aliment = possedeNourritures();
         if (aliment == null) {
-            System.out.println("Aucun aliment trouvé");
             return false;
         }
         if (!pleineSante()) {
             consommerNourriture(aliment);
             return true;
         }
-        System.out.println("Votre santé est déjà complète !");
         return false;
     }
 
     public void subitDegats(int degats){
         super.subitDegats(degats);
-        System.out.println(getNom()+" a perdu "+degats+" pv");
     }
 
     public boolean pleineSante(){
@@ -75,14 +69,8 @@ public class Hero extends Guerrier {
             if (inventaire.size() < capaciteMax) {
                 if (estObjetProche(ob)) {
                     ajouterObjet(ob);
-                } else {
-                    System.out.println("L'objet n'est pas à portée !");
                 }
-            } else {
-                System.out.println("Inventaire complet !");
             }
-        } else {
-            System.out.println("Aucun objet trouvé !");
         }
     }
 

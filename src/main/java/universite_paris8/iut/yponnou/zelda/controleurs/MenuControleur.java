@@ -64,7 +64,6 @@ public class MenuControleur implements Initializable {
         StackPane root = (StackPane) stage.getScene().getRoot();
         root.requestFocus();
         stage.show();
-        System.out.println("Affichage Histoire");
     }
 
     @FXML
@@ -77,6 +76,5 @@ public class MenuControleur implements Initializable {
         StackPane root = (StackPane) stage.getScene().getRoot();
         root.requestFocus();
         stage.show();
-        System.out.println("Affichage Commandes");
     }
 }

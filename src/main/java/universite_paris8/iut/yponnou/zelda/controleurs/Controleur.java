@@ -100,7 +100,6 @@ public class Controleur implements Initializable {
         hero.setEnvironnement(environnement);
         MapVue mapVue = new MapVue(environnement.getMap().getTabNum(), tilePaneDecors);
         mapVue.creerSprite();
-        System.out.println(environnement);
     }
     //test
     @FXML
@@ -153,8 +152,6 @@ public class Controleur implements Initializable {
                     if (!p.inventaireProperty().isEmpty()) {
                         ob = p.inventaireProperty().get(0);
                         p.deposer(ob);
-                    } else {
-                        System.out.println("Inventaire vide");
                     }
                     break;
                 case M:
@@ -207,12 +204,9 @@ public class Controleur implements Initializable {
                     }
                     break;
                 case T:
-                    System.out.println("888");
                     changeMap(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
-                    System.out.println("999");
                     break;
             }
-            System.out.println(key);
         }
     }
 
@@ -227,11 +221,9 @@ public class Controleur implements Initializable {
     }
 
     private void changeMap(int mapID) {
-        System.out.println("eeeee");
         Environnement newEnvironnement;
         switch (mapID){
             case -1:
-                System.out.println("111");
                 tilePaneDecors.getChildren().clear();
                 for (Acteur a : environnement.acteursProperty()) {
                     paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
@@ -329,9 +321,6 @@ public class Controleur implements Initializable {
     @FXML
     private void toucheLacher() {
         heroVue.upgradeSpriteStatic();
-        System.out.println(environnement.getMap().getTabNum()[(int) (hero.getPosition().getY()/50)][(int) hero.getPosition().getX()/50]);
-        System.out.println(hero.getPosition().getY());
-        System.out.println(hero.getPosition().getX());
         bruitPas.stop();
     }
 

@@ -9,8 +9,7 @@ public class Clef extends Objet {
         setId("Clef-".concat(id));
     }
 
-    @Override
-    public String toString() {
-        return "une Clef";
+    public String nom(){
+        return "Clef";
     }
 }

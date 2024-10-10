@@ -40,7 +40,6 @@ public class CommandesControleur {
 
     @FXML
     private void lancementRetourJeu() throws IOException {
-        System.out.println("Retour au Menu");
         Stage stage;
 
         stage = (Stage) boutonRetour.getScene().getWindow();

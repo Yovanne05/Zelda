@@ -6,7 +6,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
-import universite_paris8.iut.yponnou.zelda.modele.utilitaire.PositionEnv;
 
 public abstract class Guerrier extends Acteur {
     private Arme arme;

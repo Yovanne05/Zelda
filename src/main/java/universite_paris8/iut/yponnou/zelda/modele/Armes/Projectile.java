@@ -36,5 +36,9 @@ public class Projectile extends Acteur {
         return ptsDegats;
     }
 
+    public String nom(){
+        return "Projectile";
+    }
+
 
 }

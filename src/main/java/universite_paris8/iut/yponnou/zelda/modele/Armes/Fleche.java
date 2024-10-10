@@ -65,5 +65,9 @@ public class Fleche extends Projectile {
         return (this.x >= ennemiX && this.x <= ennemiX + TAILLE50) && (this.y >= ennemiY && this.y <= ennemiY + TAILLE50);
     }
 
+    public String nom(){
+        return "Fleche";
+    }
+
 
 }

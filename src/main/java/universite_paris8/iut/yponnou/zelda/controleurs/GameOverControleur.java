@@ -38,7 +38,6 @@ public class GameOverControleur implements Initializable {
 
     @FXML
     private void lancementRejouer() throws IOException {
-        System.out.println("Rejouer le jeu");
         Stage oldStage, newStage;
 
         newStage = new Stage();
@@ -56,7 +55,6 @@ public class GameOverControleur implements Initializable {
 
     @FXML
     private void lancementRetourMenu() throws IOException {
-        System.out.println("Retour au Menu");
         Stage stage;
 
         stage = (Stage) boutonRetour.getScene().getWindow();

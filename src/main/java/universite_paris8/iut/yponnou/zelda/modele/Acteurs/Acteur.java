@@ -1,19 +1,16 @@
 
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Informaion.Hitbox;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
-import universite_paris8.iut.yponnou.zelda.modele.utilitaire.PositionEnv;
 
 import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TAILLE50;
 
 
-public class Acteur extends Objet {
+public abstract class Acteur extends Objet {
 
     private static int incremente = 0;
     private final String id;
@@ -34,7 +31,7 @@ public class Acteur extends Objet {
     public String getId() {
         return id;
     }
-    public String getNom() {
+    public String nom() {
         return "Acteur";
     }
 

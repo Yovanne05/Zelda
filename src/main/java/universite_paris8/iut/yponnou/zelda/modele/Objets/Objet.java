@@ -2,11 +2,9 @@ package universite_paris8.iut.yponnou.zelda.modele.Objets;
 
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
-import universite_paris8.iut.yponnou.zelda.modele.utilitaire.PositionEnv;
 
 public abstract class Objet {
 
-    private String nom;
     private String id;
     private static int incremente = 0;
     private Position position;
@@ -22,12 +20,6 @@ public abstract class Objet {
         return environnement;
     }
 
-    public String getNom() {
-        return nom;
-    }
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
     public String getId() {
         return id;
     }
@@ -45,7 +37,5 @@ public abstract class Objet {
     public void setEnvironnement(Environnement environnement) {
         this.environnement = environnement;
     }
-
-    public abstract String toString();
     
 }

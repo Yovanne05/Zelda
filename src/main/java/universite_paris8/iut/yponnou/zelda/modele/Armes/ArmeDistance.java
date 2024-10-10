@@ -9,8 +9,8 @@ public abstract class ArmeDistance extends Arme{
     private DoubleProperty posy;
     private Projectile projectile;
 
-    public ArmeDistance(String nom, double posxi, double posyi, Projectile projectile, Environnement environnement) {
-        super(nom,posxi,posyi,environnement);
+    public ArmeDistance(double posxi, double posyi, Projectile projectile, Environnement environnement) {
+        super(posxi,posyi,environnement);
         this.projectile=projectile;
         posx=new SimpleDoubleProperty(posxi);
         posy=new SimpleDoubleProperty(posyi);
@@ -50,6 +50,10 @@ public abstract class ArmeDistance extends Arme{
 
     public void setProjectile(Projectile projectile) {
         this.projectile = projectile;
+    }
+
+    public String nom(){
+        return "ArmeDistance";
     }
 
 

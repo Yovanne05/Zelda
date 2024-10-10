@@ -5,19 +5,13 @@ import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 
 public class Arme extends Objet {
-    private String nom;
 
-    public Arme(String nom, double x, double y, Environnement environnement) {
+    public Arme(double x, double y, Environnement environnement) {
         super(x, y, environnement);
-        this.nom=nom;
     }
 
-    public String getNom() {
-        return nom;
-    }
-    @Override
-    public String toString() {
-        return null;
+    public String nom() {
+        return "arme";
     }
 
 }

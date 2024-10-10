@@ -7,7 +7,7 @@ public class ArcArme extends ArmeDistance {
 
 
     public ArcArme(double posxi, double posyi, Projectile projectile, Environnement environnement) {
-        super("Arc", posxi, posyi, projectile, environnement);
+        super(posxi, posyi, projectile, environnement);
     }
 
     @Override
@@ -18,11 +18,9 @@ public class ArcArme extends ArmeDistance {
         return this.getProjectile().getPtsDegats();
     }
 
-    @Override
-    public String toString() {
-        return this.getNom();
+    public String nom(){
+        return "Arc";
     }
-
 
 
 
