@@ -1,33 +1,27 @@
-
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Informaion.Direction;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Informaion.Hitbox;
 import universite_paris8.iut.yponnou.zelda.modele.Aliments.Nourriture;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeDistance;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeMelee;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Clef;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
-import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante;
+import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
+import universite_paris8.iut.yponnou.zelda.modele.inventaire.Inventaire;
 import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
-
 
 public class Hero extends Guerrier {
 
-    private final ObservableList<Objet> inventaire = FXCollections.observableArrayList();
-    private final int capaciteMax;
+    private final Inventaire inventaire;
 
     public Hero(double x, double y, Environnement environnement, Direction direction, Arme arme) {
         super(x, y, environnement, 0.2, direction, arme, 100);
-        this.capaciteMax = 5;
+        this.inventaire = new Inventaire(5, this);
     }
 
-    public ObservableList<Objet> inventaireProperty() {
+    public Inventaire getInventaire() {
         return inventaire;
     }
 
@@ -44,32 +38,26 @@ public class Hero extends Guerrier {
     }
 
     public boolean guerison() {
-        Nourriture aliment = possedeNourritures();
+        Nourriture aliment = inventaire.possedeNourriture();
         if (aliment == null) {
             return false;
         }
         if (!pleineSante()) {
-            consommerNourriture(aliment);
+            inventaire.consommerNourriture(aliment);
             return true;
         }
         return false;
     }
 
-    public void subitDegats(int degats){
-        super.subitDegats(degats);
-    }
-
-    public boolean pleineSante(){
-        return getPv() == 100;
+    public boolean pleineSante() {
+        return getPv() >= 100;
     }
 
     public void recuperer() {
         Objet ob = objetsProches();
         if (ob != null) {
-            if (inventaire.size() < capaciteMax) {
-                if (estObjetProche(ob)) {
-                    ajouterObjet(ob);
-                }
+            if (!inventaire.estPlein() && estObjetProche(ob)) {
+                inventaire.ajouterObjet(ob);
             }
         }
     }
@@ -79,110 +67,11 @@ public class Hero extends Guerrier {
         return distance <= 500;
     }
 
-    /* methode qui depose l'objet de l'inventaire du hero
-     * Il genere des coordonnées aléatoire jusqu'a ce qu'elle soit bonne
-     * càd qu'elle soit sur la map, qu'elle soit autour du hero et qu'elle ne traverse pas les obstacles
-     */
-    public void deposer(Objet objet) {
-        Position posAleatoire = genererPositionAleatoire(objet);
-
-        while (!estPositionValide(posAleatoire)) {
-            posAleatoire = genererPositionAleatoire(objet);
-        }
-
-        Hitbox hitbox = depotPossible(objet, posAleatoire);
-        while (hitbox == null) {
-            posAleatoire = genererPositionAleatoire(objet);
-            hitbox = depotPossible(objet, posAleatoire);
-        }
-
-        placerObjet(objet, posAleatoire.getX(), posAleatoire.getY());
-    }
-
-    public int distanceMaxPossibe(){
-        return 30;
-    }
-
-    public Position genererPositionAleatoire(Objet objet) {
-        int taille = distanceMaxPossibe();
-        Position posAleatoire;
-        int objetX, objetY;
-        do {
-            objetX = (int) (Math.random() * (900 - taille)); //50 = limite taille autour
-            objetY = (int) (Math.random() * (900 - taille));
-            posAleatoire = new Position(objetX, objetY);
-        } while (!estPositionValide(posAleatoire));
-
-        return posAleatoire;
-    }
-
-    public boolean estPositionValide(Position p) {
-        return getEnvironnement().dansMap(p.getX(), p.getY());
-    }
-
-    private void placerObjet(Objet objet, double x, double y) {
-        objet.getPosition().setX(x);
-        objet.getPosition().setY(y);
-        inventaire.remove(objet);
-        if (objet instanceof Arme) {
-            mettreAJourArme();
-        }
-        objet.getEnvironnement().ajouterObjet(objet);
-    }
-
-    private void mettreAJourArme() {
-        if (this.possedeArme() == null) {
-            setArme(null);
-        } else {
-            setArme(this.possedeArme());
-        }
-    }
-
-    // méthode qui renvoie un objet trouvé autour du hero
-    public Objet objetsProches(){
-        for(Objet obj : getEnvironnement().objetsProperty()){
-            if (verifObjetsAutour(obj))
+    public Objet objetsProches() {
+        for (Objet obj : getEnvironnement().objetsProperty()) {
+            if (estDansRayon(obj.getPosition(), 30)) {
                 return obj;
-        }
-        return null;
-    }
-
-    public boolean possedeClef(){
-        for (Objet objet : inventaire) {
-            if (objet instanceof Clef)
-                return true;
-        }
-        return false;
-    }
-
-    public Nourriture possedeNourritures(){
-        for (Objet objet : inventaire) {
-            if (objet instanceof Nourriture)
-                return (Nourriture) objet;
-        }
-        return null;
-    }
-
-
-    public Arme possedeArme(){
-        for (Objet objet : inventaire) {
-            if (objet instanceof Arme) {
-                return (Arme) objet;
             }
-        }
-        return null;
-    }
-
-
-    private Hitbox creerHitboxObjet(Objet objet, double x, double y) {
-        int taille = distanceMaxPossibe();
-        return new Hitbox(x, y, taille, taille);
-    }
-
-    private Hitbox depotPossible(Objet objet, Position position) {
-        Hitbox hitbox = creerHitboxObjet(objet, position.getX(), position.getY());
-        if (!collisionAvecObstacle(hitbox) && depotAutour(objet, position)) {
-            return hitbox;
         }
         return null;
     }
@@ -192,36 +81,21 @@ public class Hero extends Guerrier {
                 Math.abs(this.getPosition().getY() - pos.getY()) <= distanceSeuil;
     }
 
-
-    private boolean verifObjetsAutour(Objet obj) {
-        int distance = distanceMaxPossibe();
-        return estDansRayon(obj.getPosition(), distance);
+    public void deposer(Objet objet) {
+        inventaire.deposer(objet);
     }
 
-    private boolean verifPaysansAutour(Paysan p) {
-        return estDansRayon(p.getPosition(), Constante.TAILLE50);
+    public void changeEnvObjets(Environnement env) {
+        inventaire.changeEnvObjets(env);
     }
 
-    private boolean depotAutour(Objet objet, Position position) {
-        int taille = distanceMaxPossibe();
-        return estDansRayon(position, taille);
+    public void selectionObjet(int index) {
+        inventaire.selectionObjet(index);
     }
 
-    public boolean estProcheDePersonnage(Acteur personnage, int distance) {
-        if (personnage == null) {
-            return false;
-        }
-        return estDansRayon(personnage.getPosition(),distance);
+    public boolean possedeClef() {
+        return inventaire.possedeClef();
     }
-
-    public boolean estProcheDePaysan(Paysan paysan, int distance) {
-        return estProcheDePersonnage(paysan,distance);
-    }
-
-    public boolean estProcheDeVendeur(Vendeur vendeur, int distance) {
-        return estProcheDePersonnage(vendeur,distance);
-    }
-
 
     public void attaquer() {
         Ennemi ennemiProche = verifEnnemiAcoter(100);
@@ -237,8 +111,8 @@ public class Hero extends Guerrier {
         ArmeDistance armeDistance = (ArmeDistance) getArme();
         int dx = getDirection().getDx();
         int dy = getDirection().getDy();
-        Direction d = new Direction(dx,dy); //Direction différente pour ne pas que la direction soit la même que celle de l'héro (sinon gros bug)
-        Fleche fleche = new Fleche(getPosition().getX(), getPosition().getY(), getEnvironnement(),d);
+        Direction d = new Direction(dx, dy); // Create a new direction to avoid side effects
+        Fleche fleche = new Fleche(getPosition().getX(), getPosition().getY(), getEnvironnement(), d);
         armeDistance.setProjectile(fleche);
         armeDistance.utiliser();
     }
@@ -247,39 +121,12 @@ public class Hero extends Guerrier {
         ArmeMelee armeMelee = (ArmeMelee) getArme();
         ennemi.seFaitAttaquer(armeMelee.getPtsDegats());
         if (ennemi.estMort()) {
-            getEnvironnement().acteursProperty().removeIf(a -> ennemi.getId().equals(a.getId()));
+            getEnvironnement().enleverActeur(ennemi);
         }
     }
 
-    public void changeEnvObjets(Environnement env){
-        for(Objet o : inventaire){
-            o.setEnvironnement(env);
-        }
-    }
-
-    public void ajouterObjet(Objet o){
-        inventaire.add(o);
-        o.getEnvironnement().enleverObjet(o);
-    }
-
-    public void selectionObjet(int index) {
-        if (index < inventaire.size()) {
-            Objet objet = inventaire.get(index);
-            if (objet instanceof Nourriture) {
-                consommerNourriture((Nourriture) objet);
-            } else if (objet instanceof Arme) {
-                equiperArme((Arme) objet);
-            }
-        }
-    }
-
-    private void consommerNourriture(Nourriture nourriture) {
-        if (!pleineSante()) {
-            setPv(getPv() + nourriture.getPv());
-            inventaire.remove(nourriture);
-        }
-    }
-    private void equiperArme(Arme arme) {
-        setArme(arme);
+    public boolean estProcheDeActeur(Acteur acteur, double distanceSeuil) {
+        double distance = distance(acteur.getPosition());
+        return distance <= distanceSeuil;
     }
 }

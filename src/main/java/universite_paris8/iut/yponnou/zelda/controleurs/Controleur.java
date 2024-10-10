@@ -80,12 +80,10 @@ public class Controleur implements Initializable {
 
         hero = new Hero(650, 360, null, new Direction(0,0), null);
         hero.pvProperty().addListener(new ObservateurCoeurs(paneCoeurs, new CoeursVue(paneCoeurs)));
-        hero.inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
+        hero.getInventaire().inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
         heroVue = new HeroVue(hero, paneMap);
 
-        switchToEnvironment(new Labyrinthe(hero));
-        Objet a =new ArcArme(hero.getPosition().getX(),hero.getPosition().getY(), null, environnement);
-        hero.ajouterObjet(a);
+        switchToEnvironment(new Village(hero));
         try {
             musiqueJeu.jouer(1,-1);
             bruitPas.jouer(0.05f,0);
@@ -154,8 +152,8 @@ public class Controleur implements Initializable {
                     p.recuperer();
                     break;
                 case K:
-                    if (!p.inventaireProperty().isEmpty()) {
-                        ob = p.inventaireProperty().get(0);
+                    if (!p.getInventaire().inventaireProperty().isEmpty()) {
+                        ob = p.getInventaire().inventaireProperty().get(0);
                         p.deposer(ob);
                     }
                     break;
@@ -189,11 +187,11 @@ public class Controleur implements Initializable {
                     break;
                 case A:
                     if(environnement.paysansQuiParle()!=null){
-                        if (p.estProcheDePaysan(environnement.paysansQuiParle(), 80)) {
+                        if (p.estProcheDeActeur(environnement.paysansQuiParle(), 80)) {
                             PaysanVue paysanVue = new PaysanVue(p,paneMap);
                             paysanVue.parler();
                         }
-                        if (p.estProcheDeVendeur(environnement.obtenirVendeur(), 80)) {
+                        if (p.estProcheDeActeur(environnement.obtenirVendeur(), 80)) {
                             VendeurVue vendeurVue = new VendeurVue(p,paneMap);
                             vendeurVue.proposerObjet(hero);
                         }

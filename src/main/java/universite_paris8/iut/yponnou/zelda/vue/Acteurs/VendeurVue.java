@@ -107,7 +107,7 @@ public class VendeurVue extends ActeurVue {
         Button buttonArc = new Button("Arc");
         buttonArc.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 2px;");
         buttonArc.setOnAction(e -> {
-            hero.ajouterObjet(new ArcArme(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(),null,this.getActeur().getEnvironnement()));
+            hero.getInventaire().ajouterObjet(new ArcArme(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(),null,this.getActeur().getEnvironnement()));
             dialog.setResult(ButtonType.OK); // Fermer la fenêtre de dialogue
             dialog.close();
         });
@@ -115,7 +115,7 @@ public class VendeurVue extends ActeurVue {
         Button buttonEpee = new Button("Épée");
         buttonEpee.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: #ffffff; -fx-border-width: 2px;");
         buttonEpee.setOnAction(e -> {
-            hero.ajouterObjet(new Epee(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(),this.getActeur().getEnvironnement()));
+            hero.getInventaire().ajouterObjet(new Epee(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(),this.getActeur().getEnvironnement()));
             dialog.setResult(ButtonType.OK); // Fermer la fenêtre de dialogue
             dialog.close();
         });
