@@ -7,8 +7,12 @@ import universite_paris8.iut.yponnou.zelda.modele.utilitaire.PositionEnv;
 public abstract class Objet {
 
     private String nom;
+
+
+
     private String id;
     private static int incremente = 0;
+
     private final PositionEnv position;
 
     public Objet(double x, double y, Environnement environnement) {

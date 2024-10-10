@@ -81,10 +81,14 @@ public class Controleur implements Initializable {
         heroVue = new HeroVue(hero, paneMap);
 
         switchToEnvironment(new Village(hero));
+        try {
+            musiqueJeu.jouer(1,-1);
+            bruitPas.jouer(0.05f,0);
+            sonEpee.jouer(0.1f,0);
+        }catch (Exception e){
+            System.out.println("Son incompatible");
+        }
 
-        musiqueJeu.jouer(1,-1);
-        bruitPas.jouer(0.05f,0);
-        sonEpee.jouer(0.1f,0);
     }
 
     private void switchToEnvironment(Environnement newEnvironnement) {

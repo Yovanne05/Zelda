@@ -116,7 +116,7 @@ public class Hero extends Guerrier {
         Position posAleatoire;
         int objetX, objetY;
         do {
-            objetX = (int) (Math.random() * (900 - taille)); //900 = limite taille définis
+            objetX = (int) (Math.random() * (900 - taille)); //50 = limite taille autour
             objetY = (int) (Math.random() * (900 - taille));
             posAleatoire = new Position(objetX, objetY);
         } while (!estPositionValide(posAleatoire));

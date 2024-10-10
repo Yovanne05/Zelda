@@ -14,15 +14,20 @@ import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TA
 
 public class Acteur {
 
-    private final String id;
-    private String directionString;
+
+    private final String nom; //TODO  apriori ne devrait pas exister car géré par le sous-typage
+
+
     private static int incremente = 0;
-    private final String nom;
+    private final String id;
+
     private final PositionEnv position;
     private final double vitesse;
-    private final IntegerProperty pv;
+    private Direction direction; //TODO redondance entre direction et directionString
+    private String directionString;
     private final Hitbox hitbox;
-    private Direction direction;
+
+    private final IntegerProperty pv;
 
     public Acteur(String nom, double x, double y, int pv, double vitesse, Environnement environnement, Direction direction) {
         this.nom = nom;
@@ -83,7 +88,7 @@ public class Acteur {
         return hitbox;
     }
 
-    public double[] calculerProchainePosition(Position p, Direction d, Double vitessev) {
+    private double[] calculerProchainePosition(Position p, Direction d, Double vitessev) {
         double prochainX = p.getX() + d.getDx() * vitessev * TAILLE50;
         double prochainY = p.getY() + d.getDy() * vitessev * TAILLE50;
         return new double[] { prochainX, prochainY };

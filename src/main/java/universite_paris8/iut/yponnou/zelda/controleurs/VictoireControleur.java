@@ -19,7 +19,12 @@ public class VictoireControleur implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        musiqueVictoire.jouer(0.5f,-1);
+        try {
+            musiqueVictoire.jouer(0.5f,-1);
+        }catch (Exception e){
+            System.out.println("Son incompatible");
+        }
+
     }
 
     @FXML

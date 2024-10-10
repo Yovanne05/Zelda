@@ -31,7 +31,11 @@ public class MenuControleur implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        musiqueMenu.jouer(0.05f,-1);
+        try {
+            musiqueMenu.jouer(0.05f,-1);
+        }catch (Exception e){
+            System.out.println("Son incompatible");
+        }
     }
 
     @FXML

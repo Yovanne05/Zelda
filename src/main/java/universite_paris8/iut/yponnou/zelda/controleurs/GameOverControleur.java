@@ -21,7 +21,12 @@ public class GameOverControleur implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        musiqueDefaite.jouer(0.05f,-1);
+        try {
+            musiqueDefaite.jouer(0.05f,-1);
+        }catch (Exception e){
+            System.out.println("Son incompatible");
+        }
+
     }
 
     @FXML

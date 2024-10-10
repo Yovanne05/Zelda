@@ -22,7 +22,7 @@ public class Son {
             clip = (Clip) AudioSystem.getLine(info);
         }
         catch(UnsupportedAudioFileException| IOException | LineUnavailableException e){
-            e.printStackTrace();
+            System.out.println("Son incompatbile");
         }
     }
 
@@ -41,25 +41,26 @@ public class Son {
     }
 
     public void jouer(float volume, int repetitions){
-        try {
-            if (!clip.isOpen()) {
+        if (!clip.isOpen()) {
+            try {
                 clip.open(decodedAudioStream);
+            }catch (Exception e){
+                System.out.println("Son incompatible");
             }
-            if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)){
-                FloatControl volumeControleur = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                volumeControleur.setValue(volume);
-            }
-            if (repetitions == -1) {
-                clip.loop(Clip.LOOP_CONTINUOUSLY);
-            }
-            else if (repetitions != 0)
-                clip.loop(repetitions);
-            else
-                clip.loop(0);
 
-        }catch (IOException | LineUnavailableException e) {
-            e.printStackTrace();
         }
+        if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)){
+            FloatControl volumeControleur = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            volumeControleur.setValue(volume);
+        }
+        if (repetitions == -1) {
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+        else if (repetitions != 0)
+            clip.loop(repetitions);
+        else
+            clip.loop(0);
+
     }
 
     public void run(){

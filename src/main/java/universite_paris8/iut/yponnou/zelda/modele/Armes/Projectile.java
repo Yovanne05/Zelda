@@ -21,7 +21,11 @@ public class Projectile extends Acteur {
         super(nom, x, y, pv, vitesse, environnement, direction);
         this.portee=portee;
         this.ptsDegats=ptsDegats;
-        sonFleche.jouer(1,0);
+        try {
+            sonFleche.jouer(1,0);
+        }catch (Exception e){
+            System.out.println("Son incompatible");
+        }
     }
 
 
