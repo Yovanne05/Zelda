@@ -1,6 +1,8 @@
 
 package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.yponnou.zelda.modele.Acteurs.Informaion.Direction;
@@ -15,6 +17,7 @@ import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante;
 import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
+import universite_paris8.iut.yponnou.zelda.modele.utilitaire.PositionEnv;
 
 
 public class Hero extends Guerrier {
@@ -22,10 +25,11 @@ public class Hero extends Guerrier {
     private final ObservableList<Objet> inventaire = FXCollections.observableArrayList();
     private final int capaciteMax;
 
-    public Hero(int x, int y, Environnement environnement, Direction direction, Arme arme) {
-        super("Joseph", x, y, 100, 0.2, environnement, direction, arme);
-        capaciteMax = 5;
+    public Hero(double x, double y, Environnement environnement, String nom, PositionEnv position, double vitesse, Direction direction, Arme arme) {
+        super(x, y, environnement, nom, position, vitesse, direction, arme, 100);
+        this.capaciteMax = 5;
     }
+
     public ObservableList<Objet> inventaireProperty() {
         return inventaire;
     }
@@ -232,7 +236,7 @@ public class Hero extends Guerrier {
 
 
     public void attaquer() {
-        Acteur ennemiProche = verifEnnemiAcoter(100);
+        Ennemi ennemiProche = verifEnnemiAcoter(100);
 
         if (getArme() instanceof ArmeDistance) {
             attaquerDistance();
@@ -251,7 +255,7 @@ public class Hero extends Guerrier {
         armeDistance.utiliser();
     }
 
-    public void attaquerMelee(Acteur ennemi) {
+    public void attaquerMelee(Guerrier ennemi) {
         ArmeMelee armeMelee = (ArmeMelee) getArme();
         ennemi.seFaitAttaquer(armeMelee.getPtsDegats());
         if (ennemi.estMort()) {

@@ -42,7 +42,7 @@ public class Donjon extends Environnement{
     public boolean verifEnnemiMort(){
         for (int i=0;i<acteursProperty().size();i++){
             if(acteursProperty().get(i) instanceof Ennemi){
-                if(acteursProperty().get(i).getPv()>0){
+                if(((Ennemi) acteursProperty().get(i)).getPv()>0){
                     return false;
                 }
             }

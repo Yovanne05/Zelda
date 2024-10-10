@@ -8,13 +8,14 @@ import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeDistance;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeMelee;
 import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.utilitaire.PositionEnv;
 
 public abstract class Ennemi extends Guerrier {
 
     private long derniereAttaque;
 
-    public Ennemi(String nom, double x, double y, int pv, double vitesse, Environnement environnement, Direction direction, Arme arme) {
-        super(nom, x, y, pv, vitesse, environnement, direction, arme);
+    public Ennemi(double x, double y, Environnement environnement, String nom, PositionEnv position, double vitesse, Direction direction, Arme arme, int pv, long derniereAttaque) {
+        super(x, y, environnement, nom, position, vitesse, direction, arme, pv);
         this.derniereAttaque = 0;
     }
 
