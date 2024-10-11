@@ -13,7 +13,7 @@ public class Boss extends Ennemi {
 
     @Override
     public void deplacementEnnemi() {
-        Hero hero = verifHeroProx(350);
+        Hero hero = verifHeroProx(400);
         if (hero != null) {
             foncerSurHero(hero);
             verifierEtAttaquer(400);

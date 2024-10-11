@@ -58,16 +58,16 @@ public abstract class Acteur extends Objet {
         return new double[] { prochainX, prochainY };
     }
 
-    public int[] calculerDiffEntreMoiEtCible(Position cible) {
-        int diffX = (int) (cible.getX() - getPosition().getX());
-        int diffY = (int) (cible.getY() - getPosition().getY());
-        return new int[] { diffX, diffY };
+    public double[] calculerDiffEntreMoiEtCible(Position cible) {
+        double diffX =(cible.getX() - getPosition().getX());
+        double diffY =(cible.getY() - getPosition().getY());
+        return new double[] { diffX, diffY };
     }
 
     public double distance(Position cible) {
-        int[] diff = calculerDiffEntreMoiEtCible(cible);
-        int diffX = diff[0];
-        int diffY = diff[1];
+        double[] diff = calculerDiffEntreMoiEtCible(cible);
+        double diffX = diff[0];
+        double diffY = diff[1];
         return Math.sqrt(diffX * diffX + diffY * diffY);
     }
 
@@ -99,15 +99,14 @@ public abstract class Acteur extends Objet {
     }
 
     public void effectuerDeplacement(Position cible, double distance){
-        int[] diff = calculerDiffEntreMoiEtCible(cible);
-        int diffX = diff[0];
-        int diffY = diff[1];
+        double[] diff = calculerDiffEntreMoiEtCible(cible);
+        double diffX = diff[0];
+        double diffY = diff[1];
 
         int directionX = (int) (diffX / distance);
         int directionY = (int) (diffY / distance);
         Direction newDirection = new Direction(directionX,directionY);
         direction.changementDirection(newDirection.getDx(), newDirection.getDy());
-
 
         // Nouvelle pos
         double[] prochainePosition = calculerProchainePosition();
