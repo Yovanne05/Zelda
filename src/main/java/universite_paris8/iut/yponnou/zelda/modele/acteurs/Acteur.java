@@ -73,7 +73,6 @@ public abstract class Acteur extends Objet {
 
     public void deplacement() {
         Hitbox futureHitbox = futureHitbox();
-
         if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
             getPosition().setX(futureHitbox.getHitbox().getX());
             getPosition().setY(futureHitbox.getHitbox().getY());
@@ -106,8 +105,13 @@ public abstract class Acteur extends Objet {
         double directionX = (diffX / distance);
         double directionY = (diffY / distance);
 
-        double prochainX = this.getPosition().getX() + directionX * this.getVitesse() * TAILLE50;
-        double prochainY = this.getPosition().getY() + directionY * this.getVitesse() * TAILLE50;
+        Direction newDirection = new Direction(directionX,directionY);
+        direction.changementDirection(newDirection.getDx(), newDirection.getDy());
+
+        // Nouvelle pos
+        double[] prochainePosition = calculerProchainePosition();
+        double prochainX = prochainePosition[0];
+        double prochainY = prochainePosition[1];
 
         Hitbox futureHitbox = new Hitbox(prochainX, prochainY, TAILLE50, TAILLE50);
 

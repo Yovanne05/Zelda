@@ -2,31 +2,31 @@ package universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion;
 
 public class Direction {
 
-    private int dx;
-    private int dy;
+    private double dx;
+    private double dy;
 
-    public Direction(int dx, int dy) {
+    public Direction(double dx, double dy) {
         this.dx = dx;
         this.dy = dy;
     }
 
-    public int getDx() {
+    public double getDx() {
         return dx;
     }
 
-    public int getDy() {
+    public double getDy() {
         return dy;
     }
 
-    public void setDx(int dx) {
+    public void setDx(double dx) {
         this.dx = dx;
     }
 
-    public void setDy(int dy) {
+    public void setDy(double dy) {
         this.dy = dy;
     }
 
-    public void changementDirection(int dx, int dy) {
+    public void changementDirection(double dx, double dy) {
         this.dx = dx;
         this.dy = dy;
     }
