@@ -106,6 +106,7 @@ public abstract class Acteur extends Objet {
         int directionX = (int) (diffX / distance);
         int directionY = (int) (diffY / distance);
         Direction newDirection = new Direction(directionX,directionY);
+        direction.changementDirection(newDirection.getDx(), newDirection.getDy());
 
 
         // Nouvelle pos

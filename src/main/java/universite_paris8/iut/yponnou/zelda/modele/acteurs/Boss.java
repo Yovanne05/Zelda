@@ -16,7 +16,7 @@ public class Boss extends Ennemi {
         Hero hero = verifHeroProx(350);
         if (hero != null) {
             foncerSurHero(hero);
-            verifierEtAttaquer(150);
+            verifierEtAttaquer(400);
         }
     }
 
@@ -26,5 +26,7 @@ public class Boss extends Ennemi {
 
     private void foncerSurHero(Hero hero) {
         this.deplacerVers(hero.getPosition());
+        this.deplacement();
+        System.out.println("Dx : " + hero.getDirection().getDx() + " Dy : " + hero.getDirection().getDy());
     }
 }
