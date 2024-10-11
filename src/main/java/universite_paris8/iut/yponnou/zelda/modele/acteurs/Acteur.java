@@ -13,7 +13,7 @@ import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TA
 public abstract class Acteur extends Objet {
 
     private static int incremente = 0;
-    private final String id;
+    private final String id; //TODO 2 String ID un dans objet et un dans acteur
 
     private final double vitesse;
     private Direction direction;
