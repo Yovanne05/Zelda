@@ -17,18 +17,18 @@ public class Hitbox {
         this.hitbox = new Rectangle(x, y, tailleX, tailleY);
     }
 
-    public int[] calculerCoinsHitbox() {
+    public double[] calculerCoinsHitbox() {
         double x = hitboxX();
         double y = hitboxY();
         double width = width();
         double height = height();
 
-        int coinHautGaucheX = (int) (x / TAILLE50);
-        int coinHautGaucheY = (int) (y / TAILLE50);
-        int coinHautDroitX = (int) ((x + width - 1) / TAILLE50);
-        int coinBasGaucheY = (int) ((y + height - 1) / TAILLE50);
+        double coinHautGaucheX =  (x / TAILLE50);
+        double coinHautGaucheY = (y / TAILLE50);
+        double coinHautDroitX = ((x + width - 1) / TAILLE50);
+        double coinBasGaucheY = ((y + height - 1) / TAILLE50);
 
-        return new int[] { coinHautGaucheX, coinHautGaucheY, coinHautDroitX, coinBasGaucheY };
+        return new double[] { coinHautGaucheX, coinHautGaucheY, coinHautDroitX, coinBasGaucheY };
     }
 
     public Rectangle getHitbox() {

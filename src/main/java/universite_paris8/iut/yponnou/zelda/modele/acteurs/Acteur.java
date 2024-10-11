@@ -103,15 +103,11 @@ public abstract class Acteur extends Objet {
         double diffX = diff[0];
         double diffY = diff[1];
 
-        int directionX = (int) (diffX / distance);
-        int directionY = (int) (diffY / distance);
-        Direction newDirection = new Direction(directionX,directionY);
-        direction.changementDirection(newDirection.getDx(), newDirection.getDy());
+        double directionX = (diffX / distance);
+        double directionY = (diffY / distance);
 
-        // Nouvelle pos
-        double[] prochainePosition = calculerProchainePosition();
-        double prochainX = prochainePosition[0];
-        double prochainY = prochainePosition[1];
+        double prochainX = this.getPosition().getX() + directionX * this.getVitesse() * TAILLE50;
+        double prochainY = this.getPosition().getY() + directionY * this.getVitesse() * TAILLE50;
 
         Hitbox futureHitbox = new Hitbox(prochainX, prochainY, TAILLE50, TAILLE50);
 
@@ -121,27 +117,27 @@ public abstract class Acteur extends Objet {
         }
     }
 
-    public boolean estEnDehorsDeLaCarte(int xHG, int yHG, int xHD, int yBG) {
+    public boolean estEnDehorsDeLaCarte(double xHG, double yHG, double xHD, double yBG) {
         int largeurMap = getEnvironnement().getMap().getLargeur();
         int hauteurMap = getEnvironnement().getMap().getHauteur();
         return xHG < 0 || yHG < 0 || xHD >= largeurMap || yBG >= hauteurMap;
     }
 
-    public boolean estObstacle(int[][] map, int x, int y) {
-        return map[y][x] > 20;
+    public boolean estObstacle(int[][] map, double x, double y) {
+        return map[(int) y][(int) x] > 20;
     }
 
-    public boolean collisionAvecObstacleDansCarte(int xHG, int yHG, int xHD, int yBG) {
+    public boolean collisionAvecObstacleDansCarte(double xHG, double yHG, double xHD, double yBG) {
         int[][] map = getEnvironnement().getMap().getTabNum();
         return estObstacle(map, xHG, yHG) || estObstacle(map, xHD, yHG) || estObstacle(map, xHG, yBG) || estObstacle(map, xHD, yBG);
     }
 
     public boolean collisionAvecObstacle(Hitbox futureHitbox) {
-        int[] coins = futureHitbox.calculerCoinsHitbox();
-        int coinHautGaucheX = coins[0];
-        int coinHautGaucheY = coins[1];
-        int coinHautDroitX = coins[2];
-        int coinBasGaucheY = coins[3];
+        double[] coins = futureHitbox.calculerCoinsHitbox();
+        double coinHautGaucheX = coins[0];
+        double coinHautGaucheY = coins[1];
+        double coinHautDroitX = coins[2];
+        double coinBasGaucheY = coins[3];
 
         if (estEnDehorsDeLaCarte(coinHautGaucheX, coinHautGaucheY, coinHautDroitX, coinBasGaucheY)) {
             return true;
