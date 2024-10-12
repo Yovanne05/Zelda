@@ -34,10 +34,6 @@ public class Map{
     //Lire le fichier CSV et remplir le tableau
     public void readFromCSV(String filePath) {
         ArrayList<int[]> tempList = new ArrayList<>();
-        int cptCol = 0;
-        int cptLigne = 0;
-
-
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
 
@@ -47,7 +43,6 @@ public class Map{
                 for (int col = 0; col < values.length; col++) {
                     row[col] = Integer.parseInt(values[col]);
                 }
-
                 tempList.add(row);
             }
         } catch (IOException e) {
