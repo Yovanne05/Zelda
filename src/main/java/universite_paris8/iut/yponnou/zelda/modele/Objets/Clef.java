@@ -1,6 +1,6 @@
-package universite_paris8.iut.yponnou.zelda.modele.Objets;
+package universite_paris8.iut.yponnou.zelda.modele.objets;
 
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
 public class Clef extends Objet {
 
@@ -9,8 +9,7 @@ public class Clef extends Objet {
         setId("Clef-".concat(id));
     }
 
-    @Override
-    public String toString() {
-        return "une Clef";
+    public String nom(){
+        return "Clef";
     }
 }

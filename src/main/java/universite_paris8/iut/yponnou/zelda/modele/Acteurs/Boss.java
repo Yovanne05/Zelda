@@ -1,35 +1,14 @@
-package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeDistance;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeMelee;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
+package universite_paris8.iut.yponnou.zelda.modele.acteurs;
+
+
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
+import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
 public class Boss extends Ennemi {
 
-    public Boss(double x, double y, Environnement environnement, int dx, int dy, Arme arme) {
-        super("Boss", x, y, 360, 0.04, environnement, dx, dy, arme);
-    }
-
-    @Override
-    public void attaquer() {
-        long tempsActuel = System.currentTimeMillis();
-        if (this.getArme() instanceof ArmeDistance) {
-            Fleche f = new Fleche(getPosition().getX(), getPosition().getY(), getPosition().getEnv(), getDx(), getDy());
-            ((ArmeDistance) this.getArme()).setProjectile(f);
-            System.out.println("j'attaque");
-            ((ArmeDistance) this.getArme()).utiliser();
-
-        }else{
-            if (tempsActuel - this.getDerniereAttaque() >= 250) {
-                Hero hero = verifHeroProx(100);
-                if (hero != null) {
-                    hero.seFaitAttaquer(((ArmeMelee) this.getArme()).getPtsDegats());
-                    this.setDerniereAttaque(tempsActuel);
-                }
-            }
-        }
-
+    public Boss(double x, double y, Environnement environnement, Direction direction, Arme arme) {
+        super(x, y, environnement, 0.03, direction, arme, 360);
     }
 
     @Override
@@ -37,13 +16,16 @@ public class Boss extends Ennemi {
         Hero hero = verifHeroProx(350);
         if (hero != null) {
             foncerSurHero(hero);
-            attaquer();
+            verifierEtAttaquer(350);
         }
     }
 
+    public String nom() {
+        return "Boss";
+    }
+
     private void foncerSurHero(Hero hero) {
-        double heroX = hero.getPosition().getX();
-        double heroY = hero.getPosition().getY();
-        this.deplacerVers(heroX, heroY);
+        this.deplacerVers(hero.getPosition());
+        this.deplacement();
     }
 }

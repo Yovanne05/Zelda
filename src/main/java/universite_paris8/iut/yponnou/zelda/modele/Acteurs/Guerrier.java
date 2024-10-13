@@ -1,40 +1,69 @@
 
-package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
+package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
+import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
 public abstract class Guerrier extends Acteur {
     private Arme arme;
+    private IntegerProperty pv;
 
-    public Guerrier(String nom, double x, double y, int pv, double vitesse, Environnement environnement, int dx, int dy, Arme arme) {
-        super(nom, x, y, pv, vitesse, environnement, dx, dy);
-        this.arme=arme;
+    public Guerrier(double x, double y, Environnement environnement, double vitesse, Direction direction, Arme arme, int pv) {
+        super(x, y, environnement, vitesse, direction);
+        this.arme = arme;
+        this.pv = new SimpleIntegerProperty(pv);
     }
+
     public Arme getArme() {
         return arme;
     }
     public void setArme(Arme arme) {
         this.arme = arme;
     }
-    public Ennemi verifEnnemiAcoter(){
-        double dist = 100;
-        for (Acteur a : getPosition().getEnv().acteursProperty()) {
-            // Vérifie que l'acteur n'est pas lui-même
-            if (!a.getId().equals(this.getId())) {
-                if (a instanceof Ennemi) {
-                    // Vérifie la distance en utilisant la distance de Manhattan
-                    if (Math.abs(getPosition().getX() - a.getPosition().getX()) <= dist && Math.abs(getPosition().getY() - a.getPosition().getY()) <= dist) {
-                        return (Ennemi)a;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-    public boolean estMort(){
-        return getPv() == 0;
+
+    public void setPv(int pv) {
+        this.pv.setValue(pv);
     }
 
-    public abstract void attaquer();
+
+    public int getPv() {
+        return pv.getValue();
+    }
+    public IntegerProperty pvProperty() {
+        return pv;
+    }
+
+    public boolean estMort(){
+        return this.getPv()<0;
+    }
+
+    public void seFaitAttaquer(int degats) {
+        int nouveauxPv = calculerNouveauxPv(degats);
+        if (nouveauxPv > 0) {
+            setPv(nouveauxPv);
+        } else {
+            mourir();
+        }
+    }
+
+    public int calculerNouveauxPv(int degats) {
+        return Math.max(0, getPv() - degats); //renvoie la valeur la plus grande pour ne pas renvoyez des pv négatif
+    }
+
+    public void mourir() {
+        setPv(0);
+        getEnvironnement().enleverActeur(this);
+    }
+
+    public boolean estProcheDeActeur(Acteur acteur, double distanceSeuil) {
+        double distance = distance(acteur.getPosition());
+        return distance <= distanceSeuil;
+    }
+
+    public void subitDegats(int degats){
+        setPv(calculerNouveauxPv(degats));
+    }
 }

@@ -1,0 +1,40 @@
+.button {
+    -fx-background-color: saddlebrown;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-font-family: 'MedievalSharp';
+    -fx-font-size: 32px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.button:hover {
+    -fx-background-color: saddlebrown;
+    -fx-text-fill: gold;
+    -fx-effect: dropshadow(three-pass-box, rgba(255,215,0,0.8), 10, 0, 0, 0);
+}
+
+.button:pressed {
+    -fx-background-color: saddlebrown;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 0, 0);
+}
+
+.text-title {
+    -fx-font-family: 'MedievalSharp';
+    -fx-font-size: 121px;
+    -fx-fill: saddlebrown;
+}
+
+.text-story {
+    -fx-font-family: 'MedievalSharp';
+    -fx-font-size: 32px;
+    -fx-fill: saddlebrown;
+    -fx-effect: dropshadow(gaussian, darkgoldenrod, 2, 0, 0, 1);
+}
+
+.text-body {
+    -fx-font-family: 'MedievalSharp';
+    -fx-font-size: 21px;
+    -fx-fill: saddlebrown;
+    -fx-effect: dropshadow(gaussian, darkgoldenrod, 2, 0, 0, 1);
+}

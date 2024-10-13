@@ -1,11 +1,11 @@
-package universite_paris8.iut.yponnou.zelda.vue.Armes;
+package universite_paris8.iut.yponnou.zelda.vue.armes;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.yponnou.zelda.Constante;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
-import universite_paris8.iut.yponnou.zelda.vue.ObjetVue;
+import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante;
+import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
+import universite_paris8.iut.yponnou.zelda.vue.objets.ObjetVue;
 
 public class EpeeVue extends ObjetVue {
 
