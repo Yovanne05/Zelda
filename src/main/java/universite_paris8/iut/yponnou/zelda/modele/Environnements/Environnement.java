@@ -1,13 +1,11 @@
-package universite_paris8.iut.yponnou.zelda.modele.Environnements;
+package universite_paris8.iut.yponnou.zelda.modele.environnements;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
-import universite_paris8.iut.yponnou.zelda.Constante;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
-import universite_paris8.iut.yponnou.zelda.modele.Map;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
+import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.*;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Fleche;
+import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 
 
 public abstract class Environnement{
@@ -117,8 +115,5 @@ public abstract class Environnement{
                 ", map=" + map.getTabNum() +
                 '}';
     }
-
-    public abstract void entree();
-
 
 }

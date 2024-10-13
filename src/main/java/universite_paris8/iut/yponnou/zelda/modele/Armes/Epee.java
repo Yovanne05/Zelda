@@ -1,17 +1,15 @@
 
-package universite_paris8.iut.yponnou.zelda.modele.Armes;
+package universite_paris8.iut.yponnou.zelda.modele.armes;
 
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
-
+import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 public class Epee extends ArmeMelee{
 
     public Epee(double x, double y,Environnement environnement) {
-        super("Epee",x,y,1,environnement);
+        super(x,y,5,environnement);
     }
 
-    @Override
-    public String toString() {
-        return null;
+    public String nom(){
+        return "Epee";
     }
 
 }

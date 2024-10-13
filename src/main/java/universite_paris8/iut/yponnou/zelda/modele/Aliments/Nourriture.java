@@ -1,7 +1,8 @@
-package universite_paris8.iut.yponnou.zelda.modele.Aliments;
+package universite_paris8.iut.yponnou.zelda.modele.aliments;
 
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
+
+import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 
 public abstract class Nourriture extends Objet {
 

@@ -1,8 +1,9 @@
-package universite_paris8.iut.yponnou.zelda.modele.Environnements;
 
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
-import universite_paris8.iut.yponnou.zelda.modele.Map;
-import universite_paris8.iut.yponnou.zelda.modele.Aliments.Pomme;
+package universite_paris8.iut.yponnou.zelda.modele.environnements;
+
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.*;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.aliments.Pomme;
 
 
 public class Village extends Environnement{
@@ -17,14 +18,16 @@ public class Village extends Environnement{
 
     @Override
     public void creationEnvironnement(){
-        getHero().changeEnvArc(this);
+        getHero().changeEnvObjets(this);
         getHero().getPosition().setX(300);
         getHero().getPosition().setY(500);
-        getHero().getPosition().setEnv(this);
-        getHero().setDx(0);
-        getHero().setDy(0);
-        vendeur = new Vendeur(500, 500, this, 0, 0);
-        paysan = new Paysan(330,300,this,0,0);
+        getHero().setEnvironnement(this);
+        getHero().getDirection().setDx(0);
+        getHero().getDirection().setDy(0);
+        Direction directionV = new Direction(0,0);
+        Direction directionP = new Direction(0,0);
+        vendeur = new Vendeur(500, 500, this, directionV);
+        paysan = new Paysan(330,300,this,directionP);
 
         Pomme p1=new Pomme(400,400,this);
         Pomme p2=new Pomme(800,200,this);
@@ -42,8 +45,4 @@ public class Village extends Environnement{
         this.ajouterActeur(getHero());
     }
 
-    @Override
-    public void entree() {
-
-    }
 }

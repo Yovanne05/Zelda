@@ -1,10 +1,10 @@
-package universite_paris8.iut.yponnou.zelda.vue.Nourritures;
+package universite_paris8.iut.yponnou.zelda.vue.nourritures;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.yponnou.zelda.Constante;
-import universite_paris8.iut.yponnou.zelda.modele.Aliments.Pomme;
+import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante;
+import universite_paris8.iut.yponnou.zelda.modele.aliments.Pomme;
 
 public class PommeVue extends NourritureVue {
 

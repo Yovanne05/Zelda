@@ -1,26 +1,63 @@
-package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
+package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
 
-import java.util.LinkedList;
-import java.util.Queue;
 
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
+import universite_paris8.iut.yponnou.zelda.modele.armes.ArmeDistance;
+import universite_paris8.iut.yponnou.zelda.modele.armes.ArmeMelee;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Fleche;
+import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
 public abstract class Ennemi extends Guerrier {
 
     private long derniereAttaque;
 
-    public Ennemi(String nom, double x, double y, int pv, double vitesse, Environnement environnement, int dx, int dy, Arme arme) {
-        super(nom, x, y, pv, vitesse, environnement, dx, dy, arme);
+    public Ennemi(double x, double y, Environnement environnement, double vitesse, Direction direction, Arme arme, int pv) {
+        super(x, y, environnement, vitesse, direction, arme, pv);
         this.derniereAttaque = 0;
     }
 
-    public Hero verifHeroProx(double dist) {
-        for (Acteur a : this.getPosition().getEnv().acteursProperty()) {
-            if ((Math.abs(getPosition().getX() - a.getPosition().getX()) <= dist && Math.abs(getPosition().getY() - a.getPosition().getY()) <= dist)) {
-                if (a instanceof Hero) {
-                    return (Hero) a;
+    public void attaquerHero() {
+        long tempsActuel = System.currentTimeMillis();
+        Hero hero = verifHeroProx(100);
+        if (hero != null) {
+            double distance = distance(hero.getPosition());
+            if (distance >= 30 && getArme() instanceof ArmeDistance) {
+                attaquerAvecArmeDistance(tempsActuel);
+            } else {
+                attaquerAvecArmeMelee(tempsActuel, hero);
+            }
+        }
+    }
+
+    private void attaquerAvecArmeDistance(long tempsActuel) {
+        if (tempsActuel - this.getDerniereAttaque() >= 250) {
+            Fleche f = new Fleche(getPosition().getX(), getPosition().getY(), getEnvironnement(), getDirection());
+            ((ArmeDistance) this.getArme()).setProjectile(f);
+            ((ArmeDistance) this.getArme()).utiliser();
+        }
+    }
+
+    private void attaquerAvecArmeMelee(long tempsActuel, Hero hero) {
+        if (tempsActuel - this.getDerniereAttaque() >= 250) {
+            hero.seFaitAttaquer(((ArmeMelee) this.getArme()).getPtsDegats());
+            this.setDerniereAttaque(tempsActuel);
+        }
+    }
+
+    public void verifierEtAttaquer(double distanceSeuil) {
+        Hero hero = verifHeroProx(distanceSeuil);
+        if (hero != null) {
+            attaquerHero();
+        }
+    }
+
+    public Hero verifHeroProx(double distanceSeuil) {
+        for (Acteur acteur : this.getEnvironnement().acteursProperty()) {
+            if (acteur instanceof Hero hero) {
+                if (estProcheDeActeur(hero, distanceSeuil)) {
+                    return hero;
                 }
             }
         }

@@ -1,37 +1,30 @@
-package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.Constante;
-import universite_paris8.iut.yponnou.zelda.Position;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
+package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
-import static universite_paris8.iut.yponnou.zelda.Constante.*;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Hitbox;
+import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
+import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
 
-public class Acteur {
+import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TAILLE50;
 
-    private final String id;
+
+public abstract class Acteur extends Objet {
+
     private static int incremente = 0;
-    private final String nom;
-    private final Position position;
-    private String direction;
-    private final double vitesse;
-    private final IntegerProperty pv;
-    private final Rectangle hitbox;
-    private int dx;
-    private int dy;
+    private final String id; //TODO 2 String ID un dans objet et un dans acteur
 
-    public Acteur(String nom, double x, double y, int pv, double vitesse, Environnement environnement, int dx, int dy) {
-        this.nom = nom;
-        position = new Position(x,y,environnement);
-        this.pv = new SimpleIntegerProperty(pv);
+    private final double vitesse;
+    private Direction direction;
+    private final Hitbox hitbox;
+
+    public Acteur(double x, double y, Environnement environnement, double vitesse, Direction direction) {
+        super(x, y, environnement);
         this.vitesse = vitesse;
         id = "A"+incremente++;
-        hitbox = new Rectangle(x, y, TAILLE50, TAILLE50);
-        direction = "down";
-        this.dx=dx;
-        this.dy=dy;
+        hitbox = new Hitbox(x,y,TAILLE50,TAILLE50);
+        this.direction=direction;
         hitbox.xProperty().bind(this.getPosition().xProperty());
         hitbox.yProperty().bind(this.getPosition().yProperty());
     }
@@ -39,42 +32,15 @@ public class Acteur {
     public String getId() {
         return id;
     }
-    public String getNom() {
-        return nom;
+    public String nom() {
+        return "Acteur";
     }
 
-    public int getPv() {
-        return pv.getValue();
-    }
-    public void setPv(int pv) {
-        this.pv.setValue(pv);
-    }
-
-    public IntegerProperty pvProperty() {
-        return pv;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public int getDx() {
-        return dx;
-    }
-    public int getDy() {
-        return dy;
-    }
-    public void setDx(int dx) {
-        this.dx = dx;
-    }
-    public void setDy(int dy) {
-        this.dy = dy;
-    }
-
-    public String getDirection() {
+    public Direction getDirection() {
         return direction;
     }
-    public void setDirection(String direction){
+
+    public void setDirection(Direction direction) {
         this.direction = direction;
     }
 
@@ -82,110 +48,131 @@ public class Acteur {
         return vitesse;
     }
 
-    public Rectangle getHitbox() {
+    public Hitbox getHitbox() {
         return hitbox;
     }
 
+    public double[] calculerProchainePosition() {
+        double prochainX = getPosition().getX() + getDirection().getDx() * vitesse * TAILLE50;
+        double prochainY = getPosition().getY() + getDirection().getDy() * vitesse * TAILLE50;
+        return new double[] { prochainX, prochainY };
+    }
+
+    public double[] calculerDiffEntreMoiEtCible(Position cible) {
+        double diffX =(cible.getX() - getPosition().getX());
+        double diffY =(cible.getY() - getPosition().getY());
+        return new double[] { diffX, diffY };
+    }
+
+    public double distance(Position cible) {
+        double[] diff = calculerDiffEntreMoiEtCible(cible);
+        double diffX = diff[0];
+        double diffY = diff[1];
+        return Math.sqrt(diffX * diffX + diffY * diffY);
+    }
 
     public void deplacement() {
-        //System.out.println("deplace");
-        double prochainX = getPosition().getX() + (this.dx * this.vitesse) * TAILLE50;
-        double prochainY = getPosition().getY() + (this.dy * this.vitesse) * TAILLE50;
+        Hitbox futureHitbox = futureHitbox();
+        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
+            getPosition().setX(futureHitbox.getHitbox().getX());
+            getPosition().setY(futureHitbox.getHitbox().getY());
+        }
+    }
+
+    public Hitbox futureHitbox(){
+        double[] prochainePosition = calculerProchainePosition();
+        double prochainX = prochainePosition[0];
+        double prochainY = prochainePosition[1];
 
         // Création de la nouvelle hitbox après déplacement
-        Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE50, TAILLE50);
-        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
-            position.setX(prochainX);
-            position.setY(prochainY);
-        }
+        Hitbox futureHitbox = new Hitbox(prochainX, prochainY, TAILLE50, TAILLE50);
+        return futureHitbox;
     }
 
-    public void deplacerVers(double cibleX, double cibleY) {
-        // diff X et Y entre pos actuelle acteur et pos cible
-        double diffX = cibleX - this.getPosition().getX();
-        double diffY = cibleY - this.getPosition().getY();
 
-        //Pythagore pour la distance : entre la position actuelle de l'acteur et la position cible
-        double distance = Math.sqrt(diffX * diffX + diffY * diffY);
-
+    public void deplacerVers(Position cible) {
+        double distance = distance(cible);
         if (distance > 0) {
-            double directionX = diffX / distance;
-            double directionY = diffY / distance;
-
-            // Nouvelle pos
-            double prochainX = this.getPosition().getX() + directionX * this.getVitesse() * TAILLE50;
-            double prochainY = this.getPosition().getY() + directionY * this.getVitesse() * TAILLE50;
-
-            Rectangle futureHitbox = new Rectangle(prochainX, prochainY, TAILLE50, TAILLE50);
-
-            if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
-                position.setX(prochainX);
-                position.setY(prochainY);
-            }
+            effectuerDeplacement(cible,distance);
         }
     }
 
+    public void effectuerDeplacement(Position cible, double distance){
+        double[] diff = calculerDiffEntreMoiEtCible(cible);
+        double diffX = diff[0];
+        double diffY = diff[1];
 
-    public boolean collisionAvecObstacle(Rectangle futurHitbox) {
-        // Calcul des positions des quatre coins de la hitbox
-        double x = futurHitbox.getX();
-        double y = futurHitbox.getY();
-        double width = futurHitbox.getWidth();
-        double height = futurHitbox.getHeight();
+        double directionX = (diffX / distance);
+        double directionY = (diffY / distance);
 
-        // Coordonnées des coins de la hitbox en termes de cases
-        int tableauXHG = (int) (x / TAILLE50);
-        int tableauYHG = (int) (y / TAILLE50);
-        int tableauXHD = (int) ((x + width - 1) / TAILLE50);
-        int tableauYBG = (int) ((y + height - 1) / TAILLE50);
+        Direction newDirection = new Direction(directionX,directionY);
+        direction.changementDirection(newDirection.getDx(), newDirection.getDy());
 
-        // Vérification des bordures de la carte
-        if (tableauXHG < 0 || tableauYHG < 0 || tableauXHD >= position.getEnv().getMap().getLargeur() || tableauYBG >= position.getEnv().getMap().getHauteur())
-            return true; // Collision avec la bordure de la carte
-        // Vérification des collisions avec les obstacles
-        int[][] map = position.getEnv().getMap().getTabNum();
+        // Nouvelle pos
+        double[] prochainePosition = calculerProchainePosition();
+        double prochainX = prochainePosition[0];
+        double prochainY = prochainePosition[1];
 
-        return map[tableauYHG][tableauXHG] > 20 || map[tableauYHG][tableauXHD] > 20 || map[tableauYBG][tableauXHG] > 20 || map[tableauYBG][tableauXHD] > 20;
+        Hitbox futureHitbox = new Hitbox(prochainX, prochainY, TAILLE50, TAILLE50);
+
+        if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
+            getPosition().setX(prochainX);
+            getPosition().setY(prochainY);
+        }
     }
 
-    private boolean collisionAvecActeur(Rectangle futureHitbox) {
-        for (Acteur acteur : getPosition().getEnv().acteursProperty()) {
-            Rectangle ennemiHitbox = acteur.getHitbox();
-            //getBoundsInParent  retourne un objet de type Bounds représentant les coordonnées du rectangle
-            //intersects elle vérifie si les deux ensembles de limites (bounds) se chevauchent
-            if (futureHitbox.getBoundsInParent().intersects(ennemiHitbox.getBoundsInParent()) && !this.getId().equals(acteur.getId())) {
+    public boolean estEnDehorsDeLaCarte(double xHG, double yHG, double xHD, double yBG) {
+        int largeurMap = getEnvironnement().getMap().getLargeur();
+        int hauteurMap = getEnvironnement().getMap().getHauteur();
+        return xHG < 0 || yHG < 0 || xHD >= largeurMap || yBG >= hauteurMap;
+    }
+
+    public boolean estObstacle(int[][] map, double x, double y) {
+        return map[(int) y][(int) x] > 20;
+    }
+
+    public boolean collisionAvecObstacleDansCarte(double xHG, double yHG, double xHD, double yBG) {
+        int[][] map = getEnvironnement().getMap().getTabNum();
+        return estObstacle(map, xHG, yHG) || estObstacle(map, xHD, yHG) || estObstacle(map, xHG, yBG) || estObstacle(map, xHD, yBG);
+    }
+
+    public boolean collisionAvecObstacle(Hitbox futureHitbox) {
+        double[] coins = futureHitbox.calculerCoinsHitbox();
+        double coinHautGaucheX = coins[0];
+        double coinHautGaucheY = coins[1];
+        double coinHautDroitX = coins[2];
+        double coinBasGaucheY = coins[3];
+
+        if (estEnDehorsDeLaCarte(coinHautGaucheX, coinHautGaucheY, coinHautDroitX, coinBasGaucheY)) {
+            return true;
+        }
+        return collisionAvecObstacleDansCarte(coinHautGaucheX, coinHautGaucheY, coinHautDroitX, coinBasGaucheY);
+    }
+
+    public boolean acteurEstEnCollision(Hitbox futureHitbox, Acteur acteur) {
+        if (this.getId().equals(acteur.getId())) {
+            return false;
+        }
+        Hitbox ennemiHitbox = acteur.getHitbox();
+        return futureHitbox.getHitbox().getBoundsInParent().intersects(ennemiHitbox.getHitbox().getBoundsInParent());
+    }
+
+    public boolean collisionAvecActeur(Hitbox futureHitbox) {
+        for (Acteur acteur : getEnvironnement().acteursProperty()) {
+            if (acteurEstEnCollision(futureHitbox, acteur)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void seFaitAttaquer(int pts){
-        int nvPv =getPv()-pts;
-        if(nvPv>0){
-            setPv(nvPv);
-        }else {
-            setPv(0);
-            getPosition().getEnv().enleverActeur(this);
-        }
-    }
-
-    public void subitDegats(int degats){
-        setPv(getPv()-degats);
-    }
-
     @Override
     public String toString() {
         return "Acteur{" +
-                "idActeur='" + id + '\'' +
-                ", nom='" + nom + '\'' +
-                ", coeurs=" + pv +
-                ", v=" + vitesse +
-                ", env=" + position.getEnv() +
-                ", x=" + position.getX() +
-                ", y=" + position.getY() +
+                "id='" + id + '\'' +
+                ", vitesse=" + vitesse +
+                ", direction=" + direction +
                 ", hitbox=" + hitbox +
                 '}';
     }
-
 }

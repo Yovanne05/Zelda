@@ -1,11 +1,11 @@
-package universite_paris8.iut.yponnou.zelda.vue.Nourritures;
+package universite_paris8.iut.yponnou.zelda.vue.nourritures;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.yponnou.zelda.Constante;
-import universite_paris8.iut.yponnou.zelda.modele.Aliments.Nourriture;
-import universite_paris8.iut.yponnou.zelda.vue.ObjetVue;
+import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante;
+import universite_paris8.iut.yponnou.zelda.modele.aliments.Nourriture;
+import universite_paris8.iut.yponnou.zelda.vue.objets.ObjetVue;
 
 
 public class NourritureVue extends ObjetVue {

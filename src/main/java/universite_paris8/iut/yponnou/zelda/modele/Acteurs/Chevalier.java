@@ -1,46 +1,36 @@
 
-package universite_paris8.iut.yponnou.zelda.modele.Acteurs;
+package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
-import universite_paris8.iut.yponnou.zelda.modele.Armes.ArmeMelee;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
+
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Hitbox;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
+import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
 public class Chevalier extends Ennemi{
 
-    private int cptPas = 0;
-    private int maxPas = 300; // Nombre de pas avant de changer de direction
+    private int cptPas;
+    private int maxPas; // Nombre de pas avant de changer de direction
 
-    public Chevalier(double x, double y, Environnement environnement, int dx, int dy, ArmeMelee arme) {
-        super("Chevalier", x, y, 240, 0.03, environnement, dx, dy, arme);
+    public Chevalier(double x, double y, Environnement environnement, Direction direction, Arme arme) {
+        super(x, y, environnement, 0.03, direction, arme, 240);
+        this.cptPas = 0;
+        this.maxPas = 300;
     }
-    @Override
-    public void attaquer() {
-        long tempsActuel = System.currentTimeMillis();
-        if (tempsActuel - this.getDerniereAttaque() >= 250) {
-            Hero hero = verifHeroProx(80);
-            if (hero != null) {
-                hero.seFaitAttaquer(((ArmeMelee) this.getArme()).getPtsDegats());
-                this.setDerniereAttaque(tempsActuel);
-            }
-        }
-    }
+
     @Override
     public void deplacementEnnemi() {
-        Hero hero = verifHeroProx(80);
-        if (hero != null) {
-            attaquer();
-            return;
-        }
-
-        // Déplacement en allers-retours
-        cptPas++;
-        if (cptPas >= maxPas) {
-            // Change direction
-            setDx(-getDx());
-            setDy(-getDy());
-            cptPas = 0;
-        }
-
-        // Effectuer le déplacement
+        verifierEtAttaquer(80);
+        changementDirectionSiPossible();
         this.deplacement();
     }
+
+    public void changementDirectionSiPossible() {
+        cptPas++;
+        if (cptPas >= maxPas) {
+            this.getDirection().changementDirection(-this.getDirection().getDx(), -this.getDirection().getDy());
+            cptPas = 0;
+        }
+    }
+
 }
