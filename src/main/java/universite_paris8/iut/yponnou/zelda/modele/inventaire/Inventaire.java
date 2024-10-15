@@ -90,30 +90,27 @@ public class Inventaire {
     }
 
     public void deposer(Objet objet) {
-        Position posAleatoire = genererPositionAleatoire(objet);
+        Position positionDevantLeHero = hero.getPosition().calculerPositionDevantActeur();
 
-        while (!estPositionValide(posAleatoire)) {
-            posAleatoire = genererPositionAleatoire(objet);
-        }
-
-        if (depotPossible(objet, posAleatoire)) {
-            placerObjet(objet, posAleatoire.getX(), posAleatoire.getY());
+        if (estPositionValide(positionDevantLeHero) && !positionOccupeeParObjet(positionDevantLeHero)) {
+            if (depotPossible(objet, positionDevantLeHero)) {
+                placerObjet(objet, positionDevantLeHero.getX(), positionDevantLeHero.getY());
+            }
         }
     }
 
-    private Position genererPositionAleatoire(Objet objet) {
-        int taille = distanceMaxPossible();
-        Position posAleatoire;
-        double objetX, objetY;
-        do {
-            objetX = hero.getPosition().getX() + (Math.random() * 2 * taille - taille);
-            objetY = hero.getPosition().getY() + (Math.random() * 2 * taille - taille);
-            posAleatoire = new Position(objetX, objetY);
-        } while (!estPositionValide(posAleatoire));
-
-        return posAleatoire;
+    public ObservableList<Objet> getInventaire() {
+        return inventaire;
     }
 
+    private boolean positionOccupeeParObjet(Position position) {
+        for (Objet o : hero.getEnvironnement().getObjets()) {
+            if (position.estPositionOccupee(o.getPosition())) {
+                return true;
+            }
+        }
+        return false;
+    }
     private boolean estPositionValide(Position p) {
         return hero.getEnvironnement().dansMap(p.getX(), p.getY());
     }

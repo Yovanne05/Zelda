@@ -58,11 +58,6 @@ public abstract class Guerrier extends Acteur {
         getEnvironnement().enleverActeur(this);
     }
 
-    public boolean estProcheDeActeur(Acteur acteur, double distanceSeuil) {
-        double distance = distance(acteur.getPosition());
-        return distance <= distanceSeuil;
-    }
-
     public void subitDegats(int degats){
         setPv(calculerNouveauxPv(degats));
     }

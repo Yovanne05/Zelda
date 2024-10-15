@@ -23,6 +23,9 @@ public abstract class Environnement{
         this.hauteur = this.map.getHauteur()*Constante.TAILLE50;
     }
 
+    public ObservableList<Objet> getObjets() {
+        return objets;
+    }
     public Map getMap(){
         return map;
     }
