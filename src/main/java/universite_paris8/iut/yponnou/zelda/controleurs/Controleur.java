@@ -82,6 +82,8 @@ public class Controleur implements Initializable {
         environnement = new Environnement(mapActuelle,hero);
         environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
         environnement.acteursProperty().addListener(new ObservateurActeurs(paneMap));
+        hero.changeEnvObjets(environnement);
+        hero.setEnvironnement(environnement);
 
         switchToEnvironment(new CreationVillage());
         try {
@@ -91,13 +93,10 @@ public class Controleur implements Initializable {
         } catch (Exception e) {
             System.out.println("Son incompatible");
         }
-
     }
 
     private void switchToEnvironment(CreationEnv creationEnv) {
         creationEnv.creationEnvironnement(environnement);
-        hero.changeEnvObjets(environnement);
-        hero.setEnvironnement(environnement);
         MapVue mapVue = new MapVue(environnement.getMap().getTabNum(), tilePaneDecors);
         mapVue.creerSprite();
     }
@@ -337,14 +336,14 @@ public class Controleur implements Initializable {
         paneMap.translateXProperty().bind(
                 Bindings.createDoubleBinding(() -> {
                     double playerX = environnement.heroEnv().getPosition().getX();
-                    return Math.max(Math.min(-playerX + paneWidth / 2, 0), -mapWidth + paneWidth);
+                    return (Double) Math.max(Math.min(-playerX + paneWidth / 2, 0), -mapWidth + paneWidth);
                 }, environnement.heroEnv().getPosition().xProperty(), paneMap.widthProperty())
         );
 
         paneMap.translateYProperty().bind(
                 Bindings.createDoubleBinding(() -> {
                     double playerY = environnement.heroEnv().getPosition().getY();
-                    return Math.max(Math.min(-playerY + paneHeight / 2, 0), -mapHeight + paneHeight);
+                    return (Double) Math.max(Math.min(-playerY + paneHeight / 2, 0), -mapHeight + paneHeight);
                 }, environnement.heroEnv().getPosition().yProperty(), paneMap.heightProperty())
         );
 

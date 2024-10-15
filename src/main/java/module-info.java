@@ -1,4 +1,4 @@
-module universite_paris8.iut.yponnou.zelda {
+module universite_paris.iut.yponnou.zelda {
     requires javafx.controls;
     requires javafx.fxml;
 
