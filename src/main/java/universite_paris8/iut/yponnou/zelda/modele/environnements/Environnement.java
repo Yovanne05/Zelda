@@ -8,19 +8,25 @@ import universite_paris8.iut.yponnou.zelda.modele.armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 
 
-public abstract class Environnement{
+public class Environnement{
     private final int largeur;
     private final int hauteur;
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
     private ObservableList<Objet> objets = FXCollections.observableArrayList();
     private Map map;
     private Hero hero;
+    private CreationEnv creationEnv;
 
     public Environnement(Map map, Hero hero) {
         this.map = map;
         this.hero = hero;
         this.largeur = this.map.getLargeur()*Constante.TAILLE50;
         this.hauteur = this.map.getHauteur()*Constante.TAILLE50;
+        creationEnv = new CreationVillage();
+    }
+
+    public ObservableList<Acteur> getActeurs() {
+        return acteurs;
     }
 
     public ObservableList<Objet> getObjets() {
@@ -104,7 +110,13 @@ public abstract class Environnement{
         return null;
     }
 
-    public abstract void creationEnvironnement();
+    public CreationEnv getCreationEnv() {
+        return creationEnv;
+    }
+
+    public void setCreationEnv(CreationEnv creationEnv) {
+        this.creationEnv = creationEnv;
+    }
 
     @Override
     public String toString() {
@@ -117,6 +129,18 @@ public abstract class Environnement{
         return "Environnement{" +
                 ", map=" + map.getTabNum() +
                 '}';
+    }
+
+    public boolean verifEnnemiMort(){
+//        for (int i=0;i<acteursProperty().size();i++){
+//            if(acteursProperty().get(i) instanceof Ennemi){
+//                if(((Ennemi) acteursProperty().get(i)).getPv()>0){
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+        return false;
     }
 
 }

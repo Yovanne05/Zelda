@@ -6,7 +6,7 @@ import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
 public abstract class Objet {
 
     private String id;
-    private static int incremente = 0;
+    protected static int incremente = 0;
     private Position position;
     private Environnement environnement;
 
@@ -14,6 +14,10 @@ public abstract class Objet {
         position = new Position(x,y);
         this.environnement=environnement;
         id = "Ob"+incremente++;
+    }
+
+    public static int getIncremente() {
+        return incremente;
     }
 
     public Environnement getEnvironnement() {

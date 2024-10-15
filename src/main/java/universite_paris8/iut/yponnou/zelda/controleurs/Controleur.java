@@ -74,32 +74,34 @@ public class Controleur implements Initializable {
         mapActuelle = new Map(30, 30);
 
 
-        hero = new Hero(650, 360, null, new Direction(0,0), null);
+        hero = new Hero(650, 360, null, new Direction(0, 0), null);
         hero.pvProperty().addListener(new ObservateurCoeurs(paneCoeurs, new CoeursVue(paneCoeurs)));
         hero.getInventaire().inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
         heroVue = new HeroVue(hero, paneMap);
 
-        switchToEnvironment(new Village(hero));
+        environnement = new Environnement(mapActuelle,hero);
+        environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
+        environnement.acteursProperty().addListener(new ObservateurActeurs(paneMap));
+
+        switchToEnvironment(new CreationVillage());
         try {
-            musiqueJeu.jouer(1,-1);
-            bruitPas.jouer(0.05f,0);
-            sonEpee.jouer(0.1f,0);
-        }catch (Exception e){
+            musiqueJeu.jouer(1, -1);
+            bruitPas.jouer(0.05f, 0);
+            sonEpee.jouer(0.1f, 0);
+        } catch (Exception e) {
             System.out.println("Son incompatible");
         }
 
     }
 
-    private void switchToEnvironment(Environnement newEnvironnement) {
-        this.environnement = newEnvironnement;
-        environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
-        environnement.acteursProperty().addListener(new ObservateurActeurs(paneMap));
-        environnement.creationEnvironnement();
+    private void switchToEnvironment(CreationEnv creationEnv) {
+        creationEnv.creationEnvironnement(environnement);
         hero.changeEnvObjets(environnement);
         hero.setEnvironnement(environnement);
         MapVue mapVue = new MapVue(environnement.getMap().getTabNum(), tilePaneDecors);
         mapVue.creerSprite();
     }
+
     //test
     @FXML
     public void interaction(KeyEvent event) throws InterruptedException {
@@ -110,37 +112,37 @@ public class Controleur implements Initializable {
             switch (key) {
                 case Z:
                 case UP:
-                    p.getDirection().changementDirection(0,-1);
+                    p.getDirection().changementDirection(0, -1);
                     p.deplacement();
                     heroVue.upgradeSprite();
-                    changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
+                    changementMapPossible(environnement.getMap().getTabNum()[(int) (hero.getPosition().getY() / 50)][(int) hero.getPosition().getX() / 50]);
                     adjustCamera();
                     bruitPas.run();
                     break;
                 case S:
                 case DOWN:
-                    p.getDirection().changementDirection(0,1);
+                    p.getDirection().changementDirection(0, 1);
                     p.deplacement();
                     heroVue.upgradeSprite();
-                    changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
+                    changementMapPossible(environnement.getMap().getTabNum()[(int) (hero.getPosition().getY() / 50)][(int) hero.getPosition().getX() / 50]);
                     adjustCamera();
                     bruitPas.run();
                     break;
                 case D:
                 case RIGHT:
-                    p.getDirection().changementDirection(1,0);
+                    p.getDirection().changementDirection(1, 0);
                     p.deplacement();
                     heroVue.upgradeSprite();
-                    changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
+                    changementMapPossible(environnement.getMap().getTabNum()[(int) (hero.getPosition().getY() / 50)][(int) hero.getPosition().getX() / 50]);
                     adjustCamera();
                     bruitPas.run();
                     break;
                 case Q:
                 case LEFT:
-                    p.getDirection().changementDirection(-1,0);
+                    p.getDirection().changementDirection(-1, 0);
                     p.deplacement();
                     heroVue.upgradeSprite();
-                    changementMapPossible(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
+                    changementMapPossible(environnement.getMap().getTabNum()[(int) (hero.getPosition().getY() / 50)][(int) hero.getPosition().getX() / 50]);
                     adjustCamera();
                     bruitPas.run();
                     break;
@@ -182,13 +184,13 @@ public class Controleur implements Initializable {
                     p.selectionObjet(4);
                     break;
                 case A:
-                    if(environnement.paysansQuiParle()!=null){
+                    if (environnement.paysansQuiParle() != null) {
                         if (p.estProcheDeActeur(environnement.paysansQuiParle(), 80)) {
-                            PaysanVue paysanVue = new PaysanVue(p,paneMap);
+                            PaysanVue paysanVue = new PaysanVue(p, paneMap);
                             paysanVue.parler();
                         }
                         if (p.estProcheDeActeur(environnement.obtenirVendeur(), 80)) {
-                            VendeurVue vendeurVue = new VendeurVue(p,paneMap);
+                            VendeurVue vendeurVue = new VendeurVue(p, paneMap);
                             vendeurVue.proposerObjet(hero);
                         }
                     }
@@ -203,25 +205,25 @@ public class Controleur implements Initializable {
                     }
                     break;
                 case T:
-                    changeMap(environnement.getMap().getTabNum()[(int)(hero.getPosition().getY()/50)][(int)hero.getPosition().getX()/50]);
+                    changeMap(environnement.getMap().getTabNum()[(int) (hero.getPosition().getY() / 50)][(int) hero.getPosition().getX() / 50]);
                     break;
             }
         }
     }
 
-    public boolean changementPossible(int caseHero){
-        return caseHero<0;
+    public boolean changementPossible(int caseHero) {
+        return caseHero < 0;
     }
 
-    public void changementMapPossible(int caseHero){
-        if(changementPossible(caseHero)){
+    public void changementMapPossible(int caseHero) {
+        if (changementPossible(caseHero)) {
             changeMap(caseHero);
         }
     }
 
     private void changeMap(int mapID) {
-        Environnement newEnvironnement;
-        switch (mapID){
+        CreationEnv creationEnv;
+        switch (mapID) {
             case -1:
                 tilePaneDecors.getChildren().clear();
                 for (Acteur a : environnement.acteursProperty()) {
@@ -231,8 +233,8 @@ public class Controleur implements Initializable {
                 for (Objet o : environnement.objetsProperty()) {
                     paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
                 }
-                newEnvironnement = new Labyrinthe(hero);
-                switchToEnvironment(newEnvironnement);
+                creationEnv = new CreationLabyrinthe();
+                switchToEnvironment(creationEnv);
                 hero.getPosition().setX(50);
                 hero.getPosition().setY(800);
                 break;
@@ -246,8 +248,8 @@ public class Controleur implements Initializable {
                     paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
                 }
 
-                newEnvironnement = new Village(hero);
-                switchToEnvironment(newEnvironnement);
+                creationEnv = new CreationVillage();
+                switchToEnvironment(creationEnv);
                 hero.getPosition().setX(1400);
                 hero.getPosition().setY(500);
                 break;
@@ -261,8 +263,8 @@ public class Controleur implements Initializable {
                     paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
                 }
 
-                newEnvironnement = new EntreeDonjon(hero);
-                switchToEnvironment(newEnvironnement);
+                creationEnv = new CreationEntreeDonjon();
+                switchToEnvironment(creationEnv);
                 hero.getPosition().setX(50);
                 hero.getPosition().setY(1225);
                 break;
@@ -276,13 +278,13 @@ public class Controleur implements Initializable {
                     paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
                 }
 
-                newEnvironnement = new Labyrinthe(hero);
-                switchToEnvironment(newEnvironnement);
+                creationEnv = new CreationLabyrinthe();
+                switchToEnvironment(creationEnv);
                 hero.getPosition().setX(1400);
                 hero.getPosition().setY(850);
                 break;
             case -5:
-                if (hero.possedeClef()){
+                if (hero.possedeClef()) {
                     tilePaneDecors.getChildren().clear();
                     for (Acteur a : environnement.acteursProperty()) {
                         paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
@@ -292,12 +294,12 @@ public class Controleur implements Initializable {
                         paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
                     }
 
-                    newEnvironnement = new Donjon(hero);
-                    switchToEnvironment(newEnvironnement);
+                    creationEnv = new CreationDonjon();
+                    switchToEnvironment(creationEnv);
                     hero.getPosition().setX(725);
-                    hero.getPosition().setY(550);}
-                else{
-                    EntreeDonjonVue entreeDonjonVue=new EntreeDonjonVue();
+                    hero.getPosition().setY(550);
+                } else {
+                    EntreeDonjonVue entreeDonjonVue = new EntreeDonjonVue();
                     entreeDonjonVue.entree();
                 }
                 break;
@@ -311,13 +313,14 @@ public class Controleur implements Initializable {
                     paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
                 }
 
-                newEnvironnement = new EntreeDonjon(hero);
-                switchToEnvironment(newEnvironnement);
+                creationEnv = new CreationEntreeDonjon();
+                switchToEnvironment(creationEnv);
                 hero.getPosition().setX(725);
                 hero.getPosition().setY(700);
                 break;
         }
     }
+
     @FXML
     private void toucheLacher() {
         heroVue.upgradeSpriteStatic();
@@ -385,23 +388,19 @@ public class Controleur implements Initializable {
                             throw new RuntimeException(e);
                         }
                     }
-                    if(environnement instanceof Donjon){
-                        if (((Donjon)environnement).verifEnnemiMort()){
-                            try {
-                                this.victoire();
-                                gameLoop.stop();
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
+                    if (environnement.verifEnnemiMort()) {
+                        try {
+                            this.victoire();
+                            gameLoop.stop();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
                         }
-
                     }
                     temps++;
                 }
         );
         gameLoop.getKeyFrames().add(kf);
     }
-
 
 
     public void gameOver() throws IOException {
