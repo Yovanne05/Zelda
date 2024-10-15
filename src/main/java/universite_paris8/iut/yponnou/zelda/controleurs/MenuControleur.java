@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 
 import universite_paris8.iut.yponnou.zelda.Lanceur;
-import universite_paris8.iut.yponnou.zelda.utilitaire.Son;
+import universite_paris8.iut.yponnou.zelda.vue.son.Son;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,7 +31,11 @@ public class MenuControleur implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        musiqueMenu.jouer(0.05f,-1);
+        try {
+            musiqueMenu.jouer(0.05f,-1);
+        }catch (Exception e){
+            System.out.println("Son incompatible");
+        }
     }
 
     @FXML
@@ -60,7 +64,6 @@ public class MenuControleur implements Initializable {
         StackPane root = (StackPane) stage.getScene().getRoot();
         root.requestFocus();
         stage.show();
-        System.out.println("Affichage Histoire");
     }
 
     @FXML
@@ -73,6 +76,5 @@ public class MenuControleur implements Initializable {
         StackPane root = (StackPane) stage.getScene().getRoot();
         root.requestFocus();
         stage.show();
-        System.out.println("Affichage Commandes");
     }
 }

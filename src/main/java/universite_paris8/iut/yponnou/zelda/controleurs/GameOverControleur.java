@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import universite_paris8.iut.yponnou.zelda.Lanceur;
-import universite_paris8.iut.yponnou.zelda.utilitaire.Son;
+import universite_paris8.iut.yponnou.zelda.vue.son.Son;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,7 +21,12 @@ public class GameOverControleur implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        musiqueDefaite.jouer(0.05f,-1);
+        try {
+            musiqueDefaite.jouer(0.05f,-1);
+        }catch (Exception e){
+            System.out.println("Son incompatible");
+        }
+
     }
 
     @FXML
@@ -33,7 +38,6 @@ public class GameOverControleur implements Initializable {
 
     @FXML
     private void lancementRejouer() throws IOException {
-        System.out.println("Rejouer le jeu");
         Stage oldStage, newStage;
 
         newStage = new Stage();
@@ -51,7 +55,6 @@ public class GameOverControleur implements Initializable {
 
     @FXML
     private void lancementRetourMenu() throws IOException {
-        System.out.println("Retour au Menu");
         Stage stage;
 
         stage = (Stage) boutonRetour.getScene().getWindow();

@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import universite_paris8.iut.yponnou.zelda.Lanceur;
-import universite_paris8.iut.yponnou.zelda.utilitaire.Son;
+import universite_paris8.iut.yponnou.zelda.vue.son.Son;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,7 +19,12 @@ public class VictoireControleur implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        musiqueVictoire.jouer(0.5f,-1);
+        try {
+            musiqueVictoire.jouer(0.5f,-1);
+        }catch (Exception e){
+            System.out.println("Son incompatible");
+        }
+
     }
 
     @FXML

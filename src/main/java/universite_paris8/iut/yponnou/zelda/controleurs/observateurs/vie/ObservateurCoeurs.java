@@ -2,7 +2,7 @@ package universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie;
 
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.yponnou.zelda.vue.Pv.CoeursVue;
+import universite_paris8.iut.yponnou.zelda.vue.pv.CoeursVue;
 
 public class ObservateurCoeurs extends ObservateurPv {
 

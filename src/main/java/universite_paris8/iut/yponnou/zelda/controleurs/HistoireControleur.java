@@ -52,7 +52,6 @@ public class HistoireControleur {
     @FXML
     private void lancementRetourMenu() throws IOException {
         // Code pour retourner au menu principal
-        System.out.println("Retour au Menu");
         Stage stage;
 
         stage = (Stage) boutonRetour.getScene().getWindow();

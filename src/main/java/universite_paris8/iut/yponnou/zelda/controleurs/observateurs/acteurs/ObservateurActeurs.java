@@ -3,11 +3,11 @@ package universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie.ObservateurBarreDeVie;
-import universite_paris8.iut.yponnou.zelda.modele.Acteurs.*;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Fleche;
-import universite_paris8.iut.yponnou.zelda.vue.Acteurs.*;
-import universite_paris8.iut.yponnou.zelda.vue.Armes.FlecheVue;
-import universite_paris8.iut.yponnou.zelda.vue.Pv.BarreDeVieVue;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.*;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Fleche;
+import universite_paris8.iut.yponnou.zelda.vue.acteurs.*;
+import universite_paris8.iut.yponnou.zelda.vue.armes.FlecheVue;
+import universite_paris8.iut.yponnou.zelda.vue.pv.BarreDeVieVue;
 
 public class ObservateurActeurs implements ListChangeListener<Acteur> {
 
@@ -33,7 +33,7 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
                     }else if(a instanceof Boss){
                         actVue = new BossVue(a,pane);
                     }
-                    a.pvProperty().addListener(new ObservateurBarreDeVie((Ennemi)a,pane,new BarreDeVieVue((Ennemi)a,pane)));
+                    ((Ennemi) a).pvProperty().addListener(new ObservateurBarreDeVie((Ennemi)a,pane,new BarreDeVieVue((Ennemi)a,pane)));
                 }
                 else if (a instanceof Paysan) {
                     actVue = new PaysanVue(a,pane);
@@ -52,7 +52,6 @@ public class ObservateurActeurs implements ListChangeListener<Acteur> {
                 }
             for (Acteur a : change.getRemoved()) {
                 for (int i = 0; i < pane.getChildren().size(); i++) {
-                    System.out.println(this.pane.lookup("#"+a.getId()));
                     this.pane.getChildren().remove(this.pane.lookup("#"+a.getId()));
                     if (a instanceof Ennemi)
                         this.pane.getChildren().remove(this.pane.lookup("#"+a.getId()+"BarreVie"));

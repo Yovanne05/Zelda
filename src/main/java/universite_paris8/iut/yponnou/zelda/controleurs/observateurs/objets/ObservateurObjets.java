@@ -3,16 +3,16 @@ package universite_paris8.iut.yponnou.zelda.controleurs.observateurs.objets;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.yponnou.zelda.modele.Aliments.Pomme;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.ArcArme;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Epee;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Clef;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
-import universite_paris8.iut.yponnou.zelda.vue.Armes.ArcVue;
-import universite_paris8.iut.yponnou.zelda.vue.Armes.EpeeVue;
-import universite_paris8.iut.yponnou.zelda.vue.ClefVue;
-import universite_paris8.iut.yponnou.zelda.vue.ObjetVue;
-import universite_paris8.iut.yponnou.zelda.vue.Nourritures.PommeVue;
+import universite_paris8.iut.yponnou.zelda.modele.aliments.Pomme;
+import universite_paris8.iut.yponnou.zelda.modele.armes.ArcArme;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Epee;
+import universite_paris8.iut.yponnou.zelda.modele.objets.Clef;
+import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
+import universite_paris8.iut.yponnou.zelda.vue.armes.ArcVue;
+import universite_paris8.iut.yponnou.zelda.vue.armes.EpeeVue;
+import universite_paris8.iut.yponnou.zelda.vue.objets.ClefVue;
+import universite_paris8.iut.yponnou.zelda.vue.objets.ObjetVue;
+import universite_paris8.iut.yponnou.zelda.vue.nourritures.PommeVue;
 
 public class ObservateurObjets implements ListChangeListener<Objet> {
 
