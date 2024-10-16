@@ -11,7 +11,7 @@ public class CreationVillage implements CreationEnv {
     public void creationEnvironnement(Environnement environnement) {
         environnement.getMap().initialisationMapVillage();
         Hero hero = environnement.getHero(); // On récupère l'Hero directement depuis l'Environnement
-        environnement.getHero().changeEnvObjets(environnement);
+        hero.changeEnvObjets(environnement);
         hero.getPosition().setX(300);
         hero.getPosition().setY(500);
         hero.setEnvironnement(environnement);
@@ -30,6 +30,7 @@ public class CreationVillage implements CreationEnv {
         Pomme p3 = new Pomme(1200, 450, environnement);
         Pomme p4 = new Pomme(900, 550, environnement);
         Pomme p5 = new Pomme(1100, 550, environnement);
+        System.out.println(p5.getId());
 
         // Ajouter les acteurs et objets à l'environnement
         environnement.ajouterActeur(vendeur);

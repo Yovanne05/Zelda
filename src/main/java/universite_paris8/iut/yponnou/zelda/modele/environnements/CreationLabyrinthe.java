@@ -7,6 +7,7 @@ import universite_paris8.iut.yponnou.zelda.modele.armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Clef;
 
 public class CreationLabyrinthe implements CreationEnv{
+
     @Override
     public void creationEnvironnement(Environnement environnement) {
         environnement.getMap().initialisationMapLabyrinthe();
@@ -44,5 +45,7 @@ public class CreationLabyrinthe implements CreationEnv{
         environnement.ajouterActeur(g7);
         environnement.ajouterActeur(g8);
     }
+
+
 
 }

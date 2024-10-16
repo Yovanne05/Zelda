@@ -1,5 +1,6 @@
 package universite_paris8.iut.yponnou.zelda.modele.environnements;
 
+import javafx.beans.Observable;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Boss;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Chevalier;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Frere;

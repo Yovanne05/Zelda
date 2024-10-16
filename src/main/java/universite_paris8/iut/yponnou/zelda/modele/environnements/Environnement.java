@@ -22,7 +22,7 @@ public class Environnement{
         this.hero = hero;
         this.largeur = this.map.getLargeur()*Constante.TAILLE50;
         this.hauteur = this.map.getHauteur()*Constante.TAILLE50;
-        this.creationEnv = new CreationVillage();
+        creationEnv = null;
     }
 
     public ObservableList<Acteur> getActeurs() {
@@ -35,6 +35,11 @@ public class Environnement{
     public Map getMap(){
         return map;
     }
+
+    public void creationMap(){
+        creationEnv.creationEnvironnement(this);
+    }
+
     public void setMap(Map map) {
         this.map = map;
     }
@@ -63,10 +68,10 @@ public class Environnement{
         return objets;
     }
     public void ajouterObjet(Objet objet) {
-        objets.add(objet);
+        this.objetsProperty().add(objet);
     }
     public void enleverObjet(Objet objet) {
-        objets.remove(objet);
+        this.objetsProperty().remove(objet);
     }
 
     public Hero heroEnv(){

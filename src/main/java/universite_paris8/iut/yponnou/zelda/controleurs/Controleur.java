@@ -106,7 +106,9 @@ public class Controleur implements Initializable {
         for (Objet o : environnement.getObjets()) {
             paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
         }
-        creationEnv.creationEnvironnement(environnement);
+        
+        environnement.setCreationEnv(creationEnv);
+        environnement.creationMap();
         MapVue mapVue = new MapVue(environnement.getMap().getTabNum(), tilePaneDecors);
         mapVue.creerSprite();
     }

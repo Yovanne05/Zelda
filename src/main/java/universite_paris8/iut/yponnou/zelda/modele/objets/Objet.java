@@ -1,9 +1,10 @@
 package universite_paris8.iut.yponnou.zelda.modele.objets;
 
+import javafx.scene.Node;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
 
-public abstract class Objet {
+public abstract class Objet{
 
     private String id;
     protected static int incremente = 0;
