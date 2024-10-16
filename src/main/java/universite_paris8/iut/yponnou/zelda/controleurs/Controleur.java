@@ -78,13 +78,9 @@ public class Controleur implements Initializable {
         mapActuelle = new Map(30, 30);
 
         creationDonjon = new CreationDonjon();
-        creationDonjon.creationEnvironnement(environnement);
         creationVillage = new CreationVillage();
-        creationVillage.creationEnvironnement(environnement);
         creationEntreeDonjon = new CreationEntreeDonjon();
-        creationEntreeDonjon.creationEnvironnement(environnement);
         creationLabyritnhe = new CreationLabyrinthe();
-        creationLabyritnhe.creationEnvironnement(environnement);
 
 
         hero = new Hero(650, 360, null, new Direction(0, 0), null);
@@ -109,12 +105,10 @@ public class Controleur implements Initializable {
     }
 
     private void switchToEnvironment(CreationEnv creationEnv) {
-        // Suppression des acteurs et objets de l'environnement actuel
         environnement.getActeurs().clear();
         environnement.getObjets().clear();
-
-        // Suppression des éléments visuels existants
         tilePaneDecors.getChildren().clear();
+
         for (Acteur a : environnement.getActeurs()) {
             paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
             paneMap.getChildren().remove(paneMap.lookup("#" + a.getId() + "BarreVie"));
@@ -122,17 +116,11 @@ public class Controleur implements Initializable {
         for (Objet o : environnement.getObjets()) {
             paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
         }
-
-        if(creationEnv instanceof CreationLabyrinthe){
-            environnement.getMap().initialisationMapLabyrinthe();
-        } else if (creationEnv instanceof CreationVillage) {
-            environnement.getMap().initialisationMapVillage();
-        }
+        creationEnv.creationEnvironnement(environnement);
         MapVue mapVue = new MapVue(environnement.getMap().getTabNum(), tilePaneDecors);
         mapVue.creerSprite();
     }
 
-    //test
     @FXML
     public void interaction(KeyEvent event) throws InterruptedException {
         KeyCode key = event.getCode();
