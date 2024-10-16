@@ -39,7 +39,7 @@ public class CreationVillage implements CreationEnv {
         environnement.ajouterObjet(p3);
         environnement.ajouterObjet(p4);
         environnement.ajouterObjet(p5);
-        environnement.ajouterActeur(hero); // Ajouter le Hero
+        environnement.ajouterActeur(hero);
     }
 
 }

@@ -66,6 +66,10 @@ public class Controleur implements Initializable {
     private static final Son musiqueJeu = new Son("/universite_paris8/iut/yponnou/zelda/Sons/musique/Fishing_village.wav");
     private static final Son bruitPas = new Son("/universite_paris8/iut/yponnou/zelda/Sons/bruits/bruitsPas/stepdirt_1.wav");
     private final Son sonEpee = new Son("/universite_paris8/iut/yponnou/zelda/Sons/bruits/sword.wav");
+    CreationEnv creationDonjon;
+    CreationEnv creationVillage;
+    CreationEnv creationEntreeDonjon;
+    CreationEnv creationLabyritnhe;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -73,19 +77,28 @@ public class Controleur implements Initializable {
         gameLoop.play();
         mapActuelle = new Map(30, 30);
 
+        creationDonjon = new CreationDonjon();
+        creationDonjon.creationEnvironnement(environnement);
+        creationVillage = new CreationVillage();
+        creationVillage.creationEnvironnement(environnement);
+        creationEntreeDonjon = new CreationEntreeDonjon();
+        creationEntreeDonjon.creationEnvironnement(environnement);
+        creationLabyritnhe = new CreationLabyrinthe();
+        creationLabyritnhe.creationEnvironnement(environnement);
+
 
         hero = new Hero(650, 360, null, new Direction(0, 0), null);
         hero.pvProperty().addListener(new ObservateurCoeurs(paneCoeurs, new CoeursVue(paneCoeurs)));
         hero.getInventaire().inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
         heroVue = new HeroVue(hero, paneMap);
 
-        environnement = new Environnement(mapActuelle,hero);
+        environnement = new Environnement(mapActuelle,hero,creationVillage);
         environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
         environnement.acteursProperty().addListener(new ObservateurActeurs(paneMap));
         hero.changeEnvObjets(environnement);
         hero.setEnvironnement(environnement);
 
-        switchToEnvironment(new CreationVillage());
+        switchToEnvironment(creationVillage);
         try {
             musiqueJeu.jouer(1, -1);
             bruitPas.jouer(0.05f, 0);
@@ -96,7 +109,25 @@ public class Controleur implements Initializable {
     }
 
     private void switchToEnvironment(CreationEnv creationEnv) {
-        creationEnv.creationEnvironnement(environnement);
+        // Suppression des acteurs et objets de l'environnement actuel
+        environnement.getActeurs().clear();
+        environnement.getObjets().clear();
+
+        // Suppression des éléments visuels existants
+        tilePaneDecors.getChildren().clear();
+        for (Acteur a : environnement.getActeurs()) {
+            paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
+            paneMap.getChildren().remove(paneMap.lookup("#" + a.getId() + "BarreVie"));
+        }
+        for (Objet o : environnement.getObjets()) {
+            paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
+        }
+
+        if(creationEnv instanceof CreationLabyrinthe){
+            environnement.getMap().initialisationMapLabyrinthe();
+        } else if (creationEnv instanceof CreationVillage) {
+            environnement.getMap().initialisationMapVillage();
+        }
         MapVue mapVue = new MapVue(environnement.getMap().getTabNum(), tilePaneDecors);
         mapVue.creerSprite();
     }
@@ -221,80 +252,30 @@ public class Controleur implements Initializable {
     }
 
     private void changeMap(int mapID) {
-        CreationEnv creationEnv;
         switch (mapID) {
             case -1:
-                tilePaneDecors.getChildren().clear();
-                for (Acteur a : environnement.acteursProperty()) {
-                    paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
-                    paneMap.getChildren().remove(paneMap.lookup("#" + a.getId() + "BarreVie"));
-                }
-                for (Objet o : environnement.objetsProperty()) {
-                    paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
-                }
-                creationEnv = new CreationLabyrinthe();
-                switchToEnvironment(creationEnv);
+                switchToEnvironment(creationLabyritnhe);
                 hero.getPosition().setX(50);
                 hero.getPosition().setY(800);
                 break;
             case -2:
-                tilePaneDecors.getChildren().clear();
-                for (Acteur a : environnement.acteursProperty()) {
-                    paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
-                    paneMap.getChildren().remove(paneMap.lookup("#" + a.getId() + "BarreVie"));
-                }
-                for (Objet o : environnement.objetsProperty()) {
-                    paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
-                }
-
-                creationEnv = new CreationVillage();
-                switchToEnvironment(creationEnv);
+                switchToEnvironment(creationVillage);
                 hero.getPosition().setX(1400);
                 hero.getPosition().setY(500);
                 break;
             case -3:
-                tilePaneDecors.getChildren().clear();
-                for (Acteur a : environnement.acteursProperty()) {
-                    paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
-                    paneMap.getChildren().remove(paneMap.lookup("#" + a.getId() + "BarreVie"));
-                }
-                for (Objet o : environnement.objetsProperty()) {
-                    paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
-                }
-
-                creationEnv = new CreationEntreeDonjon();
-                switchToEnvironment(creationEnv);
+                switchToEnvironment(creationEntreeDonjon);
                 hero.getPosition().setX(50);
                 hero.getPosition().setY(1225);
                 break;
             case -4:
-                tilePaneDecors.getChildren().clear();
-                for (Acteur a : environnement.acteursProperty()) {
-                    paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
-                    paneMap.getChildren().remove(paneMap.lookup("#" + a.getId() + "BarreVie"));
-                }
-                for (Objet o : environnement.objetsProperty()) {
-                    paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
-                }
-
-                creationEnv = new CreationLabyrinthe();
-                switchToEnvironment(creationEnv);
+                switchToEnvironment(creationLabyritnhe);
                 hero.getPosition().setX(1400);
                 hero.getPosition().setY(850);
                 break;
             case -5:
                 if (hero.possedeClef()) {
-                    tilePaneDecors.getChildren().clear();
-                    for (Acteur a : environnement.acteursProperty()) {
-                        paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
-                        paneMap.getChildren().remove(paneMap.lookup("#" + a.getId() + "BarreVie"));
-                    }
-                    for (Objet o : environnement.objetsProperty()) {
-                        paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
-                    }
-
-                    creationEnv = new CreationDonjon();
-                    switchToEnvironment(creationEnv);
+                    switchToEnvironment(creationDonjon);
                     hero.getPosition().setX(725);
                     hero.getPosition().setY(550);
                 } else {
@@ -303,17 +284,7 @@ public class Controleur implements Initializable {
                 }
                 break;
             case -6:
-                tilePaneDecors.getChildren().clear();
-                for (Acteur a : environnement.acteursProperty()) {
-                    paneMap.getChildren().remove(paneMap.lookup("#" + a.getId()));
-                    paneMap.getChildren().remove(paneMap.lookup("#" + a.getId() + "BarreVie"));
-                }
-                for (Objet o : environnement.objetsProperty()) {
-                    paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
-                }
-
-                creationEnv = new CreationEntreeDonjon();
-                switchToEnvironment(creationEnv);
+                switchToEnvironment(creationEntreeDonjon);
                 hero.getPosition().setX(725);
                 hero.getPosition().setY(700);
                 break;

@@ -44,4 +44,5 @@ public class CreationLabyrinthe implements CreationEnv{
         environnement.ajouterActeur(g7);
         environnement.ajouterActeur(g8);
     }
+
 }

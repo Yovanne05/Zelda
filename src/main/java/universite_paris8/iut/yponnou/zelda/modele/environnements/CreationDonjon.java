@@ -9,10 +9,11 @@ import universite_paris8.iut.yponnou.zelda.modele.armes.Epee;
 
 public class CreationDonjon implements CreationEnv{
 
+
     @Override
     public void creationEnvironnement(Environnement environnement) {
         environnement.getMap().initialisationMapDonjon();
-        Hero hero = environnement.getHero(); // Récupérer l'Hero depuis l'Environnement
+        Hero hero = environnement.getHero();
         environnement.getHero().changeEnvObjets(environnement);
         environnement.getHero().getPosition().setX(720);
         environnement.getHero().getPosition().setY(530);

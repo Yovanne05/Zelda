@@ -17,12 +17,12 @@ public class Environnement{
     private Hero hero;
     private CreationEnv creationEnv;
 
-    public Environnement(Map map, Hero hero) {
+    public Environnement(Map map, Hero hero, CreationEnv creationEnv) {
         this.map = map;
         this.hero = hero;
         this.largeur = this.map.getLargeur()*Constante.TAILLE50;
         this.hauteur = this.map.getHauteur()*Constante.TAILLE50;
-        creationEnv = new CreationVillage();
+        this.creationEnv = creationEnv;
     }
 
     public ObservableList<Acteur> getActeurs() {
