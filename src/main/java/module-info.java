@@ -8,6 +8,7 @@ module universite_paris.iut.yponnou.zelda {
     requires org.junit.jupiter.api;
     requires org.testng;
     requires jcommander;
+    requires org.apache.logging.log4j;
 
     opens universite_paris8.iut.yponnou.zelda to javafx.fxml;
     exports universite_paris8.iut.yponnou.zelda;
