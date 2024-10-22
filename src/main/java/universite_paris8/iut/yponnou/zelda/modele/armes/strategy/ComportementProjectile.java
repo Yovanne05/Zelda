@@ -28,7 +28,7 @@ public class ComportementProjectile implements ComportementArme{
         } else {
             environnement.enleverActeur(projectile);
         }
-    }
+    }//
 
     private void collisionAvecEnnemi() {
         for (Acteur acteur : projectile.getEnvironnement().acteursProperty()) {
