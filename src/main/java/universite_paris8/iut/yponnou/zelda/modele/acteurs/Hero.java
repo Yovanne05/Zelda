@@ -16,7 +16,7 @@ public class Hero extends Guerrier {
     private final Inventaire inventaire;
 
     public Hero(double x, double y, Environnement environnement, Direction direction, Arme arme) {
-        super(x, y, environnement, 7, direction, arme, 100);
+        super(x, y, environnement, 10, direction, arme, 100);
         this.inventaire = new Inventaire(5, this);
     }
 
