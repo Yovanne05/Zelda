@@ -51,8 +51,8 @@ public abstract class Acteur extends Objet {
     }
 
     public double[] calculerProchainePosition() {
-        double prochainX = getPosition().getX() + getDirection().getDx() * vitesse * TAILLE50;
-        double prochainY = getPosition().getY() + getDirection().getDy() * vitesse * TAILLE50;
+        double prochainX = getPosition().getX() + getDirection().getDx() * vitesse;
+        double prochainY = getPosition().getY() + getDirection().getDy() * vitesse;
         return new double[] { prochainX, prochainY };
     }
 
@@ -72,8 +72,8 @@ public abstract class Acteur extends Objet {
     public void deplacement() {
         Hitbox futureHitbox = futureHitbox();
         if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
-            getPosition().setX(futureHitbox.getHitbox().getX());
-            getPosition().setY(futureHitbox.getHitbox().getY());
+            getPosition().setX(futureHitbox.hitboxX());
+            getPosition().setY(futureHitbox.hitboxY());
         }
     }
 

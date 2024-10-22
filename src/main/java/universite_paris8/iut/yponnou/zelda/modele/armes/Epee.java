@@ -8,8 +8,9 @@ public class Epee extends ArmeMelee{
         super(x,y,5,environnement);
     }
 
-    public String nom(){
-        return "Epee";
+    @Override
+    public void utiliserArme() {
+        getComportementAttaque().infligeDegat();
     }
 
 }

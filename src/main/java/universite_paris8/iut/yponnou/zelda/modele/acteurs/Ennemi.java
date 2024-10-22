@@ -35,7 +35,7 @@ public abstract class Ennemi extends Guerrier {
         if (tempsActuel - this.getDerniereAttaque() >= 250) {
             Fleche f = new Fleche(getPosition().getX(), getPosition().getY(), getEnvironnement(), getDirection());
             ((ArmeDistance) this.getArme()).setProjectile(f);
-            ((ArmeDistance) this.getArme()).utiliser();
+            ((ArmeDistance) this.getArme()).utiliserArme();
         }
     }
 

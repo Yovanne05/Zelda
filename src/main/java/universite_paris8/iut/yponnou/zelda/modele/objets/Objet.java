@@ -1,8 +1,11 @@
 package universite_paris8.iut.yponnou.zelda.modele.objets;
 
 import javafx.scene.Node;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.Ennemi;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
+
+import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TAILLE50;
 
 public abstract class Objet{
 
@@ -41,6 +44,13 @@ public abstract class Objet{
 
     public void setEnvironnement(Environnement environnement) {
         this.environnement = environnement;
+    }
+
+    public boolean touche(Ennemi ennemi) {
+        double ennemiX = ennemi.getPosition().getX();
+        double ennemiY = ennemi.getPosition().getY();
+
+        return (getPosition().getX() >= ennemiX && getPosition().getX() <= ennemiX + TAILLE50) && (getPosition().getY() >= ennemiY && getPosition().getY() <= ennemiY + TAILLE50);
     }
     
 }

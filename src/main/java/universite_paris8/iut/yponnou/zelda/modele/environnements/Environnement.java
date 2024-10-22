@@ -93,7 +93,7 @@ public class Environnement{
                 ((Ennemi) acteurs.get(i)).deplacementEnnemi();
             }
             else if (acteurs.get(i) instanceof Fleche) {
-                ((Fleche) acteurs.get(i)).utiliserFleche();
+                ((Fleche) acteurs.get(i)).deplacement();
             }
         }
     }

@@ -9,15 +9,15 @@ public class ArcArme extends ArmeDistance {
     public ArcArme(double posxi, double posyi, Projectile projectile, Environnement environnement) {
         super(posxi, posyi, projectile, environnement);
     }
-
+    
     @Override
-    public int utiliser() {
-        Fleche f = (Fleche) this.getProjectile();
-        this.getEnvironnement().ajouterActeur(f);
-        f.utiliserFleche();
-        return this.getProjectile().getPtsDegats();
+    public void utiliserArme() {
+        Projectile p = this.getProjectile();
+        this.getEnvironnement().ajouterActeur(p);
+        p.utiliserProjectile();
     }
 
+    @Override
     public String nom(){
         return "Arc";
     }

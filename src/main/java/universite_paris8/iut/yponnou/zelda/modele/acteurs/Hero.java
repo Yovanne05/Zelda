@@ -16,7 +16,7 @@ public class Hero extends Guerrier {
     private final Inventaire inventaire;
 
     public Hero(double x, double y, Environnement environnement, Direction direction, Arme arme) {
-        super(x, y, environnement, 0.2, direction, arme, 100);
+        super(x, y, environnement, 7, direction, arme, 100);
         this.inventaire = new Inventaire(5, this);
     }
 
@@ -113,7 +113,7 @@ public class Hero extends Guerrier {
         Direction d = new Direction(dx, dy); // Create a new direction to avoid side effects
         Fleche fleche = new Fleche(getPosition().getX(), getPosition().getY(), getEnvironnement(), d);
         armeDistance.setProjectile(fleche);
-        armeDistance.utiliser();
+        armeDistance.utiliserArme();
     }
 
     public void attaquerMelee(Guerrier ennemi) {
