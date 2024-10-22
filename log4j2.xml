@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] [%-5p] %C{1} %M [%L]: %msg%n" />
+        </Console>
+        <RollingRandomAccessFile name="file"
+                                 filePattern="/home/etudiants/info/abenibrahim/Documents/BUT Info S3/logTest.log">
+            <PatternLayout
+                    pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] [%-5p] %C{1} %M [%L]: %msg%n" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="5MB" />
+            </Policies>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <Root level="DEBUG">
+            <AppenderRef ref="console" level="ERROR" />
+        </Root>
+        <Logger name="universite_paris8.iut.yponnou.zelda.modele.acteurs" level="DEBUG" additivity="true">
+            <AppenderRef ref="file" />
+        </Logger>
+    </Loggers>
+</Configuration>
