@@ -8,24 +8,38 @@ import universite_paris8.iut.yponnou.zelda.modele.armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 
 
-public abstract class Environnement{
+public class Environnement{
     private final int largeur;
     private final int hauteur;
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
     private ObservableList<Objet> objets = FXCollections.observableArrayList();
     private Map map;
     private Hero hero;
+    private CreationEnv creationEnv;
 
     public Environnement(Map map, Hero hero) {
         this.map = map;
         this.hero = hero;
         this.largeur = this.map.getLargeur()*Constante.TAILLE50;
         this.hauteur = this.map.getHauteur()*Constante.TAILLE50;
+        creationEnv = null;
     }
 
+    public ObservableList<Acteur> getActeurs() {
+        return acteurs;
+    }
+
+    public ObservableList<Objet> getObjets() {
+        return objets;
+    }
     public Map getMap(){
         return map;
     }
+
+    public void creationMap(){
+        creationEnv.creationEnvironnement(this);
+    }
+
     public void setMap(Map map) {
         this.map = map;
     }
@@ -54,10 +68,10 @@ public abstract class Environnement{
         return objets;
     }
     public void ajouterObjet(Objet objet) {
-        objets.add(objet);
+        this.objetsProperty().add(objet);
     }
     public void enleverObjet(Objet objet) {
-        objets.remove(objet);
+        this.objetsProperty().remove(objet);
     }
 
     public Hero heroEnv(){
@@ -101,7 +115,13 @@ public abstract class Environnement{
         return null;
     }
 
-    public abstract void creationEnvironnement();
+    public CreationEnv getCreationEnv() {
+        return creationEnv;
+    }
+
+    public void setCreationEnv(CreationEnv creationEnv) {
+        this.creationEnv = creationEnv;
+    }
 
     @Override
     public String toString() {
@@ -114,6 +134,18 @@ public abstract class Environnement{
         return "Environnement{" +
                 ", map=" + map.getTabNum() +
                 '}';
+    }
+
+    public boolean verifEnnemiMort(){
+//        for (int i=0;i<acteursProperty().size();i++){
+//            if(acteursProperty().get(i) instanceof Ennemi){
+//                if(((Ennemi) acteursProperty().get(i)).getPv()>0){
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+        return false;
     }
 
 }

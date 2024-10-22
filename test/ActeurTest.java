@@ -8,7 +8,6 @@ import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Hitbox;
 import universite_paris8.iut.yponnou.zelda.modele.aliments.Pomme;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
-import universite_paris8.iut.yponnou.zelda.modele.environnements.Village;
 
 import static org.junit.jupiter.api.Assertions.*;
 

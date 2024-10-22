@@ -12,9 +12,6 @@ import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TA
 
 public abstract class Acteur extends Objet {
 
-    private static int incremente = 0;
-    private final String id; //TODO 2 String ID un dans objet et un dans acteur
-
     private final double vitesse;
     private Direction direction;
     private final Hitbox hitbox;
@@ -22,16 +19,17 @@ public abstract class Acteur extends Objet {
     public Acteur(double x, double y, Environnement environnement, double vitesse, Direction direction) {
         super(x, y, environnement);
         this.vitesse = vitesse;
-        id = "A"+incremente++;
         hitbox = new Hitbox(x,y,TAILLE50,TAILLE50);
         this.direction=direction;
         hitbox.xProperty().bind(this.getPosition().xProperty());
         hitbox.yProperty().bind(this.getPosition().yProperty());
     }
 
-    public String getId() {
-        return id;
+    public boolean estProcheDeActeur(Acteur acteur, double distanceSeuil) {
+        double distance = distance(acteur.getPosition());
+        return distance <= distanceSeuil;
     }
+
     public String nom() {
         return "Acteur";
     }
@@ -169,8 +167,7 @@ public abstract class Acteur extends Objet {
     @Override
     public String toString() {
         return "Acteur{" +
-                "id='" + id + '\'' +
-                ", vitesse=" + vitesse +
+                "vitesse=" + vitesse +
                 ", direction=" + direction +
                 ", hitbox=" + hitbox +
                 '}';
