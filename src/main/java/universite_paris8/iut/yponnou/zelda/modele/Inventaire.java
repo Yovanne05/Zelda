@@ -2,11 +2,11 @@ package universite_paris8.iut.yponnou.zelda.modele;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import universite_paris8.iut.yponnou.zelda.modele.Aliments.Nourriture;
-import universite_paris8.iut.yponnou.zelda.modele.Armes.Arme;
-import universite_paris8.iut.yponnou.zelda.modele.Environnements.Environnement;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Clef;
-import universite_paris8.iut.yponnou.zelda.modele.Objets.Objet;
+import universite_paris8.iut.yponnou.zelda.modele.aliments.Nourriture;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
+import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
+import universite_paris8.iut.yponnou.zelda.modele.objets.Clef;
+import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 
 public class Inventaire {
     private final ObservableList<Objet> inventaire;
@@ -51,11 +51,7 @@ public class Inventaire {
     }
 
 
-    public void changeEnvObjets(Environnement env){ // dans Inventaire
-        for(Objet o : inventaire){
-            o.getPosition().setEnv(env);
-        }
-    }
+
 
     public void ajouterObjet(Objet o){
         inventaire.add(o);

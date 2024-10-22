@@ -9,6 +9,8 @@ import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 
 
 public class Environnement{
+    private static Environnement uniqueInstance = null;
+
     private final int largeur;
     private final int hauteur;
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
@@ -23,6 +25,13 @@ public class Environnement{
         this.largeur = this.map.getLargeur()*Constante.TAILLE50;
         this.hauteur = this.map.getHauteur()*Constante.TAILLE50;
         creationEnv = null;
+    }
+
+    public static Environnement getInstance(Map map, Hero hero) {
+        if(uniqueInstance == null){
+            uniqueInstance = new Environnement(map, hero);
+        }
+        return uniqueInstance;
     }
 
     public ObservableList<Acteur> getActeurs() {

@@ -78,7 +78,7 @@ public class Controleur implements Initializable {
         hero.getInventaire().inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
         heroVue = new HeroVue(hero, paneMap);
 
-        environnement = new Environnement(mapActuelle,hero);
+        environnement = Environnement.getInstance(mapActuelle,hero);
         environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
         environnement.acteursProperty().addListener(new ObservateurActeurs(paneMap));
         hero.changeEnvObjets(environnement);
