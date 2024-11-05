@@ -9,7 +9,7 @@ public class ArcArme extends ArmeDistance {
     public ArcArme(double posxi, double posyi, Projectile projectile, Environnement environnement) {
         super(posxi, posyi, projectile, environnement);
     }
-    
+
     @Override
     public void utiliserArme() {
         Projectile p = this.getProjectile();

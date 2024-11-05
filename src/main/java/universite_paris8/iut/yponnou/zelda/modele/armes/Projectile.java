@@ -37,6 +37,10 @@ public class Projectile extends Acteur{
         return ptsDegats;
     }
 
+    public void setPtsDegats(int ptsDegats) {
+        this.ptsDegats = ptsDegats;
+    }
+
     public double getPortee() {
         return portee;
     }

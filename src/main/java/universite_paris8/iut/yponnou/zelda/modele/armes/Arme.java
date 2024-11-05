@@ -9,8 +9,18 @@ import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TA
 
 public abstract class Arme extends Objet implements UtilisationArme {
 
-    public Arme(double x, double y, Environnement environnement) {
+    private int ptsDegats;
+
+    public Arme(double x, double y, Environnement environnement, int ptsDegats) {
         super(x, y, environnement);
+        this.ptsDegats = ptsDegats;
     }
 
+    public int getPtsDegats() {
+        return ptsDegats;
+    }
+
+    public void setPtsDegats(int ptsDegat) {
+        this.ptsDegats = ptsDegat;
+    }
 }
