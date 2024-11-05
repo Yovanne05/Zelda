@@ -5,6 +5,9 @@ import universite_paris8.iut.yponnou.zelda.modele.armes.Projectile;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Acteur;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ComportementProjectile implements ComportementArme{
     private Projectile projectile;
 
@@ -28,17 +31,24 @@ public class ComportementProjectile implements ComportementArme{
         } else {
             environnement.enleverActeur(projectile);
         }
-    }//
+    }
 
     private void collisionAvecEnnemi() {
-        for (Acteur acteur : projectile.getEnvironnement().acteursProperty()) {
+        boolean projectileDoitEtreSupprime = false;
+        List<Acteur> acteurs = projectile.getEnvironnement().acteursProperty();
+        for (int i = acteurs.size() - 1; i >= 0; i--) {
+            Acteur acteur = acteurs.get(i);
             if (acteur instanceof Ennemi) {
                 Ennemi ennemi = (Ennemi) acteur;
                 if (projectile.touche(ennemi)) {
                     ennemi.seFaitAttaquer(projectile.getPtsDegats());
-                    projectile.getEnvironnement().enleverActeur(projectile);
+                    projectileDoitEtreSupprime = true;
                 }
             }
         }
+        if (projectileDoitEtreSupprime) {
+            projectile.getEnvironnement().enleverActeur(projectile);
+        }
     }
+
 }

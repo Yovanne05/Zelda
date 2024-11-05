@@ -21,7 +21,6 @@ public class CreationLabyrinthe implements CreationEnv{
 
         Direction d = new Direction(0, 0);
 
-        // Créer les gardes et objets du Labyrinthe
         Garde g1 = new Garde(500, 350, environnement, d, e);
         Garde g2 = new Garde(750, 50, environnement, d, e);
         Garde g3 = new Garde(890, 350, environnement, d, e);
@@ -33,7 +32,6 @@ public class CreationLabyrinthe implements CreationEnv{
 
         Clef cle = new Clef("1", 900, 700, environnement);
 
-        // Ajouter les acteurs et objets à l'environnement
         environnement.ajouterActeur(hero);
         environnement.ajouterObjet(cle);
         environnement.ajouterActeur(g1);
