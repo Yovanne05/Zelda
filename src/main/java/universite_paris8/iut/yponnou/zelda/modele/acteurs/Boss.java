@@ -8,7 +8,7 @@ import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 public class Boss extends Ennemi {
 
     public Boss(double x, double y, Environnement environnement, Direction direction, Arme arme) {
-        super(x, y, environnement, 0.03, direction, arme, 360);
+        super(x, y, environnement, 1, direction, arme, 360);
     }
 
     @Override

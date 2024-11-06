@@ -38,10 +38,13 @@ public class Map{
             String line;
 
             while ((line = br.readLine()) != null) {
+                // On enlève les espaces inutiles autour de chaque valeur
                 String[] values = line.split(",");
+
                 int[] row = new int[values.length];
                 for (int col = 0; col < values.length; col++) {
-                    row[col] = Integer.parseInt(values[col]);
+                    // On utilise trim() pour enlever les espaces avant et après chaque valeur
+                    row[col] = Integer.parseInt(values[col].trim());
                 }
                 tempList.add(row);
             }
@@ -58,6 +61,7 @@ public class Map{
             }
         }
     }
+
 
     public void initialisationMapVillage() {
         readFromCSV("src/main/resources/universite_paris8/iut/yponnou/zelda/maps/village.csv");

@@ -14,7 +14,6 @@ public class ArmeMeleeFeu extends ArmePouvoir{
     public void utiliserArme() {
         appliquerBonus(BONUS_DEGATS);
         getArme().utiliserArme();
-        System.out.println("Dégâts de l'epee en feu : " + getArme().getPtsDegats());
         reinitialiserDegats();
     }
 }
