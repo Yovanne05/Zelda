@@ -1,7 +1,6 @@
 package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
 
-
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.armes.ArmeDistance;
@@ -22,27 +21,10 @@ public abstract class Ennemi extends Guerrier {
         long tempsActuel = System.currentTimeMillis();
         Hero hero = verifHeroProx(100);
         if (hero != null) {
-            double distance = distance(hero.getPosition());
-            if (distance >= 30 && getArme() instanceof ArmeDistance) {
-                attaquerAvecArmeDistance(tempsActuel);
-            } else {
-                attaquerAvecArmeMelee(tempsActuel, hero);
+            if (tempsActuel - this.getDerniereAttaque() >= 250) {
+                getArme().utiliserArme();
+                this.setDerniereAttaque(tempsActuel);
             }
-        }
-    }
-
-    private void attaquerAvecArmeDistance(long tempsActuel) {
-        if (tempsActuel - this.getDerniereAttaque() >= 250) {
-            Fleche f = new Fleche(getPosition().getX(), getPosition().getY(), getEnvironnement(), getDirection());
-            ((ArmeDistance) this.getArme()).setProjectile(f);
-            ((ArmeDistance) this.getArme()).utiliserArme();
-        }
-    }
-
-    private void attaquerAvecArmeMelee(long tempsActuel, Hero hero) {
-        if (tempsActuel - this.getDerniereAttaque() >= 250) {
-            hero.seFaitAttaquer(((ArmeMelee) this.getArme()).getPtsDegats());
-            this.setDerniereAttaque(tempsActuel);
         }
     }
 
@@ -54,12 +36,9 @@ public abstract class Ennemi extends Guerrier {
     }
 
     public Hero verifHeroProx(double distanceSeuil) {
-        for (Acteur acteur : this.getEnvironnement().acteursProperty()) {
-            if (acteur instanceof Hero hero) {
-                if (estProcheDeActeur(hero, distanceSeuil)) {
-                    return hero;
-                }
-            }
+        Hero h = getEnvironnement().getHero();
+        if (estProcheDeActeur(h, distanceSeuil)) {
+            return h;
         }
         return null;
     }
