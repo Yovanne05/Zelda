@@ -22,10 +22,13 @@ public class CreationDonjon implements CreationEnv{
         environnement.getHero().getDirection().setDx(0);
         environnement.getHero().getDirection().setDy(0);
 
-        Epee e = new Epee(800, 580, environnement);
-        Epee e2 = new Epee(800, 580, environnement);
-        e.setPtsDegats(5);
-        e2.setPtsDegats(2);
+        Epee eboss = new Epee(800, 580, environnement,null);
+        Epee echevalier = new Epee(800, 580, environnement,null);
+        Epee echevalier2 = new Epee(800, 580, environnement,null);
+
+        eboss.setPtsDegats(5);
+        echevalier.setPtsDegats(2);
+        echevalier2.setPtsDegats(2);
 
         Direction dBoss = new Direction(0, 0);
         Direction dChevalier1 = new Direction(1, 0);
@@ -33,9 +36,9 @@ public class CreationDonjon implements CreationEnv{
         Direction dFrere = new Direction(1, 0);
 
         // Créer les personnages et objets du Donjon
-        Boss boss = new Boss(730, 100, environnement, dBoss, e);
-        Chevalier chevalier = new Chevalier(270, 770, environnement, dChevalier1, e2);
-        Chevalier chevalier2 = new Chevalier(1220, 760, environnement, dChevalier2, e2);
+        Boss boss = new Boss(730, 100, environnement, dBoss, eboss);
+        Chevalier chevalier = new Chevalier(270, 770, environnement, dChevalier1, echevalier);
+        Chevalier chevalier2 = new Chevalier(1220, 760, environnement, dChevalier2, echevalier2);
         Frere frere = new Frere(300, 100, environnement, dFrere);
 
         // Ajouter les acteurs à l'environnement

@@ -6,6 +6,8 @@ import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.armes.ArmeDistance;
 import universite_paris8.iut.yponnou.zelda.modele.armes.ArmeMelee;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Fleche;
+import universite_paris8.iut.yponnou.zelda.modele.armes.decorator.ArmeDistanceFeu;
+import universite_paris8.iut.yponnou.zelda.modele.armes.decorator.ArmePouvoir;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 import universite_paris8.iut.yponnou.zelda.modele.inventaire.Inventaire;
@@ -22,18 +24,6 @@ public class Hero extends Guerrier {
 
     public Inventaire getInventaire() {
         return inventaire;
-    }
-
-    public Ennemi verifEnnemiAcoter(double distanceSeuil) {
-        for (Acteur acteur : this.getEnvironnement().acteursProperty()) {
-            if (acteur instanceof Ennemi) {
-                Ennemi ennemi = (Ennemi) acteur;
-                if (estProcheDeActeur(ennemi, distanceSeuil)) {
-                    return ennemi;
-                }
-            }
-        }
-        return null;
     }
 
     public boolean guerison() {
@@ -56,6 +46,10 @@ public class Hero extends Guerrier {
         Objet ob = objetsProches();
         if (ob != null) {
             if (!inventaire.estPlein() && estObjetProche(ob)) {
+                if(ob instanceof Arme){
+                    ((Arme) ob).setProprietaire(this);
+                    ((Arme) ob).setPosition(this.getPosition());
+                }
                 inventaire.ajouterObjet(ob);
             }
         }
@@ -81,6 +75,9 @@ public class Hero extends Guerrier {
     }
 
     public void deposer(Objet objet) {
+        if(objet instanceof Arme){
+            ((Arme) objet).setProprietaire(null);
+        }
         inventaire.deposer(objet);
     }
 
@@ -97,32 +94,9 @@ public class Hero extends Guerrier {
     }
 
     public void attaquer() {
-        Ennemi ennemiProche = verifEnnemiAcoter(100);
-
-        if (getArme() instanceof ArmeDistance) {
-            attaquerDistance();
-        } else if (ennemiProche != null) {
-            attaquerMelee(ennemiProche);
-        }
+        getArme().utiliserArme();
     }
 
-    public void attaquerDistance() {
-        ArmeDistance armeDistance = (ArmeDistance) getArme();
-        double dx = getDirection().getDx();
-        double dy = getDirection().getDy();
-        Direction d = new Direction(dx, dy);
-        Fleche fleche = new Fleche(getPosition().getX(), getPosition().getY(), getEnvironnement(), d);
-        armeDistance.setProjectile(fleche);
-        armeDistance.utiliserArme();
-    }
-
-    public void attaquerMelee(Guerrier ennemi) {
-        ArmeMelee armeMelee = (ArmeMelee) getArme();
-        ennemi.seFaitAttaquer(armeMelee.getPtsDegats());
-        if (ennemi.estMort()) {
-            getEnvironnement().enleverActeur(ennemi);
-        }
-    }
 
     public boolean estProcheDeActeur(Acteur acteur, double distanceSeuil) {
         double distance = distance(acteur.getPosition());

@@ -17,18 +17,25 @@ public class CreationLabyrinthe implements CreationEnv{
         environnement.getHero().getDirection().setDx(0);
         environnement.getHero().getDirection().setDy(0);
 
-        Epee e = new Epee(0, 0, environnement);
+        Epee e1 = new Epee(0, 0, environnement,null);
+        Epee e2 = new Epee(0, 0, environnement,null);
+        Epee e3 = new Epee(0, 0, environnement,null);
+        Epee e4 = new Epee(0, 0, environnement,null);
+        Epee e5 = new Epee(0, 0, environnement,null);
+        Epee e6 = new Epee(0, 0, environnement,null);
+        Epee e7 = new Epee(0, 0, environnement,null);
+        Epee e8 = new Epee(0, 0, environnement,null);
 
         Direction d = new Direction(0, 0);
 
-        Garde g1 = new Garde(500, 350, environnement, d, e);
-        Garde g2 = new Garde(750, 50, environnement, d, e);
-        Garde g3 = new Garde(890, 350, environnement, d, e);
-        Garde g4 = new Garde(1250, 300, environnement, d, e);
-        Garde g5 = new Garde(1250, 650, environnement, d, e);
-        Garde g6 = new Garde(800, 740, environnement, d, e);
-        Garde g7 = new Garde(1350, 390, environnement, d, e);
-        Garde g8 = new Garde(1350, 100, environnement, d, e);
+        Garde g1 = new Garde(500, 350, environnement, d, e1);
+        Garde g2 = new Garde(750, 50, environnement, d, e2);
+        Garde g3 = new Garde(890, 350, environnement, d, e3);
+        Garde g4 = new Garde(1250, 300, environnement, d, e4);
+        Garde g5 = new Garde(1250, 650, environnement, d, e5);
+        Garde g6 = new Garde(800, 740, environnement, d, e6);
+        Garde g7 = new Garde(1350, 390, environnement, d, e7);
+        Garde g8 = new Garde(1350, 100, environnement, d, e8);
 
         Clef cle = new Clef("1", 900, 700, environnement);
 

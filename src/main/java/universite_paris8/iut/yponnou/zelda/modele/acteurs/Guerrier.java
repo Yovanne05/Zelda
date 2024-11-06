@@ -15,6 +15,10 @@ public abstract class Guerrier extends Acteur {
         super(x, y, environnement, vitesse, direction);
         this.arme = arme;
         this.pv = new SimpleIntegerProperty(pv);
+        if (arme != null) {
+            arme.setProprietaire(this);
+            arme.setPosition(this.getPosition());
+        }
     }
 
     public Arme getArme() {
@@ -47,6 +51,18 @@ public abstract class Guerrier extends Acteur {
         } else {
             mourir();
         }
+    }
+
+    public Guerrier verifGuerrierAcoter(double distanceSeuil) {
+        for (Acteur acteur : this.getEnvironnement().acteursProperty()) {
+            if (acteur instanceof Guerrier) {
+                Guerrier guerrier = (Guerrier) acteur;
+                if (estProcheDeActeur(guerrier, distanceSeuil)) {
+                    return guerrier;
+                }
+            }
+        }
+        return null;
     }
 
     public int calculerNouveauxPv(int degats) {

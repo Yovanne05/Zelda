@@ -27,6 +27,9 @@ public class Inventaire {
 
     public void ajouterObjet(Objet objet) {
         if (inventaire.size() < capaciteMax) {
+            if(objet instanceof Arme){
+                objet.setPosition(hero.getPosition());
+            }
             inventaire.add(objet);
             objet.getEnvironnement().enleverObjet(objet);
         }
