@@ -7,7 +7,7 @@ public abstract class ArmePouvoir extends Arme {
     private final int degatsOrigine;
 
     public ArmePouvoir(Arme arme) {
-        super(arme.getPosition().getX(), arme.getPosition().getY(), arme.getEnvironnement(), arme.getPtsDegats(), arme.getProprietaire());
+        super(arme.getPosition().getX(), arme.getPosition().getY(), arme.getEnvironnement(), arme.getPtsDegats(), arme.getProprietaire(), arme.getPortee());
         this.arme = arme;
         this.degatsOrigine = arme.getPtsDegats();
     }

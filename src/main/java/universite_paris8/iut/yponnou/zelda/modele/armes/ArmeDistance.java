@@ -10,8 +10,8 @@ public abstract class ArmeDistance extends Arme{
     private DoubleProperty posy;
     private Projectile projectile;
 
-    public ArmeDistance(double posxi, double posyi, Projectile projectile, Environnement environnement, Guerrier proprietaire) {
-        super(posxi,posyi,environnement, projectile.getPtsDegats(), proprietaire);
+    public ArmeDistance(double posxi, double posyi, Projectile projectile, Environnement environnement, Guerrier proprietaire, double portee) {
+        super(posxi,posyi,environnement, projectile.getPtsDegats(), proprietaire,portee);
         this.projectile=projectile;
         posx=new SimpleDoubleProperty(posxi);
         posy=new SimpleDoubleProperty(posyi);

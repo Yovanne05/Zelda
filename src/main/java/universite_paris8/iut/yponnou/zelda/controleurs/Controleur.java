@@ -22,7 +22,11 @@ import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs.Obse
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie.ObservateurCoeurs;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.armes.ArcArme;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Epee;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Fleche;
+import universite_paris8.iut.yponnou.zelda.modele.armes.decorator.ArmeDistanceFeu;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.*;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Map;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Hero;
@@ -78,7 +82,8 @@ public class Controleur implements Initializable {
         hero.getInventaire().inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
         heroVue = new HeroVue(hero, paneMap);
 
-        environnement = new Environnement(mapActuelle,hero);
+        environnement = Environnement.getInstance();
+        environnement.miseEnPlaceEnv(mapActuelle,hero);
         environnement.objetsProperty().addListener(new ObservateurObjets(paneObjets));
         environnement.acteursProperty().addListener(new ObservateurActeurs(paneMap));
         hero.changeEnvObjets(environnement);

@@ -8,8 +8,8 @@ import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 public abstract class ArmeMelee extends Arme{
     private ComportementArme comportementAttaque;
 
-    public ArmeMelee(double x, double y, int ptsDegats, Environnement environnement, Guerrier proprietaire) {
-        super(x, y, environnement, ptsDegats, proprietaire);
+    public ArmeMelee(double x, double y, int ptsDegats, Environnement environnement, Guerrier proprietaire,double portee) {
+        super(x, y, environnement, ptsDegats, proprietaire,portee);
         this.comportementAttaque = new ComportementMelee(this);
     }
 

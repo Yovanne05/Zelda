@@ -10,13 +10,11 @@ import java.util.ArrayList;
 public class Map{
     private int[][] tabNum;
     private int hauteur, largeur;
-    private int mapIndex;
 
     public Map(int h, int l) {
         this.hauteur = h;
         this.largeur = l;
         this.tabNum = new int[h][l];
-        this.mapIndex = 0;
     }
     public int getHauteur() {
         return hauteur;
@@ -38,12 +36,10 @@ public class Map{
             String line;
 
             while ((line = br.readLine()) != null) {
-                // On enlève les espaces inutiles autour de chaque valeur
                 String[] values = line.split(",");
 
                 int[] row = new int[values.length];
                 for (int col = 0; col < values.length; col++) {
-                    // On utilise trim() pour enlever les espaces avant et après chaque valeur
                     row[col] = Integer.parseInt(values[col].trim());
                 }
                 tempList.add(row);
@@ -76,7 +72,4 @@ public class Map{
         readFromCSV("src/main/resources/universite_paris8/iut/yponnou/zelda/maps/entreeDonjon.csv");
     }
 
-    public int getMapIndex() {
-        return  mapIndex ;
-    }
 }

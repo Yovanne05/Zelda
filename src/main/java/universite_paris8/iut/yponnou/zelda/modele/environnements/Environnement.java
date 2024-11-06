@@ -7,22 +7,45 @@ import universite_paris8.iut.yponnou.zelda.modele.acteurs.*;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Environnement{
-    private final int largeur;
-    private final int hauteur;
+    private static Environnement uniqueInstance=null;
+    private int largeur;
+    private int hauteur;
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
     private ObservableList<Objet> objets = FXCollections.observableArrayList();
     private Map map;
     private Hero hero;
     private CreationEnv creationEnv;
 
-    public Environnement(Map map, Hero hero) {
+    public Environnement() {
+        this.map = null;
+        this.hero = null;
+        this.largeur = 0;
+        this.hauteur = 0;
+        creationEnv = null;
+    }
+
+    public void miseEnPlaceEnv(Map map, Hero hero) {
         this.map = map;
         this.hero = hero;
         this.largeur = this.map.getLargeur()*Constante.TAILLE50;
         this.hauteur = this.map.getHauteur()*Constante.TAILLE50;
         creationEnv = null;
+    }
+
+    public static Environnement getInstance() {
+        if(uniqueInstance==null) {
+            uniqueInstance= new Environnement();
+        }
+        return uniqueInstance;
+    }
+
+    public void setHero(Hero hero) {
+        this.hero = hero;
     }
 
     public ObservableList<Acteur> getActeurs() {
@@ -136,16 +159,10 @@ public class Environnement{
                 '}';
     }
 
-    public boolean verifEnnemiMort(){
-//        for (int i=0;i<acteursProperty().size();i++){
-//            if(acteursProperty().get(i) instanceof Ennemi){
-//                if(((Ennemi) acteursProperty().get(i)).getPv()>0){
-//                    return false;
-//                }
-//            }
-//        }
-//        return true;
+    public boolean verifEnnemiMort() {
+        if (creationEnv instanceof CreationDonjon) {
+            return acteurs.stream().noneMatch(acteur -> acteur instanceof Boss);
+        }
         return false;
     }
-
 }

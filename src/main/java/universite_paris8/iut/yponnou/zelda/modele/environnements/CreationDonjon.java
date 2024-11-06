@@ -1,10 +1,7 @@
 package universite_paris8.iut.yponnou.zelda.modele.environnements;
 
 import javafx.beans.Observable;
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.Boss;
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.Chevalier;
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.Frere;
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.Hero;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.*;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Epee;
 
@@ -22,9 +19,9 @@ public class CreationDonjon implements CreationEnv{
         environnement.getHero().getDirection().setDx(0);
         environnement.getHero().getDirection().setDy(0);
 
-        Epee eboss = new Epee(800, 580, environnement,null);
-        Epee echevalier = new Epee(800, 580, environnement,null);
-        Epee echevalier2 = new Epee(800, 580, environnement,null);
+        Epee eboss = new Epee(800, 580, environnement,null,350);
+        Epee echevalier = new Epee(800, 580, environnement,null,80);
+        Epee echevalier2 = new Epee(800, 580, environnement,null,80);
 
         eboss.setPtsDegats(5);
         echevalier.setPtsDegats(2);
@@ -35,13 +32,11 @@ public class CreationDonjon implements CreationEnv{
         Direction dChevalier2 = new Direction(1, 0);
         Direction dFrere = new Direction(1, 0);
 
-        // Créer les personnages et objets du Donjon
         Boss boss = new Boss(730, 100, environnement, dBoss, eboss);
         Chevalier chevalier = new Chevalier(270, 770, environnement, dChevalier1, echevalier);
         Chevalier chevalier2 = new Chevalier(1220, 760, environnement, dChevalier2, echevalier2);
         Frere frere = new Frere(300, 100, environnement, dFrere);
 
-        // Ajouter les acteurs à l'environnement
         environnement.ajouterActeur(hero);
         environnement.ajouterActeur(boss);
         environnement.ajouterActeur(chevalier);

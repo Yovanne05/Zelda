@@ -16,7 +16,7 @@ public class Boss extends Ennemi {
         Hero hero = verifHeroProx(350);
         if (hero != null) {
             foncerSurHero(hero);
-            verifierEtAttaquer(350);
+            attaquerHero();
         }
     }
 

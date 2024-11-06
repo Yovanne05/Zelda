@@ -14,7 +14,7 @@ public class Garde extends Ennemi{
 
     @Override
     public void deplacementEnnemi() {
-        verifierEtAttaquer(60);
+        attaquerHero();
     }
 
 }

@@ -114,7 +114,7 @@ public class VendeurVue extends ActeurVue {
         Button buttonEpee = new Button("Épée");
         buttonEpee.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 2px;");
         buttonEpee.setOnAction(e -> {
-            hero.getInventaire().ajouterObjet(new Epee(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(), this.getActeur().getEnvironnement(),this.getActeur().getEnvironnement().getHero()));
+            hero.getInventaire().ajouterObjet(new Epee(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(), this.getActeur().getEnvironnement(),this.getActeur().getEnvironnement().getHero(), 80));
             dialog.setResult(ButtonType.OK);
             dialog.close();
         });
@@ -122,7 +122,7 @@ public class VendeurVue extends ActeurVue {
         Button buttonEpeeFeu = new Button("Épée en Feu");
         buttonEpeeFeu.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 2px;");
         buttonEpeeFeu.setOnAction(e -> {
-            Arme epee = new Epee(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(), this.getActeur().getEnvironnement(),this.getActeur().getEnvironnement().getHero());
+            Arme epee = new Epee(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(), this.getActeur().getEnvironnement(),this.getActeur().getEnvironnement().getHero(), 80);
             epee = new ArmeMeleeFeu((Epee)epee);
             hero.getInventaire().ajouterObjet(epee);
             dialog.setResult(ButtonType.OK);

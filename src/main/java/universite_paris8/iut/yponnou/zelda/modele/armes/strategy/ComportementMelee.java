@@ -22,7 +22,7 @@ public class ComportementMelee implements ComportementArme{
         for (Acteur acteur : acteursList) {
             if (acteur instanceof Guerrier && acteur != armeMelee.getProprietaire()) {
                 Guerrier guerrier = (Guerrier) acteur;
-                if (armeMelee.getProprietaire().estProcheDeActeur(guerrier, 100)) {
+                if (armeMelee.getProprietaire().estProcheDeActeur(guerrier, armeMelee.getPortee())) {
                     guerrier.seFaitAttaquer(armeMelee.getPtsDegats());
                 }
             }

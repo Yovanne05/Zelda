@@ -11,20 +11,20 @@ public class CreationLabyrinthe implements CreationEnv{
     @Override
     public void creationEnvironnement(Environnement environnement) {
         environnement.getMap().initialisationMapLabyrinthe();
-        Hero hero = environnement.getHero(); // Récupérer l'Hero depuis l'Environnement
+        Hero hero = environnement.getHero();
         environnement.getHero().changeEnvObjets(environnement);
         environnement.getHero().setEnvironnement(environnement);
         environnement.getHero().getDirection().setDx(0);
         environnement.getHero().getDirection().setDy(0);
 
-        Epee e1 = new Epee(0, 0, environnement,null);
-        Epee e2 = new Epee(0, 0, environnement,null);
-        Epee e3 = new Epee(0, 0, environnement,null);
-        Epee e4 = new Epee(0, 0, environnement,null);
-        Epee e5 = new Epee(0, 0, environnement,null);
-        Epee e6 = new Epee(0, 0, environnement,null);
-        Epee e7 = new Epee(0, 0, environnement,null);
-        Epee e8 = new Epee(0, 0, environnement,null);
+        Epee e1 = new Epee(0, 0, environnement,null,60);
+        Epee e2 = new Epee(0, 0, environnement,null,60);
+        Epee e3 = new Epee(0, 0, environnement,null,60);
+        Epee e4 = new Epee(0, 0, environnement,null,60);
+        Epee e5 = new Epee(0, 0, environnement,null,60);
+        Epee e6 = new Epee(0, 0, environnement,null,60);
+        Epee e7 = new Epee(0, 0, environnement,null,60);
+        Epee e8 = new Epee(0, 0, environnement,null,60);
 
         Direction d = new Direction(0, 0);
 

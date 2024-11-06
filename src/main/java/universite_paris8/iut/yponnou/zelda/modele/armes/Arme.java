@@ -12,11 +12,13 @@ public abstract class Arme extends Objet implements UtilisationArme {
 
     private int ptsDegats;
     private Guerrier proprietaire;
+    private double portee;
 
-    public Arme(double x, double y, Environnement environnement, int ptsDegats, Guerrier proprietaire) {
+    public Arme(double x, double y, Environnement environnement, int ptsDegats, Guerrier proprietaire, double portee) {
         super(x, y, environnement);
         this.ptsDegats = ptsDegats;
         this.proprietaire = proprietaire;
+        this.portee = portee;
     }
 
     public int getPtsDegats() {
@@ -29,6 +31,14 @@ public abstract class Arme extends Objet implements UtilisationArme {
 
     public Guerrier getProprietaire() {
         return proprietaire;
+    }
+
+    public double getPortee() {
+        return portee;
+    }
+
+    public void setPortee(double portee) {
+        this.portee = portee;
     }
 
     public void setProprietaire(Guerrier proprietaire) {

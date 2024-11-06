@@ -19,20 +19,11 @@ public abstract class Ennemi extends Guerrier {
 
     public void attaquerHero() {
         long tempsActuel = System.currentTimeMillis();
-        Hero hero = verifHeroProx(100);
-        if (hero != null) {
-            if (tempsActuel - this.getDerniereAttaque() >= 250) {
-                getArme().utiliserArme();
-                this.setDerniereAttaque(tempsActuel);
-            }
+        if (tempsActuel - this.getDerniereAttaque() >= 250) {
+            getArme().utiliserArme();
+            this.setDerniereAttaque(tempsActuel);
         }
-    }
 
-    public void verifierEtAttaquer(double distanceSeuil) {
-        Hero hero = verifHeroProx(distanceSeuil);
-        if (hero != null) {
-            attaquerHero();
-        }
     }
 
     public Hero verifHeroProx(double distanceSeuil) {

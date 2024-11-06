@@ -9,8 +9,8 @@ import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 public class Epee extends ArmeMelee {
 
 
-    public Epee(double x, double y, Environnement environnement, Guerrier proprietaire) {
-        super(x, y, 5, environnement, proprietaire);
+    public Epee(double x, double y, Environnement environnement, Guerrier proprietaire, double portee) {
+        super(x, y, 5, environnement, proprietaire, portee);
     }
 
 

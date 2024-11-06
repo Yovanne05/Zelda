@@ -10,7 +10,7 @@ public class CreationVillage implements CreationEnv {
     @Override
     public void creationEnvironnement(Environnement environnement) {
         environnement.getMap().initialisationMapVillage();
-        Hero hero = environnement.getHero(); // On récupère l'Hero directement depuis l'Environnement
+        Hero hero = environnement.getHero();
         hero.changeEnvObjets(environnement);
         hero.getPosition().setX(300);
         hero.getPosition().setY(500);
@@ -21,7 +21,6 @@ public class CreationVillage implements CreationEnv {
         Direction directionVendeur = new Direction(0, 0);
         Direction directionPaysan = new Direction(0, 0);
 
-        // Créer les acteurs et objets spécifiques au Village
         Vendeur vendeur = new Vendeur(500, 500, environnement, directionVendeur);
         Paysan paysan = new Paysan(330, 300, environnement, directionPaysan);
 
@@ -30,9 +29,7 @@ public class CreationVillage implements CreationEnv {
         Pomme p3 = new Pomme(1200, 450, environnement);
         Pomme p4 = new Pomme(900, 550, environnement);
         Pomme p5 = new Pomme(1100, 550, environnement);
-        System.out.println(p5.getId());
 
-        // Ajouter les acteurs et objets à l'environnement
         environnement.ajouterActeur(vendeur);
         environnement.ajouterActeur(paysan);
         environnement.ajouterObjet(p1);

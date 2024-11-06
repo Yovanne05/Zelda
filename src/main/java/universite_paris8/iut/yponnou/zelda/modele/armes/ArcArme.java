@@ -10,7 +10,7 @@ import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 public class ArcArme extends ArmeDistance {
 
     public ArcArme(double posxi, double posyi, Projectile projectile, Environnement environnement, Guerrier proprietaire) {
-        super(posxi, posyi, projectile, environnement, proprietaire);
+        super(posxi, posyi, projectile, environnement, proprietaire, projectile.getPortee());
     }
 
     @Override
