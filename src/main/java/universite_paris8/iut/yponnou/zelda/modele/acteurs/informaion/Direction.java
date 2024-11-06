@@ -31,6 +31,7 @@ public class Direction {
         this.dy = dy;
     }
 
+
     public String directionString() {
         String direction = "";
         if(dx==0 && dy==-1) {

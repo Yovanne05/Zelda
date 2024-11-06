@@ -121,14 +121,14 @@ public class Controleur implements Initializable {
     @FXML
     public void interaction(KeyEvent event) throws InterruptedException {
         KeyCode key = event.getCode();
-        Hero p = environnement.heroEnv();
+        Hero h = environnement.heroEnv();
         Objet ob;
-        if (p != null) {
+        if (h != null) {
             switch (key) {
                 case Z:
                 case UP:
-                    p.getDirection().changementDirection(0, -1);
-                    p.deplacement();
+                    h.getDirection().changementDirection(0, -1);
+                    h.deplacement();
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int) (hero.getPosition().getY() / 50)][(int) hero.getPosition().getX() / 50]);
                     adjustCamera();
@@ -136,8 +136,8 @@ public class Controleur implements Initializable {
                     break;
                 case S:
                 case DOWN:
-                    p.getDirection().changementDirection(0, 1);
-                    p.deplacement();
+                    h.getDirection().changementDirection(0, 1);
+                    h.deplacement();
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int) (hero.getPosition().getY() / 50)][(int) hero.getPosition().getX() / 50]);
                     adjustCamera();
@@ -145,8 +145,8 @@ public class Controleur implements Initializable {
                     break;
                 case D:
                 case RIGHT:
-                    p.getDirection().changementDirection(1, 0);
-                    p.deplacement();
+                    h.getDirection().changementDirection(1, 0);
+                    h.deplacement();
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int) (hero.getPosition().getY() / 50)][(int) hero.getPosition().getX() / 50]);
                     adjustCamera();
@@ -154,58 +154,61 @@ public class Controleur implements Initializable {
                     break;
                 case Q:
                 case LEFT:
-                    p.getDirection().changementDirection(-1, 0);
-                    p.deplacement();
+                    h.getDirection().changementDirection(-1, 0);
+                    h.deplacement();
                     heroVue.upgradeSprite();
                     changementMapPossible(environnement.getMap().getTabNum()[(int) (hero.getPosition().getY() / 50)][(int) hero.getPosition().getX() / 50]);
                     adjustCamera();
                     bruitPas.run();
                     break;
                 case E:
-                    p.recuperer();
+                    h.recuperer();
                     break;
                 case K:
-                    if (!p.getInventaire().inventaireProperty().isEmpty()) {
-                        ob = p.getInventaire().inventaireProperty().get(0);
-                        p.deposer(ob);
+                    if (!h.getInventaire().inventaireProperty().isEmpty()) {
+                        ob = h.getInventaire().inventaireProperty().get(0);
+                        h.deposer(ob);
                     }
                     break;
                 case M:
-                    p.guerison();
+                    h.guerison();
+                    break;
+                case B:
+                    h.realiserFoncerEtAttque();
                     break;
                 case J:
-                    p.attaquer();
-                    if (p.getArme() instanceof Epee)
+                    h.attaquer();
+                    if (h.getArme() instanceof Epee)
                         sonEpee.run();
                     break;
                 case AMPERSAND:
                 case DIGIT1:
-                    p.selectionObjet(0);
+                    h.selectionObjet(0);
                     break;
                 case UNDEFINED:
                 case DIGIT2:
-                    p.selectionObjet(1);
+                    h.selectionObjet(1);
                     break;
                 case QUOTEDBL:
                 case DIGIT3:
-                    p.selectionObjet(2);
+                    h.selectionObjet(2);
                     break;
                 case QUOTE:
                 case DIGIT4:
-                    p.selectionObjet(3);
+                    h.selectionObjet(3);
                     break;
                 case LEFT_PARENTHESIS:
                 case DIGIT5:
-                    p.selectionObjet(4);
+                    h.selectionObjet(4);
                     break;
                 case A:
                     if (environnement.paysansQuiParle() != null) {
-                        if (p.estProcheDeActeur(environnement.paysansQuiParle(), 80)) {
-                            PaysanVue paysanVue = new PaysanVue(p, paneMap);
+                        if (h.estProcheDeActeur(environnement.paysansQuiParle(), 80)) {
+                            PaysanVue paysanVue = new PaysanVue(h, paneMap);
                             paysanVue.parler();
                         }
-                        if (p.estProcheDeActeur(environnement.obtenirVendeur(), 80)) {
-                            VendeurVue vendeurVue = new VendeurVue(p, paneMap);
+                        if (h.estProcheDeActeur(environnement.obtenirVendeur(), 80)) {
+                            VendeurVue vendeurVue = new VendeurVue(h, paneMap);
                             vendeurVue.proposerObjet(hero);
                         }
                     }

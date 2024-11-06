@@ -1,6 +1,8 @@
 package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.action.ActionComposite;
+import universite_paris8.iut.yponnou.zelda.modele.action.ComboFoncerAttaque;
 import universite_paris8.iut.yponnou.zelda.modele.aliments.Nourriture;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.armes.ArmeDistance;
@@ -13,13 +15,31 @@ import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 import universite_paris8.iut.yponnou.zelda.modele.inventaire.Inventaire;
 import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
 
+import java.util.ArrayList;
+
 public class Hero extends Guerrier {
 
     private final Inventaire inventaire;
+    private ArrayList<ActionComposite> lstCombo;
 
     public Hero(double x, double y, Environnement environnement, Direction direction, Arme arme) {
         super(x, y, environnement, 10, direction, arme, 100);
         this.inventaire = new Inventaire(5, this);
+        this.lstCombo = new ArrayList<>();
+        ajoutComboDeBase();
+    }
+
+    public void ajoutComboDeBase(){
+        ComboFoncerAttaque comboFoncerAttaque = new ComboFoncerAttaque();
+        this.lstCombo.add(comboFoncerAttaque);
+    }
+
+    public void realiserFoncerEtAttque(){
+        for(ActionComposite action : lstCombo){
+            if(action instanceof ComboFoncerAttaque){
+                action.executer(this);
+            }
+        }
     }
 
     public Inventaire getInventaire() {
@@ -94,7 +114,12 @@ public class Hero extends Guerrier {
     }
 
     public void attaquer() {
-        getArme().utiliserArme();
+        try {
+            getArme().utiliserArme();
+        }catch (Exception e){
+            System.out.println("Pas d'arme en mains");
+        }
+
     }
 
 

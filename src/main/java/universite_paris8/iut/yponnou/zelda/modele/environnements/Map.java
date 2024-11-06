@@ -25,9 +25,6 @@ public class Map{
     public int[][] getTabNum() {
         return tabNum;
     }
-    public void setIndexTab(int x, int y, int val) {
-        tabNum[y][x] = val;
-    }
 
     //Lire le fichier CSV et remplir le tableau
     public void readFromCSV(String filePath) {

@@ -106,7 +106,6 @@ public abstract class Acteur extends Objet {
         Direction newDirection = new Direction(directionX,directionY);
         direction.changementDirection(newDirection.getDx(), newDirection.getDy());
 
-        // Nouvelle pos
         double[] prochainePosition = calculerProchainePosition();
         double prochainX = prochainePosition[0];
         double prochainY = prochainePosition[1];
