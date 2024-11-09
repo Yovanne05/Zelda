@@ -23,7 +23,6 @@ public class HeroVue extends ActeurVue{
     private final Image playerDownS = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/player/player_downS.gif");
 
 
-
     public HeroVue(Acteur acteur, Pane pane) {
         super(acteur, pane);
     }
@@ -58,6 +57,7 @@ public class HeroVue extends ActeurVue{
         imageView.translateYProperty().bind(getActeur().getPosition().yProperty());
         imageView.setId(getActeur().getId());
         getPane().getChildren().add(imageView);
+
     }
 
     @Override
@@ -76,6 +76,7 @@ public class HeroVue extends ActeurVue{
         imageView.translateYProperty().bind(getActeur().getPosition().yProperty());
         imageView.setId(getActeur().getId());
         getPane().getChildren().add(imageView);
+
     }
 
     public void upgradeSpriteStatic() {
@@ -94,7 +95,9 @@ public class HeroVue extends ActeurVue{
         imageView.translateXProperty().bind(getActeur().getPosition().xProperty());
         imageView.translateYProperty().bind(getActeur().getPosition().yProperty());
         imageView.setId(getActeur().getId());
-        getPane().getChildren().add(imageView);
 
+        getPane().getChildren().add(imageView);
     }
+
+
 }

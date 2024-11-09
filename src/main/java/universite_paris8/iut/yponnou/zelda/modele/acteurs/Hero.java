@@ -1,5 +1,7 @@
 package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.action.ActionComposite;
 import universite_paris8.iut.yponnou.zelda.modele.action.ComboFoncerAttaque;
@@ -21,42 +23,47 @@ public class Hero extends Guerrier {
 
     private final Inventaire inventaire;
     private ArrayList<ActionComposite> lstCombo;
-    private double stamina; // Ajout de l'attribut stamina
+    private DoubleProperty stamina; // Ajout de l'attribut stamina
 
     public Hero(double x, double y, Environnement environnement, Direction direction, Arme arme) {
         super(x, y, environnement, 10, direction, arme, 100);
         this.inventaire = new Inventaire(5, this);
         this.lstCombo = new ArrayList<>();
-        this.stamina = 100; // Initialisation de stamina à 100
+        this.stamina = new SimpleDoubleProperty(100);  // 100% de stamina au départ
         ajoutComboDeBase();
     }
+///
+public DoubleProperty staminaProperty() {
+    return stamina;
+}
+    ///
 
     public void ajoutComboDeBase() {
         ComboFoncerAttaque comboFoncerAttaque = new ComboFoncerAttaque();
         this.lstCombo.add(comboFoncerAttaque);
     }
 
-    public void realiserFoncerEtAttque() {
-        if (this.stamina >= 50) { // Vérifie si la stamina est suffisante
+    public void realiserFoncerEtAttaque() {
+        if (this.getStamina() >= 50) { // Vérifie si la stamina est suffisante via la propriété
             for (ActionComposite action : lstCombo) {
                 if (action instanceof ComboFoncerAttaque) {
                     action.executer(this);
-                    this.stamina -= 50; // Réduit la stamina après l'exécution
-                    System.out.println("Combo Foncer Attaque réalisé ! Stamina restante : " + this.stamina);
+                    this.setStamina(this.getStamina() - 50); // Réduit la stamina après l'exécution via la propriété
+                    System.out.println("Combo Foncer Attaque réalisé ! Stamina restante : " + this.getStamina());
                 }
             }
-        } else {
-            System.out.println("Stamina insuffisante pour réaliser le combo !");
         }
     }
 
-    public void augmenterStamina() {
-        this.stamina = Math.min(this.stamina + 1,100);
-        System.out.println(this.stamina);// Assurez-vous de ne pas dépasser le maximum
+    public double getStamina() {
+        return stamina.get();
+    }
+    public void setStamina(double stamina) {
+        this.stamina.set(stamina);
     }
 
-    public double getStamina() {
-        return this.stamina;  // suppose que stamina est une variable entre 0 et 100
+    public void augmenterStamina() {
+        setStamina(Math.min(getStamina()+0.5,100));
     }
 
 
@@ -146,5 +153,7 @@ public class Hero extends Guerrier {
         double distance = distance(acteur.getPosition());
         return distance <= distanceSeuil;
     }
+
+
 
 }

@@ -36,6 +36,7 @@ public abstract class Guerrier extends Acteur {
     public int getPv() {
         return pv.getValue();
     }
+
     public IntegerProperty pvProperty() {
         return pv;
     }
