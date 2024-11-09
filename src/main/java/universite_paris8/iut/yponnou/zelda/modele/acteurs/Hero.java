@@ -21,26 +21,45 @@ public class Hero extends Guerrier {
 
     private final Inventaire inventaire;
     private ArrayList<ActionComposite> lstCombo;
+    private double stamina; // Ajout de l'attribut stamina
 
     public Hero(double x, double y, Environnement environnement, Direction direction, Arme arme) {
         super(x, y, environnement, 10, direction, arme, 100);
         this.inventaire = new Inventaire(5, this);
         this.lstCombo = new ArrayList<>();
+        this.stamina = 100; // Initialisation de stamina à 100
         ajoutComboDeBase();
     }
 
-    public void ajoutComboDeBase(){
+    public void ajoutComboDeBase() {
         ComboFoncerAttaque comboFoncerAttaque = new ComboFoncerAttaque();
         this.lstCombo.add(comboFoncerAttaque);
     }
 
-    public void realiserFoncerEtAttque(){
-        for(ActionComposite action : lstCombo){
-            if(action instanceof ComboFoncerAttaque){
-                action.executer(this);
+    public void realiserFoncerEtAttque() {
+        if (this.stamina >= 50) { // Vérifie si la stamina est suffisante
+            for (ActionComposite action : lstCombo) {
+                if (action instanceof ComboFoncerAttaque) {
+                    action.executer(this);
+                    this.stamina -= 50; // Réduit la stamina après l'exécution
+                    System.out.println("Combo Foncer Attaque réalisé ! Stamina restante : " + this.stamina);
+                }
             }
+        } else {
+            System.out.println("Stamina insuffisante pour réaliser le combo !");
         }
     }
+
+    public void augmenterStamina() {
+        this.stamina = Math.min(this.stamina + 1,100);
+        System.out.println(this.stamina);// Assurez-vous de ne pas dépasser le maximum
+    }
+
+    public double getStamina() {
+        return this.stamina;  // suppose que stamina est une variable entre 0 et 100
+    }
+
+
 
     public Inventaire getInventaire() {
         return inventaire;
@@ -127,4 +146,5 @@ public class Hero extends Guerrier {
         double distance = distance(acteur.getPosition());
         return distance <= distanceSeuil;
     }
+
 }

@@ -355,6 +355,7 @@ public class Controleur implements Initializable {
                         }
                     }
                     temps++;
+                    hero.augmenterStamina();
                 }
         );
         gameLoop.getKeyFrames().add(kf);
