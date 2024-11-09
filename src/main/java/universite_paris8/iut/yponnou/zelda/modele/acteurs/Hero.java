@@ -66,8 +66,6 @@ public DoubleProperty staminaProperty() {
         setStamina(Math.min(getStamina()+0.5,100));
     }
 
-
-
     public Inventaire getInventaire() {
         return inventaire;
     }
