@@ -9,7 +9,7 @@ import universite_paris8.iut.yponnou.zelda.modele.armes.strategy.ComportementArm
 import universite_paris8.iut.yponnou.zelda.modele.armes.strategy.ComportementProjectile;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
-public class Projectile extends Acteur{
+public abstract class Projectile extends Acteur{
     private int ptsDegats;
     private double portee;
     private ComportementArme comportementAttaque;

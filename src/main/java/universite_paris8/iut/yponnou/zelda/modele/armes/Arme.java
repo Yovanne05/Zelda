@@ -8,7 +8,7 @@ import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 
 import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TAILLE50;
 
-public abstract class Arme extends Objet implements UtilisationArme {
+public abstract class Arme extends Objet {
 
     private int ptsDegats;
     private Guerrier proprietaire;
@@ -20,6 +20,8 @@ public abstract class Arme extends Objet implements UtilisationArme {
         this.proprietaire = proprietaire;
         this.portee = portee;
     }
+
+    public abstract void utiliserArme();
 
     public int getPtsDegats() {
         return ptsDegats;
