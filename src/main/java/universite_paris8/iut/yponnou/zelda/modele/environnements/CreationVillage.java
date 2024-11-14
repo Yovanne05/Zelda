@@ -10,13 +10,7 @@ public class CreationVillage implements CreationEnv {
     @Override
     public void creationEnvironnement(Environnement environnement) {
         environnement.getMap().initialisationMapVillage();
-        Hero hero = environnement.getHero();
-        hero.changeEnvObjets(environnement);
-        hero.getPosition().setX(300);
-        hero.getPosition().setY(500);
-        hero.setEnvironnement(environnement);
-        hero.getDirection().setDx(0);
-        hero.getDirection().setDy(0);
+        environnement.heroChangeEnv(300,500);
 
         Direction directionVendeur = new Direction(0, 0);
         Direction directionPaysan = new Direction(0, 0);
@@ -37,7 +31,7 @@ public class CreationVillage implements CreationEnv {
         environnement.ajouterObjet(p3);
         environnement.ajouterObjet(p4);
         environnement.ajouterObjet(p5);
-        environnement.ajouterActeur(hero);
+        environnement.ajouterActeur(environnement.getHero());
     }
 
 }

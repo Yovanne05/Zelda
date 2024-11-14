@@ -1,15 +1,12 @@
 package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.action.ActionComposite;
 import universite_paris8.iut.yponnou.zelda.modele.action.ComboFoncerAttaque;
 import universite_paris8.iut.yponnou.zelda.modele.aliments.Nourriture;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
-import universite_paris8.iut.yponnou.zelda.modele.armes.ArmeDistance;
-import universite_paris8.iut.yponnou.zelda.modele.armes.ArmeMelee;
-import universite_paris8.iut.yponnou.zelda.modele.armes.Fleche;
-import universite_paris8.iut.yponnou.zelda.modele.armes.decorator.ArmeDistanceFeu;
-import universite_paris8.iut.yponnou.zelda.modele.armes.decorator.ArmePouvoir;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 import universite_paris8.iut.yponnou.zelda.modele.inventaire.Inventaire;
@@ -21,25 +18,44 @@ public class Hero extends Guerrier {
 
     private final Inventaire inventaire;
     private ArrayList<ActionComposite> lstCombo;
+    private DoubleProperty stamina; // Ajout de l'attribut stamina
 
     public Hero(double x, double y, Environnement environnement, Direction direction, Arme arme) {
         super(x, y, environnement, 10, direction, arme, 100);
         this.inventaire = new Inventaire(5, this);
         this.lstCombo = new ArrayList<>();
+        this.stamina = new SimpleDoubleProperty(100);  // 100% de stamina au départ
         ajoutComboDeBase();
     }
+    public DoubleProperty staminaProperty() {
+        return stamina;
+    }
 
-    public void ajoutComboDeBase(){
+    public void ajoutComboDeBase() {
         ComboFoncerAttaque comboFoncerAttaque = new ComboFoncerAttaque();
         this.lstCombo.add(comboFoncerAttaque);
     }
 
-    public void realiserFoncerEtAttque(){
-        for(ActionComposite action : lstCombo){
-            if(action instanceof ComboFoncerAttaque){
-                action.executer(this);
+    public void realiserFoncerEtAttaque() {
+        if (this.getStamina() >= 50) {
+            for (ActionComposite action : lstCombo) {
+                if (action instanceof ComboFoncerAttaque) {
+                    action.executer(this);
+                    this.setStamina(this.getStamina() - 50);
+                }
             }
         }
+    }
+
+    public double getStamina() {
+        return stamina.get();
+    }
+    public void setStamina(double stamina) {
+        this.stamina.set(stamina);
+    }
+
+    public void augmenterStamina() {
+        setStamina(Math.min(getStamina()+0.5,100));
     }
 
     public Inventaire getInventaire() {
@@ -66,10 +82,6 @@ public class Hero extends Guerrier {
         Objet ob = objetsProches();
         if (ob != null) {
             if (!inventaire.estPlein() && estObjetProche(ob)) {
-                if(ob instanceof Arme){
-                    ((Arme) ob).setProprietaire(this);
-                    ((Arme) ob).setPosition(this.getPosition());
-                }
                 inventaire.ajouterObjet(ob);
             }
         }
@@ -121,8 +133,6 @@ public class Hero extends Guerrier {
         }
 
     }
-
-
     public boolean estProcheDeActeur(Acteur acteur, double distanceSeuil) {
         double distance = distance(acteur.getPosition());
         return distance <= distanceSeuil;

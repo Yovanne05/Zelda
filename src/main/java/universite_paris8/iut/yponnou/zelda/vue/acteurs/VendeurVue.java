@@ -35,7 +35,7 @@ public class VendeurVue extends ActeurVue {
     private Image getVendeurVue(String direction) {
         return switch (direction) {
             case "right", "left", "down", "up" -> vendeurVue;
-            default -> vendeurVue; // Image par défaut si la direction n'est pas définie
+            default -> vendeurVue;
         };
     }
 

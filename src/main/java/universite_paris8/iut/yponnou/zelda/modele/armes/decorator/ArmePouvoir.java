@@ -17,7 +17,7 @@ public abstract class ArmePouvoir extends Arme {
     }
 
     protected void appliquerBonus(int bonus) {
-        setPtsDegats(degatsOrigine + bonus);
+       arme.setPtsDegats(degatsOrigine + bonus);
     }
 
     protected void reinitialiserDegats() {

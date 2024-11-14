@@ -159,6 +159,13 @@ public class Environnement{
                 '}';
     }
 
+    public void heroChangeEnv(int x, int y){
+        hero.getPosition().setX(x);
+        hero.getPosition().setY(y);
+        hero.getDirection().setDx(0);
+        hero.getDirection().setDy(0);
+    }
+
     public boolean verifEnnemiMort() {
         if (creationEnv instanceof CreationDonjon) {
             return acteurs.stream().noneMatch(acteur -> acteur instanceof Boss);

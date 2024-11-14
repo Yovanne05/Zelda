@@ -22,15 +22,12 @@ import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs.Obse
 import universite_paris8.iut.yponnou.zelda.controleurs.observateurs.vie.ObservateurCoeurs;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
-import universite_paris8.iut.yponnou.zelda.modele.armes.ArcArme;
-import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Epee;
-import universite_paris8.iut.yponnou.zelda.modele.armes.Fleche;
-import universite_paris8.iut.yponnou.zelda.modele.armes.decorator.ArmeDistanceFeu;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.*;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Map;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
+import universite_paris8.iut.yponnou.zelda.vue.information.StaminaBar;
 import universite_paris8.iut.yponnou.zelda.vue.son.Son;
 import universite_paris8.iut.yponnou.zelda.vue.acteurs.HeroVue;
 import universite_paris8.iut.yponnou.zelda.vue.acteurs.PaysanVue;
@@ -61,6 +58,9 @@ public class Controleur implements Initializable {
     private HBox hboxInventaire;
     @FXML
     private HBox hboxVueInventaire;
+    // Déclaration de containerStaminaBar
+    private StackPane BarStamina;
+
 
     private Environnement environnement;
     private Hero hero;
@@ -81,6 +81,19 @@ public class Controleur implements Initializable {
         hero.pvProperty().addListener(new ObservateurCoeurs(paneCoeurs, new CoeursVue(paneCoeurs)));
         hero.getInventaire().inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
         heroVue = new HeroVue(hero, paneMap);
+
+        // Initialisation du conteneur de la barre de stamina
+        BarStamina = new StackPane();
+        // Ajoutez des éléments à la barre de stamina, comme une progress bar ou d'autres composants.
+        StaminaBar staminaBar = new StaminaBar(hero);
+        BarStamina.getChildren().add(staminaBar.getContainer());
+
+        // Par exemple, ajouter containerStaminaBar à un conteneur principal (comme un BorderPane ou autre)
+        paneMap.getChildren().add(BarStamina);
+
+
+
+
 
         environnement = Environnement.getInstance();
         environnement.miseEnPlaceEnv(mapActuelle,hero);
@@ -111,7 +124,7 @@ public class Controleur implements Initializable {
         for (Objet o : environnement.getObjets()) {
             paneObjets.getChildren().remove(paneObjets.lookup("#" + o.getId()));
         }
-        
+
         environnement.setCreationEnv(creationEnv);
         environnement.creationMap();
         MapVue mapVue = new MapVue(environnement.getMap().getTabNum(), tilePaneDecors);
@@ -174,7 +187,7 @@ public class Controleur implements Initializable {
                     h.guerison();
                     break;
                 case B:
-                    h.realiserFoncerEtAttque();
+                    h.realiserFoncerEtAttaque();
                     break;
                 case J:
                     h.attaquer();
@@ -327,6 +340,9 @@ public class Controleur implements Initializable {
         paneCoeurs.translateYProperty().bind(
                 paneMap.translateYProperty().multiply(-1)
         );
+        BarStamina.translateXProperty().bind(paneMap.translateXProperty().multiply(-1));
+        BarStamina.translateYProperty().bind(paneMap.translateYProperty().multiply(-1));
+
     }
 
     private void initAnimation() {
@@ -355,6 +371,7 @@ public class Controleur implements Initializable {
                         }
                     }
                     temps++;
+                    hero.augmenterStamina();
                 }
         );
         gameLoop.getKeyFrames().add(kf);

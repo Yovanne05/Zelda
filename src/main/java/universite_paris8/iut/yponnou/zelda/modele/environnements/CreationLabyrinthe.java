@@ -12,10 +12,7 @@ public class CreationLabyrinthe implements CreationEnv{
     public void creationEnvironnement(Environnement environnement) {
         environnement.getMap().initialisationMapLabyrinthe();
         Hero hero = environnement.getHero();
-        environnement.getHero().changeEnvObjets(environnement);
-        environnement.getHero().setEnvironnement(environnement);
-        environnement.getHero().getDirection().setDx(0);
-        environnement.getHero().getDirection().setDy(0);
+        environnement.heroChangeEnv(60,800);
 
         Epee e1 = new Epee(0, 0, environnement,null,60);
         Epee e2 = new Epee(0, 0, environnement,null,60);
@@ -50,7 +47,4 @@ public class CreationLabyrinthe implements CreationEnv{
         environnement.ajouterActeur(g7);
         environnement.ajouterActeur(g8);
     }
-
-
-
 }

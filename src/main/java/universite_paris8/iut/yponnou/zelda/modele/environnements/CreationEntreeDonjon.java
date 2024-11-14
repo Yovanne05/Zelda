@@ -7,13 +7,8 @@ public class CreationEntreeDonjon implements CreationEnv{
     @Override
     public void creationEnvironnement(Environnement environnement) {
         environnement.getMap().initialisationMapEntreeDonjon();
-        Hero hero = environnement.getHero();
-        hero.changeEnvObjets(environnement);
-        hero.setEnvironnement(environnement);
-
-        hero.getDirection().setDx(0);
-        hero.getDirection().setDy(0);
-        environnement.ajouterActeur(hero);
+        environnement.heroChangeEnv(725,540);
+        environnement.ajouterActeur(environnement.getHero());
     }
 
 }
