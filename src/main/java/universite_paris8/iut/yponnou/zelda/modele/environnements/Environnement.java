@@ -7,9 +7,6 @@ import universite_paris8.iut.yponnou.zelda.modele.acteurs.*;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class Environnement{
     private static Environnement uniqueInstance=null;
@@ -112,12 +109,11 @@ public class Environnement{
 
     public void toutLeMondeBouge(){
         for (int i=0; i<acteurs.size(); i++) {
-            if (acteurs.get(i) instanceof Ennemi) {
-                ((Ennemi) acteurs.get(i)).deplacementEnnemi();
+            Acteur a = acteurs.get(i);
+            if(a!=heroEnv()){
+                a.deplacement();
             }
-            else if (acteurs.get(i) instanceof Fleche) {
-                ((Fleche) acteurs.get(i)).deplacement();
-            }
+
         }
     }
     public Paysan paysansQuiParle(){

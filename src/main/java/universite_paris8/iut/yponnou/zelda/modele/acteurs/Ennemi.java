@@ -3,9 +3,6 @@ package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
-import universite_paris8.iut.yponnou.zelda.modele.armes.ArmeDistance;
-import universite_paris8.iut.yponnou.zelda.modele.armes.ArmeMelee;
-import universite_paris8.iut.yponnou.zelda.modele.armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
 public abstract class Ennemi extends Guerrier {
@@ -41,5 +38,5 @@ public abstract class Ennemi extends Guerrier {
         this.derniereAttaque = derniereAttaque;
     }
 
-    public abstract void deplacementEnnemi();
+    public abstract void deplacement();
 }

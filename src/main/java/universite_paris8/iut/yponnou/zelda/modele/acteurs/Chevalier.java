@@ -19,7 +19,7 @@ public class Chevalier extends Ennemi{
     }
 
     @Override
-    public void deplacementEnnemi() {
+    public void deplacement() {
         attaquerHero();
         changementDirectionSiPossible();
         this.deplacement();

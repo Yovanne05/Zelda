@@ -13,7 +13,7 @@ public class Garde extends Ennemi{
     }
 
     @Override
-    public void deplacementEnnemi() {
+    public void deplacement() {
         attaquerHero();
     }
 
