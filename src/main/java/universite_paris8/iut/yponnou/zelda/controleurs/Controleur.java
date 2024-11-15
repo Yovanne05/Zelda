@@ -26,6 +26,7 @@ import universite_paris8.iut.yponnou.zelda.modele.armes.Epee;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.*;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Map;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Hero;
+import universite_paris8.iut.yponnou.zelda.modele.objets.Clef;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 import universite_paris8.iut.yponnou.zelda.vue.information.StaminaBar;
 import universite_paris8.iut.yponnou.zelda.vue.son.Son;
@@ -82,18 +83,10 @@ public class Controleur implements Initializable {
         hero.getInventaire().inventaireProperty().addListener(new ObservateurInventaire(hboxInventaire));
         heroVue = new HeroVue(hero, paneMap);
 
-        // Initialisation du conteneur de la barre de stamina
         BarStamina = new StackPane();
-        // Ajoutez des éléments à la barre de stamina, comme une progress bar ou d'autres composants.
         StaminaBar staminaBar = new StaminaBar(hero);
         BarStamina.getChildren().add(staminaBar.getContainer());
-
-        // Par exemple, ajouter containerStaminaBar à un conteneur principal (comme un BorderPane ou autre)
         paneMap.getChildren().add(BarStamina);
-
-
-
-
 
         environnement = Environnement.getInstance();
         environnement.miseEnPlaceEnv(mapActuelle,hero);

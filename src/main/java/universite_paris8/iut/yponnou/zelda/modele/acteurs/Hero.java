@@ -126,6 +126,7 @@ public class Hero extends Guerrier {
     }
 
     public void attaquer() {
+        System.out.println(getPosition().getX() + " "+ getPosition().getY());
         try {
             getArme().utiliserArme();
         }catch (Exception e){

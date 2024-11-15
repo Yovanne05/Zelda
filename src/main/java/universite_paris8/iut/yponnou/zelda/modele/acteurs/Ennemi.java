@@ -23,7 +23,6 @@ public abstract class Ennemi extends Guerrier {
             getArme().utiliserArme();
             this.setDerniereAttaque(tempsActuel);
         }
-
     }
 
     public Hero verifHeroProx(double distanceSeuil) {
