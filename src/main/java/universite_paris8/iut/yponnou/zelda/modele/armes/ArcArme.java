@@ -2,7 +2,6 @@ package universite_paris8.iut.yponnou.zelda.modele.armes;
 
 
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Guerrier;
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
@@ -15,13 +14,13 @@ public class ArcArme extends ArmeDistance {
 
     @Override
     public void utiliserArme() {
-        creerFlecheDepuisHero();
+        creerFlecheDepuisProprietaire();
         Projectile p = this.getProjectile();
         this.getEnvironnement().ajouterActeur(p);
         p.utiliserProjectile();
     }
 
-    public void creerFlecheDepuisHero(){
+    public void creerFlecheDepuisProprietaire(){
         double dx = getProprietaire().getDirection().getDx();
         double dy = getProprietaire().getDirection().getDy();
         Direction d = new Direction(dx, dy);
