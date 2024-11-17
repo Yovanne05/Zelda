@@ -53,18 +53,6 @@ public abstract class Guerrier extends Acteur {
         }
     }
 
-    public Guerrier verifGuerrierAcoter(double distanceSeuil) {
-        for (Acteur acteur : this.getEnvironnement().acteursProperty()) {
-            if (acteur instanceof Guerrier) {
-                Guerrier guerrier = (Guerrier) acteur;
-                if (estProcheDeActeur(guerrier, distanceSeuil)) {
-                    return guerrier;
-                }
-            }
-        }
-        return null;
-    }
-
     public int calculerNouveauxPv(int degats) {
         return Math.max(0, getPv() - degats); //renvoie la valeur la plus grande pour ne pas renvoyez des pv négatif
     }
@@ -72,9 +60,5 @@ public abstract class Guerrier extends Acteur {
     public void mourir() {
         setPv(0);
         getEnvironnement().enleverActeur(this);
-    }
-
-    public void subitDegats(int degats){
-        setPv(calculerNouveauxPv(degats));
     }
 }
