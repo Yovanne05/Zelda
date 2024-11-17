@@ -23,6 +23,7 @@ public abstract class ArmePouvoir extends Arme {
     protected void reinitialiserDegats() {
         setPtsDegats(degatsOrigine);
     }
+
     public Arme getArmeSousJacent() {
         Arme armeActuelle = this;
         while (armeActuelle instanceof ArmePouvoir) {

@@ -4,7 +4,7 @@ import universite_paris8.iut.yponnou.zelda.modele.armes.ArmeMelee;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Epee;
 
 public class ArmeMeleeFeu extends ArmePouvoir{
-    private static final int BONUS_DEGATS = 3;
+    private static final int BONUS_DEGATS = 4;
 
     public ArmeMeleeFeu(ArmeMelee arme) {
         super(arme);

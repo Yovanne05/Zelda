@@ -4,7 +4,7 @@ import universite_paris8.iut.yponnou.zelda.modele.armes.ArcArme;
 import universite_paris8.iut.yponnou.zelda.modele.armes.ArmeDistance;
 
 public class ArmeDistanceFeu extends ArmePouvoir {
-    private static final int BONUS_DEGATS = 3;
+    private static final int BONUS_DEGATS = 7;
 
     public ArmeDistanceFeu(ArmeDistance arme) {
         super(arme);
