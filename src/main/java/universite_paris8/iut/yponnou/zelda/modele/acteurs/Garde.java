@@ -13,8 +13,22 @@ public class Garde extends Ennemi{
     }
 
     @Override
-    public void deplacement() {
+    protected double getDistanceSeuil() {
+        return 60;
+    }
+
+    @Override
+    protected void comportementProcheHero(Hero hero) {
         attaquerHero();
+    }
+
+    @Override
+    protected void comportementHorsProximite() {
+
+    }
+
+    @Override
+    protected void effectuerDeplacement() {
     }
 
 }

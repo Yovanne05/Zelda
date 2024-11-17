@@ -38,5 +38,22 @@ public abstract class Ennemi extends Guerrier {
         this.derniereAttaque = derniereAttaque;
     }
 
-    public abstract void deplacement();
+    public final void deplacement() {
+        Hero hero = verifHeroProx(getDistanceSeuil());
+        if (hero != null) {
+            comportementProcheHero(hero);
+        } else {
+            comportementHorsProximite();
+        }
+        effectuerDeplacement();
+    }
+
+    public void deplacementNormal(){
+        super.deplacement();
+    }
+
+    protected abstract double getDistanceSeuil();
+    protected abstract void comportementProcheHero(Hero hero);
+    protected abstract void comportementHorsProximite();
+    protected abstract void effectuerDeplacement();
 }

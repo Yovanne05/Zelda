@@ -19,18 +19,32 @@ public class Chevalier extends Ennemi{
     }
 
     @Override
-    public void deplacement() {
-        attaquerHero();
-        changementDirectionSiPossible();
-        this.deplacement();
+    protected double getDistanceSeuil() {
+        return 100;
     }
 
-    public void changementDirectionSiPossible() {
+    @Override
+    protected void comportementProcheHero(Hero hero) {
+        attaquerHero();
+    }
+
+    @Override
+    protected void comportementHorsProximite() {
+        changementDirectionSiPossible();
+    }
+
+    @Override
+    protected void effectuerDeplacement() {
+        this.deplacementNormal();
+    }
+
+    private void changementDirectionSiPossible() {
         cptPas++;
         if (cptPas >= maxPas) {
             this.getDirection().changementDirection(-this.getDirection().getDx(), -this.getDirection().getDy());
             cptPas = 0;
         }
     }
+
 
 }

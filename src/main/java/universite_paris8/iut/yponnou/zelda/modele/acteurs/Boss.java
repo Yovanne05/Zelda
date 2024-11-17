@@ -8,24 +8,33 @@ import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 public class Boss extends Ennemi {
 
     public Boss(double x, double y, Environnement environnement, Direction direction, Arme arme) {
-        super(x, y, environnement, 1, direction, arme, 360);
+        super(x, y, environnement, 2, direction, arme, 360);
     }
 
     @Override
-    public void deplacement() {
-        Hero hero = verifHeroProx(350);
-        if (hero != null) {
-            foncerSurHero(hero);
-            attaquerHero();
-        }
+    protected double getDistanceSeuil() {
+        return 350;
     }
 
-    public String nom() {
-        return "Boss";
+    @Override
+    protected void comportementProcheHero(Hero hero) {
+        foncerSurHero(hero);
+        Hero h = verifHeroProx(200);
+        if(h!=null){
+            attaquerHero();
+        }
+
+    }
+
+    @Override
+    protected void comportementHorsProximite() {
+    }
+
+    @Override
+    protected void effectuerDeplacement() {
     }
 
     private void foncerSurHero(Hero hero) {
         this.deplacerVers(hero.getPosition());
-        this.deplacement();
     }
 }
