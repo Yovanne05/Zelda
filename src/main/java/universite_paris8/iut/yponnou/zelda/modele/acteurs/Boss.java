@@ -1,7 +1,7 @@
 package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
 
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.deplacement.ComportementBoss;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.comportement.ComportementBoss;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;

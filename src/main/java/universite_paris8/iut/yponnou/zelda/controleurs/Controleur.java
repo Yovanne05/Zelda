@@ -95,6 +95,7 @@ public class Controleur implements Initializable {
         hero.changeEnvObjets(environnement);
         hero.setEnvironnement(environnement);
 
+
         switchToEnvironment(new CreationVillage());
         try {
             musiqueJeu.jouer(1, -1);

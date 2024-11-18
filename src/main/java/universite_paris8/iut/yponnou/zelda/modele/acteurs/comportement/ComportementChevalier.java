@@ -1,4 +1,4 @@
-package universite_paris8.iut.yponnou.zelda.modele.acteurs.deplacement;
+package universite_paris8.iut.yponnou.zelda.modele.acteurs.comportement;
 
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Chevalier;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Ennemi;
