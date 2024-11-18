@@ -16,6 +16,13 @@ public class ArmeMeleeFeu extends ArmePouvoir{
         super(arme);
     }
 
+
+    /*
+        Méthode similaire à ArmeDistanceFeu.
+        Nous avons tout de même décidé de l'implémenter, car à l'avenir,
+        l'effet d'un projectile pourrait différer de celui d'une arme de mêlée, comme une épée, par exemple
+     */
+
     @Override
     public void utiliserArme() {
         appliquerBonus(BONUS_DEGATS);
