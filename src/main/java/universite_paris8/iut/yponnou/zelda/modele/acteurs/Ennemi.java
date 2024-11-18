@@ -1,6 +1,7 @@
 package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
 
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.deplacement.ComportementEnnemi;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
@@ -16,10 +17,12 @@ public abstract class Ennemi extends Guerrier {
 
 
     private long derniereAttaque;
+    private ComportementEnnemi comportementEnnemi;
 
-    public Ennemi(double x, double y, Environnement environnement, double vitesse, Direction direction, Arme arme, int pv) {
+    public Ennemi(double x, double y, Environnement environnement, double vitesse, Direction direction, Arme arme, int pv, ComportementEnnemi comportementEnnemi) {
         super(x, y, environnement, vitesse, direction, arme, pv);
         this.derniereAttaque = 0;
+        this.comportementEnnemi = comportementEnnemi;
     }
 
     public void attaquerHero() {
@@ -30,12 +33,12 @@ public abstract class Ennemi extends Guerrier {
         }
     }
 
-    public Hero verifHeroProx(double distanceSeuil) {
+    public boolean verifHeroProx(double distanceSeuil) {
         Hero h = getEnvironnement().getHero();
         if (estProcheDeActeur(h, distanceSeuil)) {
-            return h;
+            return true;
         }
-        return null;
+        return false;
     }
 
     public long getDerniereAttaque() {
@@ -46,22 +49,13 @@ public abstract class Ennemi extends Guerrier {
         this.derniereAttaque = derniereAttaque;
     }
 
-    public final void deplacement() {
-        Hero hero = verifHeroProx(getDistanceSeuil());
-        if (hero != null) {
-            comportementProcheHero(hero);
-        } else {
-            comportementHorsProximite();
-        }
-        effectuerDeplacement();
+    public void deplacement(){
+        comportementEnnemi.deplacer(this);
+        comportementEnnemi.attaquer(this);
     }
 
     public void deplacementNormal(){
         super.deplacement();
     }
 
-    protected abstract double getDistanceSeuil();
-    protected abstract void comportementProcheHero(Hero hero);
-    protected abstract void comportementHorsProximite();
-    protected abstract void effectuerDeplacement();
 }

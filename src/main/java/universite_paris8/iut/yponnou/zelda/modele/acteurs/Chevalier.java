@@ -2,8 +2,8 @@
 package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
 
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.deplacement.ComportementChevalier;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Hitbox;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
@@ -19,32 +19,12 @@ public class Chevalier extends Ennemi{
     private int maxPas; // Nombre de pas avant de changer de direction
 
     public Chevalier(double x, double y, Environnement environnement, Direction direction, Arme arme) {
-        super(x, y, environnement, 1, direction, arme, 240);
+        super(x, y, environnement, 1, direction, arme, 240, new ComportementChevalier());
         this.cptPas = 0;
         this.maxPas = 300;
     }
 
-    @Override
-    protected double getDistanceSeuil() {
-        return 100;
-    }
-
-    @Override
-    protected void comportementProcheHero(Hero hero) {
-        attaquerHero();
-    }
-
-    @Override
-    protected void comportementHorsProximite() {
-        changementDirectionSiPossible();
-    }
-
-    @Override
-    protected void effectuerDeplacement() {
-        this.deplacementNormal();
-    }
-
-    private void changementDirectionSiPossible() {
+    public void changementDirectionSiPossible() {
         cptPas++;
         if (cptPas >= maxPas) {
             this.getDirection().changementDirection(-this.getDirection().getDx(), -this.getDirection().getDy());
