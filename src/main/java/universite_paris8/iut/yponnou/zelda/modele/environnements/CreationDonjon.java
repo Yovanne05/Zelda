@@ -2,6 +2,11 @@ package universite_paris8.iut.yponnou.zelda.modele.environnements;
 
 public class CreationDonjon implements CreationEnv{
 
+    /**
+     * Cette classe gère la création d'un environnement de type Donjon.
+     * Elle initialise la carte du donjon, place le héros, et ajoute des acteurs spécifiques (comme des Boss et Chevaliers).
+     * Elle gère aussi l'ajout du boss et des chevaliers, ainsi que d'autres personnages importants dans le donjon.
+     */
 
     @Override
     public void creationEnvironnement(Environnement environnement) {

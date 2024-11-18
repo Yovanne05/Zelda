@@ -9,6 +9,15 @@ import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TA
 
 public abstract class Objet{
 
+    /**
+     * La classe Objet représente un objet dans le jeu. Chaque objet a une position dans l'environnement et un identifiant unique.
+     * Les objets peuvent être associés à un environnement spécifique.
+     *
+     * Cette classe fournit des méthodes pour obtenir et modifier la position de l'objet, ainsi que son environnement.
+     * Les objets sont identifiés par un ID unique, qui est automatiquement incrémenté à chaque création d'un objet.
+     */
+
+
     private String id;
     protected static int incremente = 0;
     private Position position;

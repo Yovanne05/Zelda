@@ -10,6 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ComportementMelee implements ComportementArme{
+
+    /**
+     * Implémentation du comportement d'une arme de mêlée.
+     * Cette classe gère la logique d'attaque des armes de mêlée, infligeant des dégâts aux guerriers proches.
+     */
+
     private ArmeMelee armeMelee;
 
     public ComportementMelee(ArmeMelee armeMelee) {

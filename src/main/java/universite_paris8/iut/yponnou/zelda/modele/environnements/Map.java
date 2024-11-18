@@ -8,6 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Map{
+
+    /**
+     * La classe Map représente une carte du jeu, stockant les éléments du terrain dans un tableau bidimensionnel.
+     * Elle charge les données de la carte depuis des fichiers CSV et permet d'initialiser différents types d'environnements.
+     */
+
     private int[][] tabNum;
     private int hauteur, largeur;
 

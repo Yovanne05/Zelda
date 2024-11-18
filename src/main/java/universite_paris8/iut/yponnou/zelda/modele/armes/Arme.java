@@ -10,6 +10,12 @@ import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TA
 
 public abstract class Arme extends Objet {
 
+    /**
+     * Classe abstraite représentant une arme dans le jeu.
+     * Les armes possèdent des points de dégâts, un propriétaire (Guerrier) et une portée.
+     * Les classes dérivées définissent des types spécifiques d'armes (mêlées ou à distance).
+     */
+
     private int ptsDegats;
     private Guerrier proprietaire;
     private double portee;

@@ -9,14 +9,22 @@ import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 
 
 public class Environnement{
+
+    /**
+     * Classe représentant l'environnement de jeu. Un environnement contient la carte du jeu, les acteurs
+     * (comme le héros, les ennemis, etc.) et les objets présents dans le jeu.
+     */
+
     private static Environnement uniqueInstance=null;
-    private int largeur;
-    private int hauteur;
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
     private ObservableList<Objet> objets = FXCollections.observableArrayList();
+
+    private int largeur;
+    private int hauteur;
     private Map map;
-    private Hero hero;
+
     private CreationEnv creationEnv;
+    private Hero hero;
 
     public Environnement() {
         this.map = null;

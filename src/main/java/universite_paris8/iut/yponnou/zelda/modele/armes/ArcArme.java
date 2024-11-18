@@ -8,6 +8,11 @@ import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
 public class ArcArme extends ArmeDistance {
 
+    /**
+     * Classe représentant un arc, une arme à distance dans le jeu.
+     * L'arc tire des projectiles, comme des flèches, qui infligent des dégâts à distance.
+     */
+
     public ArcArme(double posxi, double posyi, Projectile projectile, Environnement environnement, Guerrier proprietaire) {
         super(posxi, posyi, projectile, environnement, proprietaire, projectile.getPortee());
     }

@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActionComposite implements Action {
+
+    /**
+     * La classe ActionComposite permet de regrouper plusieurs actions et de les exécuter de manière séquentielle.
+     * Elle implémente l'interface `Action` et permet d'ajouter ou de supprimer des actions dans la liste.
+     */
+
     private List<Action> actions = new ArrayList<>();
 
     public void ajouterAction(Action action) {

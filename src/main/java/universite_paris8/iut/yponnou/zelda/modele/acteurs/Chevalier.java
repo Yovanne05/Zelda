@@ -9,6 +9,12 @@ import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
 public class Chevalier extends Ennemi{
 
+    /**
+     * La classe Chevalier représente un ennemi avancé avec un comportement spécifique de patrouille
+     * et d'attaque. Il possède un compteur de pas permettant de changer de direction après avoir
+     * parcouru une distance définie, et il attaque le héros lorsqu'il est proche (dans un rayon de 100 unités).
+     */
+
     private int cptPas;
     private int maxPas; // Nombre de pas avant de changer de direction
 

@@ -1,6 +1,12 @@
 package universite_paris8.iut.yponnou.zelda.modele.environnements;
 
 public class CreationVillage implements CreationEnv {
+
+    /**
+     * Cette classe gère la création de l'environnement de type Village.
+     * Elle initialise la carte du village et y place plusieurs acteurs (vendeur, paysans) ainsi que des objets (pommes).
+     */
+
     @Override
     public void creationEnvironnement(Environnement environnement) {
         Fabrique fabrique = new Fabrique(environnement);

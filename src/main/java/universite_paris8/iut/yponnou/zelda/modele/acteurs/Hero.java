@@ -16,6 +16,14 @@ import java.util.ArrayList;
 
 public class Hero extends Guerrier {
 
+    /**
+     * La classe Hero représente le personnage principal du jeu contrôlé par le joueur.
+     * Elle gère les points de vie, la stamina, l'inventaire, et diverses actions spécifiques
+     * comme les attaques, la récupération d'objets, et la guérison. Elle inclut également la
+     * gestion des combos d'actions pour des interactions complexes.
+     */
+
+
     private final Inventaire inventaire;
     private ArrayList<ActionComposite> lstCombo;
     private DoubleProperty stamina; // Ajout de l'attribut stamina

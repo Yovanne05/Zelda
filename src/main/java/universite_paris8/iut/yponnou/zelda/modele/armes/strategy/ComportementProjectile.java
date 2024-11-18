@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ComportementProjectile implements ComportementArme{
+
+    /**
+     * Implémentation du comportement d'un projectile.
+     * Cette classe gère le mouvement d'un projectile et sa collision avec les ennemis, infligeant des dégâts si nécessaire.
+     */
+
     private Projectile projectile;
 
     public ComportementProjectile(Projectile projectile) {

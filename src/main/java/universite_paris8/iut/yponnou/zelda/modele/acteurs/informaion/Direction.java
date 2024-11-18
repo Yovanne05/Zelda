@@ -2,6 +2,15 @@ package universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion;
 
 public class Direction {
 
+    /**
+     * La classe Direction représente la direction dans laquelle un acteur ou un objet se déplace dans l'environnement du jeu.
+     * Elle est définie par un vecteur de direction.
+     *
+     * Cette classe offre des méthodes pour obtenir ou modifier la direction, changer la direction actuelle,
+     * ainsi qu'une méthode pour convertir la direction en une chaîne de caractères (up, down, left, right).
+     */
+
+
     private double dx;
     private double dy;
 

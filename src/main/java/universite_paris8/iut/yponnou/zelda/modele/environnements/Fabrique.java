@@ -8,6 +8,13 @@ import universite_paris8.iut.yponnou.zelda.modele.objets.Clef;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 
 public class Fabrique {
+
+    /**
+     * La classe Fabrique est responsable de la création d'objets et d'acteurs dans l'environnement du jeu.
+     * Elle fournit des méthodes pour générer des acteurs (comme les vendeurs, paysans, etc.) et des objets (comme les pommes, clés).
+     * Cette classe permet d'isoler la logique de création et de centraliser la gestion des instances.
+     */
+
     private Environnement environnement;
 
     public Fabrique(Environnement environnement) {

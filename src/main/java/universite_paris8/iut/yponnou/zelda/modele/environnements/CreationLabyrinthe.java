@@ -2,6 +2,11 @@ package universite_paris8.iut.yponnou.zelda.modele.environnements;
 
 public class CreationLabyrinthe implements CreationEnv{
 
+    /**
+     * Cette classe gère la création d'un environnement de type Labyrinthe.
+     * Elle initialise la carte du labyrinthe et place plusieurs gardes et objets dans l'environnement.
+     */
+
     @Override
     public void creationEnvironnement(Environnement environnement) {
         environnement.getMap().initialisationMapLabyrinthe();

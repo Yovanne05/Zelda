@@ -12,6 +12,12 @@ import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TA
 
 public abstract class Acteur extends Objet {
 
+    /**
+     * La classe Acteur représente un personnage ou une entité mobile dans le jeu.
+     * Elle gère les propriétés de déplacement, de collision, et d'interaction avec l'environnement
+     * et les autres acteurs du jeu.
+     */
+
     private final double vitesse;
     private Direction direction;
     private final Hitbox hitbox;

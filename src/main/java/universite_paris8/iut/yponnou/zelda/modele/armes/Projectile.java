@@ -10,6 +10,13 @@ import universite_paris8.iut.yponnou.zelda.modele.armes.strategy.ComportementPro
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
 public abstract class Projectile extends Acteur{
+
+    /**
+     * Classe abstraite représentant un projectile dans le jeu.
+     * Les projectiles possèdent des dégâts, une portée et un comportement d'attaque spécifique.
+     * Cette classe est utilisée comme base pour des projectiles comme les flèches.
+     */
+
     private int ptsDegats;
     private double portee;
     private ComportementArme comportementAttaque;
