@@ -7,14 +7,10 @@ import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
 public abstract class Ennemi extends Guerrier {
-
     /**
-     * La classe Ennemi est une sous-classe de Guerrier représentant des entités adverses dans le jeu.
-     * Elle gère le comportement des ennemis, notamment leur attaque envers le héros, leur déplacement
-     * en fonction de leur proximité avec le héros, et leur logique d'attaque basée sur un délai.
-     * Les comportements spécifiques doivent être définis dans les sous-classes via des méthodes abstraites.
+     * Classe abstraite représentant un Ennemi, héritant de la classe Guerrier.
+     * Elle gère les comportements d'attaque, de déplacement et d'interaction avec le héros
      */
-
 
     private long derniereAttaque;
     private ComportementEnnemi comportementEnnemi;

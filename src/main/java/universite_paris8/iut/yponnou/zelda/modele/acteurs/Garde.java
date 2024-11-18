@@ -9,12 +9,9 @@ import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
 public class Garde extends Ennemi{
 
-
     /**
-     * La classe Garde représente un type spécifique d'ennemi dans le jeu.
-     * Ce personnage possède une logique de comportement pour attaquer le héros lorsqu'il est proche
-     * et une logique spécifique de déplacement à implémenter. La distance seuil de proximité
-     * pour interagir avec le héros est fixée à 60 unités.
+     * Représente un Garde, un type spécifique d'ennemi, héritant de la classe Ennemi.
+     * Il a un comportement spécifique.
      */
 
     public Garde(double x, double y, Environnement environnement, Direction direction, Arme arme) {

@@ -1,8 +1,15 @@
 package universite_paris8.iut.yponnou.zelda.modele.acteurs.deplacement;
 
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.*;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.Chevalier;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.Ennemi;
 
 public class ComportementChevalier implements ComportementEnnemi {
+
+    /**
+     * Implémente le comportement spécifique d'un Chevalier.
+     * Le Chevalier change de direction après un certain nombre de pas et attaque si le héros est proche.
+     */
+
     @Override
     public void deplacer(Ennemi ennemi) {
         Chevalier chevalier = (Chevalier) ennemi;
