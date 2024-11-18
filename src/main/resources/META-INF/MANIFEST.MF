@@ -1,3 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: universite_paris8.iut.yponnou.zelda.Lanceur
-
