@@ -8,7 +8,6 @@ module universite_paris.iut.yponnou.zelda {
     requires org.junit.jupiter.api;
     requires org.testng;
     requires jcommander;
-    requires org.apache.logging.log4j;
 
     opens universite_paris8.iut.yponnou.zelda to javafx.fxml;
     exports universite_paris8.iut.yponnou.zelda;
@@ -40,5 +39,7 @@ module universite_paris.iut.yponnou.zelda {
     opens universite_paris8.iut.yponnou.zelda.vue.objets to javafx.fxml;
     exports universite_paris8.iut.yponnou.zelda.vue.maps;
     opens universite_paris8.iut.yponnou.zelda.vue.maps to javafx.fxml;
+    exports universite_paris8.iut.yponnou.zelda.vue.information;
+    opens universite_paris8.iut.yponnou.zelda.vue.information to javafx.fxml;
 
 }

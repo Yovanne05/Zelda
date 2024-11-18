@@ -1,9 +1,6 @@
 
 package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Hitbox;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
@@ -14,7 +11,13 @@ import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TA
 
 
 public abstract class Acteur extends Objet {
-    public static final Logger LOGGER = LogManager.getLogger(Acteur.class);
+
+    /**
+     * La classe Acteur représente un personnage ou une entité mobile dans le jeu.
+     * Elle gère les propriétés de déplacement, de collision, et d'interaction avec l'environnement
+     * et les autres acteurs du jeu.
+     */
+
     private final double vitesse;
     private Direction direction;
     private final Hitbox hitbox;
@@ -54,8 +57,8 @@ public abstract class Acteur extends Objet {
     }
 
     public double[] calculerProchainePosition() {
-        double prochainX = getPosition().getX() + getDirection().getDx() * vitesse * TAILLE50;
-        double prochainY = getPosition().getY() + getDirection().getDy() * vitesse * TAILLE50;
+        double prochainX = getPosition().getX() + getDirection().getDx() * vitesse;
+        double prochainY = getPosition().getY() + getDirection().getDy() * vitesse;
         return new double[] { prochainX, prochainY };
     }
 
@@ -75,9 +78,8 @@ public abstract class Acteur extends Objet {
     public void deplacement() {
         Hitbox futureHitbox = futureHitbox();
         if (!collisionAvecObstacle(futureHitbox) && !collisionAvecActeur(futureHitbox)) {
-            LOGGER.log(Level.INFO,"Nouvelle position x : {} et y : {}", futureHitbox.getHitbox().getX(), futureHitbox.getHitbox().getY());
-            getPosition().setX(futureHitbox.getHitbox().getX());
-            getPosition().setY(futureHitbox.getHitbox().getY());
+            getPosition().setX(futureHitbox.hitboxX());
+            getPosition().setY(futureHitbox.hitboxY());
         }
     }
 
@@ -110,7 +112,6 @@ public abstract class Acteur extends Objet {
         Direction newDirection = new Direction(directionX,directionY);
         direction.changementDirection(newDirection.getDx(), newDirection.getDy());
 
-        // Nouvelle pos
         double[] prochainePosition = calculerProchainePosition();
         double prochainX = prochainePosition[0];
         double prochainY = prochainePosition[1];

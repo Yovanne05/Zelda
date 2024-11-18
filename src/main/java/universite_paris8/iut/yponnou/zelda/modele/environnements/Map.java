@@ -8,15 +8,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Map{
+
+    /**
+     * La classe Map représente une carte du jeu, stockant les éléments du terrain dans un tableau bidimensionnel.
+     * Elle charge les données de la carte depuis des fichiers CSV et permet d'initialiser différents types d'environnements.
+     */
+
     private int[][] tabNum;
     private int hauteur, largeur;
-    private int mapIndex;
 
     public Map(int h, int l) {
         this.hauteur = h;
         this.largeur = l;
         this.tabNum = new int[h][l];
-        this.mapIndex = 0;
     }
     public int getHauteur() {
         return hauteur;
@@ -27,9 +31,6 @@ public class Map{
     public int[][] getTabNum() {
         return tabNum;
     }
-    public void setIndexTab(int x, int y, int val) {
-        tabNum[y][x] = val;
-    }
 
     //Lire le fichier CSV et remplir le tableau
     public void readFromCSV(String filePath) {
@@ -39,9 +40,10 @@ public class Map{
 
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
+
                 int[] row = new int[values.length];
                 for (int col = 0; col < values.length; col++) {
-                    row[col] = Integer.parseInt(values[col]);
+                    row[col] = Integer.parseInt(values[col].trim());
                 }
                 tempList.add(row);
             }
@@ -59,6 +61,7 @@ public class Map{
         }
     }
 
+
     public void initialisationMapVillage() {
         readFromCSV("src/main/resources/universite_paris8/iut/yponnou/zelda/maps/village.csv");
     }
@@ -72,7 +75,4 @@ public class Map{
         readFromCSV("src/main/resources/universite_paris8/iut/yponnou/zelda/maps/entreeDonjon.csv");
     }
 
-    public int getMapIndex() {
-        return  mapIndex ;
-    }
 }

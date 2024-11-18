@@ -5,7 +5,9 @@ import javafx.scene.layout.HBox;
 
 import universite_paris8.iut.yponnou.zelda.modele.aliments.Pomme;
 import universite_paris8.iut.yponnou.zelda.modele.armes.ArcArme;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Epee;
+import universite_paris8.iut.yponnou.zelda.modele.armes.decorator.ArmePouvoir;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Clef;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 import universite_paris8.iut.yponnou.zelda.vue.armes.ArcVue;
@@ -33,16 +35,21 @@ public class ObservateurInventaire extends ObservateurObjets {
                     PommeVue pommeVue = new PommeVue((Pomme) ob, getPane());
                     pommeVue.creerSprite();
                     pommeVue.resizeImage();
-                }
-                else if(ob instanceof ArcArme){
-                    ArcVue arcVue = new ArcVue(ob, getPane());
-                    arcVue.creerSprite();
-                    arcVue.resizeImage();
-                }
-                else if (ob instanceof Epee) {
-                    EpeeVue epeeVue = new EpeeVue(ob,getPane());
-                    epeeVue.creerSprite();
-                    epeeVue.resizeImage();
+                } else if (ob instanceof Arme) {
+                    Arme arme = (Arme) ob;
+                    Arme armeSousJacent = (arme instanceof ArmePouvoir)
+                            ? ((ArmePouvoir) arme).getArmeSousJacent()
+                            : arme;
+
+                    if (armeSousJacent instanceof ArcArme) {
+                        ArcVue arcVue = new ArcVue(arme, getPane());
+                        arcVue.creerSprite();
+                        arcVue.resizeImage();
+                    } else if (armeSousJacent instanceof Epee) {
+                        EpeeVue epeeVue = new EpeeVue(arme, getPane());
+                        epeeVue.creerSprite();
+                        epeeVue.resizeImage();
+                    }
                 }
             }
             for (Objet ob : change.getRemoved()) {

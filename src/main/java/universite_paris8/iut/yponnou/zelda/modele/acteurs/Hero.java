@@ -1,39 +1,73 @@
 package universite_paris8.iut.yponnou.zelda.modele.acteurs;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
+import universite_paris8.iut.yponnou.zelda.modele.action.ActionComposite;
+import universite_paris8.iut.yponnou.zelda.modele.action.ComboFoncerAttaque;
 import universite_paris8.iut.yponnou.zelda.modele.aliments.Nourriture;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
-import universite_paris8.iut.yponnou.zelda.modele.armes.ArmeDistance;
-import universite_paris8.iut.yponnou.zelda.modele.armes.ArmeMelee;
-import universite_paris8.iut.yponnou.zelda.modele.armes.Fleche;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 import universite_paris8.iut.yponnou.zelda.modele.inventaire.Inventaire;
 import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
 
+import java.util.ArrayList;
+
 public class Hero extends Guerrier {
 
+    /**
+     * La classe Hero représente le personnage principal du jeu contrôlé par le joueur.
+     * Elle gère les points de vie, la stamina, l'inventaire, et diverses actions spécifiques
+     * comme les attaques, la récupération d'objets, et la guérison. Elle inclut également la
+     * gestion des combos d'actions pour des interactions complexes.
+     */
+
+
     private final Inventaire inventaire;
+    private ArrayList<ActionComposite> lstCombo;
+    private DoubleProperty stamina; // Ajout de l'attribut stamina
 
     public Hero(double x, double y, Environnement environnement, Direction direction, Arme arme) {
-        super(x, y, environnement, 0.2, direction, arme, 100);
+        super(x, y, environnement, 10, direction, arme, 100);
         this.inventaire = new Inventaire(5, this);
+        this.lstCombo = new ArrayList<>();
+        this.stamina = new SimpleDoubleProperty(100);  // 100% de stamina au départ
+        ajoutComboDeBase();
+    }
+    public DoubleProperty staminaProperty() {
+        return stamina;
+    }
+
+    public void ajoutComboDeBase() {
+        ComboFoncerAttaque comboFoncerAttaque = new ComboFoncerAttaque();
+        this.lstCombo.add(comboFoncerAttaque);
+    }
+
+    public void realiserFoncerEtAttaque() {
+        if (this.getStamina() >= 50) {
+            for (ActionComposite action : lstCombo) {
+                if (action instanceof ComboFoncerAttaque) {
+                    action.executer(this);
+                    this.setStamina(this.getStamina() - 50);
+                }
+            }
+        }
+    }
+
+    public double getStamina() {
+        return stamina.get();
+    }
+    public void setStamina(double stamina) {
+        this.stamina.set(stamina);
+    }
+
+    public void augmenterStamina() {
+        setStamina(Math.min(getStamina()+0.5,100));
     }
 
     public Inventaire getInventaire() {
         return inventaire;
-    }
-
-    public Ennemi verifEnnemiAcoter(double distanceSeuil) {
-        for (Acteur acteur : this.getEnvironnement().acteursProperty()) {
-            if (acteur instanceof Ennemi) {
-                Ennemi ennemi = (Ennemi) acteur;
-                if (estProcheDeActeur(ennemi, distanceSeuil)) {
-                    return ennemi;
-                }
-            }
-        }
-        return null;
     }
 
     public boolean guerison() {
@@ -81,6 +115,9 @@ public class Hero extends Guerrier {
     }
 
     public void deposer(Objet objet) {
+        if(objet instanceof Arme){
+            ((Arme) objet).setProprietaire(null);
+        }
         inventaire.deposer(objet);
     }
 
@@ -97,33 +134,13 @@ public class Hero extends Guerrier {
     }
 
     public void attaquer() {
-        Ennemi ennemiProche = verifEnnemiAcoter(100);
-
-        if (getArme() instanceof ArmeDistance) {
-            attaquerDistance();
-        } else if (ennemiProche != null) {
-            attaquerMelee(ennemiProche);
+        try {
+            getArme().utiliserArme();
+        }catch (Exception e){
+            System.out.println("Pas d'arme en mains");
         }
-    }
 
-    public void attaquerDistance() {
-        ArmeDistance armeDistance = (ArmeDistance) getArme();
-        double dx = getDirection().getDx();
-        double dy = getDirection().getDy();
-        Direction d = new Direction(dx, dy); // Create a new direction to avoid side effects
-        Fleche fleche = new Fleche(getPosition().getX(), getPosition().getY(), getEnvironnement(), d);
-        armeDistance.setProjectile(fleche);
-        armeDistance.utiliser();
     }
-
-    public void attaquerMelee(Guerrier ennemi) {
-        ArmeMelee armeMelee = (ArmeMelee) getArme();
-        ennemi.seFaitAttaquer(armeMelee.getPtsDegats());
-        if (ennemi.estMort()) {
-            getEnvironnement().enleverActeur(ennemi);
-        }
-    }
-
     public boolean estProcheDeActeur(Acteur acteur, double distanceSeuil) {
         double distance = distance(acteur.getPosition());
         return distance <= distanceSeuil;

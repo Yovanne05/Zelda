@@ -12,8 +12,14 @@ import universite_paris8.iut.yponnou.zelda.modele.utilitaire.Position;
 
 public class Inventaire {
 
+    /**
+     * La classe Inventaire gère les objets que le héros possède, permettant d'ajouter, retirer, utiliser et déposer des objets.
+     * Elle offre également des fonctionnalités pour interagir avec les objets comme les armes, la nourriture et les clefs.
+     */
+
     private final ObservableList<Objet> inventaire = FXCollections.observableArrayList();
     private final int capaciteMax;
+
     private final Hero hero;
 
     public Inventaire(int capaciteMax, Hero hero) {
@@ -27,6 +33,9 @@ public class Inventaire {
 
     public void ajouterObjet(Objet objet) {
         if (inventaire.size() < capaciteMax) {
+            if(objet instanceof Arme){
+                objet.setPosition(hero.getPosition());
+            }
             inventaire.add(objet);
             objet.getEnvironnement().enleverObjet(objet);
         }

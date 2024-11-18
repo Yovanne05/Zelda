@@ -4,9 +4,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Boss;
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.Chevalier;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.*;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Ennemi;
-import universite_paris8.iut.yponnou.zelda.modele.acteurs.Garde;
+
 
 public class BarreDeVieVue {
 

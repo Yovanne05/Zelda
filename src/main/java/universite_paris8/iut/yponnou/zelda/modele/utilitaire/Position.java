@@ -8,6 +8,12 @@ import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 
 public class Position {
 
+    /**
+     * La classe Position représente une position 2D avec des coordonnées x et y.
+     * Elle permet de récupérer et modifier ces coordonnées, de calculer la distance entre deux positions
+     * et de déterminer si une position donnée est occupée.
+     */
+
     private DoubleProperty x;
     private DoubleProperty y;
 
@@ -38,12 +44,6 @@ public class Position {
 
     public DoubleProperty yProperty() {
         return y;
-    }
-
-    public double distance(Position other) {
-        double dx = this.getX() - other.getX();
-        double dy = this.getY() - other.getX();
-        return Math.sqrt(dx * dx + dy * dy);
     }
 
     public Position calculerPositionDevantActeur() {

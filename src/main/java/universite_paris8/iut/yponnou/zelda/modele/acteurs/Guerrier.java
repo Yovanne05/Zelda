@@ -8,6 +8,13 @@ import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.environnements.Environnement;
 
 public abstract class Guerrier extends Acteur {
+
+    /**
+     * La classe Guerrier est une extension de la classe Acteur représentant des entités
+     * combattantes dans le jeu. Elle gère les points de vie (PV), l'arme associée,
+     * et les interactions liées aux attaques et à la mort.
+     */
+
     private Arme arme;
     private IntegerProperty pv;
 
@@ -15,6 +22,10 @@ public abstract class Guerrier extends Acteur {
         super(x, y, environnement, vitesse, direction);
         this.arme = arme;
         this.pv = new SimpleIntegerProperty(pv);
+        if (arme != null) {
+            arme.setProprietaire(this);
+            arme.setPosition(this.getPosition());
+        }
     }
 
     public Arme getArme() {
@@ -56,9 +67,5 @@ public abstract class Guerrier extends Acteur {
     public void mourir() {
         setPv(0);
         getEnvironnement().enleverActeur(this);
-    }
-
-    public void subitDegats(int degats){
-        setPv(calculerNouveauxPv(degats));
     }
 }

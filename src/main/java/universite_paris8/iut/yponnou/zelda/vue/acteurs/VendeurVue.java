@@ -1,4 +1,3 @@
-
 package universite_paris8.iut.yponnou.zelda.vue.acteurs;
 
 import javafx.geometry.Insets;
@@ -15,8 +14,13 @@ import javafx.stage.Stage;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Acteur;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Hero;
 import universite_paris8.iut.yponnou.zelda.modele.acteurs.Vendeur;
+import universite_paris8.iut.yponnou.zelda.modele.acteurs.informaion.Direction;
 import universite_paris8.iut.yponnou.zelda.modele.armes.ArcArme;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Arme;
 import universite_paris8.iut.yponnou.zelda.modele.armes.Epee;
+import universite_paris8.iut.yponnou.zelda.modele.armes.Fleche;
+import universite_paris8.iut.yponnou.zelda.modele.armes.decorator.ArmeDistanceFeu;
+import universite_paris8.iut.yponnou.zelda.modele.armes.decorator.ArmeMeleeFeu;
 
 import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TAILLE50;
 
@@ -30,24 +34,17 @@ public class VendeurVue extends ActeurVue {
 
     private Image getVendeurVue(String direction) {
         return switch (direction) {
-            case "right" -> vendeurVue;
-            case "left" -> vendeurVue;
-            case "down" -> vendeurVue;
-            case "up" -> vendeurVue;
-            default -> vendeurVue; // Default image if direction is not set
+            case "right", "left", "down", "up" -> vendeurVue;
+            default -> vendeurVue;
         };
     }
 
     @Override
     public void creerSprite() {
-        ImageView imageView /* = upgradeSprite(acteur)*/;
+        ImageView imageView;
 
         if (getActeur() instanceof Vendeur)
             imageView = new ImageView(vendeurVue);
-        /*else if (acteur instanceof Npc) {
-            imageView = new ImageView(NPC);
-            System.out.println("efzf");
-        }*/
         else
             throw new IllegalArgumentException("Acteur non supporté");
 
@@ -64,13 +61,13 @@ public class VendeurVue extends ActeurVue {
     public void upgradeSprite() {
         ImageView imageView;
 
-        getPane().getChildren().remove(getPane().lookup("#"+getActeur().getId()));
+        getPane().getChildren().remove(getPane().lookup("#" + getActeur().getId()));
 
         if (getActeur() instanceof Vendeur)
             imageView = new ImageView(getVendeurVue(getActeur().getDirection().directionString()));
         else
             throw new IllegalArgumentException("Acteur non supporté");
-//        return imageView;
+
         imageView.setFitWidth(TAILLE50);
         imageView.setFitHeight(TAILLE50);
 
@@ -96,41 +93,63 @@ public class VendeurVue extends ActeurVue {
         Label contenu = new Label("Choisissez votre objet : ");
         contenu.setTextFill(Color.WHITE);
 
-        vbox.getChildren().add(titre);
-        vbox.getChildren().add(contenu);
+        vbox.getChildren().addAll(titre, contenu);
 
         HBox buttonBox = new HBox();
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setSpacing(10);
 
+
+
         Button buttonArc = new Button("Arc");
         buttonArc.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 2px;");
         buttonArc.setOnAction(e -> {
-            hero.getInventaire().ajouterObjet(new ArcArme(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(),null,this.getActeur().getEnvironnement()));
-            dialog.setResult(ButtonType.OK); // Fermer la fenêtre de dialogue
+            Direction d = new Direction(this.getActeur().getDirection().getDx(), this.getActeur().getDirection().getDy());
+            Fleche fleche = new Fleche(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(), this.getActeur().getEnvironnement(), d);
+            hero.getInventaire().ajouterObjet(new ArcArme(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(), fleche, this.getActeur().getEnvironnement(),this.getActeur().getEnvironnement().getHero()));
+            dialog.setResult(ButtonType.OK);
             dialog.close();
         });
 
         Button buttonEpee = new Button("Épée");
-        buttonEpee.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: #ffffff; -fx-border-width: 2px;");
+        buttonEpee.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 2px;");
         buttonEpee.setOnAction(e -> {
-            hero.getInventaire().ajouterObjet(new Epee(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(),this.getActeur().getEnvironnement()));
-            dialog.setResult(ButtonType.OK); // Fermer la fenêtre de dialogue
+            hero.getInventaire().ajouterObjet(new Epee(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(), this.getActeur().getEnvironnement(),this.getActeur().getEnvironnement().getHero(), 80));
+            dialog.setResult(ButtonType.OK);
+            dialog.close();
+        });
+
+        Button buttonEpeeFeu = new Button("Épée en Feu");
+        buttonEpeeFeu.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 2px;");
+        buttonEpeeFeu.setOnAction(e -> {
+            Arme epee = new Epee(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(), this.getActeur().getEnvironnement(),this.getActeur().getEnvironnement().getHero(), 80);
+            epee = new ArmeMeleeFeu((Epee)epee);
+            hero.getInventaire().ajouterObjet(epee);
+            dialog.setResult(ButtonType.OK);
+            dialog.close();
+        });
+
+        Button buttonArcFeu = new Button("Arc en Feu");
+        buttonArcFeu.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 2px;");
+        buttonArcFeu.setOnAction(e -> {
+            Direction d = new Direction(this.getActeur().getDirection().getDx(), this.getActeur().getDirection().getDy());
+            Fleche fleche = new Fleche(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(), this.getActeur().getEnvironnement(), d);
+            Arme arc = new ArcArme(this.getActeur().getPosition().getX(), this.getActeur().getPosition().getY(), fleche, this.getActeur().getEnvironnement(),this.getActeur().getEnvironnement().getHero());
+            arc = new ArmeDistanceFeu((ArcArme) arc);
+            hero.getInventaire().ajouterObjet(arc);
+            dialog.setResult(ButtonType.OK);
             dialog.close();
         });
 
         Button buttonAnnuler = new Button("Annuler");
         buttonAnnuler.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 2px;");
         buttonAnnuler.setOnAction(e -> {
-            dialog.setResult(ButtonType.CANCEL); // Annuler l'action
+            dialog.setResult(ButtonType.CANCEL);
             dialog.close();
         });
 
-        buttonBox.getChildren().addAll(buttonArc, buttonEpee, buttonAnnuler);
-
+        buttonBox.getChildren().addAll(buttonArc, buttonEpee, buttonEpeeFeu, buttonArcFeu, buttonAnnuler);
         vbox.getChildren().add(buttonBox);
-
-        dialog.getDialogPane().setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
         dialog.getDialogPane().setContent(vbox);
 

@@ -9,20 +9,48 @@ import universite_paris8.iut.yponnou.zelda.modele.objets.Objet;
 
 
 public class Environnement{
-    private final int largeur;
-    private final int hauteur;
+
+    /**
+     * Classe représentant l'environnement de jeu. Un environnement contient la carte du jeu, les acteurs
+     * (comme le héros, les ennemis, etc.) et les objets présents dans le jeu.
+     */
+
+    private static Environnement uniqueInstance=null;
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
     private ObservableList<Objet> objets = FXCollections.observableArrayList();
-    private Map map;
-    private Hero hero;
-    private CreationEnv creationEnv;
 
-    public Environnement(Map map, Hero hero) {
+    private int largeur;
+    private int hauteur;
+    private Map map;
+
+    private CreationEnv creationEnv;
+    private Hero hero;
+
+    public Environnement() {
+        this.map = null;
+        this.hero = null;
+        this.largeur = 0;
+        this.hauteur = 0;
+        creationEnv = null;
+    }
+
+    public void miseEnPlaceEnv(Map map, Hero hero) {
         this.map = map;
         this.hero = hero;
         this.largeur = this.map.getLargeur()*Constante.TAILLE50;
         this.hauteur = this.map.getHauteur()*Constante.TAILLE50;
         creationEnv = null;
+    }
+
+    public static Environnement getInstance() {
+        if(uniqueInstance==null) {
+            uniqueInstance= new Environnement();
+        }
+        return uniqueInstance;
+    }
+
+    public void setHero(Hero hero) {
+        this.hero = hero;
     }
 
     public ObservableList<Acteur> getActeurs() {
@@ -89,12 +117,11 @@ public class Environnement{
 
     public void toutLeMondeBouge(){
         for (int i=0; i<acteurs.size(); i++) {
-            if (acteurs.get(i) instanceof Ennemi) {
-                ((Ennemi) acteurs.get(i)).deplacementEnnemi();
+            Acteur a = acteurs.get(i);
+            if(a!=heroEnv()){
+                a.deplacement();
             }
-            else if (acteurs.get(i) instanceof Fleche) {
-                ((Fleche) acteurs.get(i)).utiliserFleche();
-            }
+
         }
     }
     public Paysan paysansQuiParle(){
@@ -136,16 +163,17 @@ public class Environnement{
                 '}';
     }
 
-    public boolean verifEnnemiMort(){
-//        for (int i=0;i<acteursProperty().size();i++){
-//            if(acteursProperty().get(i) instanceof Ennemi){
-//                if(((Ennemi) acteursProperty().get(i)).getPv()>0){
-//                    return false;
-//                }
-//            }
-//        }
-//        return true;
-        return false;
+    public void heroChangeEnv(int x, int y){
+        hero.getPosition().setX(x);
+        hero.getPosition().setY(y);
+        hero.getDirection().setDx(0);
+        hero.getDirection().setDy(0);
     }
 
+    public boolean verifEnnemiMort() {
+        if (creationEnv instanceof CreationDonjon) {
+            return acteurs.stream().noneMatch(acteur -> acteur instanceof Boss);
+        }
+        return false;
+    }
 }

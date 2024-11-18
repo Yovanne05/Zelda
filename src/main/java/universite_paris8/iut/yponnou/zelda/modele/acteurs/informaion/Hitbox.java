@@ -7,6 +7,14 @@ import static universite_paris8.iut.yponnou.zelda.modele.utilitaire.Constante.TA
 
 public class Hitbox {
 
+    /**
+     * La classe Hitbox est définie par un rectangle avec des coordonnées et une taille, et permet de calculer les coins de cette zone
+     * ainsi que de manipuler sa position dans l'espace.
+     *
+     * La taille de la hitbox est mesurée en pixels et les coins sont retournés dans une échelle normalisée
+     * par rapport à une constante (TAILLE50) utilisée dans le jeu.
+     */
+
     private Rectangle hitbox;
     private int tailleX;
     private int tailleY;
