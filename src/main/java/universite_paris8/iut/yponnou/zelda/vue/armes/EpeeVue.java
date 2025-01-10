@@ -11,7 +11,7 @@ public class EpeeVue extends ObjetVue {
 
     private final ImageView imageView;
 
-    private final javafx.scene.image.Image sword32x32 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/armes/sword.png");
+    private final Image sword32x32 = new Image("file:src/main/resources/universite_paris8/iut/yponnou/zelda/Images/armes/sword.png");
 
     public EpeeVue(Objet objet, Pane pane) {
         super(objet, pane);

@@ -1,4 +1,4 @@
-//
+package universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs;//
 //package universite_paris8.iut.yponnou.zelda.controleurs.observateurs.acteurs;
 //
 //import javafx.collections.ListChangeListener;
