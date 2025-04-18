@@ -10,7 +10,6 @@ Jeu 2D style Zelda avec système de combat, exploration et interactions avec des
 - Exploration de carte avec différents biomes
 - Interactions avec des PNJ (quêtes, boutique)
 - Gestion d'inventaire
-- Système de sauvegarde
 
 ## 🛠️ Technologies utilisées
 
