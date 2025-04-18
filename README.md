@@ -43,7 +43,7 @@ java -jar target/zelda-game.jar
 
 ### 📊 Bilan
 
-Développé en 3 mois (équipe de 3)
+Développé en 3 mois
 - Architecture MVC avec design patterns
 - Gestion de projet Agile (Git/Trello)
 - Renforcement des compétences POO
